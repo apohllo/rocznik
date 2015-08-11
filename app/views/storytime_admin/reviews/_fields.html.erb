@@ -1,0 +1,15 @@
+<%= f.association :person, label_method: :full_name, label: "Reviewer" %> 
+<%= f.association :article_revision, label_method: :title %>
+<%= f.input :status %>
+<%= f.input :asked %>
+<%= f.input :deadline %>
+<%= f.input :remarks %>
+<h4>Ocena</h4>
+<%= f.input :content %>
+<%= f.input :general %>
+<%= f.input :scope %>
+<%= f.input :meritum %>
+<%= f.input :language %>
+<%= f.input :intelligibility %>
+<%= f.input :novelty %>
+<%= f.input :literature %>

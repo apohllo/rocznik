@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  submition_id: 
+  version: 1
+  received: 2015-08-11
+  pages: 1
+  pictures: 1
+
+two:
+  submition_id: 
+  version: 1
+  received: 2015-08-11
+  pages: 1
+  pictures: 1

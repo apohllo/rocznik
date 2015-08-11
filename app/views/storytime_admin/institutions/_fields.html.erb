@@ -1,0 +1,9 @@
+<%= f.input :name %>
+<%= f.input :acronym %>
+<%= f.association :country %> 
+<strong>Departments</strong>
+<ul>
+<% f.object.departments.each do |department| %>
+  <li><%=  department.name %></li>
+<% end %>
+</ul>

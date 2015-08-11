@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person_id: 
+  article_revision_id: 
+  status: MyString
+  asked: 2015-08-11
+  deadline: 2015-08-11
+  content: MyText
+  scope: 1
+  meritum: 1
+  language: 1
+  intelligibility: 1
+  novelty: 1
+  literature: 1
+  general: 1
+  remarks: MyText
+
+two:
+  person_id: 
+  article_revision_id: 
+  status: MyString
+  asked: 2015-08-11
+  deadline: 2015-08-11
+  content: MyText
+  scope: 1
+  meritum: 1
+  language: 1
+  intelligibility: 1
+  novelty: 1
+  literature: 1
+  general: 1
+  remarks: MyText
