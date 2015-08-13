@@ -12,4 +12,8 @@ class Department < ActiveRecord::Base
   def full_name
     "#{self.name}, #{self.institution_name}"
   end
+
+  def country
+    self.institution.country_name
+  end
 end

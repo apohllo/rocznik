@@ -1,0 +1,8 @@
+= simple_form_for @person do |f|
+  = f.input :degree, label: "Stopień"
+  = f.input :name, label: "Imię"
+  = f.input :surname, label: "Nazwisko"
+  = f.input :email, label: "E-mail"
+  = f.input :discipline, label: "Dyscyplina naukowa"
+  - label = @person.new_record? ? "Utwórz" : "Zapisz"
+  = f.submit label, class: %w{btn btn-primary btn-outline}

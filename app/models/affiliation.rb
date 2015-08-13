@@ -9,7 +9,20 @@ class Affiliation < ActiveRecord::Base
     self.person.full_name
   end
 
-  def department_name
+  def department_full_name
     self.department.full_name
   end
+
+  def department_name
+    self.department.name
+  end
+
+  def country
+    self.department.country
+  end
+
+  def institution
+    self.department.institution_name
+  end
+
 end

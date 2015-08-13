@@ -1,0 +1,17 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Kognitywistyka
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag    'storytime/application', media: 'all'
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    /.container-lg.relative{style: "height: 100%"}
+    /  %nav#dashbord-nav.nav-menu.nav-menu-default.nav-menu-fixed-left.off-canvas.off-canvas-left-sm.absolute
+    /    #storytime-main-menu
+    /      %ul.nav.nav-menu-nav
+    /        %li= link_to "Osoby", people_path
+    #main
+      = yield

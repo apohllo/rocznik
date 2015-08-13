@@ -9,4 +9,12 @@ class Authorship < ActiveRecord::Base
   def title
     self.submition.title
   end
+
+  def date
+    self.submition.received
+  end
+
+  def status
+    self.submition.status
+  end
 end

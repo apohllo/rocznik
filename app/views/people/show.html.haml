@@ -1,0 +1,68 @@
+.scroll-panel
+  .scroll-panel-header
+    = link_to "Osoby", people_path, class: %w{btn btn-default btn-sm pull-right}
+    %h3.scroll-panel-title
+      = @person.full_name
+  .scroll-panel-body
+    %dl
+      %dt E-mail
+      %dd= @person.email
+    %dl
+      %dt Dyscypliny
+      %dd= @person.discipline
+    = link_to "Edytuj", edit_person_path(@person), class: %w{btn btn-primary btn-sm}
+    %h3 Afiliacje
+    %table.table.table-hover.table-admin
+      %thead
+        %tr
+          %th Kraj
+          %th Instytucja
+          %th Wydział/instytut
+          %th Od
+          %th Do
+          %th
+      %tbody
+        - @person.affiliations.each do |affiliation|
+          %tr
+            %td= affiliation.country
+            %td= affiliation.institution
+            %td= affiliation.department_name
+            %td= affiliation.year_from
+            %td= affiliation.year_to
+            %td.text-right
+              = destroy_button(affiliation,"Czy na pewno chcesz usunąć tę afiliację?")
+    = link_to "Dodaj", new_affiliation_path(person_id: @person.id), class: %w{btn btn-default btn-sm}
+    %h3 Zgłoszone artykuły
+    %table.table.table-hover.table-admin
+      %thead
+        %tr
+          %th Tytuł
+          %th Data nadesłania
+          %th Status
+          %th
+      %tbody
+        - @person.authorships.each do |authorship|
+          %tr
+            %td= authorship.title
+            %td= authorship.date.strftime("%d-%m-%Y")
+            %td= authorship.status
+            %td.text-right
+              = destroy_button(@person)
+    = link_to "Dodaj", edit_person_path(@person), class: %w{btn btn-default btn-sm}
+    %h3 Przypisane recenzje
+    %table.table.table-hover.table-admin
+      %thead
+        %tr
+          %th Tytuł
+          %th Data pytania
+          %th Status
+          %th
+      %tbody
+        - @person.reviews.each do |review|
+          %tr
+            %td= review.title
+            %td= review.asked.strftime("%d-%m-%Y")
+            %td= review.status
+            %td.text-right
+              = destroy_button(@person)
+    = link_to "Dodaj", edit_person_path(@person), class: %w{btn btn-default btn-sm}
