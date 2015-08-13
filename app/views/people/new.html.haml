@@ -1,0 +1,17 @@
+.scroll-panel
+  .scroll-panel-header
+    = link_to "Anuluj", people_path, class: %w{btn btn-default btn-sm pull-right}
+    %h3.scroll-panel-title Nowa osoba
+  .scroll-panel-body
+    = simple_form_for @person do |f|
+      = f.input :degree, label: "Stopień"
+      = f.input :name, label: "Imię"
+      = f.input :surname, label: "Nazwisko"
+      = f.input :email, label: "E-mail"
+      = f.input :discipline, label: "Dyscyplina naukowa"
+      - 2.times do |index|
+        - [["country", "Kraj"], ["institution", "Uczelnia"], ["department","Wydział"]].each do |field,label|
+          .form-group.string
+            = label_tag :"#{field}[]", "#{label} (#{index+1})", class: %w{string control-label}
+            = text_field_tag :"#{field}[]", "", class: %w{string form-control}
+      = f.submit "Utwórz", class: %w{btn btn-primary btn-outline}
