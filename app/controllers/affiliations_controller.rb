@@ -21,8 +21,11 @@ class AffiliationsController < ApplicationController
     affiliation = Affiliation.new(affiliation_params)
     affiliation.person = person
     affiliation.department = department
-    affiliation.save
-    redirect_to person
+    if affiliation.save
+      redirect_to person
+    else
+      render :new
+    end
   end
 
   def destroy

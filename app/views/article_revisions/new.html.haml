@@ -1,0 +1,17 @@
+.scroll-panel
+  .scroll-panel-header
+    = link_to "Anuluj", @article_revision.submition, class: %w{btn btn-default btn-sm pull-right}
+    %h3.scroll-panel-title
+      Dodaj wersję artykułu
+      %strong
+        = @article_revision.submition.title
+  .scroll-panel-body
+    = simple_form_for @article_revision do |f|
+      = hidden_field_tag :submition_id, @article_revision.submition.id
+      = f.input :version, label: "Wersja"
+      = f.input :code, label: "Kod"
+      = f.input :received, label: "Otrzymano", as: :string, input_html: { value: l(f.object.received, format: "%d-%m-%Y") }
+      = f.input :pages, label: "Liczba stron"
+      = f.input :pictures, label: "Liczba ilustracji"
+      = f.submit "Dodaj", class: %w{btn btn-primary btn-outline}
+

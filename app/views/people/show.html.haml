@@ -43,7 +43,7 @@
       %tbody
         - @person.authorships.each do |authorship|
           %tr
-            %td= authorship.title
+            %td= link_to authorship.title, authorship.submition
             %td= authorship.date.strftime("%d-%m-%Y")
             %td= authorship.status
             %td.text-right

@@ -1,0 +1,48 @@
+.scroll-panel
+  .scroll-panel-header
+    = link_to "Recenzje", reviews_path, class: %w{btn btn-default btn-sm pull-right}
+    %h3.scroll-panel-title
+      = @review.title
+  .scroll-panel-body
+    %dl
+      %dt Recenzent
+      %dd= @review.person.full_name
+    %dl
+      %dt Wysłano zapytanie
+      %dd= @review.asked.strftime("%d-%m-%Y")
+    %dl
+      %dt Deadline
+      %dd= @review.deadline.strftime("%d-%m-%Y")
+    %dl
+      %dt Status
+      %dd= @review.status
+    %dl
+      %dt Uwagi
+      %dd= @review.remarks
+    %h3 Ocena
+    %table.table.table-hover.table-admin
+      %thead
+        %tr
+          %th Ocena ogólna
+          %th Zgodność z tematyką
+          %th Poprawność merytoryczna
+          %th Język
+          %th Zrozumiałość
+          %th Oryginalność
+          %th Literatura
+          %th Średnia
+      %tbody
+        %tr
+          %td= @review.general
+          %td= @review.scope
+          %td= @review.meritum
+          %td= @review.language
+          %td= @review.intelligibility
+          %td= @review.literature
+          %td= @review.novelty
+          %td= @review.average
+    %dl
+      %dt Treść recenzji
+      %dd= @review.content
+    = link_to "Edytuj", edit_review_path(@review), class: %w{btn btn-primary btn-sm}
+

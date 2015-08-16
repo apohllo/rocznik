@@ -1,0 +1,8 @@
+.scroll-panel
+  .scroll-panel-header
+    = link_to "Anuluj", @submition, class: %w{btn btn-default btn-sm pull-right}
+    %h3.scroll-panel-title
+      Edycja zgłoszenia
+      %strong= @submition.title
+  .scroll-panel-body
+    = render partial: "form"
