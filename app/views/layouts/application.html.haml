@@ -1,24 +1,27 @@
-!!!
+!!!html5
 %html{style: "height: 100%;", lang: "pl"}
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %meta{charset: "utf-8"}
-    %meta{"http-equiv" => "X-UA-Compatible", "content" => "IE=edge"}
-    %meta{"name" => "viewport", "content" => "width=device-width, initial-scale=1"}
-    %title Kognitywistyka
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = stylesheet_link_tag    'storytime/application', media: 'all'
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = csrf_meta_tags
-  %body.storytime{style: "height: 100%; margin: 0"}
-    .container-lg.relative{style: "height: 100%"}
-      %nav#dashbord-nav.nav-menu.nav-menu-default.nav-menu-fixed-left.off-canvas.off-canvas-left-sm.absolute
-        .nav-menu-header.relative
-          %a.nav-menu-brand{href: "/"} Rocznik Kognitywistyczny
-        #storytime-main-menu
-          %ul.nav.nav-menu-nav
-            %li= link_to "Osoby", people_path
-            %li= link_to "Zgłoszone artykuły", submitions_path
-            %li= link_to "Recenzje", reviews_path
-      #main
-        = yield
+  = render file: "shared/head"
+  %body{style: "height: 100%"}
+    .page-container
+      %nav.navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
+        = render file: "shared/topnav"
+      .flash
+        - if flash[:error]
+          .flash-error= flash[:error]
+      .container.middle-row
+        .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"}
+          #sidebar.col-sm-4.col-md-3.sidebar-offcanvas{:role => "navigation"}
+            = render file: "shared/sidenav"
+          .col-md-9.col-sm-9.main
+            = yield
+      .container
+        %footer
+          %p
+            %a{:href => "http://validator.w3.org/check?uri=http%3A%2F%2Frocznik.kognitywistyka.eu%2F"}
+              Walidator HTML5
+            /%a{:href => "http://jigsaw.w3.org/css-validator/validator?uri=http://kognitywistyka.eu/"}
+            /Valid CSS
+            %a{:href => "http://www.apohllo.pl", :target => "_blank"}
+              Administrator
+      :javascript
+        $('.flash').fadeOut(2000,function(el){ el.hide(); })

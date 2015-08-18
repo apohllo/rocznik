@@ -3,4 +3,12 @@ module ApplicationHelper
     link_to raw("<i class=\"fa fa-trash-o\"></i>"), object, :method => :delete,
       :class => %w{btn btn-sm btn-outline btn-danger}, :"data-confirm" => confirmation
   end
+
+  def active?(url)
+    if request_uri.gsub(%r{/+},"") == url.gsub(%r{/+},"")
+      "active"
+    else
+      ""
+    end
+  end
 end

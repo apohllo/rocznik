@@ -1,0 +1,17 @@
+.container
+  .navbar-header
+    %button{ :type => "button", :class => "navbar-toggle", :"data-toggle" => "collapse", :"data-target" => ".navbar-collapse" }
+      %span.sr-only Przełącz nawigację
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    %a.navbar-brand{:href => "http://rocznik.kognitywistyka.eu"}rocznik.kognitywistyka.eu
+  .navbar-collapse.collapse
+    %ul.nav.navbar-nav.navbar-right
+      %li &nbsp;
+      - if user?
+        %li= link_to "Wyloguj", destroy_user_session_path, method: :delete
+      - else
+        %li= link_to "Zaloguj", new_user_session_path
+      - if admin?
+        = render file: "shared/adminnav"

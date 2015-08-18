@@ -1,15 +1,36 @@
 class Person < ActiveRecord::Base
+  ROLE_MAP = {
+    "autor" => "A",
+    "redaktor" => "E",
+    "recenzent" => "R"
+  }
 
   validates :name, presence: true
   validates :surname, presence: true
   validates :email, presence: true
   validates :discipline, presence: true
+  validate :roles_inclusion
 
   has_many :affiliations, dependent: :destroy
   has_many :authorships, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :submitions, dependent: :restrict_with_error
+
+  scope :all_roles, -> (*roles) { where('roles @> ARRAY[?]',roles) }
+  scope :authors, -> { where("roles && ARRAY['autor']") }
+  scope :reviewers, -> { where("roles && ARRAY['recenzent']") }
+  scope :editors, -> { where("roles && ARRAY['redaktor']") }
+
+  before_validation -> (record) { record.roles.reject!(&:blank?) }
 
   def full_name
     "#{self.degree} #{self.name} #{self.surname}"
+  end
+
+  def roles_inclusion
+    invalid_role = self.roles.find{|r| !ROLE_MAP.keys.include?(r) }
+    if invalid_role
+      errors.add(:roles,"'#{invalid_role}' is a invalid role.")
+    end
   end
 end

@@ -9,21 +9,45 @@ class ReviewsController < ApplicationController
 
   def new
     @review = Review.new
-    submition = Submition.find(params[:submition_id])
-    @review.article_revision = submition.article_revisions.order(:created_at).last
+    if params[:submition_id]
+      submition = Submition.find(params[:submition_id])
+      @review.article_revision = submition.article_revisions.order(:created_at).last
+      if @review.article_revision.nil?
+        flash[:error] = 'Zgłoszenie nie posiada przypisanych wersji!'
+        redirect_to submition
+        return
+      end
+    end
+    if params[:person_id]
+      person = Person.find(params[:person_id])
+      @review.person = person
+    end
     @review.status = 'wysłane zapytanie'
     @review.asked = Time.now
     @review.deadline = 45.days.from_now
   end
 
   def create
-    article_revision = ArticleRevision.find(params[:article_revision_id])
     @review = Review.new(review_params)
-    @review.article_revision = article_revision
-    if @review.save
-      redirect_to article_revision.submition
+    if params[:article_revision_id]
+      article_revision = ArticleRevision.find(params[:article_revision_id])
+      @review.article_revision = article_revision
+      if @review.save
+        redirect_to article_revision.submition
+      else
+        render :new
+      end
+    elsif params[:person_id]
+      person = Person.find(params[:person_id])
+      @review.person = person
+      if @review.save
+        redirect_to person
+      else
+        render :new
+      end
     else
-      render :new
+      flash[:error] = 'Niepoprawne wywołanie'
+      redirect_to submitions_path
     end
   end
 
@@ -48,6 +72,6 @@ class ReviewsController < ApplicationController
 
   private
   def review_params
-    params.require(:review).permit(:person_id,:status,:asked,:deadline,:remarks,:general,:scope,:meritum,:language,:intelligibility,:literature,:novelty,:content)
+    params.require(:review).permit(:person_id,:status,:asked,:deadline,:remarks,:general,:scope,:meritum,:language,:intelligibility,:literature,:novelty,:content,:article_revision_id)
   end
 end

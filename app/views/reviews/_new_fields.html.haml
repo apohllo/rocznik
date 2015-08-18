@@ -1,7 +1,15 @@
-.form-group.string
-  = label_tag :version, "Wersja artykułu", class: %w{string control-label}
-  .string=  @review.article_revision.version
-= f.association :person, label: "Recenzent", label_method: :full_name, include_blank: false, collection: Person.order([:surname,:name]).all
+- if @review.article_revision
+  .form-group.string
+    = label_tag :version, "Artykuł (wersja)", class: %w{string control-label}
+    .string=  @review.article_revision.title
+- else
+  = f.association :article_revision, label: "Artykułu (wersja)", collection: ArticleRevision.order(:received), label_method: :title
+- if @review.person
+  .form-group.string
+    = label_tag :person, "Recenzent", class: %w{string control-label}
+    .string=  @review.reviewer
+- else
+  = f.association :person, label: "Recenzent", label_method: :full_name, include_blank: false, collection: Person.reviewers.order([:surname,:name]).all
 = f.input :status, collection: Review::STATUS_MAPPING.keys
 = f.input :asked, label: "Zapytanie wysłano", as: :string, input_html: { value: l(f.object.asked, format: "%d-%m-%Y") }
 = f.input :deadline, label: "Deadline", as: :string, input_html: { value: l(f.object.deadline, format: "%d-%m-%Y") }

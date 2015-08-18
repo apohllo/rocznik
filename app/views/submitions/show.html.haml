@@ -1,81 +1,87 @@
-.scroll-panel
-  .scroll-panel-header
-    = link_to "Zgłoszenia", submitions_path, class: %w{btn btn-default btn-sm pull-right}
-    %h3.scroll-panel-title
-      = @submition.title
-  .scroll-panel-body
-    %dl
-      %dt Status
-      %dd= @submition.status
-    %dl
-      %dt Język
-      %dd= @submition.language
-    %dl
-      %dt Otrzymano
-      %dd= @submition.received.strftime("%d-%m-%Y")
-    %dl
-      %dt Streszczenie
-      %dd= @submition.abstract
-    %dl
-      %dt Słowa kluczowe
-      %dd= @submition.keywords
-    = link_to "Edytuj", edit_submition_path(@submition), class: %w{btn btn-primary btn-sm}
-    %h3 Autorzy
-    %table.table.table-hover.table-admin
-      %thead
+.scroll-panel-header
+  = link_to "Zgłoszenia", submitions_path, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title
+    = @submition.title
+.scroll-panel-body
+  %dl
+    %dt Status
+    %dd{class: "#{Submition::STATUS_MAPPING[@submition.status]}"}= @submition.status
+  %dl
+    %dt Język
+    %dd= @submition.language
+  %dl
+    %dt Redaktor
+    %dd
+      - if @submition.person
+        = link_to @submition.editor, @submition.person
+      - else
+        = @submition.editor
+  %dl
+    %dt Otrzymano
+    %dd= @submition.received.strftime("%d-%m-%Y")
+  %dl
+    %dt Streszczenie
+    %dd= @submition.abstract
+  %dl
+    %dt Słowa kluczowe
+    %dd= @submition.keywords
+  = link_to "Edytuj", edit_submition_path(@submition), class: %w{btn btn-primary btn-sm}
+  %h3 Autorzy
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Nazwisko
+        %th Korespondujący
+        %th Liczba porządkowa
+        %th
+    %tbody
+      - @submition.authorships.each do |authorship|
         %tr
-          %th Nazwisko
-          %th Korespondujący
-          %th Liczba porządkowa
-          %th
-      %tbody
-        - @submition.authorships.each do |authorship|
-          %tr
-            %td= link_to authorship.author, authorship.person
-            %td= authorship.corresponding? ? raw("&#10004;") : ""
-            %td= authorship.position
-            %td.text-right
-              = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")
-    = link_to "Dodaj autora", new_authorship_path(submition_id: @submition.id), class: %w{btn btn-default btn-sm}
-    %h3 Wersje
-    %table.table.table-hover.table-admin
-      %thead
+          %td= link_to authorship.author, authorship.person
+          %td= authorship.corresponding? ? raw("&#10004;") : ""
+          %td= authorship.position
+          %td.text-right
+            = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")
+  = link_to "Dodaj autora", new_authorship_path(submition_id: @submition.id), class: %w{btn btn-default btn-sm}
+  %h3 Wersje
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Numer
+        %th Kod
+        %th Nadesłano
+        %th Liczba stron
+        %th Liczba ilustracji
+        %th
+    %tbody
+      - @submition.article_revisions.each do |revision|
         %tr
-          %th Numer
-          %th Kod
-          %th Nadesłano
-          %th Liczba stron
-          %th Liczba ilustracji
-          %th
-      %tbody
-        - @submition.article_revisions.each do |revision|
-          %tr
-            %td= revision.version
-            %td= revision.code
-            %td= revision.received.strftime("%d-%m-%Y")
-            %td= revision.pages
-            %td= revision.pictures
-            %td.text-right
-              = destroy_button(revision,"Czy na pewno chcesz usunąć tę wersję wraz z recenzjami?")
-    = link_to "Dodaj wersję", new_article_revision_path(submition_id: @submition.id), class: %w{btn btn-default btn-sm}
-    %h3 Recenzje
-    %table.table.table-hover.table-admin
-      %thead
+          %td= revision.version
+          %td= revision.code
+          %td= revision.received.strftime("%d-%m-%Y")
+          %td= revision.pages
+          %td= revision.pictures
+          %td.text-right
+            = destroy_button(revision,"Czy na pewno chcesz usunąć tę wersję wraz z recenzjami?")
+  = link_to "Dodaj wersję", new_article_revision_path(submition_id: @submition.id), class: %w{btn btn-default btn-sm}
+  %h3 Recenzje
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Wersja
+        %th Recenzent
+        %th Zapytanie
+        %th Dealine
+        %th Status
+        %th
+    %tbody
+      - @submition.reviews.each do |review|
         %tr
-          %th Wersja
-          %th Recenzent
-          %th Zapytanie
-          %th Dealine
-          %th Status
-          %th
-      %tbody
-        - @submition.reviews.each do |review|
-          %tr
-            %td= review.version
-            %td= review.reviewer
-            %td= review.asked.strftime("%d-%m-%Y")
-            %td= review.deadline.strftime("%d-%m-%Y")
-            %td= review.status
-            %td.text-right
-              = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
-    = link_to "Dodaj recenzenta", new_review_path(submition_id: @submition.id), class: %w{btn btn-default btn-sm}
+          %td= review.version
+          %td= link_to review.reviewer, review.person
+          %td= review.asked.strftime("%d-%m-%Y")
+          %td= review.deadline.strftime("%d-%m-%Y")
+          %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
+          %td.text-right
+            = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
+  = link_to "Dodaj recenzenta", new_review_path(submition_id: @submition.id), class: %w{btn btn-default btn-sm}

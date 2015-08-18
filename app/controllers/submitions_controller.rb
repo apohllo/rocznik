@@ -45,7 +45,7 @@ class SubmitionsController < ApplicationController
 
   private
   def submition_params
-    params.require(:submition).permit(:status,:language,:received,:funding,:remarks,:polish_title,:polish_abstract,:polish_keywords,:english_title,:english_abstract,:english_keywords)
+    params.require(:submition).permit(:status,:language,:received,:funding,:remarks,:polish_title,:polish_abstract,:polish_keywords,:english_title,:english_abstract,:english_keywords,:person_id)
   end
 
 end

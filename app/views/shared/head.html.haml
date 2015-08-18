@@ -1,0 +1,16 @@
+%head
+  %title Rocznik Kognitywistyczny
+  %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %meta{"http-equiv" => "X-UA-Compatible", "content" => "IE=edge"}
+  %meta{:charset => "utf-8"}/
+  %meta{"name" => "viewport", "content" => "width=device-width, initial-scale=1"}
+  %meta{:content => "Aleksander Smywiński-Pohl, Marta Siedlecka, Adrianna Smurzyńska", :name => "author"}/
+  %meta{:content => "Rocznik Kognitywistyczny -- czasopismo naukowe, 3 punkty MNiSW", :name => "description"}/
+  %meta{:content => "kognitywistyka, sztuczna inteligencja, lingwistyka, psychologia, informatyka, filozofia, koło naukowe, konferencja naukowa", :name => "keywords"}/
+  %meta{:content => "index, follow", :name => "robots"}/
+  = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+  = stylesheet_link_tag    'storytime/application', media: 'all'
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = csrf_meta_tags
+  /[if lt IE 9]
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>

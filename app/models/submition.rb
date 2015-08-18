@@ -1,16 +1,21 @@
 # encoding: utf-8
 
 class Submition < ActiveRecord::Base
+  STATUS_MAPPING = {
+    "nadesłany" => :sent, "u redaktora" => :editor, "w recenzji" => :review,
+    "przyjęty" => :positive, "odrzucony" => :negative, "do poprawy" => :correction
+  }
   POLISH = 'polski'
   ENGLISH = 'angielski'
-  validates :status, presence: true, inclusion: %w{nadesłany}
-  validates :language, presence: true, inclusion: %w{POLISH ENGLISH}
+  validates :status, presence: true, inclusion: STATUS_MAPPING.keys
+  validates :language, presence: true, inclusion: [POLISH, ENGLISH]
   validates :received, presence: true
   validates :polish_title, presence: true, if: -> (r){ r.language == POLISH}
   validates :english_title, presence: true, if: -> (r){ r.language == ENGLISH}
 
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
+  belongs_to :person
 
   MAX_LENGTH = 80
 
@@ -50,6 +55,23 @@ class Submition < ActiveRecord::Base
       authorship.author
     else
       "[BRAK AUTORA]"
+    end
+  end
+
+  def author
+    authorship = self.authorships.where(corresponding: true).first
+    if authorship
+      authorship.person
+    else
+      nil
+    end
+  end
+
+  def editor
+    if self.person
+      self.person.full_name
+    else
+      "[BRAK REDAKTORA]"
     end
   end
 

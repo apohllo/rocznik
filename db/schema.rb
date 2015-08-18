@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811145327) do
+ActiveRecord::Schema.define(version: 20150818171435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,14 +94,15 @@ ActiveRecord::Schema.define(version: 20150811145327) do
   add_index "institutions", ["country_id"], name: "index_institutions_on_country_id", using: :btree
 
   create_table "people", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "surname",    null: false
-    t.string   "email",      null: false
+    t.string   "name",                    null: false
+    t.string   "surname",                 null: false
+    t.string   "email",                   null: false
     t.string   "degree"
-    t.string   "discipline", null: false
+    t.string   "discipline",              null: false
     t.string   "orcid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.text     "roles",      default: [], null: false, array: true
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
@@ -315,7 +316,10 @@ ActiveRecord::Schema.define(version: 20150811145327) do
     t.string   "language"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "person_id"
   end
+
+  add_index "submitions", ["person_id"], name: "index_submitions_on_person_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -344,4 +348,5 @@ ActiveRecord::Schema.define(version: 20150811145327) do
   add_foreign_key "institutions", "countries"
   add_foreign_key "reviews", "article_revisions"
   add_foreign_key "reviews", "people"
+  add_foreign_key "submitions", "people"
 end
