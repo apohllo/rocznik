@@ -1,4 +1,6 @@
 = simple_form_for @submition do |f|
+  - if @author_id
+    = hidden_field_tag :author_id, @author_id
   = f.input :status, collection: Submition::STATUS_MAPPING.keys
   = f.input :language, label: "Język", collection: %w{polski angielski}, include_blank: false
   = f.association :person, label: "Redaktor", collection: Person.editors.order([:surname,:name]).all, include_blank: false, label_method: :full_name

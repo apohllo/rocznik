@@ -15,11 +15,17 @@ class SubmitionsController < ApplicationController
     @submition = Submition.new
     @submition.received = Time.now
     @submition.status = 'nadesłany'
+    @author_id = params[:author_id]
   end
 
   def create
     @submition = Submition.new(submition_params)
+    @author_id = params[:author_id]
     if @submition.save
+      if @author_id
+        authorship = Authorship.new(person_id: @author_id,submition: @submition)
+        authorship.save
+      end
       redirect_to @submition
     else
       render :new
