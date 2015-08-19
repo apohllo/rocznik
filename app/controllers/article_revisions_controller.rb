@@ -1,4 +1,6 @@
 class ArticleRevisionsController < ApplicationController
+  before_action :admin?
+
   def new
     @article_revision = ArticleRevision.new
     @article_revision.submition = Submition.find(params[:submition_id])

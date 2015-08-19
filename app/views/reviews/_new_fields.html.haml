@@ -3,7 +3,7 @@
     = label_tag :version, "Artykuł (wersja)", class: %w{string control-label}
     .string=  @review.article_revision.title
 - else
-  = f.association :article_revision, label: "Artykułu (wersja)", collection: ArticleRevision.order(:received), label_method: :title
+  = f.association :article_revision, label: "Artykuł (wersja)", collection: ArticleRevision.order(:received), label_method: :title
 - if @review.person
   .form-group.string
     = label_tag :person, "Recenzent", class: %w{string control-label}

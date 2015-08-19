@@ -1,4 +1,6 @@
 class AuthorshipsController < ApplicationController
+  before_action :admin?
+
   def new
     @authorship = Authorship.new
     @authorship.submition = Submition.find(params[:submition_id])

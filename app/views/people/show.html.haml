@@ -51,7 +51,7 @@
             %td{class: "#{Submition::STATUS_MAPPING[authorship.status]}"}= authorship.status
             %td.text-right
               = destroy_button(authorship)
-    /= link_to "Dodaj", edit_person_path(@person), class: %w{btn btn-default btn-sm}
+    = link_to "Dodaj", new_submition_path, class: %w{btn btn-default btn-sm}
   - if @person.roles.include?("recenzent")
     %h3 Przypisane recenzje
     %table.table.table-hover.table-admin

@@ -1,4 +1,6 @@
 class AffiliationsController < ApplicationController
+  before_action :admin?
+
   def new
     @affiliation = Affiliation.new
     @affiliation.person = Person.find(params[:person_id])

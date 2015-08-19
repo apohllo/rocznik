@@ -1,4 +1,6 @@
 class PeopleController < ApplicationController
+  before_action :admin?
+
   def index
     @people = Person.order([:surname,:name]).all
   end
