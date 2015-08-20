@@ -27,6 +27,10 @@ class Person < ActiveRecord::Base
     "#{self.degree} #{self.name} #{self.surname}"
   end
 
+  def reverse_full_name
+    "#{self.surname}, #{self.name}, #{self.degree}"
+  end
+
   def roles_inclusion
     invalid_role = self.roles.find{|r| !ROLE_MAP.keys.include?(r) }
     if invalid_role

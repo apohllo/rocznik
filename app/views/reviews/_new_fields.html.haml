@@ -9,7 +9,7 @@
     = label_tag :person, "Recenzent", class: %w{string control-label}
     .string=  @review.reviewer
 - else
-  = f.association :person, label: "Recenzent", label_method: :full_name, include_blank: false, collection: Person.reviewers.order([:surname,:name]).all
+  = f.association :person, label: "Recenzent", label_method: :reverse_full_name, include_blank: false, collection: Person.reviewers.order([:surname,:name]).all
 = f.input :status, collection: Review::STATUS_MAPPING.keys
 = f.input :asked, label: "Zapytanie wysłano", as: :string, input_html: { value: l(f.object.asked, format: "%d-%m-%Y") }
 = f.input :deadline, label: "Deadline", as: :string, input_html: { value: l(f.object.deadline, format: "%d-%m-%Y") }
