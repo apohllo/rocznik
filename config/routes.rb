@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   resources :people
   resources :submitions
-  resources :affiliations, only: [:new, :create, :destroy]
+  resources :affiliations, only: [:new, :create, :destroy] do
+    get :autocomplete_institution_name, on: :collection
+    get :autocomplete_country_name, on: :collection
+    get :autocomplete_department_name, on: :collection
+  end
   resources :authorships, only: [:new, :create, :destroy]
   resources :reviews
   resources :article_revisions, only: [:new, :create, :destroy]

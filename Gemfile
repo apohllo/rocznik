@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml'
 gem 'storytime', '~> 2.0.0'
 gem 'devise'
+gem 'rails4-autocomplete'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

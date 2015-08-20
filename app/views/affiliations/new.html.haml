@@ -9,13 +9,13 @@
     = hidden_field_tag :person_id, @affiliation.person.id
     .form-group.string
       = label_tag :country, "Kraj", class: %w{string control-label}
-      = text_field_tag :country, "Polska", class: %w{string form-control}
+      = autocomplete_field_tag :country, "Polska", autocomplete_country_name_affiliations_path, class: %w{string form-control}, autocomplete: "off"
     .form-group.string
       = label_tag :institution, "Instytucja", class: %w{string control-label}
-      = text_field_tag :institution, "", class: %w{string form-control}
+      = autocomplete_field_tag :institution, "", autocomplete_institution_name_affiliations_path, class: %w{string form-control}, autocomplete: "off"
     .form-group.string
       = label_tag :department, "Wydział/instytut", class: %w{string control-label}
-      = text_field_tag :department, "", class: %w{string form-control}
+      = autocomplete_field_tag :department, "", autocomplete_department_name_affiliations_path, class: %w{string form-control}, autocomplete: "off"
     = f.input :year_from, label: "Rok od"
     = f.input :year_to, label: "Rok do"
     = f.submit "Dodaj", class: %w{btn btn-primary btn-outline}
