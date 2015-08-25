@@ -82,7 +82,7 @@
           %td= link_to review.reviewer, review.person
           %td= review.asked.strftime("%d-%m-%Y")
           %td= review.deadline.strftime("%d-%m-%Y")
-          %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
+          %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= link_to review.status, edit_review_path(review)
           %td.text-right
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
   = link_to "Dodaj recenzenta", new_review_path(submition_id: @submition.id), class: %w{btn btn-default btn-sm}
