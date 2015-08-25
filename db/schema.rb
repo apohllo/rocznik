@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818171435) do
+ActiveRecord::Schema.define(version: 20150825172641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,30 +30,30 @@ ActiveRecord::Schema.define(version: 20150818171435) do
   add_index "affiliations", ["person_id"], name: "index_affiliations_on_person_id", using: :btree
 
   create_table "article_revisions", force: :cascade do |t|
-    t.integer  "submition_id"
-    t.integer  "version",      default: 0
+    t.integer  "submission_id"
+    t.integer  "version",       default: 0
     t.date     "received"
     t.integer  "pages"
-    t.integer  "pictures",     default: 0
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "pictures",      default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "code"
   end
 
-  add_index "article_revisions", ["submition_id"], name: "index_article_revisions_on_submition_id", using: :btree
+  add_index "article_revisions", ["submission_id"], name: "index_article_revisions_on_submission_id", using: :btree
 
   create_table "authorships", force: :cascade do |t|
     t.integer  "person_id"
-    t.integer  "submition_id"
+    t.integer  "submission_id"
     t.boolean  "corresponding", default: true
     t.integer  "position",      default: 0
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end
 
-  add_index "authorships", ["person_id", "submition_id"], name: "index_authorships_on_person_id_and_submition_id", unique: true, using: :btree
+  add_index "authorships", ["person_id", "submission_id"], name: "index_authorships_on_person_id_and_submission_id", unique: true, using: :btree
   add_index "authorships", ["person_id"], name: "index_authorships_on_person_id", using: :btree
-  add_index "authorships", ["submition_id"], name: "index_authorships_on_submition_id", using: :btree
+  add_index "authorships", ["submission_id"], name: "index_authorships_on_submission_id", using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -302,7 +302,7 @@ ActiveRecord::Schema.define(version: 20150818171435) do
   add_index "storytime_versions", ["user_id"], name: "index_storytime_versions_on_user_id", using: :btree
   add_index "storytime_versions", ["versionable_type", "versionable_id"], name: "versionable_index", using: :btree
 
-  create_table "submitions", force: :cascade do |t|
+  create_table "submissions", force: :cascade do |t|
     t.string   "status"
     t.string   "polish_title"
     t.string   "english_title"
@@ -319,7 +319,7 @@ ActiveRecord::Schema.define(version: 20150818171435) do
     t.integer  "person_id"
   end
 
-  add_index "submitions", ["person_id"], name: "index_submitions_on_person_id", using: :btree
+  add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -341,12 +341,12 @@ ActiveRecord::Schema.define(version: 20150818171435) do
 
   add_foreign_key "affiliations", "departments"
   add_foreign_key "affiliations", "people"
-  add_foreign_key "article_revisions", "submitions"
+  add_foreign_key "article_revisions", "submissions"
   add_foreign_key "authorships", "people"
-  add_foreign_key "authorships", "submitions"
+  add_foreign_key "authorships", "submissions"
   add_foreign_key "departments", "institutions"
   add_foreign_key "institutions", "countries"
   add_foreign_key "reviews", "article_revisions"
   add_foreign_key "reviews", "people"
-  add_foreign_key "submitions", "people"
+  add_foreign_key "submissions", "people"
 end

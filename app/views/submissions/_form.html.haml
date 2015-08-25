@@ -1,7 +1,7 @@
-= simple_form_for @submition do |f|
+= simple_form_for @submission do |f|
   - if @author_id
     = hidden_field_tag :author_id, @author_id
-  = f.input :status, collection: Submition::STATUS_MAPPING.keys
+  = f.input :status, collection: Submission::STATUS_MAPPING.keys
   = f.input :language, label: "Język", collection: %w{polski angielski}, include_blank: false
   = f.association :person, label: "Redaktor", collection: Person.editors.order([:surname,:name]).all, include_blank: false, label_method: :full_name
   = f.input :received, label: "Otrzymano", class: %w{datepicker form-control}, as: :string, input_html: { value: l(f.object.received, format: "%d-%m-%Y") }
@@ -15,5 +15,5 @@
   = f.input :english_title, label: "Tytuł"
   = f.input :english_abstract, label: "Streszczenie"
   = f.input :english_keywords, label: "Słowa kluczowe"
-  - label = @submition.new_record? ? "Utwórz" : "Zapisz"
+  - label = @submission.new_record? ? "Utwórz" : "Zapisz"
   = f.submit label, class: %w{btn btn-primary btn-outline}

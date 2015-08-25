@@ -1,5 +1,5 @@
 .scroll-panel-header
-  - redirect_object = @review.article_revision ? @review.submition : @review.person
+  - redirect_object = @review.article_revision ? @review.submission : @review.person
   = link_to "Anuluj", redirect_object, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title
     Utwórz recenzję

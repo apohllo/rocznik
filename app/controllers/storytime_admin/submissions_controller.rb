@@ -1,7 +1,7 @@
 module StorytimeAdmin
-  class SubmitionsController < StorytimeAdmin::ApplicationController
+  class SubmissionsController < StorytimeAdmin::ApplicationController
     # Set active navigation link
-    set_tab :admin, :submitions
+    set_tab :admin, :submissions
 
   private
     ##########################################

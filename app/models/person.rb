@@ -14,7 +14,7 @@ class Person < ActiveRecord::Base
   has_many :affiliations, dependent: :destroy
   has_many :authorships, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  has_many :submitions, dependent: :restrict_with_error
+  has_many :submissions, dependent: :restrict_with_error
 
   scope :all_roles, -> (*roles) { where('roles @> ARRAY[?]',roles) }
   scope :authors, -> { where("roles && ARRAY['autor']") }

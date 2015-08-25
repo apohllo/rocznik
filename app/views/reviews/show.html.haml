@@ -4,6 +4,9 @@
     = @review.title
 .scroll-panel-body
   %dl
+    %dt Zgłoszenie
+    %dd= link_to @review.submission.title, @review.submission
+  %dl
     %dt Status
     %dd{class: "#{Review::STATUS_MAPPING[@review.status]}"}= @review.status
   %dl

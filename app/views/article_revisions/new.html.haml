@@ -1,12 +1,12 @@
 .scroll-panel-header
-  = link_to "Anuluj", @article_revision.submition, class: %w{btn btn-default btn-sm pull-right}
+  = link_to "Anuluj", @article_revision.submission, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title
     Dodaj wersję artykułu
     %strong
-      = @article_revision.submition.title
+      = @article_revision.submission.title
 .scroll-panel-body
   = simple_form_for @article_revision do |f|
-    = hidden_field_tag :submition_id, @article_revision.submition.id
+    = hidden_field_tag :submission_id, @article_revision.submission.id
     = f.input :version, label: "Wersja"
     = f.input :code, label: "Kod"
     = f.input :received, label: "Otrzymano", as: :string, input_html: { value: l(f.object.received, format: "%d-%m-%Y") }

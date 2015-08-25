@@ -2,12 +2,12 @@
 
 one:
   person_id: 
-  submition_id: 
+  submission_id: 
   corresponding: false
   position: 1
 
 two:
   person_id: 
-  submition_id: 
+  submission_id: 
   corresponding: false
   position: 1

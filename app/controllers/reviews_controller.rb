@@ -11,12 +11,12 @@ class ReviewsController < ApplicationController
 
   def new
     @review = Review.new
-    if params[:submition_id]
-      submition = Submition.find(params[:submition_id])
-      @review.article_revision = submition.article_revisions.order(:created_at).last
+    if params[:submission_id]
+      submission = Submission.find(params[:submission_id])
+      @review.article_revision = submission.article_revisions.order(:created_at).last
       if @review.article_revision.nil?
         flash[:error] = 'Zgłoszenie nie posiada przypisanych wersji!'
-        redirect_to submition
+        redirect_to submission
         return
       end
     end
@@ -35,7 +35,7 @@ class ReviewsController < ApplicationController
       article_revision = ArticleRevision.find(params[:article_revision_id])
       @review.article_revision = article_revision
       if @review.save
-        redirect_to article_revision.submition
+        redirect_to article_revision.submission
       else
         render :new
       end
@@ -49,7 +49,7 @@ class ReviewsController < ApplicationController
       end
     else
       flash[:error] = 'Niepoprawne wywołanie'
-      redirect_to submitions_path
+      redirect_to submissions_path
     end
   end
 
@@ -69,7 +69,7 @@ class ReviewsController < ApplicationController
   def destroy
     review = Review.find(params[:id])
     review.destroy
-    redirect_to review.submition
+    redirect_to review.submission
   end
 
   private

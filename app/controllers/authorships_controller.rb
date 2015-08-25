@@ -3,8 +3,8 @@ class AuthorshipsController < ApplicationController
 
   def new
     @authorship = Authorship.new
-    @authorship.submition = Submition.find(params[:submition_id])
-    @authorship.position = @authorship.submition.authorships.count + 1
+    @authorship.submission = Submission.find(params[:submission_id])
+    @authorship.position = @authorship.submission.authorships.count + 1
     if @authorship.position == 1
       @authorship.corresponding = true
     else
@@ -13,11 +13,11 @@ class AuthorshipsController < ApplicationController
   end
 
   def create
-    submition = Submition.find(params[:submition_id])
+    submission = Submission.find(params[:submission_id])
     @authorship = Authorship.new(authorship_params)
-    @authorship.submition = submition
+    @authorship.submission = submission
     if @authorship.save
-      redirect_to submition
+      redirect_to submission
     else
       render :new
     end
@@ -26,7 +26,7 @@ class AuthorshipsController < ApplicationController
   def destroy
     authorship = Authorship.find(params[:id])
     authorship.destroy
-    redirect_to authorship.submition
+    redirect_to authorship.submission
   end
 
   private

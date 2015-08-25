@@ -25,8 +25,8 @@ class Review < ActiveRecord::Base
     self.article_revision.version
   end
 
-  def submition
-    self.article_revision.submition
+  def submission
+    self.article_revision.submission
   end
 
   def average

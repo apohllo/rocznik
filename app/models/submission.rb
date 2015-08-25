@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Submition < ActiveRecord::Base
+class Submission < ActiveRecord::Base
   STATUS_MAPPING = {
     "nadesłany" => :sent, "u redaktora" => :editor, "w recenzji" => :review,
     "przyjęty" => :positive, "odrzucony" => :negative, "do poprawy" => :correction
