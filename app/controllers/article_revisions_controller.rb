@@ -32,6 +32,6 @@ class ArticleRevisionsController < ApplicationController
 
   private
   def article_revision_params
-    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures)
+    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article)
   end
 end
