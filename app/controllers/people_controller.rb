@@ -2,7 +2,10 @@ class PeopleController < ApplicationController
   before_action :admin?
 
   def index
-    @people = Person.order([:surname,:name]).all
+    @query_params = params[:q] || {}
+    @query = Person.ransack(@query_params)
+    @query.sorts = ['surname asc','name asc'] if @query.sorts.empty?
+    @people = @query.result(distinct: true)
   end
 
   def new

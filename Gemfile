@@ -26,6 +26,8 @@ gem 'haml'
 gem 'storytime', '~> 2.0.0'
 gem 'devise'
 gem 'rails4-autocomplete'
+gem 'ransack'
+gem 'simple_form_ransack'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
