@@ -87,3 +87,9 @@ td.extension, dd.extension {
   background: #e25440 none repeat scroll 0% 0%;
   color: #fff;
 }
+
+input[type=file].file.form-control {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
