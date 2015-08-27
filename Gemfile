@@ -27,7 +27,7 @@ gem 'storytime', '~> 2.0.0'
 gem 'devise'
 gem 'rails4-autocomplete'
 gem 'ransack'
-gem 'simple_form_ransack'
+gem 'simple_form_ransack', git: "git://github.com/kaspernj/simple_form_ransack", branch: "kj/start_end_support_on_attributes"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
