@@ -83,3 +83,8 @@ production:
   database: kognitywistyka_production
   username: kognitywistyka
   password: <%= ENV['KOGNITYWISTYKA_DATABASE_PASSWORD'] %>
+staging:
+  <<: *default
+  database: kognitywistyka_staging
+  username: kognitywistyka
+  password: <%= ENV['KOGNITYWISTYKA_DATABASE_PASSWORD'] %>
