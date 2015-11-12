@@ -45,6 +45,6 @@
         %td= @review.average
   %dl
     %dt Treść recenzji
-    %dd= @review.content
+    %dd= simple_format(@review.content)
   = link_to "Edytuj", edit_review_path(@review), class: %w{btn btn-primary btn-sm}
 
