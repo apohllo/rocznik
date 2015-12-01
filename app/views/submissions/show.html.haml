@@ -26,6 +26,10 @@
   %dl
     %dt Słowa kluczowe
     %dd= @submission.keywords
+  - if @submission.remarks
+    %dl
+      %dt Uwagi
+      %dd= @submission.remarks
   = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}
   %h3 Autorzy
   %table.table.table-hover.table-admin
