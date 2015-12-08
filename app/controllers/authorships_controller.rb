@@ -1,5 +1,5 @@
 class AuthorshipsController < ApplicationController
-  before_action :admin?
+  before_action :admin_required
 
   def new
     @authorship = Authorship.new

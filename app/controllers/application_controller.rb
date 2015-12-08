@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
   helper_method :user?, :admin?, :request_uri
 
   protected
+  def admin_required
+    unless admin?
+      redirect_to new_user_session_path
+    end
+  end
+
   def user?
     !current_user.nil?
   end
