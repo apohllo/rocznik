@@ -37,3 +37,4 @@ Szkolnictwa Wyższego.
 * Andrzej Maleszewski (korowadlo)
 * Damian Kałwa (dkalwa)
 * Agnieszka Karolczyk (ecolla)
+* Klara Nartowska (hakuna18)
