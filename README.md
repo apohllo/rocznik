@@ -1,19 +1,47 @@
-# Rocznik Kognitywistyczny submission system
+# Rocznik Kognitywistyczny - system wspierający pracę redakcji
 
-This is an application based on Ruby on Rails and Storytime used to run the
-http://rocznik.kognitywistyka.eu website. It's a scientific article submission
-system used by "Rocznik Kognitywistyczny" journal.
+Aplikacja bazuje na Ruby on Rails oraz module Storytime i wykorzystywana
+jest na stronie http://rocznik.kognitywistyka.eu Jest to system zgłaszania
+artykułów do czasopisma "Rocznik Kognitywistyczny".
 
-It combines minimalistic CMS (Storytime) with simple article submission system.
-The primary aim of the system is to track the review process and produce stats
-required by the Polish Ministry of Science and Higher Education.
+System ten składa się z minimalistycznego CMSa (Storytime) oraz podsystemu
+recenzji. Jego podstawowym celej jest śledzenie postępów w procesie recenzji
+oraz produkowanie statystyk wymaganych przez polskie Ministerstwo Nauki i
+Szkolnictwa Wyższego.
 
-## Requirements
+## Zależności
 
-The dependencies are defined in the Gemfile. We assume Ruby version 2.0 is
-required to develop the system.
+1. Baza danych Postgres
 
-## Contributors
+## Współpraca
 
 * Aleksander Smywiński-Pohl (apohllo)
+* Grzegorz Stefanski (Grzesiek94)
+* Adrianna Dąbkowska (AdriannaDab)
+* Izabela Krzysztofik (izabelakrzysztofik)
+* Aleksandra Zurawska (zuravska)
+* Roksana Wantulok (roksana1)
+* Marta Sajdak (crappylime)
+* Paulina Gurgul (paula-)
+* Dominika Skoczeń (skoczendo)
+* Dorota Zając (dzajac94)
+* Sylwia Kapela (sylviacapella)
+* Agnieszka Rączka (ARaczka)
+* Marta Zięba (mzet94)
 * Barbara Sapielak (gadi-promienna)
+* Katarzyna Persona (katt94)
+* Patryk Olczyk (patrykolczyk)
+* Krzysztofa Raputa (kraputa)
+* Marcin Kulawik (MarcinKulawik94)
+* Karolina Piekarz (Karolaa)
+* Julia Pukalska (julkapuk)
+* Jakub Korzycki (korzy)
+* Dorota Kuśmierz (chibika)
+* Andrzej Maleszewski (korowadlo)
+* Damian Kałwa (dkalwa)
+* Agnieszka Karolczyk (ecolla)
+* Klara Nartowska (hakuna18)
+* Łukasz Krawczyk (lukikrk)
+* Justyna Rząca (cary1014)
+* Barbara Masiulaniec (mbasik)
+>>>>>>> 9c7e0768e2f1f3a1edace18b42778370b67ba85d
