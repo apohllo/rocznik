@@ -36,3 +36,4 @@ Szkolnictwa Wyższego.
 * Dorota Kuśmierz (chibika)
 * Andrzej Maleszewski (korowadlo)
 * Damian Kałwa (dkalwa)
+* Agnieszka Karolczyk (ecolla)
