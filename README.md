@@ -28,6 +28,7 @@ Szkolnictwa Wyższego.
 * Sylwia Kapela (sylviacapella)
 * Agnieszka Rączka (ARaczka)
 * Marta Zięba (mzet94)
+* Katarzyna Persona (katt94)
 * Patryk Olczyk (patrykolczyk)
 * Krzysztofa Raputa (kraputa)
 * Marcin Kulawik (MarcinKulawik94)
@@ -40,3 +41,4 @@ Szkolnictwa Wyższego.
 * Agnieszka Karolczyk (ecolla)
 * Klara Nartowska (hakuna18)
 * Łukasz Krawczyk (lukikrk)
+
