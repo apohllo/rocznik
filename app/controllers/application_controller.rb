@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   protected
   def admin_required
     unless admin?
+      flash[:error] = 'Akcja wymaga uprawnień administratora'
       redirect_to new_user_session_path
     end
   end
