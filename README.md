@@ -24,3 +24,4 @@ required to develop the system.
 * Marta Sajdak (crappylime)
 * Paulina Gurgul (paula-)
 * Dominika Skoczeń (skoczendo)
+* Dorota Zając (dzajac94)
