@@ -42,4 +42,4 @@ Szkolnictwa Wyższego.
 * Klara Nartowska (hakuna18)
 * Łukasz Krawczyk (lukikrk)
 * Justyna Rząca (cary1014)
-
+* Barbara Masiulaniec (mbasik)
