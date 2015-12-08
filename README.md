@@ -22,3 +22,5 @@ required to develop the system.
 * Aleksandra Zurawska (zuravska)
 * Roksana Wantulok (roksana1)
 * Marta Sajdak (crappylime)
+* Paulina Gurgul (paula-)
+
