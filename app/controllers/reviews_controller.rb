@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :admin?
+  before_action :admin_required
 
   def index
     @reviews = Review.order('deadline desc').all
