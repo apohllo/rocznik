@@ -26,3 +26,4 @@ required to develop the system.
 * Dominika Skoczeń (skoczendo)
 * Dorota Zając (dzajac94)
 * Sylwia Kapela (sylviacapella)
+* Agnieszka Rączka (ARaczka)
