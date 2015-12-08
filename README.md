@@ -38,3 +38,4 @@ Szkolnictwa Wyższego.
 * Damian Kałwa (dkalwa)
 * Agnieszka Karolczyk (ecolla)
 * Klara Nartowska (hakuna18)
+* Łukasz Krawczyk (lukikrk)
