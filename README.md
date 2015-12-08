@@ -16,6 +16,7 @@ required to develop the system.
 ## Contributors
 
 * Aleksander Smywiński-Pohl (apohllo)
-* Adrianna Dąbkowska (AdriannaDab)
 * Grzegorz Stefanski (Grzesiek94)
+* Adrianna Dąbkowska (AdriannaDab)
+* Izabela Krzysztofik (izabelakrzysztofik)
 
