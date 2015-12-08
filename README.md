@@ -16,3 +16,4 @@ required to develop the system.
 ## Contributors
 
 * Aleksander Smywiński-Pohl (apohllo)
+* Agnieszka Rączka (ARaczka)
