@@ -1,4 +1,4 @@
-# Rocznik Kognitywistyczny submission system
+# Rocznik Kognitywistyczny - system wspierający pracę redakcji
 
 This is an application based on Ruby on Rails and Storytime used to run the
 http://rocznik.kognitywistyka.eu website. It's a scientific article submission
@@ -8,11 +8,10 @@ It combines minimalistic CMS (Storytime) with simple article submission system.
 The primary aim of the system is to track the review process and produce stats
 required by the Polish Ministry of Science and Higher Education.
 
-## Requirements
+## Zależności
 
-The dependencies are defined in the Gemfile. We assume Ruby version 2.0 is
-required to develop the system.
+1. Baza danych Postgres
 
-## Contributors
+## Współpraca
 
 * Aleksander Smywiński-Pohl (apohllo)
