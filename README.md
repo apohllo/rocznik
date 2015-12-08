@@ -34,3 +34,4 @@ Szkolnictwa Wyższego.
 * Julia Pukalska (julkapuk)
 * Jakub Korzycki (korzy)
 * Dorota Kuśmierz (chibika)
+* Andrzej Maleszewski (korowadlo)
