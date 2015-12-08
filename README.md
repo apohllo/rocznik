@@ -28,7 +28,7 @@ Szkolnictwa Wyższego.
 * Sylwia Kapela (sylviacapella)
 * Agnieszka Rączka (ARaczka)
 * Marta Zięba (mzet94)
+* Krzysztofa Raputa (kraputa)
 * Marcin Kulawik (MarcinKulawik94)
 * Karolina Piekarz (Karolaa)
 * Julia Pukalska (julkapuk)
-
