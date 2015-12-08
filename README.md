@@ -33,4 +33,4 @@ Szkolnictwa Wyższego.
 * Karolina Piekarz (Karolaa)
 * Julia Pukalska (julkapuk)
 * Jakub Korzycki (korzy)
->>>>>>> 842f29133f66cf5f19b9faab50e40ef02182fbd7
+* Dorota Kuśmierz (chibika)
