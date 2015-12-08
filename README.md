@@ -32,3 +32,5 @@ Szkolnictwa Wyższego.
 * Marcin Kulawik (MarcinKulawik94)
 * Karolina Piekarz (Karolaa)
 * Julia Pukalska (julkapuk)
+* Jakub Korzycki (korzy)
+>>>>>>> 842f29133f66cf5f19b9faab50e40ef02182fbd7
