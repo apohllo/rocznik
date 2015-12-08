@@ -35,3 +35,4 @@ Szkolnictwa Wyższego.
 * Jakub Korzycki (korzy)
 * Dorota Kuśmierz (chibika)
 * Andrzej Maleszewski (korowadlo)
+* Damian Kałwa (dkalwa)
