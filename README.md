@@ -20,4 +20,4 @@ required to develop the system.
 * Adrianna Dąbkowska (AdriannaDab)
 * Izabela Krzysztofik (izabelakrzysztofik)
 * Aleksandra Zurawska (zuravska)
-
+* Roksana Wantulok (roksana1)
