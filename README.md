@@ -16,4 +16,16 @@ required to develop the system.
 ## Contributors
 
 * Aleksander Smywiński-Pohl (apohllo)
+* Grzegorz Stefanski (Grzesiek94)
+* Adrianna Dąbkowska (AdriannaDab)
+* Izabela Krzysztofik (izabelakrzysztofik)
+* Aleksandra Zurawska (zuravska)
+* Roksana Wantulok (roksana1)
+* Marta Sajdak (crappylime)
+* Paulina Gurgul (paula-)
+* Dominika Skoczeń (skoczendo)
+* Dorota Zając (dzajac94)
+* Sylwia Kapela (sylviacapella)
+* Agnieszka Rączka (ARaczka)
 * Marta Zięba (mzet94)
+
