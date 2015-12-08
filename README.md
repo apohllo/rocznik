@@ -28,4 +28,4 @@ Szkolnictwa Wyższego.
 * Sylwia Kapela (sylviacapella)
 * Agnieszka Rączka (ARaczka)
 * Marta Zięba (mzet94)
-
+* Damian Kałwa (dkalwa)
