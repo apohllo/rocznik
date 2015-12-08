@@ -28,4 +28,4 @@ Szkolnictwa Wyższego.
 * Sylwia Kapela (sylviacapella)
 * Agnieszka Rączka (ARaczka)
 * Marta Zięba (mzet94)
-
+* Dorota Kuśmierz (chibika)_
