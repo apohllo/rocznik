@@ -23,4 +23,4 @@ required to develop the system.
 * Roksana Wantulok (roksana1)
 * Marta Sajdak (crappylime)
 * Paulina Gurgul (paula-)
-
+* Dominika Skoczeń (skoczendo)
