@@ -25,3 +25,4 @@ required to develop the system.
 * Paulina Gurgul (paula-)
 * Dominika Skoczeń (skoczendo)
 * Dorota Zając (dzajac94)
+* Sylwia Kapela (sylviacapella)
