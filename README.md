@@ -1,8 +1,8 @@
 # Rocznik Kognitywistyczny - system wspierający pracę redakcji
 
-This is an application based on Ruby on Rails and Storytime used to run the
-http://rocznik.kognitywistyka.eu website. It's a scientific article submission
-system used by "Rocznik Kognitywistyczny" journal.
+Aplikacja bazuje na Ruby on Rails oraz module Storytime i wykorzystywana
+jest na stronie http://rocznik.kognitywistyka.eu Jest to system złaszania
+artykułów do czasopisma "Rocznik Kognitywistyczny".
 
 It combines minimalistic CMS (Storytime) with simple article submission system.
 The primary aim of the system is to track the review process and produce stats
