@@ -41,4 +41,5 @@ Szkolnictwa Wyższego.
 * Agnieszka Karolczyk (ecolla)
 * Klara Nartowska (hakuna18)
 * Łukasz Krawczyk (lukikrk)
+* Justyna Rząca (cary1014)
 
