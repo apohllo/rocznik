@@ -1,5 +1,5 @@
 class AffiliationsController < ApplicationController
-  before_action :admin?, except: [:autocomplete_institution_name,:autocomplete_country_name,:autocomplete_department_name]
+  before_action :admin_required, except: [:autocomplete_institution_name,:autocomplete_country_name,:autocomplete_department_name]
   autocomplete :country, :name
   autocomplete :institution, :name
   autocomplete :department, :name
