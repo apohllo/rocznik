@@ -51,3 +51,4 @@ Szkolnictwa Wyższego.
 * Paulina Ziarko (rosablomma)
 * Maja Chłodnicka (MajaCh)
 * Joanna Byszuk (JoannaBy)
+* Dmytro Beskrestnov (dmitrijbes)
