@@ -43,5 +43,10 @@ Szkolnictwa Wyższego.
 * Łukasz Krawczyk (lukikrk)
 * Justyna Rząca (cary1014)
 * Barbara Masiulaniec (mbasik)
-Paulina Ziarko (rosablomma)
+* Dagmara Bator (dzikichomik)
+* Anna Bogusz (anbo222)
+* Adrianna Drak (drianka)
+* Robert Głód (robson3999)
+* Paulina Beck (Rudziszcze91)
+* Paulina Ziarko (rosablomma)
 
