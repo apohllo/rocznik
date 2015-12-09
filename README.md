@@ -50,5 +50,4 @@ Szkolnictwa Wyższego.
 * Paulina Beck (Rudziszcze91)
 * Paulina Ziarko (rosablomma)
 * Maja Chłodnicka (MajaCh)
-
->>>>>>> 6bf14f9c6955374c70a84f6752d40345a6516ddf
+* Joanna Byszuk (JoannaBy)
