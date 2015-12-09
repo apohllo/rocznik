@@ -43,3 +43,4 @@ Szkolnictwa Wyższego.
 * Łukasz Krawczyk (lukikrk)
 * Justyna Rząca (cary1014)
 * Barbara Masiulaniec (mbasik)
+* Dagmara Bator (dzikichomik)
