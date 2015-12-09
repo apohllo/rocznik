@@ -47,3 +47,5 @@ Szkolnictwa Wyższego.
 * Anna Bogusz (anbo222)
 * Adrianna Drak (drianka)
 * Robert Głód (robson3999)
+* Paulina Beck (Rudziszcze91)
+
