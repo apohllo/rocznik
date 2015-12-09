@@ -52,3 +52,4 @@ Szkolnictwa Wyższego.
 * Maja Chłodnicka (MajaCh)
 * Joanna Byszuk (JoannaBy)
 * Dmytro Beskrestnov (dmitrijbes)
+* Adrianna Bielicz (Liczanna)
