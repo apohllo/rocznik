@@ -43,6 +43,7 @@ Szkolnictwa Wyższego.
 * Łukasz Krawczyk (lukikrk)
 * Justyna Rząca (cary1014)
 * Barbara Masiulaniec (mbasik)
+* Magdalena Goryl(Medz333)
 * Joanna Jaworska (jaworska)
 * Dagmara Bator (dzikichomik)
 * Anna Bogusz (anbo222)
