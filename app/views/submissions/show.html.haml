@@ -29,7 +29,11 @@
   - if @submission.remarks
     %dl
       %dt Uwagi
-      %dd= @submission.remarks
+      %dd= simple_format(@submission.remarks)
+  - if @submission.funding
+    %dl
+      %dt Finansowanie
+      %dd= simple_format(@submission.funding)
   = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}
   %h3 Autorzy
   %table.table.table-hover.table-admin

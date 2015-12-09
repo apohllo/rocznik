@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :admin?
+  before_action :admin_required
 
   def index
     @query_params = params[:q] || {}
