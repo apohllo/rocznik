@@ -48,4 +48,5 @@ Szkolnictwa Wyższego.
 * Adrianna Drak (drianka)
 * Robert Głód (robson3999)
 * Paulina Beck (Rudziszcze91)
+* Paulina Ziarko (rosablomma)
 
