@@ -55,4 +55,4 @@ Szkolnictwa Wyższego.
 * Joanna Byszuk (JoannaBy)
 * Dmytro Beskrestnov (dmitrijbes)
 * Adrianna Bielicz (Liczanna)
-
+* Aleksndra Bassara (olabas)
