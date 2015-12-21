@@ -27,7 +27,6 @@ Szkolnictwa Wyższego.
 * Dorota Zając (dzajac94)
 * Sylwia Kapela (sylviacapella)
 * Agnieszka Rączka (ARaczka)
-<<<<<<< HEAD
 * Marta Zięba (mzet94)
 * Barbara Sapielak (gadi-promienna)
 * Katarzyna Persona (katt94)
@@ -45,8 +44,18 @@ Szkolnictwa Wyższego.
 * Łukasz Krawczyk (lukikrk)
 * Justyna Rząca (cary1014)
 * Barbara Masiulaniec (mbasik)
-* Barbara Sapielak (gadi-promienna)
->>>>>>> 9c7e0768e2f1f3a1edace18b42778370b67ba85d
-=======
-* Barbara Sapielak (gadi-promienna)
->>>>>>> 2b947c344d90773575b8621167377f7db6988f5f
+* Magdalena Goryl(Medz333)
+* Joanna Jaworska (jaworska)
+* Dagmara Bator (dzikichomik)
+* Anna Bogusz (anbo222)
+* Adrianna Drak (drianka)
+* Robert Głód (robson3999)
+* Paulina Beck (Rudziszcze91)
+* Paulina Ziarko (rosablomma)
+* Maja Chłodnicka (MajaCh)
+* Joanna Byszuk (JoannaBy)
+* Dmytro Beskrestnov (dmitrijbes)
+* Adrianna Bielicz (Liczanna)
+* Aleksndra Bassara (olabas)
+* Barbara Sapielak
+>>>>>>> ccc6e848caff129787682dd4dde967f409dd6243
