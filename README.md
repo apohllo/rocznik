@@ -27,6 +27,7 @@ Szkolnictwa Wyższego.
 * Dorota Zając (dzajac94)
 * Sylwia Kapela (sylviacapella)
 * Agnieszka Rączka (ARaczka)
+<<<<<<< HEAD
 * Marta Zięba (mzet94)
 * Barbara Sapielak (gadi-promienna)
 * Katarzyna Persona (katt94)
@@ -46,3 +47,6 @@ Szkolnictwa Wyższego.
 * Barbara Masiulaniec (mbasik)
 * Barbara Sapielak (gadi-promienna)
 >>>>>>> 9c7e0768e2f1f3a1edace18b42778370b67ba85d
+=======
+* Barbara Sapielak (gadi-promienna)
+>>>>>>> 2b947c344d90773575b8621167377f7db6988f5f
