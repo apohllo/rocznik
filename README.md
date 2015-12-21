@@ -44,4 +44,5 @@ Szkolnictwa Wyższego.
 * Łukasz Krawczyk (lukikrk)
 * Justyna Rząca (cary1014)
 * Barbara Masiulaniec (mbasik)
+* Barbara Sapielak (gadi-promienna)
 >>>>>>> 9c7e0768e2f1f3a1edace18b42778370b67ba85d
