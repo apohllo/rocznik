@@ -28,7 +28,6 @@ Szkolnictwa Wyższego.
 * Sylwia Kapela (sylviacapella)
 * Agnieszka Rączka (ARaczka)
 * Marta Zięba (mzet94)
-* Barbara Sapielak (gadi-promienna)
 * Katarzyna Persona (katt94)
 * Patryk Olczyk (patrykolczyk)
 * Krzysztofa Raputa (kraputa)
@@ -58,4 +57,4 @@ Szkolnictwa Wyższego.
 * Adrianna Bielicz (Liczanna)
 * Aleksndra Bassara (olabas)
 * Barbara Sapielak
->>>>>>> ccc6e848caff129787682dd4dde967f409dd6243
+
