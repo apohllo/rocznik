@@ -57,4 +57,3 @@ Szkolnictwa Wyższego.
 * Adrianna Bielicz (Liczanna)
 * Aleksndra Bassara (olabas)
 * Barbara Sapielak
-
