@@ -16,7 +16,7 @@ class Submission < ActiveRecord::Base
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
   belongs_to :person
-
+  belongs_to :issue
   MAX_LENGTH = 80
 
   def title

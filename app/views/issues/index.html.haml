@@ -1,0 +1,25 @@
+.scroll-panel-header
+  = link_to "Nowe zgłoszenie", new_submission_path, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title Zgłoszone artykuły
+.scroll-panel-body
+  %table.table.table-hover.table-admin
+  %thead
+    %tr
+      %th Year
+      %th Volume
+      %th
+      %th
+      %th
+
+  %tbody
+    - @issues.each do |issue|
+      %tr
+        %td= issue.year
+        %td= issue.volume
+        %td= link_to 'Show', issue
+        %td= link_to 'Edit', edit_issue_path(issue)
+        %td= link_to 'Destroy', issue, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Issue', new_issue_path
