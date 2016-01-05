@@ -1,5 +1,7 @@
 # Rocznik Kognitywistyczny - system wspierający pracę redakcji
 
+[![Build Status](https://travis-ci.org/apohllo/rocznik.svg?branch=master)](https://travis-ci.org/apohllo/rocznik)
+
 Aplikacja bazuje na Ruby on Rails oraz module Storytime i wykorzystywana
 jest na stronie http://rocznik.kognitywistyka.eu Jest to system zgłaszania
 artykułów do czasopisma "Rocznik Kognitywistyczny".
@@ -56,3 +58,4 @@ Szkolnictwa Wyższego.
 * Dmytro Beskrestnov (dmitrijbes)
 * Adrianna Bielicz (Liczanna)
 * Aleksndra Bassara (olabas)
+* Barbara Sapielak (gadi-promienna)
