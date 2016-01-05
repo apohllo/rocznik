@@ -58,3 +58,4 @@ Szkolnictwa Wyższego.
 * Dmytro Beskrestnov (dmitrijbes)
 * Adrianna Bielicz (Liczanna)
 * Aleksndra Bassara (olabas)
+* Barbara Sapielak (gadi-promienna)
