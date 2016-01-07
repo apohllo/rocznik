@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+User.create(email: "admin@admin.com", password: "admin", password_confirmation: "admin", admin: true)
+Storytime::Site.create(title: "Rocznik Kognitywistyczny", root_post_id: 1, subscription_email_from: "rocznik@kognitywistyka.eu", layout: "application", user_id: 1,
+                       custom_domain: "rocznik.kognitywistyka.eu")
