@@ -12,7 +12,7 @@ class Submission < ActiveRecord::Base
   validates :received, presence: true
   validates :polish_title, presence: true, if: -> (r){ r.language == POLISH}
   validates :english_title, presence: true, if: -> (r){ r.language == ENGLISH}
-
+    
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
   belongs_to :person
@@ -65,6 +65,10 @@ class Submission < ActiveRecord::Base
     else
       nil
     end
+  end
+  
+  def issue
+    self.issue.issue_data
   end
 
   def editor
