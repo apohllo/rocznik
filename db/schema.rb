@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160101193934) do
+ActiveRecord::Schema.define(version: 20160110094020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -325,8 +325,10 @@ ActiveRecord::Schema.define(version: 20160101193934) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "person_id"
+    t.integer  "issue_id"
   end
 
+  add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -356,5 +358,6 @@ ActiveRecord::Schema.define(version: 20160101193934) do
   add_foreign_key "institutions", "countries"
   add_foreign_key "reviews", "article_revisions"
   add_foreign_key "reviews", "people"
+  add_foreign_key "submissions", "issues"
   add_foreign_key "submissions", "people"
 end

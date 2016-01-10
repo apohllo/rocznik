@@ -5,10 +5,12 @@
   %table.table.table-hover.table-admin
     %thead
       %tr
-        %th Rok
         %th Numer
+        %th Rok
+        %th Liczba artykułów
     %tbody
       - @issues.each do |issue|
         %tr.table-row-link{"data-url" => issue_path(issue) }
-          %td= issue.year
           %td= link_to issue.volume, issue
+          %td= issue.year
+          %td

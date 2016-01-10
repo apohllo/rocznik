@@ -57,7 +57,16 @@ class Submission < ActiveRecord::Base
       "[BRAK AUTORA]"
     end
   end
-
+  
+  def issue_title
+    issue = self.issues.where(corresponding: true).first
+    if issue
+      issue.title
+    else
+      "[BRAK PRZYNALEŻNOŚCI DO NUMERU]"
+    end
+  end
+  
   def author
     authorship = self.authorships.where(corresponding: true).first
     if authorship
@@ -67,10 +76,6 @@ class Submission < ActiveRecord::Base
     end
   end
   
-  def issue
-    self.issue.issue_data
-  end
-
   def editor
     if self.person
       self.person.full_name

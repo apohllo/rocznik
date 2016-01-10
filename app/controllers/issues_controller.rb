@@ -41,7 +41,7 @@ class IssuesController < ApplicationController
   private
     
   def issue_params
-    params.require(:issue).permit(:year,:volume,roles: [])
+    params.require(:issue).permit(:year,:volume)
   end
     
 end
