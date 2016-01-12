@@ -13,4 +13,4 @@
         %tr.table-row-link{"data-url" => issue_path(issue) }
           %td= link_to issue.volume, issue
           %td= issue.year
-          %td
+          %td= issue.submissions.count
