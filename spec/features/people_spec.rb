@@ -46,13 +46,33 @@ feature "zarządzanie osobami" do
       expect(page).to have_css(".has-error")
     end
 
-    scenario "wyświetlenie szczegółów osoby" do
-      Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")
+    context "z jedną osobą w bazie danych" do
+      before do
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")
+      end
 
-      visit "/people"
-      click_link("Kapusta")
+      scenario "wyświetlenie szczegółów osoby" do
+        visit "/people"
+        click_link("Kapusta")
 
-      expect(page).to have_css("h3", text: "Andrzej Kapusta")
+        expect(page).to have_css("h3", text: "Andrzej Kapusta")
+      end
+    end
+
+    context "z dwoma osobami w bazie danych" do
+      before do
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")
+        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia")
+      end
+
+      scenario "wyszukanie osoby" do
+        visit "/people"
+        fill_in "Nazwisko", with: "Kalafior"
+        click_button("Szukaj")
+
+        expect(page).to have_content("Wanda")
+        expect(page).not_to have_content("Andrzej")
+      end
     end
   end
 end
