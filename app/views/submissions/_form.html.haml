@@ -13,8 +13,8 @@
   = f.input :polish_abstract, label: "Streszczenie"
   = f.input :polish_keywords, label: "Słowa kluczowe"
   %h3 Język angielski
-  = f.input :english_title, label: "Tytuł"
-  = f.input :english_abstract, label: "Streszczenie"
-  = f.input :english_keywords, label: "Słowa kluczowe"
+  = f.input :english_title, label: "Title"
+  = f.input :english_abstract, label: "Abstract"
+  = f.input :english_keywords, label: "Key words"
   - label = @submission.new_record? ? "Utwórz" : "Zapisz"
   = f.submit label, class: %w{btn btn-primary btn-outline}
