@@ -93,3 +93,9 @@ input[type=file].file.form-control {
   box-shadow: none;
   padding: 0;
 }
+
+.helpbox{
+	float: left;
+	margin-right:6px;
+	margin-top:2px; 
+}
