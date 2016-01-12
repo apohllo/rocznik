@@ -25,6 +25,7 @@ feature "zarządzanie osobami" do
         fill_in "Nazwisko", with: "Kapusta"
         fill_in "E-mail", with: "a.kapusta@gmail.com"
         fill_in "Dyscyplina", with: "filozofia"
+        fill_in "Płeć", with: "kobieta"
         check "recenzent"
       end
       click_button 'Utwórz'
@@ -48,7 +49,7 @@ feature "zarządzanie osobami" do
 
     context "z jedną osobą w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "kobieta")
       end
 
       scenario "wyświetlenie szczegółów osoby" do
@@ -61,8 +62,8 @@ feature "zarządzanie osobami" do
 
     context "z dwoma osobami w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")
-        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "kobieta")
+        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia", sex: "kobieta")
       end
 
       scenario "wyszukanie osoby" do
