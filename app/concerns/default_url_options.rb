@@ -12,7 +12,11 @@ module DefaultUrlOptions
 private
 
   def host
-    "rocznik.kognitywistyka.eu"
+    if Rails.env.staging?
+      "dev.kognitywistyka.eu"
+    else
+      "rocznik.kognitywistyka.eu"
+    end
   end
 
   def port

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class SubmissionsController < ApplicationController
-  before_action :admin?
+  before_action :admin_required
 
   def index
     @submissions = Submission.order('received desc').all
