@@ -7,13 +7,6 @@ class Review < ActiveRecord::Base
   belongs_to :person
   belongs_to :article_revision
 
-RATING_MAPPING = {
-    "akceptacja" => :accepted, "niewielkie poprawki" => :minor_review,
-    "istotne poprawki (wymagają powtórnej recenzji)" => :major_review, "odrzucenie" => :negative
-  }
-  belongs_to :person
-  belongs_to :article_revision
-
   validates :status, inclusion: STATUS_MAPPING.keys
   validates :person_id, presence: true
   validates :article_revision_id, presence: true

@@ -1,9 +1,3 @@
 %h3 Ocena
-= f.input :general, label: "Ocena ogólna", collection: (1..5)
-= f.input :scope, label: "Zgodność z tematyką", collection: (1..5)
-= f.input :meritum, label: "Poprawność merytoryczna", collection: (1..5)
-= f.input :language, label: "Język", collection: (1..5)
-= f.input :intelligibility, label: "Zrozumiałość", collection: (1..5)
-= f.input :literature, label: "Literatura", collection: (1..5)
-= f.input :novelty, label: "Oryginalność", collection: (1..5)
+= f.input :rating, collection: Review::RATING_MAPPING.keys
 = f.input :content, label: "Treść recenzji"
