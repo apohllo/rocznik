@@ -44,35 +44,35 @@ feature "zarządzanie numerami" do
     end
     
     context "z jednym numerem w bazie danych" do
-    before do
-      Issue.create!(volume: 3, year: 2020)
-    end
-
-    scenario "wyświetlenie szczegółów numeru" do
-      visit "/issues"
-      click_link("3")
-
-      expect(page).to have_content("Numer 3/2020")
-    end
-    
-    scenario "dodawanie zgłoszenia z istniejącym numerem" do
-      visit '/submissions/new'
-
-      within("#new_submission") do
-        select "nadesłany", from: "Status"
-        select "polski", from: "Język"
-        select "3/2020", from: "Nr wydania"
-        fill_in "Otrzymano", with: "12-01-2016"
-        fill_in "Tytuł", with: "próbny tytuł"
+      before do
+        Issue.create!(volume: 3, year: 2020)
       end
-      click_button 'Utwórz'
 
-      expect(page).not_to have_css(".has-error")
-      expect(page).to have_content("3/2020")
-    end
-    
-      scenario "wyświetlenie numeru z dodanym zgłoszeniem" do
+      scenario "wyświetlenie szczegółów numeru" do
+        visit "/issues"
+        click_link("3")
+
+        expect(page).to have_content("Numer 3/2020")
       end
+    
+      scenario "dodawanie zgłoszenia z istniejącym numerem i sprawdzenie zgłoszenia w numerze" do
+        visit '/submissions/new'
+
+        within("#new_submission") do
+          select "nadesłany", from: "Status"
+          select "polski", from: "Język"
+          select "3/2020", from: "Nr wydania"
+          fill_in "Otrzymano", with: "12-01-2016"
+          fill_in "Tytuł", with: "próbny tytuł"
+        end
+        click_button 'Utwórz'
+        
+        visit "/issues"
+        click_link ("3")
+        
+        expect(page).to have_content("próbny tytuł")
+      end
+          
     end
   end
   

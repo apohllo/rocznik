@@ -59,8 +59,7 @@ class Submission < ActiveRecord::Base
   end
   
   def issue_title
-    issue = self.issues.where(corresponding: true).first
-    if issue
+    if self.issue
       issue.title
     else
       "[BRAK PRZYNALEŻNOŚCI DO NUMERU]"
