@@ -1,7 +1,5 @@
-%h1 Editing issue
-
-= render 'form'
-
-= link_to 'Show', @issue
-\|
-= link_to 'Back', issues_path
+.scroll-panel-header
+  = link_to "Anuluj", @issue, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title Edycja numeru
+.scroll-panel-body
+  = render partial: "form"
