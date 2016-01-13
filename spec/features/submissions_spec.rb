@@ -28,7 +28,6 @@ feature "zgloszenia" do
 
       scenario "tworzenie nowego zgloszenia" do
         visit '/submissions/new/'
-        save_and_open_page
         within("#new_submission") do
           fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
           fill_in "Streszczenie", with: "Testowe streszczenie"
