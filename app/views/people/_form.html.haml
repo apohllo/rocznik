@@ -4,6 +4,7 @@
   = f.input :surname, label: "Nazwisko"
   = f.input :email, label: "E-mail"
   = f.input :discipline, label: "Dyscyplina naukowa"
+  = f.input :photo, label: "Zdjęcie"
   .roles
     %strong Role
     = f.collection_check_boxes :roles, Person::ROLE_MAP.keys, :to_s, :to_s, include_blank: false, item_wrapper_class: 'checkbox_container'

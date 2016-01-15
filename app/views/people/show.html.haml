@@ -4,6 +4,7 @@
   %h3.scroll-panel-title
     = @person.full_name
 .scroll-panel-body
+  %img(src="#{@person.photo}")
   %dl
     %dt E-mail
     %dd= @person.email

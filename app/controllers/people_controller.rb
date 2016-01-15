@@ -1,5 +1,6 @@
 class PeopleController < ApplicationController
   before_action :admin_required
+  attr_reader :photo
 
   def index
     @query_params = params[:q] || {}
@@ -40,6 +41,6 @@ class PeopleController < ApplicationController
 
   private
   def person_params
-    params.require(:person).permit(:name,:surname,:degree,:email,:discipline,roles: [])
+    params.require(:person).permit(:name,:surname,:degree,:email,:discipline,:photo,roles: [])
   end
 end
