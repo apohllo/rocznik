@@ -1,7 +1,6 @@
 class ArticleRevision < ActiveRecord::Base
   belongs_to :submission
   has_many :reviews, dependent: :destroy
-  has_many :comments, dependent: :destroy
   mount_uploader :article, ArticleUploader
 
   validates :submission_id, presence: true
