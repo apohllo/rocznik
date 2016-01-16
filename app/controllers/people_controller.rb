@@ -1,6 +1,5 @@
 class PeopleController < ApplicationController
   before_action :admin_required
-  attr_reader :photo
 
   def index
     @query_params = params[:q] || {}

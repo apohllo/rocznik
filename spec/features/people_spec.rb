@@ -33,6 +33,7 @@ feature "zarządzanie osobami" do
       expect(page).to have_content("Andrzej")
       expect(page).to have_content("Kapusta")
       expect(page).to have_content("a.kapusta@gmail.com")
+      expect(page).to have_content('/uploads/person/photo')
     end
 
     scenario "tworzenie nowej osoby z brakującymi elementami" do
