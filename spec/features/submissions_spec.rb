@@ -45,4 +45,3 @@ feature "zgloszenia" do
     end
   end
 end
-
