@@ -1,15 +1,9 @@
 class Review < ActiveRecord::Base
   STATUS_MAPPING = {
     "wysłane zapytanie" => :asked, "recenzja przyjęta" => :accepted, "recenzja odrzucona" => :rejected,
-    "recenzja pozytywna" => :positive, "recenzja negatywna" => :negative, "do poprawy" => :correction,
+    "recenzja pozytywna" => :positive, "recenzja negatywna" => :negative, "niewielkie poprawki" => :minor_review,
+    "istotne poprawki (wymagają powtórnej recenzji)" => :major_review,
     "przedłużony termin" => :extension, "blacklista" => :blacklist
-  }
-  belongs_to :person
-  belongs_to :article_revision
-
-RATING_MAPPING = {
-    "akceptacja" => :accepted, "niewielkie poprawki" => :minor_review,
-    "istotne poprawki (wymagają powtórnej recenzji)" => :major_review, "odrzucenie" => :negative
   }
   belongs_to :person
   belongs_to :article_revision
