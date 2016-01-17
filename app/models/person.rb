@@ -42,10 +42,6 @@ class Person < ActiveRecord::Base
     end
   end
 
-  def photo?
-    !!self.photo.path
-  end
-
   def file_name
     if photo?
       File.basename(self.photo.path)
