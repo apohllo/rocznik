@@ -8,11 +8,12 @@
   %table.table.table-hover.table-admin
     %thead
       %tr 
-        = sort_link(@query, :deadline)
+        
         %th Tytuł
         %th Recenzent
         %th Data zapytania
-        %th Deadline 
+        %th 
+          = sort_link(@query, :deadline, "Deadline")
         %th Status
         %th
     %tbody

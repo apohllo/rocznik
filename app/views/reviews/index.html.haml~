@@ -7,13 +7,13 @@
 .scroll-panel-body
   %table.table.table-hover.table-admin
     %thead
-      %tr
+      %tr 
         
         %th Tytuł
         %th Recenzent
         %th Data zapytania
-        %th Deadline 
-          = sort_link(@query, :deadline)
+        %th 
+          = sort_link(@query, :deadline, "Deadline")
         %th Status
         %th
     %tbody
