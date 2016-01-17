@@ -1,4 +1,5 @@
 .scroll-panel-header
+  = link_to "Przygotuj do wydania", issue_prepare_form_path, class: %w{btn btn-default btn-sm pull-right}
   = link_to "Numery rocznika", issues_path, class: %w{btn btn-default btn-sm pull-right}
   = link_to "Nowy numer", new_issue_path, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title
@@ -21,3 +22,17 @@
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
           %td.text-right
             = destroy_button(submission)
+
+  %h3 Artykuły przygotowane do wydania
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Tytuł
+        %th Autor
+        %th
+    %tbody
+      - @issue.prepared_submissions.each do |prepared|
+        %tr
+          %td= link_to prepared.title, prepared
+          %td
+         
