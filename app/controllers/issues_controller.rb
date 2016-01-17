@@ -1,7 +1,7 @@
 class IssuesController < ApplicationController
   before_action :admin_required
 
-  def index
+ def index
     @query_params = params[:q] || {}
     @query = Issue.ransack(@query_params)
     @query.sorts = ['year desc','volume desc'] if @query.sorts.empty?
@@ -20,6 +20,7 @@ class IssuesController < ApplicationController
  			render :prepare
 		end
   end
+
 
   def create
     @issue = Issue.new(issue_params)

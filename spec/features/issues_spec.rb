@@ -73,7 +73,6 @@ feature "zarządzanie numerami" do
         
         expect(page).to have_content("próbny tytuł")
 				
-			
       end	
 			scenario "Przygotowanie numeru do wydania" do
 				visit '/submissions/new'
@@ -91,13 +90,11 @@ feature "zarządzanie numerami" do
         click_link ("3")
 			
 				click_link("Przygotuj do wydania")
-				
-					expect(page).to have_content("Wybierz artykuły do wydania")
-					check('Zaakceptowany tytuł')	
-					click_button 'Zapisz'
-					expect(page).not_to have_css(".has-error")
-					
-					
+				expect(page).to have_content("Wybierz artykuły do wydania")
+				check('Zaakceptowany tytuł')	
+				click_button 'Zapisz'
+				expect(page).not_to have_css(".has-error")
+									
 			end         
     end
   end

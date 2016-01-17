@@ -3,3 +3,4 @@ class AddAddedFieldToSubmissions < ActiveRecord::Migration
 		 add_column :submissions, :added, :boolean, :default => false
   end
 end
+

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  resources :issues
-		
+  resources :issues	
   get '/issues/:id/prepare', to: 'issues#prepare', as: 'issue_prepare_form'
 	patch '/issues/:id/prepare', to: 'issues#prepare', as: 'issue_prepare_update'
   resources :people

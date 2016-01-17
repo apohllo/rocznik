@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20160117115816) do
   add_index "affiliations", ["person_id", "department_id"], name: "index_affiliations_on_person_id_and_department_id", unique: true, using: :btree
   add_index "affiliations", ["person_id"], name: "index_affiliations_on_person_id", using: :btree
 
+
   create_table "article_revisions", force: :cascade do |t|
     t.integer  "submission_id"
     t.integer  "version",       default: 1

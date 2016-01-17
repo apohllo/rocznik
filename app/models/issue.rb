@@ -17,16 +17,16 @@ class Issue < ActiveRecord::Base
 		if ids
 			submissions=self.submissions.all
 			submissions.each do |submission|
-				submission.update_attributes(added: false) 
-			end
-			if ids[:submission_ids]
-		  	ids[:submission_ids].each do |id|
-					submission=Submission.find_by_id(id)
-					if submission
+			submission.update_attributes(added: false) 
+		end
+		if ids[:submission_ids]
+	  	ids[:submission_ids].each do |id|
+				submission=Submission.find_by_id(id)
+				if submission
 						submission.update_attributes(added: true) 
-					end   
-				end
+				end   
 			end
+		end
 		else
 			false
 		end
