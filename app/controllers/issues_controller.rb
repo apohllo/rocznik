@@ -12,6 +12,15 @@ class IssuesController < ApplicationController
     @issue = Issue.new
   end
 
+  def prepare
+	  @issue = Issue.find(params[:id])
+		if @issue.prepare_to_publish(params[:issue])	
+			redirect_to @issue
+		else
+ 			render :prepare
+		end
+  end
+
   def create
     @issue = Issue.new(issue_params)
     if @issue.save
@@ -42,6 +51,10 @@ class IssuesController < ApplicationController
     
   def issue_params
     params.require(:issue).permit(:year,:volume)
+  end
+
+  def preparation_params
+    params.permit(:issue, submissions_ids: [:id])
   end
     
 end
