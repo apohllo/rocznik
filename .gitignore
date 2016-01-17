@@ -11,7 +11,3 @@
 /log/*
 !/log/.keep
 /tmp
-
-#Ignore files temporary copy
-*~
-
