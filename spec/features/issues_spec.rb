@@ -53,6 +53,7 @@ feature "zarządzanie numerami" do
         click_link("3")
 
         expect(page).to have_content("Numer 3/2020")
+				expect(page).to have_link("Przygotuj do wydania")
       end
     
       scenario "dodawanie zgłoszenia z istniejącym numerem i sprawdzenie zgłoszenia w numerze" do
@@ -71,8 +72,33 @@ feature "zarządzanie numerami" do
         click_link ("3")
         
         expect(page).to have_content("próbny tytuł")
-      end
-          
+				
+			
+      end	
+			scenario "Przygotowanie numeru do wydania" do
+				visit '/submissions/new'
+
+        within("#new_submission") do
+          select "przyjęty", from: "Status"
+          select "polski", from: "Język"
+          select "3/2020", from: "Nr wydania"
+          fill_in "Otrzymano", with: "12-01-2016"
+          fill_in "Tytuł", with: "Zaakceptowany tytuł"
+        end
+        click_button 'Utwórz'
+        
+        visit "/issues"
+        click_link ("3")
+			
+				click_link("Przygotuj do wydania")
+				
+					expect(page).to have_content("Wybierz artykuły do wydania")
+					check('Zaakceptowany tytuł')	
+					click_button 'Zapisz'
+					expect(page).not_to have_css(".has-error")
+					
+					
+			end         
     end
   end
   

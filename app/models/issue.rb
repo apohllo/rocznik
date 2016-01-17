@@ -9,7 +9,9 @@ class Issue < ActiveRecord::Base
   end
 
 	def prepared_submissions
-   self.submissions.where(added:true)
+   prepared=self.submissions.where(added:true)
+	 prepared.empty? ? false : prepared
+
   end
   
   def prepare_to_publish(ids)	
