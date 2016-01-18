@@ -3,7 +3,7 @@
 .scroll-panel-body
   = simple_search_form_for @query, @query_params do |f|
     = f.input :status_start, label: "Status"
- 
+    = f.select :status, options_from_collection_for_select(Review.all, "status", @search.status) 
     = f.submit "Filtruj", class: %w{btn btn-default btn-sm}
 .scroll-panel-body
   %table.table.table-hover.table-admin
