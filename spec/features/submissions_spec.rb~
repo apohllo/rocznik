@@ -79,10 +79,12 @@ feature "zgloszenia" do
         expect(page).not_to have_css(".has-error")
         expect(page).to have_content("Testowy tytuł zgłoszenia2")
       end
+    end
+
+    context "wyświetlanie się zgłoszeń" do
       
       scenario "filtrowanie zgłoszeń po statusie" do
         visit "/submissions"
-        
         select "odrzucony", from: "Status"
         click_button("Filtruj")
 
