@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :issues
   resources :people
   resources :submissions
   resources :affiliations, only: [:new, :create, :destroy] do
