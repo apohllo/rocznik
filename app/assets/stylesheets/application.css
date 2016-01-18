@@ -96,3 +96,6 @@ input[type=file].file.form-control {
   box-shadow: none;
   padding: 0;
 }
+#review_content{
+  height: 400px;
+}
