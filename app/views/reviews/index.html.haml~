@@ -11,10 +11,12 @@
         
         %th Tytuł
         %th Recenzent
-        %th Data zapytania
+        %th 
+          = sort_link(@query, :asked, "Data zapytania")
         %th 
           = sort_link(@query, :deadline, "Deadline")
-        %th Status
+        %th 
+          = sort_link(@query, :deadline, "Status")
         %th
     %tbody
       - @reviews.each do |review|
