@@ -96,6 +96,13 @@ input[type=file].file.form-control {
   box-shadow: none;
   padding: 0;
 }
+
 #review_content{
   height: 400px;
+}
+
+.helpbox{
+	float: left;
+	margin-right:6px;
+	margin-top:2px; 
 }
