@@ -23,7 +23,7 @@ feature "zgloszenia" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta",
                        discipline: "filozofia",
-                       email: "a.kapusa@gmail.com", roles: ['redaktor'])
+                       email: "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
       end
 
       scenario "tworzenie nowego zgloszenia" do
