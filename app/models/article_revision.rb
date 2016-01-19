@@ -23,4 +23,9 @@ class ArticleRevision < ActiveRecord::Base
       "[BRAK PLIKU]"
     end
   end
+  
+  def authors_institutions
+    self.submission.authors_institutions
+  end
+  
 end

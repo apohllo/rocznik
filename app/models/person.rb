@@ -37,4 +37,17 @@ class Person < ActiveRecord::Base
       errors.add(:roles,"'#{invalid_role}' is a invalid role.")
     end
   end
+  
+  def find_current_institutions
+	current_affiliations = self.affiliations.where("year_to <= #{Date.today.year} OR year_to IS NULL").all
+	institutions = []
+	current_affiliations.each do |current_affiliation|
+	  institutions << current_affiliation.department.institution.name
+	end
+	if institutions.empty?
+	  nil
+	else
+	  institutions
+	end
+  end 
 end

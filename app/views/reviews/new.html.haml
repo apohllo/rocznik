@@ -10,4 +10,3 @@
     - if @review.person
       = hidden_field_tag :person_id, @review.person.id
     = render partial: "new_fields", locals: {f: f}
-    = f.submit "Dodaj", class: %w{btn btn-primary btn-outline}

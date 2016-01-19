@@ -12,6 +12,7 @@ class Review < ActiveRecord::Base
   validates :article_revision_id, presence: true
   validates :status, presence: true
   validates :asked, presence: true
+  validate :authors_reviewer_shared_institutions	
 
   def title
     "#{self.article_revision.title}"
@@ -32,4 +33,14 @@ class Review < ActiveRecord::Base
   def average
     "TODO"
   end
+  
+  def authors_reviewer_shared_institutions
+    authors_institutions = self.article_revision.authors_institutions
+    reviewer_institutions = self.person.find_current_institutions
+    shared_institutions = authors_institutions & reviewer_institutions
+    if !shared_institutions.empty?
+      errors.add(:person,"'#{person.full_name}' has the same affiliation as authors.")
+    end
+  end
+  
 end

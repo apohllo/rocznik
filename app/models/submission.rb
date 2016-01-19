@@ -92,6 +92,12 @@ class Submission < ActiveRecord::Base
       revision.reviews
     end
   end
+  
+  def authors_institutions
+    authors = self.authorships.all
+    authors_institutions = authors.flat_map{|e| e.person.find_current_institutions }.uniq
+    authors_institutions
+  end
 
   private
   def cut_text(text)

@@ -33,46 +33,16 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     if params[:article_revision_id]
       article_revision = ArticleRevision.find(params[:article_revision_id])
-      @review.article_revision = article_revision
-      
-      author_current_affiliation = Affiliation.where("person_id = #{article_revision.submission.person_id} AND (year_to <= #{Date.today.year} OR year_to IS NULL)").first      
-      author_department = Department.find(author_current_affiliation.department_id)
-      
-      reviewer_current_affiliation = Affiliation.where("person_id = #{@review.person_id} AND (year_to <= #{Date.today.year} OR year_to IS NULL)").first
-      reviewer_department = Department.find(reviewer_current_affiliation.department_id)      
-
-      if author_department.name == reviewer_department.name && author_department.institution_id == reviewer_department.institution_id
-       flash[:error] = 'Autor i recenzent nie mogą pochodzić z tego samego wydziału i uniwersytetu!'
-        redirect_to article_revision.submission
-        return 
-      end
-    
+      @review.article_revision = article_revision  
       if @review.save
         redirect_to article_revision.submission  
       else
         render :new
       end
 
-
     elsif params[:person_id]
       person = Person.find(params[:person_id])
-      @review.person = person
-      
-      article_revision = ArticleRevision.find(@review.article_revision_id)
-      submission = Submission.find(article_revision.submission_id)
-      
-      author_current_affiliation = Affiliation.where("person_id = #{submission.person_id} AND (year_to <= #{Date.today.year} OR year_to IS NULL)").first      
-      author_department = Department.find(author_current_affiliation.department_id)
-      
-      reviewer_current_affiliation = Affiliation.where("person_id = #{@review.person_id} AND (year_to <= #{Date.today.year} OR year_to IS NULL)").first
-      reviewer_department = Department.find(reviewer_current_affiliation.department_id)
-      
-      if author_department.name == reviewer_department.name && author_department.institution_id == reviewer_department.institution_id
-       flash[:error] = 'Autor i recenzent nie mogą pochodzić z tego samego wydziału i uniwersytetu!'
-        redirect_to person
-        return 
-      end
-      
+      @review.person = person      
       if @review.save
         redirect_to person
         
