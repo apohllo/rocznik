@@ -46,7 +46,7 @@ feature "zgloszenia" do
 
       context "2 zgłoszenia w bazie danych" do
         before do
-          Submission.create!(person_id: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów", english_title: "Alice 
+          Submission.create!(person_id: Person.first, status: "odrzucone", polish_title: "Alicja w krainie czarów", english_title: "Alice 
             in Wonderland", polish_abstract: "Słów parę o tej bajce", english_abstract: "Little about that story", polish_keywords: "alicja",
             received: "19-01-2016", language: "polski")
           Submission.create!(person_id: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy", english_title: "Desert 
