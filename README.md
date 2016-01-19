@@ -60,3 +60,4 @@ Szkolnictwa Wyższego.
 * Aleksndra Bassara (olabas)
 * Barbara Sapielak (gadi-promienna)
 * Anna Szczepańczyk (Anaasz)
+* Filip Papierzyński (katemplujacy)
