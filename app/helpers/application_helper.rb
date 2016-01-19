@@ -13,4 +13,8 @@ module ApplicationHelper
       ""
     end
   end
+
+  def acronym(short,long)
+    raw("<acronym title='#{long}'>#{short}</acronym>")
+  end
 end
