@@ -3,6 +3,7 @@
   = f.input :name, label: "Imię"
   = f.input :surname, label: "Nazwisko"
   = f.input :email, label: "E-mail"
+  = f.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
   = f.input :discipline, label: "Dyscyplina naukowa"
   = f.input :photo, label: "Zdjęcie"
   .roles
