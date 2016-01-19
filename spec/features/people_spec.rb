@@ -25,6 +25,7 @@ feature "zarządzanie osobami" do
         fill_in "Nazwisko", with: "Kapusta"
         fill_in "E-mail", with: "a.kapusta@gmail.com"
         fill_in "Dyscyplina", with: "filozofia"
+        attach_file("Zdjęcie", 'spec/features/files/default.png')
         select "mężczyzna", from: "Płeć", visible: false
         check "recenzent"
       end
@@ -34,6 +35,7 @@ feature "zarządzanie osobami" do
       expect(page).to have_content("Andrzej")
       expect(page).to have_content("Kapusta")
       expect(page).to have_content("a.kapusta@gmail.com")
+      expect(page).to have_css("img[src*='default.png']")
     end
 
     scenario "tworzenie nowej osoby z brakującymi elementami" do

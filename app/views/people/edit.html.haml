@@ -2,4 +2,8 @@
   = link_to "Anuluj", @person, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title Edycja osoby
 .scroll-panel-body
+  - if File.exist?("#{@person.photo}")
+    = image_tag("#{@person.photo}", alt:"#{@person.full_name} - zdjęcie")
+  - else
+    = image_tag("/assets/default.png", alt:"#{@person.full_name} - zdjęcie")
   = render partial: "form"
