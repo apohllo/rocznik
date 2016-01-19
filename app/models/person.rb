@@ -5,14 +5,14 @@ class Person < ActiveRecord::Base
     "recenzent" => "R"
   }
   SEX_MAPPING = {
-    "kobieta" =>"f",
-    "mężczyzna" =>"m"
+    "kobieta" => "K",
+    "mężczyzna" => "M"
   }
   validates :name, presence: true
   validates :surname, presence: true
   validates :email, presence: true
   validates :discipline, presence: true
-  validates :sex, presence: true
+  validates :sex, presence: true, inclusion: SEX_MAPPING.keys
   validate :roles_inclusion
 
   has_many :affiliations, dependent: :destroy
