@@ -38,16 +38,12 @@ class Person < ActiveRecord::Base
     end
   end
   
-  def find_current_institutions
-	current_affiliations = self.affiliations.where("year_to <= #{Date.today.year} OR year_to IS NULL").all
-	institutions = []
-	current_affiliations.each do |current_affiliation|
-	  institutions << current_affiliation.department.institution.name
-	end
-	if institutions.empty?
-	  nil
-	else
-	  institutions
-	end
+  def current_institutions
+    current_affiliations = self.affiliations.where("year_from <= #{Date.today.year} OR year_from IS NULL AND year_to >= #{Date.today.year} OR year_to IS NULL").all
+    institutions = []
+    current_affiliations.each do |current_affiliation|
+      institutions << current_affiliation.institution
+    end
+    institutions
   end 
 end

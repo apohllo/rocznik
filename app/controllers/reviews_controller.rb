@@ -39,13 +39,11 @@ class ReviewsController < ApplicationController
       else
         render :new
       end
-
     elsif params[:person_id]
       person = Person.find(params[:person_id])
       @review.person = person      
       if @review.save
-        redirect_to person
-        
+        redirect_to person    
       else
         render :new
       end

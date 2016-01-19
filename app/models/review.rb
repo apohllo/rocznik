@@ -36,10 +36,10 @@ class Review < ActiveRecord::Base
   
   def authors_reviewer_shared_institutions
     authors_institutions = self.article_revision.authors_institutions
-    reviewer_institutions = self.person.find_current_institutions
+    reviewer_institutions = self.person.current_institutions
     shared_institutions = authors_institutions & reviewer_institutions
     if !shared_institutions.empty?
-      errors.add(:person,"'#{person.full_name}' has the same affiliation as authors.")
+      errors.add(:person,"'#{person.full_name}' ma taką samą afiliację jak jeden z autorów.")
     end
   end
   
