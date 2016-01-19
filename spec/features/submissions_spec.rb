@@ -9,7 +9,7 @@ feature "zgloszenia" do
       visit '/issues/'
       click_on('Zgłoszone artykuły')
 
-		expect(page).to have_css(".btn", text: "Nowe zgłoszenie")
+      expect(page).to have_css(".btn", text: "Nowe zgłoszenie")
     end
 	
     scenario "sprawdzenie czy przenosi do strony submission/new" do
@@ -44,47 +44,17 @@ feature "zgloszenia" do
         expect(page).to have_content("Testowy tytuł zgłoszenia")
       end
 
-      scenario "tworzenie nowego zgloszenia" do
-        visit '/submissions/new/'
-        within("#new_submission") do
-          fill_in "Tytuł", with: "Testowy tytuł zgłoszenia1"
-          fill_in "Streszczenie", with: "Testowe streszczenie1"
-          fill_in "Słowa kluczowe", with: "kluczowe kluczeowe slowa1"
-          fill_in "Title", with: "English title"
-          fill_in "Abstract", with: "absbabsba1"
-          fill_in "Key words", with: "englsh key words"
-          select "Andrzej Kapusta", from: "Redaktor"
-          select "w recenzji", from: "Status"
+      context do "2 zgłoszenia w bazie danych" do
+        before do
+          Submission.create!(person: Person.first, polish_title: "", ....)
+          Submission.create!(person: Person.first, polish_title: "", ....)	
         end
-        click_button("Utwórz")
-    
-        expect(page).not_to have_css(".has-error")
-        expect(page).to have_content("Testowy tytuł zgłoszenia1")
-      end
-      
-      scenario "tworzenie nowego zgloszenia" do
-        visit '/submissions/new/'
-        within("#new_submission") do
-          fill_in "Tytuł", with: "Testowy tytuł zgłoszenia2"
-          fill_in "Streszczenie", with: "Testowe streszczenie2"
-          fill_in "Słowa kluczowe", with: "kluczowe kluczeowe slowa2"
-          fill_in "Title", with: "English title"
-          fill_in "Abstract", with: "absbabsba2"
-          fill_in "Key words", with: "englsh key words"
-          select "Andrzej Kapusta", from: "Redaktor"
-          select "odrzucony", from: "Status"
-        end
-        click_button("Utwórz")
-    
-        expect(page).not_to have_css(".has-error")
-        expect(page).to have_content("Testowy tytuł zgłoszenia2")
-      end
       
       scenario "filtrowanie zgłoszeń po statusie" do
         visit "/submissions"
         
         select "odrzucony", from: "Status"
-        click_button("Filtruj")
+        click_on("Filtruj")
 
         expect(page).to have_content("Testowy tytuł zgłoszenia2")
         expect(page).not_to have_content("Testowy tytuł zgłoszenia1")
