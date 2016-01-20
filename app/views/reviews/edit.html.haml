@@ -8,5 +8,4 @@
   = simple_form_for @review do |f|
     = hidden_field_tag :article_revision_id, @review.article_revision.id
     = render partial: "new_fields", locals: {f: f}
-    = render partial: "edit_fields", locals: {f: f}
     = f.submit "Zapisz", class: %w{btn btn-primary btn-outline}
