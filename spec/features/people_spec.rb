@@ -25,6 +25,8 @@ feature "zarządzanie osobami" do
         fill_in "Nazwisko", with: "Kapusta"
         fill_in "E-mail", with: "a.kapusta@gmail.com"
         fill_in "Dyscyplina", with: "filozofia"
+        attach_file("Zdjęcie", 'spec/features/files/default.png')
+        select "mężczyzna", from: "Płeć", visible: false
         check "recenzent"
       end
       click_button 'Utwórz'
@@ -33,6 +35,7 @@ feature "zarządzanie osobami" do
       expect(page).to have_content("Andrzej")
       expect(page).to have_content("Kapusta")
       expect(page).to have_content("a.kapusta@gmail.com")
+      expect(page).to have_css("img[src*='default.png']")
     end
 
     scenario "tworzenie nowej osoby z brakującymi elementami" do
@@ -48,21 +51,21 @@ feature "zarządzanie osobami" do
 
     context "z jedną osobą w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "mężczyzna")
       end
 
       scenario "wyświetlenie szczegółów osoby" do
         visit "/people"
         click_link("Kapusta")
-
         expect(page).to have_css("h3", text: "Andrzej Kapusta")
+        expect(page).to have_css("dd", text: "mężczyzna")
       end
     end
 
     context "z dwoma osobami w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")
-        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "mężczyzna")
+        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia", sex: "kobieta")
       end
 
       scenario "wyszukanie osoby" do
