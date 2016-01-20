@@ -15,11 +15,8 @@ feature "recenzowanie" do
         article_revision = ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: submission)
         Review.create!(id: "1", status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "10-12-2016",
                        person: person1, article_revision: article_revision)
-<<<<<<< HEAD
         Review.create!(id: "2", status: "recenzja negatywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017",
                        person: person1, article_revision: article_revision)
-=======
->>>>>>> ac292920f8c90d95e21ce0c87aab46e89bec7a1e
       end
 
       scenario "sprawdzanie możliwości edytowania recenzji" do

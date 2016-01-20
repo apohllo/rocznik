@@ -40,8 +40,7 @@ feature "recenzowanie" do
         expect(page).not_to have_css(".has-error")
         expect(page).to have_css(".accepted")
       end
-<<<<<<< HEAD
-      
+
        scenario "filtrowanie recenzji po statusie" do
         visit "/reviews"
     
@@ -51,8 +50,6 @@ feature "recenzowanie" do
         expect(page).to have_content("16-01-2017")
         expect(page).not_to have_content("10-12-2016")
       end
-=======
->>>>>>> ac292920f8c90d95e21ce0c87aab46e89bec7a1e
     end
   end
 end
