@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120092743) do
+ActiveRecord::Schema.define(version: 20160120131502) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 20160120092743) do
 
   create_table "article_revisions", force: :cascade do |t|
     t.integer  "submission_id"
-    t.integer  "version",       default: 0
+    t.integer  "version",       default: 1
     t.date     "received"
     t.integer  "pages"
     t.integer  "pictures",      default: 0
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "code"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "code",          default: "tekst_"
     t.string   "article"
   end
 
@@ -55,6 +55,17 @@ ActiveRecord::Schema.define(version: 20160120092743) do
   add_index "authorships", ["person_id", "submission_id"], name: "index_authorships_on_person_id_and_submission_id", unique: true, using: :btree
   add_index "authorships", ["person_id"], name: "index_authorships_on_person_id", using: :btree
   add_index "authorships", ["submission_id"], name: "index_authorships_on_submission_id", using: :btree
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "person_id"
+    t.integer  "article_revision_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
+
+  add_index "comments", ["article_revision_id"], name: "index_comments_on_article_revision_id", using: :btree
+  add_index "comments", ["person_id"], name: "index_comments_on_person_id", using: :btree
 
   create_table "countries", force: :cascade do |t|
     t.string   "name"
@@ -349,6 +360,8 @@ ActiveRecord::Schema.define(version: 20160120092743) do
   add_foreign_key "article_revisions", "submissions"
   add_foreign_key "authorships", "people"
   add_foreign_key "authorships", "submissions"
+  add_foreign_key "comments", "article_revisions"
+  add_foreign_key "comments", "people"
   add_foreign_key "departments", "institutions"
   add_foreign_key "institutions", "countries"
   add_foreign_key "reviews", "article_revisions"
