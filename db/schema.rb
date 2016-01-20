@@ -125,13 +125,6 @@ ActiveRecord::Schema.define(version: 20160120155321) do
     t.date     "asked"
     t.date     "deadline"
     t.text     "content"
-    t.integer  "scope"
-    t.integer  "meritum"
-    t.integer  "language"
-    t.integer  "intelligibility"
-    t.integer  "novelty"
-    t.integer  "literature"
-    t.integer  "general"
     t.text     "remarks"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
