@@ -1,0 +1,3 @@
+= simple_form_for @issue, :url => url_for(:controller => 'issues', :action => 'prepare') do |f|
+   = f.association :submissions, label: "Wybierz artykuły do wydania w tym numerze", collection: @issue.accepted, include_blank: false, label_method: :polish_title, :as => :check_boxes
+   = f.submit "Przygotuj numer do wydania", class: %w{btn btn-primary btn-outline}

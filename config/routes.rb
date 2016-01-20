@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  resources :issues	
-  get '/issues/:id/prepare', to: 'issues#prepare', as: 'issue_prepare_form'
-	patch '/issues/:id/prepare', to: 'issues#prepare', as: 'issue_prepare_update'
+  
+  controller :issues do
+    get '/issues/:id/prepare', to: 'issues#prepare_form', as: 'issue_prepare_form'
+	  patch '/issues/:id/prepare_update', to: 'issues#prepare', as: 'issue_prepare'
+  end	
+   
+  
+  resources :issues
   resources :people
   resources :submissions
   resources :affiliations, only: [:new, :create, :destroy] do

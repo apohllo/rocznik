@@ -1,7 +1,7 @@
 class IssuesController < ApplicationController
   before_action :admin_required
 
- def index
+  def index
     @query_params = params[:q] || {}
     @query = Issue.ransack(@query_params)
     @query.sorts = ['year desc','volume desc'] if @query.sorts.empty?
@@ -12,15 +12,18 @@ class IssuesController < ApplicationController
     @issue = Issue.new
   end
 
+  def prepare_form
+    @issue = Issue.find(params[:id])
+  end
+
   def prepare
 	  @issue = Issue.find(params[:id])
 		if @issue.prepare_to_publish(params[:issue])	
 			redirect_to @issue
 		else
- 			render :prepare
+ 			render :prepare_form
 		end
   end
-
 
   def create
     @issue = Issue.new(issue_params)
@@ -52,10 +55,6 @@ class IssuesController < ApplicationController
     
   def issue_params
     params.require(:issue).permit(:year,:volume)
-  end
-
-  def preparation_params
-    params.permit(:issue, submissions_ids: [:id])
   end
     
 end

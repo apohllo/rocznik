@@ -87,15 +87,18 @@ feature "zarządzanie numerami" do
         end
         click_button 'Utwórz'
        
-        visit "/issues"
-        click_link ("3")			 
+        visit "/issues"      
+        click_link ("3")	
+        	 
 				click_link("Przygotuj do wydania")
-				expect(page).to have_content("Wybierz artykuły do wydania")
+ 				expect(page).to have_content("Wybierz artykuły do wydania w tym numerze")
 					
 				check('Zaakceptowany tytuł')	
-				click_button 'Zapisz'
+				click_button 'Przygotuj numer do wydania'
 					
 				expect(page).not_to have_css(".has-error")
+        expect(page).not_to have_content("Wybierz artykuły do wydania")
+        
 					
 			end         
     end
