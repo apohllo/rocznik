@@ -33,17 +33,17 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     if params[:article_revision_id]
       article_revision = ArticleRevision.find(params[:article_revision_id])
-      @review.article_revision = article_revision  
+      @review.article_revision = article_revision
       if @review.save
-        redirect_to article_revision.submission  
+        redirect_to article_revision.submission
       else
         render :new
       end
     elsif params[:person_id]
       person = Person.find(params[:person_id])
-      @review.person = person      
+      @review.person = person
       if @review.save
-        redirect_to person    
+        redirect_to person
       else
         render :new
       end
