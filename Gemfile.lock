@@ -245,8 +245,13 @@ GEM
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     pg (0.18.1)
+    pg_array_parser (0.0.9)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
+    postgres_ext (2.4.1)
+      activerecord (>= 4.0.0)
+      arel (>= 4.0.1)
+      pg_array_parser (~> 0.0.9)
     pundit (0.3.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
@@ -398,6 +403,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   pg
+  postgres_ext
   rails (= 4.2.1)
   rails4-autocomplete
   ransack
