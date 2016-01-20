@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160119214709) do
+
+ActiveRecord::Schema.define(version: 20160120092743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,13 +32,13 @@ ActiveRecord::Schema.define(version: 20160119214709) do
 
   create_table "article_revisions", force: :cascade do |t|
     t.integer  "submission_id"
-    t.integer  "version",       default: 1
+    t.integer  "version",       default: 0
     t.date     "received"
     t.integer  "pages"
     t.integer  "pictures",      default: 0
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.string   "code",          default: "tekst_"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "code"
     t.string   "article"
   end
 
@@ -122,6 +123,8 @@ ActiveRecord::Schema.define(version: 20160119214709) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.text     "roles",      default: [], null: false, array: true
+    t.string   "photo"
+    t.string   "sex"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
@@ -134,13 +137,6 @@ ActiveRecord::Schema.define(version: 20160119214709) do
     t.date     "asked"
     t.date     "deadline"
     t.text     "content"
-    t.integer  "scope"
-    t.integer  "meritum"
-    t.integer  "language"
-    t.integer  "intelligibility"
-    t.integer  "novelty"
-    t.integer  "literature"
-    t.integer  "general"
     t.text     "remarks"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
