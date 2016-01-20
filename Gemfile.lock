@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/apohllo/simple_form_ransack.git
-  revision: c7c322682a5bc515772c3ac4b5afffcdcd87159b
+  revision: 896f56808e94cfab88c5062fdc40ad5022b354f7
+  branch: custom-ransack-attributes
   specs:
     simple_form_ransack (0.0.9)
       rails (>= 4.0.0)
