@@ -61,7 +61,7 @@ feature "zarządzanie osobami" do
         click_link("Kapusta")
         expect(page).to have_css("h3", text: "Andrzej Kapusta")
         expect(page).to have_css("dd", text: "mężczyzna")
-       end
+      end
 
       scenario "dodanie zdjęcia" do
         visit '/people'
