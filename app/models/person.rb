@@ -20,6 +20,7 @@ class Person < ActiveRecord::Base
   scope :authors, -> { where("roles && ARRAY['autor']") }
   scope :reviewers, -> { where("roles && ARRAY['recenzent']") }
   scope :editors, -> { where("roles && ARRAY['redaktor']") }
+  scope :current, -> { where("year_from <= #{Date.today.year} OR year_from IS NULL AND year_to >= #{Date.today.year} OR year_to IS NULL") }
 
   before_validation -> (record) { record.roles.reject!(&:blank?) }
 
@@ -39,11 +40,6 @@ class Person < ActiveRecord::Base
   end
   
   def current_institutions
-    current_affiliations = self.affiliations.where("year_from <= #{Date.today.year} OR year_from IS NULL AND year_to >= #{Date.today.year} OR year_to IS NULL").all
-    institutions = []
-    current_affiliations.each do |current_affiliation|
-      institutions << current_affiliation.institution
-    end
-    institutions
+    self.affiliations.current.map{|e| e.institution}
   end 
 end

@@ -94,8 +94,7 @@ class Submission < ActiveRecord::Base
   end
   
   def authors_institutions
-    authors = self.authorships.all
-    authors_institutions = authors.flat_map{|e| e.person.current_institutions }.uniq
+    self.authorships.flat_map{|e| e.person.current_institutions }.uniq
   end
 
   private
