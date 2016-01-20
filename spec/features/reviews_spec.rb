@@ -17,6 +17,19 @@ feature "recenzowanie" do
         visit '/reviews/1'
         expect(page).to have_css(".btn", text:"Edytuj")
       end
+
+      scenario "edytowanie recenzji" do
+        visit '/reviews/1'
+        click_on("Edytuj")
+        within("#edit_review_1") do
+          fill_in "Treść recenzji", with: "Testowa recenzja"
+          select "recenzja przyjęta", from: "Status"
+        end
+        click_on("Zapisz")
+
+        expect(page).not_to have_css(".has-error")
+        expect(page).to have_css(".accepted")
+      end
     end
   end
 end
