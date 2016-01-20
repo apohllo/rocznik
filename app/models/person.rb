@@ -12,6 +12,7 @@ class Person < ActiveRecord::Base
   validates :surname, presence: true
   validates :email, presence: true
   validates :discipline, presence: true
+  validates :competence, presence: true
   validates :sex, presence: true, inclusion: SEX_MAPPING.keys
   validate :roles_inclusion
 
