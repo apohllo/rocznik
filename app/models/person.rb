@@ -6,12 +6,12 @@ class Person < ActiveRecord::Base
     "recenzent" => "R"
   }
 
-  mount_uploader :photo, PhotoUploader
-
   SEX_MAPPING = {
     "kobieta" => "K",
     "mężczyzna" => "M"
   }
+
+  mount_uploader :photo, PhotoUploader
 
   validates :name, presence: true
   validates :surname, presence: true
@@ -44,14 +44,6 @@ class Person < ActiveRecord::Base
     invalid_role = self.roles.find{|r| !ROLE_MAP.keys.include?(r) }
     if invalid_role
       errors.add(:roles,"'#{invalid_role}' is a invalid role.")
-    end
-  end
-
-  def file_name
-    if photo?
-      File.basename(self.photo.path)
-    else
-      "[BRAK PLIKU]"
     end
   end
 end
