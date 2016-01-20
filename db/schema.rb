@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114163740) do
+ActiveRecord::Schema.define(version: 20160120092743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,13 +125,6 @@ ActiveRecord::Schema.define(version: 20160114163740) do
     t.date     "asked"
     t.date     "deadline"
     t.text     "content"
-    t.integer  "scope"
-    t.integer  "meritum"
-    t.integer  "language"
-    t.integer  "intelligibility"
-    t.integer  "novelty"
-    t.integer  "literature"
-    t.integer  "general"
     t.text     "remarks"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false

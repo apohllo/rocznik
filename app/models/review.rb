@@ -29,8 +29,4 @@ class Review < ActiveRecord::Base
   def submission
     self.article_revision.submission
   end
-
-  def average
-    "TODO"
-  end
 end
