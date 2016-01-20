@@ -4,10 +4,7 @@
   %h3.scroll-panel-title
     = @person.full_name
 .scroll-panel-body
-  - if @person.photo.to_s == ''
-    = image_tag("/assets/default.png", alt:"#{@person.full_name} - zdjęcie")
-  - else
-    = image_tag("#{@person.photo}", alt:"#{@person.full_name} - zdjęcie")
+  = image_tag(@person.photo, alt:"#{@person.full_name} - zdjęcie")
   %dl
     %dt E-mail
     %dd= @person.email
