@@ -25,6 +25,7 @@ feature "zarządzanie osobami" do
         fill_in "Nazwisko", with: "Kapusta"
         fill_in "E-mail", with: "a.kapusta@gmail.com"
         fill_in "Dyscyplina", with: "filozofia"
+        fill_in "Kompetencje", with: "Arystoteles"
         select "mężczyzna", from: "Płeć", visible: false
         check "recenzent"
       end
@@ -34,6 +35,7 @@ feature "zarządzanie osobami" do
       expect(page).to have_content("Andrzej")
       expect(page).to have_content("Kapusta")
       expect(page).to have_content("a.kapusta@gmail.com")
+      expect(page).to have_content("Arystoteles")
       expect(page).to have_css("img[src*='person']")
     end
 
@@ -51,7 +53,7 @@ feature "zarządzanie osobami" do
 
     context "z jedną osobą w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "mężczyzna")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", competence: "Arystoteles", sex: "mężczyzna")
       end
 
       scenario "wyświetlenie szczegółów osoby" do
@@ -59,7 +61,7 @@ feature "zarządzanie osobami" do
         click_link("Kapusta")
         expect(page).to have_css("h3", text: "Andrzej Kapusta")
         expect(page).to have_css("dd", text: "mężczyzna")
-      end
+       end
 
       scenario "dodanie zdjęcia" do
         visit '/people'
@@ -75,8 +77,8 @@ feature "zarządzanie osobami" do
 
     context "z dwoma osobami w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "mężczyzna")
-        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia", sex: "kobieta")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", competence: "Arystoteles", sex: "mężczyzna")
+        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia", competence: "Arystoteles", sex: "kobieta")
       end
 
       scenario "wyszukanie osoby" do

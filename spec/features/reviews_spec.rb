@@ -6,9 +6,9 @@ feature "recenzowanie" do
 
     context "recenzja w bazie" do
       before do
-        person1 = Person.create!(name:"Andrzej", surname:"Kapusta", discipline:"filozofia",
+        person1 = Person.create!(name:"Andrzej", surname:"Kapusta", discipline:"filozofia", competence: "Arystoteles",
                                  sex: "mężczyzna", email: "a.kapusta@gmail.com", roles: ['redaktor'])
-        person2 = Person.create!(name:"Anna", surname:"Genialna", discipline:"filozofia",
+        person2 = Person.create!(name:"Anna", surname:"Genialna", discipline:"filozofia", competence: "Arystoteles",
                                  email: "a.genialna@gmail.com", sex: "kobieta",roles: ['recenzent']),
         submission = Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person: person1,
                                        polish_title: "Dlaczego solipsyzm jest odpowiedzią na wszystkie pytania kognitywistyki?")
