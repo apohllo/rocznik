@@ -34,7 +34,9 @@ feature "zarządzanie osobami" do
       expect(page).to have_content("Andrzej")
       expect(page).to have_content("Kapusta")
       expect(page).to have_content("a.kapusta@gmail.com")
+      expect(page).to have_css("img[src*='person']")
     end
+
 
     scenario "tworzenie nowej osoby z brakującymi elementami" do
       visit '/people/new'
@@ -55,8 +57,19 @@ feature "zarządzanie osobami" do
       scenario "wyświetlenie szczegółów osoby" do
         visit "/people"
         click_link("Kapusta")
-		expect(page).to have_css("h3", text: "Andrzej Kapusta")
+        expect(page).to have_css("h3", text: "Andrzej Kapusta")
         expect(page).to have_css("dd", text: "mężczyzna")
+      end
+
+      scenario "dodanie zdjęcia" do
+        visit '/people'
+        click_on 'Kapusta'
+        click_on 'Edytuj'
+
+        attach_file("Zdjęcie", 'spec/features/files/man.png')
+        click_button 'Zapisz'
+
+        expect(page).to have_css("img[src*='man.png']")
       end
     end
 

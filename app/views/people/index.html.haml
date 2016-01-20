@@ -23,7 +23,7 @@
           %td= link_to person.surname, person
           %td= person.name
           %td= person.email
-          %td= person.sex
-          %td= raw(person.roles.map{|r| "<acronym title='#{r}'>#{Person::ROLE_MAP[r]}</acronym>" }.join(", "))
+          %td= acronym(Person::SEX_MAPPING[person.sex],person.sex)
+          %td= raw(person.roles.map{|r| acronym(Person::ROLE_MAP[r],r) }.join(", "))
           %td= person.authorships.count
           %td= person.reviews.count
