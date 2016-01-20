@@ -95,8 +95,8 @@ feature "zarządzanie osobami" do
         select "autor", from: "Rola"
         click_on("Filtruj")
 
-        expect(page).to have_content("Wanda")
-        expect(page).not_to have_content("Andrze")
+        expect(page).to have_content("Wanda Kalafior")
+        expect(page).not_to have_content("Andrzej Kapusta")
       end
     end
   end
