@@ -65,13 +65,16 @@ feature "zgloszenia" do
         end
       end
       
-      context "autor w bazie danych" do
+      context "brak autora w bazie danych" do
         before do
-          Submission.create!(status: "nadesłany", language: "polski",
+          person = Person.create!(name: "Andrzej", surname: "Kapusta",
+                         discipline: "filozofia",
+                         email: "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
+          Submission.create!(status: "nadesłany", language: "polski", person: person,
                          received: "20-01-2016", polish_title: "Bukiet kotów")
         end
 
-        scenario "dodanie autora do zgłoszenia" do
+        scenario "dodanie autora do zgłoszenia bez autorów w bazie danych" do
           visit '/submissions'
           click_on("Bukiet kotów")
           click_on("Dodaj autora")
