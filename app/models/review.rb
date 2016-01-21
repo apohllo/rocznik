@@ -1,7 +1,8 @@
 class Review < ActiveRecord::Base
   STATUS_MAPPING = {
     "wysłane zapytanie" => :asked, "recenzja przyjęta" => :accepted, "recenzja odrzucona" => :rejected,
-    "recenzja pozytywna" => :positive, "recenzja negatywna" => :negative, "do poprawy" => :correction,
+    "recenzja pozytywna" => :positive, "recenzja negatywna" => :negative, "niewielkie poprawki" => :minor_review,
+    "istotne poprawki" => :major_review,
     "przedłużony termin" => :extension, "blacklista" => :blacklist
   }
   belongs_to :person
@@ -29,10 +30,6 @@ class Review < ActiveRecord::Base
   def submission
     self.article_revision.submission
   end
-
-  def average
-    "TODO"
-  end
   
   def authors_reviewer_shared_institutions
     authors_institutions = self.article_revision.authors_institutions
@@ -42,5 +39,4 @@ class Review < ActiveRecord::Base
       errors.add(:person,"'#{person.full_name}' ma taką samą afiliację jak jeden z autorów.")
     end
   end
-  
 end

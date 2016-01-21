@@ -12,11 +12,15 @@ class Submission < ActiveRecord::Base
   validates :received, presence: true
   validates :polish_title, presence: true, if: -> (r){ r.language == POLISH}
   validates :english_title, presence: true, if: -> (r){ r.language == ENGLISH}
-    
+
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
+  has_one :article
   belongs_to :person
   belongs_to :issue
+
+  scope :accepted, -> { where(status: "przyjęty") }
+
   MAX_LENGTH = 80
 
   def title
@@ -57,7 +61,7 @@ class Submission < ActiveRecord::Base
       "[BRAK AUTORA]"
     end
   end
-  
+
   def issue_title
     if self.issue
       issue.title
@@ -65,7 +69,7 @@ class Submission < ActiveRecord::Base
       "[BRAK PRZYNALEŻNOŚCI DO NUMERU]"
     end
   end
-  
+
   def author
     authorship = self.authorships.where(corresponding: true).first
     if authorship
@@ -74,7 +78,7 @@ class Submission < ActiveRecord::Base
       nil
     end
   end
-  
+
   def editor
     if self.person
       self.person.full_name
