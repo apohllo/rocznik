@@ -1,7 +1,6 @@
 GIT
-  remote: https://github.com/apohllo/simple_form_ransack.git
-  revision: 896f56808e94cfab88c5062fdc40ad5022b354f7
-  branch: custom-ransack-attributes
+  remote: https://github.com/kaspernj/simple_form_ransack.git
+  revision: c5847c5ca1c8e19cfd37cdbb7934b25e5e53bee9
   specs:
     simple_form_ransack (0.0.9)
       rails (>= 4.0.0)
@@ -421,4 +420,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
