@@ -61,3 +61,4 @@ Szkolnictwa Wyższego.
 * Barbara Sapielak (gadi-promienna)
 * Anna Szczepańczyk (Anaasz)
 * Filip Papierzyński (katemplujacy)
+* Aleksandra Filipek (olkaf123)
