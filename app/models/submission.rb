@@ -101,6 +101,10 @@ class Submission < ActiveRecord::Base
     self.authorships.flat_map{|e| e.person.current_institutions }.uniq
   end
 
+  def last_revision
+    self.article_revisions.order(:created_at).last
+  end
+
   private
   def cut_text(text)
     if text.size > MAX_LENGTH
