@@ -70,7 +70,7 @@ feature "zgloszenia" do
         scenario "filtrowanie zgłoszeń po numerze rocznika" do
         	visit "/submissions"
         	
-        	 select "3/2020", from: "Numer rocznika"
+        	 select "4/2020", from: "Numer rocznika"
         	 click_on("Filtruj")
         	 
         	 expect(page).to have_content("Alicja w krainie czarów")
