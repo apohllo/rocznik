@@ -56,8 +56,11 @@ td.positive, dd.positive {
 td.negative, dd.negative {
   background-color: #ff0000;
 }
-td.correction, dd.correction {
-  background-color: #808080;
+td.minor_review, dd.minor_review {
+  background-color: #f49e33;
+}
+td.major_review, dd.major_review {
+  background-color: #ff791e;
 }
 td.blacklist, dd.blacklist {
   background-color: #000000;
@@ -92,6 +95,10 @@ input[type=file].file.form-control {
   border: none;
   box-shadow: none;
   padding: 0;
+}
+
+#review_content{
+  height: 400px;
 }
 
 .helpbox{
