@@ -20,7 +20,6 @@ class Person < ActiveRecord::Base
   scope :authors, -> { where("roles && ARRAY['autor']") }
   scope :reviewers, -> { where("roles && ARRAY['recenzent']") }
   scope :editors, -> { where("roles && ARRAY['redaktor']") }
-  scope :current, -> { where("year_from <= #{Date.today.year} OR year_from IS NULL AND year_to >= #{Date.today.year} OR year_to IS NULL") }
 
   before_validation -> (record) { record.roles.reject!(&:blank?) }
 
