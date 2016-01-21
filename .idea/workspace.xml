@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4682d18c-0beb-481b-9f83-adc13b5ef88f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/application.css" afterPath="$PROJECT_DIR$/app/assets/stylesheets/application.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/head.html.haml" afterPath="$PROJECT_DIR$/app/views/shared/head.html.haml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/shared/sidenav.html.haml" afterPath="$PROJECT_DIR$/app/views/shared/sidenav.html.haml" />
-    </list>
+    <list default="true" id="4682d18c-0beb-481b-9f83-adc13b5ef88f" name="Default" comment="" />
     <ignored path="rocznik.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.bundle/" />
