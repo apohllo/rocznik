@@ -15,7 +15,11 @@ class Submission < ActiveRecord::Base
 
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
+  has_one :article
   belongs_to :person
+  belongs_to :issue
+
+  scope :accepted, -> { where(status: "przyjęty") }
 
   MAX_LENGTH = 80
 
@@ -55,6 +59,14 @@ class Submission < ActiveRecord::Base
       authorship.author
     else
       "[BRAK AUTORA]"
+    end
+  end
+
+  def issue_title
+    if self.issue
+      issue.title
+    else
+      "[BRAK PRZYNALEŻNOŚCI DO NUMERU]"
     end
   end
 

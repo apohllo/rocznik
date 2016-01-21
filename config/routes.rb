@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  resources :issues do
+    get :prepare_form, on: :member
+    patch :prepare, on: :member
+  end
   resources :people
   resources :submissions
   resources :affiliations, only: [:new, :create, :destroy] do
