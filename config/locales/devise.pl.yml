@@ -1,6 +1,6 @@
 pl:
   devise:
-     confirmations:
+    confirmations:
       confirmed: "Twój adres email został potwierdzony."
       send_instructions: "W ciągu kilku minut otrzymasz maila z informacją jak potwierdzić hasło."
       send_paranoid_instructions: "Jeśli Twój adres email znajduje się w naszej bazie danych, otrzymasz maila z informacją jak go potwierdzić."
@@ -39,7 +39,7 @@ pl:
       signed_in: "Zostałeś/aś pomyślnie zalogowany/a."
       signed_out: "Zostałeś/aś pomyślnie wylogowany/a."
       already_signed_out: "Zostałeś już wylogowany/a."
-     unlocks:
+    unlocks:
       send_instructions: "W ciągu kilku minut otrzymasz mail z instrukcjami, jak odblokować konto."
       send_paranoid_instructions: "Jeśli Twoje konto istnieje, w ciągu kilku minut otrzymasz mail z instrukcjami, jak je odblokować."
       unlocked: "Twoje konto zostało odblokowane. Zaloguj się, aby kontynuować."
