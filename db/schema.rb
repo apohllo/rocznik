@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(version: 20160120092743) do
 
   add_index "article_revisions", ["submission_id"], name: "index_article_revisions_on_submission_id", using: :btree
 
+  create_table "articles", force: :cascade do |t|
+    t.string  "status"
+    t.string  "DOI"
+    t.integer "issue_id"
+    t.integer "submission_id"
+  end
+
+  add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
+  add_index "articles", ["submission_id"], name: "index_articles_on_submission_id", using: :btree
+
   create_table "authorships", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "submission_id"
@@ -97,8 +107,9 @@ ActiveRecord::Schema.define(version: 20160120092743) do
   create_table "issues", force: :cascade do |t|
     t.integer  "year"
     t.integer  "volume"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "prepared",   default: false
   end
 
   create_table "people", force: :cascade do |t|
@@ -347,6 +358,8 @@ ActiveRecord::Schema.define(version: 20160120092743) do
   add_foreign_key "affiliations", "departments"
   add_foreign_key "affiliations", "people"
   add_foreign_key "article_revisions", "submissions"
+  add_foreign_key "articles", "issues"
+  add_foreign_key "articles", "submissions"
   add_foreign_key "authorships", "people"
   add_foreign_key "authorships", "submissions"
   add_foreign_key "departments", "institutions"
