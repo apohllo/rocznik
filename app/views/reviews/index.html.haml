@@ -2,7 +2,7 @@
   %h3.scroll-panel-title Recenzje
 .scroll-panel-body
   = simple_search_form_for @query, @query_params do |f|
-    = f.input :status_start, label: "Status"
+    = f.input :status_start, collection: Review::STATUS_MAPPING.keys, include_blank: true
     = f.submit "Filtruj", class: %w{btn btn-default btn-sm}
 .scroll-panel-body
   %table.table.table-hover.table-admin

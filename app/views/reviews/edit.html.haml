@@ -6,6 +6,8 @@
       = @review.title
 .scroll-panel-body
   = simple_form_for @review do |f|
-    = hidden_field_tag :article_revision_id, @review.article_revision.id
+    = @review.title
+    = @review.reviewer
     = render partial: "new_fields", locals: {f: f}
+    = f.input :content, label: "Treść recenzji"
     = f.submit "Zapisz", class: %w{btn btn-primary btn-outline}
