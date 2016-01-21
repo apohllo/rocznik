@@ -5,11 +5,11 @@ class Authorship < ActiveRecord::Base
   belongs_to :submission
 
   def author
-  if person
-    self.person.full_name
-  else
-    "[BRAK AUTORA]"
-  end
+    if person
+      self.person.full_name
+    else
+      "[BRAK AUTORA]"
+    end
   end
 
   def title
