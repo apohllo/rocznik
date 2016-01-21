@@ -15,6 +15,8 @@ feature "recenzowanie" do
         article_revision = ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: submission)
         Review.create!(id: "1", status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "10-12-2016",
                        person: person1, article_revision: article_revision)
+        Review.create!(id: "2", status: "recenzja negatywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017",
+                       person: person1, article_revision: article_revision)
       end
 
       scenario "sprawdzanie możliwości edytowania recenzji" do
@@ -34,6 +36,16 @@ feature "recenzowanie" do
         expect(page).to have_content("Testowa recenzja")
         expect(page).not_to have_css(".has-error")
         expect(page).to have_css(".accepted")
+      end
+
+       scenario "filtrowanie recenzji po statusie" do
+        visit "/reviews"
+    
+        select "recenzja negatywna", from: "Status"
+        click_on("Filtruj")
+      
+        expect(page).to have_content("16-01-2017")
+        expect(page).not_to have_content("10-12-2016")
       end
     end
   end
