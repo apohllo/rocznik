@@ -1,9 +1,15 @@
 class Authorship < ActiveRecord::Base
+  validates :person, presence: true
+
   belongs_to :person
   belongs_to :submission
 
   def author
-    self.person.full_name
+    if person
+      self.person.full_name
+    else
+      "[BRAK AUTORA]"
+    end
   end
 
   def title
