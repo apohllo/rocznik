@@ -18,7 +18,7 @@ feature "zarządzanie osobami" do
 
   context "dobre hasło" do
     scenario "logowanie z poprawnymi danymi" do
-      expect(page).to have_content 'success'
+      expect(page).to have_content 'Pomyślnie'
     end
   end
 
