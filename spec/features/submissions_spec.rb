@@ -30,8 +30,6 @@ feature "zgloszenia" do
         visit '/submissions/new/'
         within("#new_submission") do
           fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
-          fill_in "Streszczenie", with: "Testowe streszczenie"
-          fill_in "Słowa kluczowe", with: "kluczowe kluczeowe slowa"
           fill_in "Title", with: "English title"
           fill_in "Abstract", with: "absbabsba"
           fill_in "Key words", with: "englsh key words"
