@@ -51,10 +51,10 @@ feature "zgloszenia" do
         before do
           Submission.create!(person_id: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów", english_title: "Alice 
             in Wonderland", polish_abstract: "Słów parę o tej bajce", english_abstract: "Little about that story", polish_keywords: "alicja",
-            received: "19-01-2016", language: "polski", issue_id: Issue.first)
+            received: "19-01-2016", language: "polski", issue: Issue.first)
           Submission.create!(person_id: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy", english_title: "Desert 
             and something", polish_abstract: "Porywająca lektura", english_abstract: "Super lecture", polish_keywords: "pustynia",
-            received: "19-01-2016", language: "polski", issue_id: Issue.first)	
+            received: "19-01-2016", language: "polski", issue: Issue.last)	
         end
       
         scenario "filtrowanie zgłoszeń po statusie" do
@@ -68,14 +68,14 @@ feature "zgloszenia" do
         end
         
         scenario "filtrowanie zgłoszeń po numerze rocznika" do
-        	visit "/submissions"
+        	 visit "/submissions"
         	
         	 select "3/2020", from: "Numer rocznika"
         	 click_on("Filtruj")
         	 
         	 expect(page).to have_content("Alicja w krainie czarów")
         	 expect(page).not_to have_content("W pustyni i w puszczy")
-        	end
+        end
       end
       
       context "brak autora w bazie danych" do
