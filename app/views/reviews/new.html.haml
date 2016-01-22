@@ -5,9 +5,8 @@
     Utwórz recenzję
 .scroll-panel-body
   = simple_form_for @review do |f|
-    - if @review.article_revision
-      = hidden_field_tag :article_revision_id, @review.article_revision.id
-    - if @review.person
-      = hidden_field_tag :person_id, @review.person.id
+    = hidden_field_tag :from, @from
+    = f.association :article_revision, label: "Artykuł (wersja)", collection: ArticleRevision.order('received desc').limit(20), label_method: :title
+    = f.association :person, label: "Recenzent", label_method: :reverse_full_name, include_blank: false, collection: Person.reviewers.order([:surname,:name]).all
     = render partial: "new_fields", locals: {f: f}
     = f.submit "Dodaj", class: %w{btn btn-primary btn-outline}
