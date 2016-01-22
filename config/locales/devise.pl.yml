@@ -1,4 +1,14 @@
 pl:
+  activerecord:
+    attributes:
+      user:
+        current_password: Aktualne hasło
+        email: Adres e-mail
+        password: Hasło
+        password_confirmation: Potwierdzenie hasła
+        remember_me: Zapamiętaj mnie
+    models:
+      user: Użytkownik
   devise:
     confirmations:
       confirmed: "Twój adres email został potwierdzony."
@@ -43,7 +53,7 @@ pl:
       send_instructions: "W ciągu kilku minut otrzymasz mail z instrukcjami, jak odblokować konto."
       send_paranoid_instructions: "Jeśli Twoje konto istnieje, w ciągu kilku minut otrzymasz mail z instrukcjami, jak je odblokować."
       unlocked: "Twoje konto zostało odblokowane. Zaloguj się, aby kontynuować."
-   errors:
+  errors:
     messages:
       already_confirmed: "Zostało już potwierdzone. Spróbuj się zalogować."
       expired: "wygasło, spróbuj ponownie"
