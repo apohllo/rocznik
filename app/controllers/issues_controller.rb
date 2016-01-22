@@ -1,11 +1,22 @@
 class IssuesController < ApplicationController
-  before_action :admin_required
+  before_action :admin_required, except: [:published, :show]
+  helper_method :admin?,
 
   def index
     @query_params = params[:q] || {}
     @query = Issue.ransack(@query_params)
     @query.sorts = ['year desc','volume desc'] if @query.sorts.empty?
     @issues = @query.result(distinct: true)
+  end
+  
+  def published
+    @issues = Issue.where(published: true)
+  end
+  
+  def publish
+     @issue = Issue.find(params[:issue_id])
+     @issue.publish
+     redirect_to @issue
   end
 
   def new
@@ -49,6 +60,9 @@ class IssuesController < ApplicationController
 
   def show
     @issue = Issue.find(params[:id])
+    if @issue.published?  
+      render :show_published 
+    end
   end
 
   private

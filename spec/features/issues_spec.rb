@@ -73,30 +73,51 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_content("próbny tytuł")
       end
-
-      scenario "Przygotowanie numeru do wydania" do
-        visit '/submissions/new'
-
-        within("#new_submission") do
-          select "przyjęty", from: "Status"
-          select "polski", from: "Język"
-          select "3/2020", from: "Nr wydania"
-          fill_in "Otrzymano", with: "12-01-2016"
-          fill_in "Tytuł", with: "Zaakceptowany tytuł"
+      context "z jednym zaakceptowanym zgłoszeniem" do
+        before do
+          Submission.create!(status:'przyjęty', language:"polski", issue: Issue.first, polish_title: "Zaakceptowany tytuł", received: "2016-01-17")
         end
-        click_button 'Utwórz'
+        scenario "Przygotowanie numeru do wydania" do
+          visit "/issues"
+          click_link ("3")
+          click_link("Przygotuj do wydania")
+          expect(page).to have_content("Wybierz artykuły")
+          check('Zaakceptowany tytuł')
+          click_button 'Przygotuj numer do wydania'
 
-        visit "/issues"
-        click_link ("3")
-
-        click_link("Przygotuj do wydania")
-        expect(page).to have_content("Wybierz artykuły")
-
-        check('Zaakceptowany tytuł')
-        click_button 'Przygotuj numer do wydania'
-
-        expect(page).not_to have_css(".has-error")
-        expect(page).not_to have_content("Wybierz artykuły do wydania")
+          expect(page).not_to have_css(".has-error")
+          expect(page).not_to have_content("Wybierz artykuły do wydania")
+        end
+        
+        context "przygotowany do wydania" do
+          before do
+            Issue.first.update_attributes(prepared: true)
+            Article.create!(issue: Issue.first, submission:Submission.first)
+          end
+        
+          scenario "Wydanie numeru" do
+            visit "/issues"
+            click_link ("3")
+            expect(page).to have_content("Wydaj numer")
+            click_link("Wydaj numer")          
+            click_link("Opublikowane numery rocznika")
+            expect(page).to have_content(3)
+            click_link(3)
+            expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")
+          end
+          context "wydany numer" do
+            before do
+              Issue.first.update_attributes(published: true)
+            end
+            scenario "Wyświetl wydany numer jako niezalogowany użytkownik" do
+              visit "/issues"
+              click_link("Wyloguj")
+              click_link("Numery rocznika")
+              click_link("3")
+              expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")             
+            end    
+          end         
+        end      
       end
     end
   end

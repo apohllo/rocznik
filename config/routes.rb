@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
+  get 'issues/published' => 'issues#published'
   resources :issues do
     get :prepare_form, on: :member
     patch :prepare, on: :member
+    get :publish
   end
   resources :people
   resources :submissions

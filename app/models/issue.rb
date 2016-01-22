@@ -12,6 +12,14 @@ class Issue < ActiveRecord::Base
   def submissions_ready?
     !self.submissions.accepted.empty?
   end
+  
+  def publish
+    self.update_attributes(published: true)
+  end
+  
+  def published
+    Issue.where(published: true)
+  end
 
   def prepare_to_publish(ids)
     begin
