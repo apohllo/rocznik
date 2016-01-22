@@ -97,6 +97,10 @@ class Submission < ActiveRecord::Base
     end
   end
 
+  def last_revision
+    self.article_revisions.order(:created_at).last
+  end
+
   private
   def cut_text(text)
     if text.size > MAX_LENGTH
