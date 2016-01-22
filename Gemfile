@@ -50,4 +50,5 @@ group :development, :test do
   gem 'spring'
   gem 'capybara'
   gem 'rspec-rails', '~> 3.0'
+  gem 'filterrific'  
 end
