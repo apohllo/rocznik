@@ -77,6 +77,25 @@ feature "zgloszenia" do
         	 expect(page).not_to have_content("W pustyni i w puszczy")
         	end
       end
+      
+      context "brak autora w bazie danych" do
+        before do
+          person = Person.create!(name: "Andrzej", surname: "Kapusta",
+                         discipline: "filozofia",
+                         email: "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
+          Submission.create!(status: "nadesłany", language: "polski", person: person,
+                         received: "20-01-2016", polish_title: "Bukiet kotów")
+        end
+
+        scenario "dodanie autora do zgłoszenia bez autorów w bazie danych" do
+          visit '/submissions'
+          click_on("Bukiet kotów")
+          click_on("Dodaj autora")
+          click_button("Dodaj")
+    
+          expect(page).to have_css(".has-error")
+        end
+      end
     end
   end
 end

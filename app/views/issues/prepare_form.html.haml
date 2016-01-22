@@ -1,0 +1,7 @@
+.scroll-panel-header
+  = link_to "Anuluj", @issue, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title Przygotuj numer do wydania
+.scroll-panel-body
+  = simple_form_for @issue, :url => prepare_issue_path(@issue) do |f|
+    = f.association :submissions, label: "Wybierz artykuły do wydania w tym numerze", collection: @issue.submissions.accepted, include_blank: false, label_method: :title, :as => :check_boxes
+    = f.submit "Przygotuj numer do wydania", class: %w{btn btn-primary btn-outline}
