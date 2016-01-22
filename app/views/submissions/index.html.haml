@@ -20,7 +20,7 @@
     %tbody
       - @submissions.each do |submission|
         %tr.table-row-link
-          %td= submission.issue.title
+          %td= submission.issue_id
           %td= link_to submission.title, submission
           %td
             - if submission.author
