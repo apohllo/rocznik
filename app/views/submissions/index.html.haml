@@ -4,10 +4,13 @@
 .scroll-panel-body
   = simple_search_form_for @query, @query_params do |f|
     = f.input :status_start, collection: Submission::STATUS_MAPPING.keys, include_blank: true
+    = f.input :issue_id_eq, collection: Issue.all, include_blank: true, label: "Numer rocznika"
     = f.submit "Filtruj", class: %w{btn btn-default btn-sm}
+
   %table.table.table-hover.table-admin
     %thead
       %tr
+        %th Nr wydania
         %th Tytuł
         %th Autor korespondujący
         %th Redaktor
@@ -17,6 +20,7 @@
     %tbody
       - @submissions.each do |submission|
         %tr.table-row-link
+          %td= submission.issue_id
           %td= link_to submission.title, submission
           %td
             - if submission.author
