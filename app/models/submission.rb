@@ -12,7 +12,8 @@ class Submission < ActiveRecord::Base
   validates :received, presence: true
   validates :polish_title, presence: true, if: -> (r){ r.language == POLISH}
   validates :english_title, presence: true, if: -> (r){ r.language == ENGLISH}
-
+  validates :english_abstract, presence: true
+  validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
   has_one :article
