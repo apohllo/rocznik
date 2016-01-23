@@ -45,10 +45,29 @@ feature "zarządzanie osobami" do
 
       expect(page).to have_css(".has-error")
     end
-
+  end
     context "z jedną osobą w bazie danych" do
+      # TEGO BRAKOWALO!	###
+      include_context "admin login"
+      #####################
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")      
+      end
+
+      scenario "wyświetlenie szczegółów osoby" do
+        visit "/people"
+        click_link("Kapusta")
+
+        expect(page).to have_css("h3", text: "Andrzej Kapusta")
+    end
+
+    context "z dwoma osobami, które napisały recenzje w bazie danych" do
+      before do
+    	person1 =   Person.create!(name: "Izabella", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex:"K", role_inclusion: "R")
+        person2=Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "M", role_inclusion: "R" ) 
+  		Review.create!(status: :asked, person_id: person1.person_id, asked: Time.now )
+  
+
       end
 
       scenario "wyświetlenie szczegółów osoby" do
@@ -64,6 +83,7 @@ feature "zarządzanie osobami" do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")
         Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia")
       end
+    
 
       scenario "wyszukanie osoby" do
         visit "/people"

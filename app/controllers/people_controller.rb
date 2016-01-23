@@ -1,5 +1,6 @@
 class PeopleController < ApplicationController
   before_action :admin_required
+  
 
   def index
     @query_params = params[:q] || {}
@@ -36,6 +37,11 @@ class PeopleController < ApplicationController
 
   def show
     @person = Person.find(params[:id])
+    reviews_count = @person.reviews.count
+    if (reviews_count%5==0)&&(reviews_count>=5)
+      then @congratulations = true
+    end
+    @reviews_count = reviews_count
   end
 
   private
