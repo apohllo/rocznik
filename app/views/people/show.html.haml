@@ -55,7 +55,7 @@
     = link_to "Dodaj", new_submission_path(author_id: @person.id), class: %w{btn btn-default btn-sm}
   - if @person.roles.include?("recenzent")
     -if(@congratulations==true)
-      %p = "To już Pani/Pana #{reviews_count} recenzja. Gratulujemy i bardzo dziekujemy."
+      %p To już #{@salutation} #{@reviews_count} recenzja. Gratulujemy i bardzo dziekujemy.
 
     
 

@@ -35,6 +35,15 @@ class PeopleController < ApplicationController
     end
   end
 
+  def salutation
+    if(@person.sex = "K") 
+    then @salutation = "Pani"
+    elsif (@person.sex = "M") 
+    then @salutation = "Panie"
+    else @salutation = "Użytkowniku"
+    end
+  end
+
   def show
     @person = Person.find(params[:id])
     reviews_count = @person.reviews.count
@@ -42,6 +51,7 @@ class PeopleController < ApplicationController
       then @congratulations = true
     end
     @reviews_count = reviews_count
+    @salutation = @salutation
   end
 
   private
