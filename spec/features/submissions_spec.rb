@@ -70,11 +70,11 @@ feature "zgloszenia" do
         scenario "filtrowanie zgłoszeń po numerze rocznika" do
           visit "/submissions"
 
-        	select "3/2020", from: "Numer rocznika"
-        	click_on("Filtruj")
+        	 select "3/2020", from: "Numer rocznika"
+        	 click_on("Filtruj")
  
-        	expect(page).to have_content("Alicja w krainie czarów")
-        	expect(page).not_to have_content("W pustyni i w puszczy")
+        	 expect(page).to have_content("Alicja w krainie czarów")
+        	 expect(page).not_to have_content("W pustyni i w puszczy")
         end
       end
       
