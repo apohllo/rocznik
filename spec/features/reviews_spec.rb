@@ -77,6 +77,13 @@ feature "recenzowanie" do
         expect(page).to have_content("16-01-2017")
         expect(page).not_to have_content("10-12-2016")
       end
+
+      scenario "sortowanie recenzji wzgledem deadlinu" do
+        visit "/reviews"
+        expect(page).to have_content(/10-12-2016.*16-01-2017/)
+        click_on "Deadline"
+        expect(page).to have_content(/16-01-2017.*10-12-2016/)
+      end
     end
   end
 end

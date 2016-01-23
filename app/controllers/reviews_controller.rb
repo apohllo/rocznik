@@ -2,6 +2,7 @@ class ReviewsController < ApplicationController
   before_action :admin_required
 
   def index
+    @reviews = Review.order('deadline asc').all
     @query_params = params[:q] || {}
     @query = Review.ransack(@query_params)
     @query.sorts = ['deadline asc'] if @query.sorts.empty?
