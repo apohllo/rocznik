@@ -64,7 +64,7 @@ feature "zarządzanie numerami" do
           select "polski", from: "Język"
           select "3/2020", from: "Nr wydania"
           fill_in "Otrzymano", with: "12-01-2016"
-          fill_in "Tytuł", with: "próbny tytuł"
+          fill_in "tytuł", with: "próbny tytuł"
         end
         click_button 'Utwórz'
 
@@ -82,7 +82,7 @@ feature "zarządzanie numerami" do
           select "polski", from: "Język"
           select "3/2020", from: "Nr wydania"
           fill_in "Otrzymano", with: "12-01-2016"
-          fill_in "Tytuł", with: "Zaakceptowany tytuł"
+          fill_in "tytuł", with: "Zaakceptowany tytuł"
         end
         click_button 'Utwórz'
 
