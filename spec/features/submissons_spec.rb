@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 feature "zgłoszenia" do
     scenario "sprawdzenie odnośnika do zgłoszeń" do
 	   visit '/submissions/'
