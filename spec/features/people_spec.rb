@@ -53,7 +53,7 @@ feature "zarządzanie osobami" do
 
     context "z jedną osobą w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", competence: "Arystoteles", sex: "mężczyzna")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "mężczyzna")
       end
 
       scenario "wyświetlenie szczegółów osoby" do
@@ -78,16 +78,25 @@ feature "zarządzanie osobami" do
     context "z dwoma osobami w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", competence: "Arystoteles", sex: "mężczyzna")
-        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia", competence: "Arystoteles", sex: "kobieta")
+        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia", competence: "percepcja dźwięki", sex: "kobieta")
       end
 
       scenario "wyszukanie osoby" do
         visit "/people"
         fill_in "Nazwisko", with: "Kalafior"
-        click_button("Szukaj")
+        click_on("Filtruj")
 
         expect(page).to have_content("Wanda")
         expect(page).not_to have_content("Andrzej")
+      end
+
+      scenario "filtrowanie osob po roli" do
+        visit "/people"
+        select "autor", from: "Rola"
+        click_on("Filtruj")
+
+        expect(page).to have_content("Wanda")
+        expect(page).not_to have_content("Andrze")
       end
     end
   end
