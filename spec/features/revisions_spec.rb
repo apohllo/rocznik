@@ -8,9 +8,9 @@ feature "zarządzanie recenzjami" do
     context "Z recenzentem, autorem i tekstem w bazie danych" do
 
     before do
-      person1 = Person.create!(name: "Marek", surname: "Jeziorski", email: "m@o2.pl", discipline: "informatyka")
-			person2 = Person.create!(name: "Dominika", surname: "Skoczeń", email: "d@o2.pl", discipline: "informatyka")
-      person3 = Person.create!(name: "Piotr", surname: "Szysz", email: "p@o2.pl", discipline: "matematyka")
+      person1 = Person.create!(name: "Marek", surname: "Jeziorski", email: "m@o2.pl", discipline: "informatyka", sex: "mężczyzna")
+			person2 = Person.create!(name: "Dominika", surname: "Skoczeń", email: "d@o2.pl", discipline: "informatyka", sex: "kobieta")
+      person3 = Person.create!(name: "Piotr", surname: "Szysz", email: "p@o2.pl", discipline: "matematyka", sex: "mężczyzna")
       country1 = Country.create!(name: "Polska")
       institution = Institution.create!(name: "Uniwersytet Jagielloński", country: country1)
       department1 = Department.create!(name: "Wydział Matematyki", institution: institution)
