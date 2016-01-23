@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 feature "zgloszenia" do
 
   context "po zalogowaniu" do

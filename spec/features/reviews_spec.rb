@@ -6,15 +6,9 @@ feature "recenzowanie" do
 
     context "recenzja w bazie" do
       before do
-<<<<<<< HEAD
-        person1 = Person.create!(name:"Andrzej", surname:"Kapusta", discipline:"filozofia", competence: "Arystoteles",
-                                 sex: "mężczyzna", email: "a.kapusta@gmail.com", roles: ['redaktor'])
-        person2 = Person.create!(name:"Anna", surname:"Genialna", discipline:"filozofia", competence: "Arystoteles",
-=======
         person_1 = Person.create!(name:"Andrzej", surname:"Kapusta", discipline:"filozofia",
                                  sex: "mężczyzna", email: "a.kapusta@gmail.com", roles: ['redaktor'])
         person_2 = Person.create!(name:"Anna", surname:"Genialna", discipline:"filozofia",
->>>>>>> a70c983be1968fb67bd51a9d7bc6bb8df0bba0c1
                                  email: "a.genialna@gmail.com", sex: "kobieta",roles: ['recenzent']),
         person_3 = Person.create!(name:"Wojciech", surname:"Nowak", discipline:"fizyka",
                                  email: "w.nowak@gmail.com", sex: "mężczyzna",roles: ['recenzent']),

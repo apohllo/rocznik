@@ -123,11 +123,8 @@ ActiveRecord::Schema.define(version: 20160120155321) do
     t.datetime "updated_at",              null: false
     t.text     "roles",      default: [], null: false, array: true
     t.string   "sex"
-<<<<<<< HEAD
     t.text     "competence"
-=======
     t.string   "photo"
->>>>>>> a70c983be1968fb67bd51a9d7bc6bb8df0bba0c1
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
