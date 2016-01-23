@@ -66,7 +66,7 @@ class Submission < ActiveRecord::Base
     if self.issue
       issue.title
     else
-      "[BRAK PRZYNALEŻNOŚCI DO NUMERU]"
+      "[BRAK NUMERU]"
     end
   end
 
@@ -99,6 +99,10 @@ class Submission < ActiveRecord::Base
   
   def authors_institutions
     self.authorships.flat_map{|e| e.person.current_institutions }.uniq
+  end
+
+  def last_revision
+    self.article_revisions.order(:created_at).last
   end
 
   private
