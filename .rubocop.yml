@@ -1,0 +1,14 @@
+AllCops:
+  DisabledByDefault: true
+Style/StringLiterals:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
+Style/AccessModifierIndentation:
+  Enabled: true
+Style/CommentIndentation:
+  Enabled: true
+Style/IndentationConsistency:
+  Enabled: true
+Style/IndentationWidth:
+  Enabled: true
