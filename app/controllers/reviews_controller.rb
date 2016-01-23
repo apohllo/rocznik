@@ -39,6 +39,10 @@ class ReviewsController < ApplicationController
       @review.article_revision = article_revision
       if @review.save
         redirect_to article_revision.submission
+      elsif @review.errors[:person]
+        flash[:error] = "#{@review.errors.full_message("#{@review.person.surname}", 'ma taką samą afiliację jak jeden z autorów!')}"
+        redirect_to article_revision.submission
+        return
       else
         render :new
       end
