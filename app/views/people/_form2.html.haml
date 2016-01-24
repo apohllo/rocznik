@@ -1,0 +1,11 @@
+= simple_form_for @person do |f|
+  = f.input :degree, label: "Stopień"
+  = f.input :name, label: "Imię"
+  = f.input :surname, label: "Nazwisko"
+  = f.input :email, label: "E-mail"
+  = f.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
+  = f.input :discipline, label: "Dyscyplina naukowa"
+  = f.hidden_field :roles, value: "recenzent", label: "Role", name: "person[roles][]"
+
+  - label = @person.new_record? ? "Dodaj proponowanego recenzenta" : "Zapisz"
+  = f.submit label, class: %w{btn btn-primary btn-outline}
