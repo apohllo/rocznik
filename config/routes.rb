@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'issues/published' => 'issues#published'
+  resources :public_issues, only: [:index,:show]
   resources :issues do
     get :prepare_form, on: :member
     patch :prepare, on: :member

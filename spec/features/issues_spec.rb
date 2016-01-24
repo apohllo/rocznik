@@ -94,27 +94,34 @@ feature "zarządzanie numerami" do
             Issue.first.update_attributes(prepared: true)
             Article.create!(issue: Issue.first, submission:Submission.first)
           end
+          
+          scenario "brak numeru na liście wydanych numerów" do
+              visit "/submissions"
+              expect(page).not_to have_css("li a",text: "3/2020")
+          end
         
           scenario "Wydanie numeru" do
             visit "/issues"
             click_link ("3")
             expect(page).to have_content("Wydaj numer")
             click_link("Wydaj numer")          
-            click_link("Opublikowane numery rocznika")
-            expect(page).to have_content(3)
-            click_link(3)
-            expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")
+            expect(page).to have_content("3/2020 [OPUBLIKOWANY]")
           end
           context "wydany numer" do
             before do
               Issue.first.update_attributes(published: true)
             end
+            scenario "Pojawienie się numeru na liście wydanych numerów" do
+              visit "/submissions"
+              expect(page).to have_css("li a",text: "3/2020")
+          end
             scenario "Wyświetl wydany numer jako niezalogowany użytkownik" do
-              visit "/issues"
+              visit "/public_issues"
               click_link("Wyloguj")
-              click_link("Numery rocznika")
+              click_link("Numery")
               click_link("3")
-              expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")             
+              expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")    
+              expect(page).to have_css("li a",text: "3/2020")         
             end    
           end         
         end      

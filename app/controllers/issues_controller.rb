@@ -1,6 +1,5 @@
 class IssuesController < ApplicationController
-  before_action :admin_required, except: [:published, :show]
-  helper_method :admin?,
+  before_action :admin_required
 
   def index
     @query_params = params[:q] || {}
@@ -9,9 +8,6 @@ class IssuesController < ApplicationController
     @issues = @query.result(distinct: true)
   end
   
-  def published
-    @issues = Issue.where(published: true)
-  end
   
   def publish
      @issue = Issue.find(params[:issue_id])
@@ -60,9 +56,6 @@ class IssuesController < ApplicationController
 
   def show
     @issue = Issue.find(params[:id])
-    if @issue.published?  
-      render :show_published 
-    end
   end
 
   private
