@@ -66,7 +66,7 @@ class Submission < ActiveRecord::Base
     if self.issue
       issue.title
     else
-      "[BRAK PRZYNALEŻNOŚCI DO NUMERU]"
+      "[BRAK NUMERU]"
     end
   end
 
@@ -95,6 +95,10 @@ class Submission < ActiveRecord::Base
     self.article_revisions.flat_map do |revision|
       revision.reviews
     end
+  end
+
+  def last_revision
+    self.article_revisions.order(:created_at).last
   end
 
   private
