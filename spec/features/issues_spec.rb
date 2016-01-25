@@ -66,10 +66,12 @@ feature "zarządzanie numerami" do
           fill_in "Otrzymano", with: "12-01-2016"
           fill_in "Tytuł", with: "próbny tytuł"
           fill_in "Title", with: "trial"
+          fill_in "Abstract", with: "trial abstract"
+          fill_in "Key words", with: "trial key words"
         end
         click_button 'Utwórz'
 
-        visit "/submissions"
+        visit "/issues"
         click_link ("3")
 
         expect(page).to have_content("próbny tytuł")
