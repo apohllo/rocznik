@@ -44,9 +44,6 @@ class ReviewsController < ApplicationController
         flash[:error] = 'Niepoprawne wywołanie'
         redirect_to submissions_path
       end
-    elsif @review.errors
-      redirect_to params[:from]
-      return
     else
       @from = params[:from]
       render :new
