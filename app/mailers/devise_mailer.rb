@@ -1,4 +1,4 @@
 class DeviseMailer < Devise::Mailer
-    include DefaultUrlOptions
+  include DefaultUrlOptions
 
 end

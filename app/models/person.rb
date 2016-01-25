@@ -1,13 +1,18 @@
 class Person < ActiveRecord::Base
+
   ROLE_MAP = {
     "autor" => "A",
     "redaktor" => "E",
     "recenzent" => "R"
   }
+
   SEX_MAPPING = {
     "kobieta" => "K",
     "mężczyzna" => "M"
   }
+
+  mount_uploader :photo, PhotoUploader
+
   validates :name, presence: true
   validates :surname, presence: true
   validates :email, presence: true
