@@ -12,8 +12,8 @@
 # It's strongly recommended that you check this file into your version control system.
 
 <<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160120092743) do
->>>>>>> 6f734d6137c2fe815173b9062ed16d309f68756f
+ActiveRecord::Schema.define(version: 20160120155321) do
+>>>>>>> 25ff57202ffd6d42caac2e2a38ea943f283b5e43
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 20160120092743) do
     t.datetime "updated_at",              null: false
     t.text     "roles",      default: [], null: false, array: true
     t.string   "sex"
+    t.text     "competence"
     t.string   "photo"
   end
 
