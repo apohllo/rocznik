@@ -37,24 +37,22 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    if params[:article_revision_id]
-      article_revision = ArticleRevision.find(params[:article_revision_id])
-      @review.article_revision = article_revision
-      if @review.errors[:person]
-        flash[:error] = "#{@review.errors.full_message("#{@review.person.surname}", 'ma taką samą afiliację jak jeden z autorów!')}"
-        redirect_to article_revision.submission
-        return
-      elsif @review.save
-        redirect_to article_revision.submission
+    if @review.save
+      if params[:from]
+        redirect_to params[:from]
       else
         flash[:error] = 'Niepoprawne wywołanie'
         redirect_to submissions_path
       end
+    elsif @review.errors
+      redirect_to params[:from]
+      return
     else
       @from = params[:from]
       render :new
     end
   end
+
 
   def edit
     @review = Review.find(params[:id])
