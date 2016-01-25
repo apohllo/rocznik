@@ -25,9 +25,7 @@ class Submission < ActiveRecord::Base
   MAX_LENGTH = 80
 
   def title
-    if !self.polish_title.blank?
-      cut_text(self.polish_title)
-    elsif !self.english_title.blank?
+    if !self.english_title.blank?
       cut_text(self.english_title)
     else
       "[BRAK TYTUŁU]"
@@ -35,9 +33,7 @@ class Submission < ActiveRecord::Base
   end
 
   def abstract
-    if !self.polish_abstract.blank?
-      self.polish_abstract
-    elsif !self.english_abstract.blank?
+    if !self.english_abstract.blank?
       self.english_abstract
     else
       "[BRAK STRESZCZENIA]"
@@ -45,9 +41,7 @@ class Submission < ActiveRecord::Base
   end
 
   def keywords
-    if !self.polish_keywords.blank?
-      self.polish_keywords
-    elsif !self.english_keywords.blank?
+    if !self.english_keywords.blank?
       self.english_keywords
     else
       "[BRAK SŁÓW KLUCZOWYCH]"
