@@ -98,6 +98,18 @@ feature "zarządzanie numerami" do
         expect(page).not_to have_css(".has-error")
         expect(page).not_to have_content("Wybierz artykuły do wydania")
       end
+
+      scenario "Sprawdzenie czy nie da sie utworzyć rocznika z roku mniejszego niż 2000" do
+        visit '/issues/new'
+
+        within("#new_issue") do
+          fill_in "Numer", with: 2
+          fill_in "Rok", with: 1999
+        end
+        click_button 'Utwórz'
+
+        expect(page).to have_css(".has-error")
+      end
     end
   end
 end

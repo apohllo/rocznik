@@ -1,5 +1,5 @@
 class Issue < ActiveRecord::Base
-  validates :year, presence: true, numericality: true
+  validates :year, presence: true, :numericality => {:greater_than => 2000}
   validates :volume, presence: true, numericality: true
 
   has_many :submissions
