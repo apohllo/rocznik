@@ -4,6 +4,8 @@ class Issue < ActiveRecord::Base
 
   has_many :submissions
   has_many :articles
+  
+  scope :published, -> { where(published: true) }
 
   def title
     "#{self.volume}\/#{self.year}"
@@ -15,10 +17,6 @@ class Issue < ActiveRecord::Base
   
   def publish
     self.update_attributes(published: true)
-  end
-  
-  def published
-    Issue.where(published: true)
   end
 
   def prepare_to_publish(ids)

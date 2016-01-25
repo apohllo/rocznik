@@ -96,15 +96,15 @@ feature "zarządzanie numerami" do
           end
           
           scenario "brak numeru na liście wydanych numerów" do
-              visit "/submissions"
-              expect(page).not_to have_css("li a",text: "3/2020")
+            visit "/submissions"
+            expect(page).not_to have_css("li a",text: "3/2020")
           end
         
           scenario "Wydanie numeru" do
             visit "/issues"
             click_link ("3")
             expect(page).to have_content("Wydaj numer")
-            click_link("Wydaj numer")          
+            click_link("Wydaj numer")    
             expect(page).to have_content("3/2020 [OPUBLIKOWANY]")
           end
           context "wydany numer" do
@@ -114,7 +114,7 @@ feature "zarządzanie numerami" do
             scenario "Pojawienie się numeru na liście wydanych numerów" do
               visit "/submissions"
               expect(page).to have_css("li a",text: "3/2020")
-          end
+            end
             scenario "Wyświetl wydany numer jako niezalogowany użytkownik" do
               visit "/public_issues"
               click_link("Wyloguj")

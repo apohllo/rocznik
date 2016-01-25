@@ -1,7 +1,7 @@
 .scroll-panel-header
   -unless @issue.published?
     - if @issue.prepared?
-      = link_to "Wydaj numer", issue_publish_path(@issue), class: %w{btn btn-default btn-sm pull-right}
+      = link_to "Wydaj numer", publish_issue_path(@issue), class: %w{btn btn-default btn-sm pull-right}, method: :patch
     - else
       = link_to "Przygotuj do wydania", prepare_form_issue_path(@issue), class: ['btn btn-default btn-sm pull-right', ('disabled' unless @issue.submissions_ready?)]
   = link_to "Numery rocznika", issues_path, class: %w{btn btn-default btn-sm pull-right}

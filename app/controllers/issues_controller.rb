@@ -10,9 +10,9 @@ class IssuesController < ApplicationController
   
   
   def publish
-     @issue = Issue.find(params[:issue_id])
-     @issue.publish
-     redirect_to @issue
+    @issue = Issue.find(params[:id])
+    @issue.publish
+    redirect_to @issue
   end
 
   def new

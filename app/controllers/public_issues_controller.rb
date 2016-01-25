@@ -1,7 +1,7 @@
 class PublicIssuesController < ApplicationController
   
   def index
-    @issues = Issue.where(published: true)
+    @issues = Issue.published
   end
 
   def show
