@@ -69,7 +69,7 @@ feature "zarządzanie numerami" do
         end
         click_button 'Utwórz'
 
-        visit "/issues"
+        visit "/submissions"
         click_link ("3")
 
         expect(page).to have_content("próbny tytuł")
