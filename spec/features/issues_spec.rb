@@ -77,22 +77,11 @@ feature "zarządzanie numerami" do
         expect(page).to have_content("próbny tytuł")
       end
 
-      scenario "Przygotowanie numeru do wydania" do
-        visit '/submissions/new'
-
-        within("#new_submission") do
-          select "przyjęty", from: "Status"
-          select "polski", from: "Język"
-          select "3/2020", from: "Nr wydania"
-          fill_in "Otrzymano", with: "12-01-2016"
-          fill_in "Tytuł", with: "Zaakceptowany tytuł"
-          fill_in "Title", with: "Accepted title"
-          fill_in "Abstract", with: "Abstract"
-          fill_in "Key words", with: "Key words"
+      context "z jednym zaakceptowanym zgłoszeniem" do
         before do
           Submission.create!(status:'przyjęty', language:"polski", issue: Issue.first, polish_title: "Zaakceptowany tytuł", received: "2016-01-17")
         end
-        
+       
         scenario "Przygotowanie numeru do wydania" do
           visit "/issues"
 
