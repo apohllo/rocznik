@@ -84,6 +84,9 @@ feature "recenzowanie" do
 
         click_on "Deadline"
         expect(page).to have_content(/16-01-2017.*10-12-2016/)
+
+        click_on "Deadline"
+        expect(page).to have_content(/10-12-2016.*16-01-2017/)
       end
     end
   end
