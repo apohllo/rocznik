@@ -13,7 +13,7 @@ feature "zarządzanie osobami" do
       fill_in 'Adres e-mail', with: email
       fill_in 'Hasło', with: password
     end
-    click_button 'Log in'
+    click_button 'Zaloguj się'
   end
 
   context "dobre hasło" do
