@@ -26,7 +26,7 @@ class Submission < ActiveRecord::Base
 
   def title
     if !self.polish_title.blank?
--      cut_text(self.polish_title)
+      cut_text(self.polish_title)
     elsif !self.english_title.blank?
       cut_text(self.english_title)
     else

@@ -9,9 +9,9 @@
   %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Sekcja 'Finansowanie' jest przeznaczona do umieszczenia informacji kto finansował badania opublikowane w artykule."}
   = f.input :funding, label: "Finansowanie"
   = f.input :remarks, label: "Uwagi edytora"
-  = f.input :polish_title, label: "Tytuł", label_method: :title
+  = f.input :polish_title, label: "Tytuł"
   %h3 Język angielski
-  = f.input :english_title, label: "Title", label_method: :title
+  = f.input :english_title, label: "Title"
   = f.input :english_abstract, label: "Abstract"
   = f.input :english_keywords, label: "Key words"
   - label = @submission.new_record? ? "Utwórz" : "Zapisz"

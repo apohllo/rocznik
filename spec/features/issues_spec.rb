@@ -50,7 +50,7 @@ feature "zarządzanie numerami" do
 
       scenario "wyświetlenie szczegółów numeru" do
         visit "/issues"
-        click_link("3")
+        click_link "3"
 
         expect(page).to have_content("Numer 3/2020")
         expect(page).to have_link("Przygotuj do wydania")
@@ -72,7 +72,7 @@ feature "zarządzanie numerami" do
         click_button 'Utwórz'
 
         visit "/issues"
-        click_link ("3")
+        click_link "3"
 
         expect(page).to have_content("próbny tytuł")
       end
@@ -89,20 +89,61 @@ feature "zarządzanie numerami" do
           fill_in "Title", with: "Accepted title"
           fill_in "Abstract", with: "Abstract"
           fill_in "Key words", with: "Key words"
+        before do
+          Submission.create!(status:'przyjęty', language:"polski", issue: Issue.first, polish_title: "Zaakceptowany tytuł", received: "2016-01-17")
         end
-        click_button 'Utwórz'
+        
+        scenario "Przygotowanie numeru do wydania" do
+          visit "/issues"
 
-        visit "/issues"
-        click_link ("3")
+          click_link "3"
+          click_link "Przygotuj do wydania"
+          expect(page).to have_content("Wybierz artykuły")
 
-        click_link("Przygotuj do wydania")
-        expect(page).to have_content("Wybierz artykuły")
+          check 'Zaakceptowany tytuł'
+          click_button 'Przygotuj numer do wydania'
+          expect(page).not_to have_css(".has-error")
+          expect(page).not_to have_content("Wybierz artykuły do wydania")
+        end
 
-        check('Zaakceptowany tytuł')
-        click_button 'Przygotuj numer do wydania'
+        context "przygotowany do wydania" do
+          before do
+            Issue.first.update_attributes(prepared: true)
+            Article.create!(issue: Issue.first, submission:Submission.first)
+          end
 
-        expect(page).not_to have_css(".has-error")
-        expect(page).not_to have_content("Wybierz artykuły do wydania")
+          scenario "brak numeru na liście wydanych numerów" do
+            visit "/submissions"
+            expect(page).not_to have_css("li a",text: "3/2020")
+          end
+
+          scenario "Wydanie numeru" do
+            visit "/issues"
+            click_link "3"
+            expect(page).to have_content("Wydaj numer")
+
+            click_link "Wydaj numer"
+            expect(page).to have_content("3/2020 [OPUBLIKOWANY]")
+          end
+          context "wydany numer" do
+            before do
+              Issue.first.update_attributes(published: true)
+            end
+            scenario "Pojawienie się numeru na liście wydanych numerów" do
+              visit "/submissions"
+              expect(page).to have_css("li a",text: "3/2020")
+            end
+            scenario "Wyświetl wydany numer jako niezalogowany użytkownik" do
+              visit "/public_issues"
+
+              click_link "Wyloguj"
+              click_link "Numery"
+              click_link "3"
+              expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")
+              expect(page).to have_css("li a",text: "3/2020")
+            end
+          end
+        end
       end
 
       scenario "Sprawdzenie czy nie da sie utworzyć rocznika z roku mniejszego niż 2000" do

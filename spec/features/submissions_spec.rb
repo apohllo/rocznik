@@ -11,11 +11,11 @@ feature "zgloszenia" do
 
       expect(page).to have_css(".btn", text: "Nowe zgłoszenie")
     end
-	
+
     scenario "sprawdzenie czy przenosi do strony submission/new" do
       visit '/submissions/'
       click_on('Nowe zgłoszenie')
-      
+
       expect(page).to have_css(".form-group")
     end
 
@@ -40,7 +40,7 @@ feature "zgloszenia" do
           select "3/2020", from: "Nr wydania"
         end
         click_button("Utwórz")
-    
+
         expect(page).not_to have_css(".has-error")
         expect(page).to have_content("Testowy tytuł zgłoszenia")
       end
@@ -54,10 +54,10 @@ feature "zgloszenia" do
             and something", english_abstract: "Super lecture", english_keywords: "desert",
             received: "19-01-2016", language: "polski", issue: Issue.last)	
         end
-      
+
         scenario "filtrowanie zgłoszeń po statusie" do
           visit "/submissions"
-        
+
           select "odrzucony", from: "Status"
           click_on("Filtruj")
 
@@ -68,14 +68,14 @@ feature "zgloszenia" do
         scenario "filtrowanie zgłoszeń po numerze rocznika" do
           visit "/submissions"
 
-        	 select "3/2020", from: "Numer rocznika"
-        	 click_on("Filtruj")
- 
-        	 expect(page).to have_content("Alicja w krainie czarów")
-        	 expect(page).not_to have_content("W pustyni i w puszczy")
+          select "3/2020", from: "Numer rocznika"
+          click_on("Filtruj")
+
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).not_to have_content("W pustyni i w puszczy")
         end
       end
-      
+
       context "brak autora w bazie danych" do
         before do
           person = Person.create!(name: "Andrzej", surname: "Kapusta",
@@ -90,7 +90,7 @@ feature "zgloszenia" do
           click_on("Bukiet kotów")
           click_on("Dodaj autora")
           click_button("Dodaj")
-    
+
           expect(page).to have_css(".has-error")
         end
       end
