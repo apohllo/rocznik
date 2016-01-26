@@ -85,6 +85,7 @@
         %th Recenzent
         %th Zapytanie
         %th Dealine
+        %th Wiadomość
         %th Status
         %th
     %tbody
@@ -94,6 +95,7 @@
           %td= link_to review.reviewer, review.person
           %td= review.asked.strftime("%d-%m-%Y")
           %td= review.deadline.strftime("%d-%m-%Y")
+          %td{style: "text-align:center;"}= link_to image_tag("/assets/send_icon.png", size: "22x22")
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= link_to review.status, edit_review_path(review)
           %td.text-right
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")

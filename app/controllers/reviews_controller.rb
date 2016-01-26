@@ -69,6 +69,13 @@ class ReviewsController < ApplicationController
     redirect_to review.submission
   end
 
+  def review_request
+    review = Review.find(params[:id])
+    ReviewMailer.review_request(review).deliver
+    redirect_to review.submission
+  end
+
+
   private
   def review_params
     params.require(:review).permit(:person_id,:status,:asked,:deadline,:remarks,:content,:article_revision_id)
