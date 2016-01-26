@@ -4,7 +4,7 @@ feature "zarządzanie numerami" do
   scenario "zarządzanie numerami bez uprawnień" do
     visit '/issues'
 
-    expect(page).to have_content 'Log in'
+    expect(page).to have_content 'Zaloguj się'
   end
 
   context "po zalogowaniu" do

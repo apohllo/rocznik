@@ -4,7 +4,7 @@ feature "zarządzanie osobami" do
   scenario "zarządzanie osobami bez uprawnień" do
     visit '/people'
 
-    expect(page).to have_content 'Log in'
+    expect(page).to have_content 'Zaloguj się'
   end
 
   context "po zalogowaniu" do
