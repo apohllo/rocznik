@@ -79,13 +79,14 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
-    devise (3.5.4)
+    devise (3.5.5)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise-i18n-views (0.3.7)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     excon (0.45.4)
@@ -262,7 +263,7 @@ GEM
     overcommit (0.30.0)
       childprocess (~> 0.5.6)
       iniparse (~> 1.4)
-    parser (2.3.0.1)
+    parser (2.3.0.2)
       ast (~> 2.2)
     pg (0.18.4)
     pg_array_parser (0.0.9)
@@ -295,7 +296,7 @@ GEM
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-html-sanitizer (1.0.2)
+    rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
     rails4-autocomplete (1.1.1)
       rails (>= 3.0)
@@ -304,7 +305,7 @@ GEM
       activesupport (= 4.2.1)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rainbow (2.0.0)
+    rainbow (2.1.0)
     rake (10.5.0)
     ransack (1.7.0)
       actionpack (>= 3.0)
@@ -360,7 +361,7 @@ GEM
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
-    simple_form_ransack (0.0.11)
+    simple_form_ransack (0.0.13)
       rails (>= 4.0.0)
     spring (1.6.2)
     sprockets (3.5.2)
@@ -436,6 +437,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.1.0)
   devise
+  devise-i18n-views
   haml
   jbuilder (~> 2.0)
   jquery-rails

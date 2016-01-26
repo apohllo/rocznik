@@ -4,6 +4,7 @@
 .scroll-panel-body
   = simple_search_form_for @query, @query_params do |f|
     = f.input :surname_start, label: "Nazwisko"
+    = f.input :competence_cont, label: "Kompetencje"
     = f.input :roles_array_contains, label: "Rola", collection: Person::ROLE_MAP.keys, include_blank: true
     = f.submit "Filtruj", class: %w{btn btn-default btn-sm}
   %table.table.table-hover.table-admin

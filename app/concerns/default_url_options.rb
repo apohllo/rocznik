@@ -4,8 +4,8 @@ module DefaultUrlOptions
 
   def default_url_options
     {
-    :host => host,
-    :port => port
+    host: host,
+    port: port
     }
   end
 

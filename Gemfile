@@ -24,6 +24,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'haml'
 gem 'storytime', '~> 2.0.0'
 gem 'devise'
+gem 'devise-i18n-views'
 gem 'rails4-autocomplete'
 gem 'ransack'
 gem 'simple_form_ransack'

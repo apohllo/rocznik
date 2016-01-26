@@ -12,3 +12,13 @@ Style/IndentationConsistency:
   Enabled: true
 Style/IndentationWidth:
   Enabled: true
+Style/HashSyntax:
+  Enabled: true
+Lint/AmbiguousRegexpLiteral:
+  Enabled: true
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: true
+Lint/UselessAssignment:
+  Enabled: true
+Style/AlignArray:
+  Enabled: true
