@@ -11,11 +11,11 @@ feature "zgloszenia" do
 
       expect(page).to have_css(".btn", text: "Nowe zgłoszenie")
     end
-	
+
     scenario "sprawdzenie czy przenosi do strony submission/new" do
       visit '/submissions/'
       click_on('Nowe zgłoszenie')
-      
+
       expect(page).to have_css(".form-group")
     end
 
@@ -42,24 +42,24 @@ feature "zgloszenia" do
           select "3/2020", from: "Nr wydania"
         end
         click_button("Utwórz")
-    
+
         expect(page).not_to have_css(".has-error")
         expect(page).to have_content("Testowy tytuł zgłoszenia")
       end
 
       context "2 zgłoszenia w bazie danych" do
         before do
-          Submission.create!(person_id: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów", english_title: "Alice 
+          Submission.create!(person_id: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów", english_title: "Alice
             in Wonderland", polish_abstract: "Słów parę o tej bajce", english_abstract: "Little about that story", polish_keywords: "alicja",
             received: "19-01-2016", language: "polski", issue: Issue.first)
-          Submission.create!(person_id: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy", english_title: "Desert 
+          Submission.create!(person_id: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy", english_title: "Desert
             and something", polish_abstract: "Porywająca lektura", english_abstract: "Super lecture", polish_keywords: "pustynia",
-            received: "19-01-2016", language: "polski", issue: Issue.last)	
+            received: "19-01-2016", language: "polski", issue: Issue.last)
         end
-      
+
         scenario "filtrowanie zgłoszeń po statusie" do
           visit "/submissions"
-        
+
           select "odrzucony", from: "Status"
           click_on("Filtruj")
 
@@ -70,14 +70,14 @@ feature "zgloszenia" do
         scenario "filtrowanie zgłoszeń po numerze rocznika" do
           visit "/submissions"
 
-        	 select "3/2020", from: "Numer rocznika"
-        	 click_on("Filtruj")
- 
-        	 expect(page).to have_content("Alicja w krainie czarów")
-        	 expect(page).not_to have_content("W pustyni i w puszczy")
+          select "3/2020", from: "Numer rocznika"
+          click_on("Filtruj")
+
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).not_to have_content("W pustyni i w puszczy")
         end
       end
-      
+
       context "brak autora w bazie danych" do
         before do
           person = Person.create!(name: "Andrzej", surname: "Kapusta",
@@ -92,8 +92,28 @@ feature "zgloszenia" do
           click_on("Bukiet kotów")
           click_on("Dodaj autora")
           click_button("Dodaj")
-    
+
           expect(page).to have_css(".has-error")
+        end
+      end
+      context "2 zgłoszenia w bazie danych" do
+        before do
+          Submission.create!(person_id: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów", english_title: "Alice 
+            in Wonderland", polish_abstract: "Słów parę o tej bajce", english_abstract: "Little about that story", polish_keywords: "alicja",
+            received: "19-01-2016", language: "polski")
+          Submission.create!(person_id: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy", english_title: "Desert 
+            and something", polish_abstract: "Porywająca lektura", english_abstract: "Super lecture", polish_keywords: "pustynia",
+            received: "11-01-2016", language: "polski")	
+        end
+      
+        scenario "filtrowanie zgłoszeń po statusie" do
+          visit "/submissions"
+        
+          fill_in "Data początkowa", with: "19/1/2016"
+          click_on("Filtruj")
+ 
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).not_to have_content("W pustyni i w puszczy")
         end
       end
     end

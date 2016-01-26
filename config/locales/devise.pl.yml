@@ -1,0 +1,65 @@
+pl:
+  activerecord:
+    attributes:
+      user:
+        current_password: Aktualne hasło
+        email: Adres e-mail
+        password: Hasło
+        password_confirmation: Potwierdzenie hasła
+        remember_me: Zapamiętaj mnie
+    models:
+      user: Użytkownik
+  devise:
+    confirmations:
+      confirmed: "Twój adres email został potwierdzony."
+      send_instructions: "W ciągu kilku minut otrzymasz maila z informacją jak potwierdzić hasło."
+      send_paranoid_instructions: "Jeśli Twój adres email znajduje się w naszej bazie danych, otrzymasz maila z informacją jak go potwierdzić."
+    failure:
+      already_authenticated: "Jesteś już zalogowany."
+      inactive: "Twoje konto nie jest aktywne."
+      invalid: "Niewłaściwy %{authentication_keys} lub hasło."
+      locked: "Twoje konto jest zablokowane."
+      last_attempt: "Masz jeszcze jedną próbę, zanim Twoje konto zostanie zablokowane."
+      not_found_in_database: "Niewłaściwy %{authentication_keys} lub hasło."
+      timeout: "Sesja wygasła. Zaloguj się ponownie, aby kontynuować."
+      unauthenticated: "Zaloguj się lub zarejestruj aby kontynuować."
+      unconfirmed: "Potwierdź swój adres email, aby kontynuować."
+    mailer:
+      confirmation_instructions:
+        subject: "Instrukcje potwierdzające"
+      reset_password_instructions:
+        subject: "Instrukcje resetujące hasło"
+      unlock_instructions:
+        subject: "Instrukcje odblokowywania"
+    passwords:
+      no_token: "Nie możesz mieć dostępu do tej strony bez resetu hasła. Jeśli użyjesz linku resetującego przesłanego mailem, upewnij się że skopiowałeś cały link."
+      send_instructions: "W ciągu kilku minut otrzymasz e-mail informujący jak zresetować hasło."
+      send_paranoid_instructions: "Jeśli Twój adres e-mail znajduje się w naszej bazie danych, otrzymasz na niego link umożliwiający reset hasła."
+      updated: "Twoje hasło zostało pomyślnie zmienione. Jesteś zalogowany."
+      updated_not_active: "Twoje hasło zostało pomyślnie zmienione."
+    registrations:
+      destroyed: "Żegnaj! Twoje konto zostało pomyślnie usunięte. Do zobaczenia!"
+      signed_up: "Witaj! Zostałeś/aś pomyślnie zarejestrowany/a."
+      signed_up_but_inactive: "Rejestracja przebiegła pomyślnie. Na razie nie możesz się zalogować, ponieważ Twoje konto nie jest jeszcze aktywne."
+      signed_up_but_locked: "Rejestracja przebiegła pomyślnie. Na razie nie możesz się zalogować, ponieważ Twoje konto zostało zablokowane."
+      signed_up_but_unconfirmed: "Wiadomość z linkiem potwierdzającym została wysłana na Twój adres email. Kliknij w link, aby aktywować konto."
+      update_needs_confirmation: "Twoje dane zostały zmienione, musimy zweryfikować Twój nowy adres email. Sprawdź skrzynkę mailową i kliknij w otrzymany link, aby potwierdzić nowy adres email."
+      updated: "Twoje dane zostały pomyślnie zmienione."
+    sessions:
+      signed_in: "Zostałeś/aś pomyślnie zalogowany/a."
+      signed_out: "Zostałeś/aś pomyślnie wylogowany/a."
+      already_signed_out: "Zostałeś już wylogowany/a."
+    unlocks:
+      send_instructions: "W ciągu kilku minut otrzymasz mail z instrukcjami, jak odblokować konto."
+      send_paranoid_instructions: "Jeśli Twoje konto istnieje, w ciągu kilku minut otrzymasz mail z instrukcjami, jak je odblokować."
+      unlocked: "Twoje konto zostało odblokowane. Zaloguj się, aby kontynuować."
+  errors:
+    messages:
+      already_confirmed: "Zostało już potwierdzone. Spróbuj się zalogować."
+      expired: "wygasło, spróbuj ponownie"
+      not_found: "Nie znaleziono"
+      not_locked: "Nie było zablokowane"
+      not_saved:
+        one: "1 błąd %{resource} pojawił się podczas zapisywania:"
+        other: "%{count} błędów pojawiło się %{resource} podczas zapisywania:"
+
