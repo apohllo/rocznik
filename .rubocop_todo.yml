@@ -6,26 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-Lint/AmbiguousRegexpLiteral:
-  Exclude:
-    - 'spec/features/reviews_spec.rb'
-
-# Offense count: 2
-Lint/ParenthesesAsGroupedExpression:
-  Exclude:
-    - 'spec/features/issues_spec.rb'
-
-# Offense count: 1
-Lint/UselessAccessModifier:
-  Exclude:
-    - 'app/controllers/storytime_admin/countries_controller.rb'
-
-# Offense count: 2
-Lint/UselessAssignment:
-  Exclude:
-    - 'spec/features/reviews_spec.rb'
-
 # Offense count: 5
 Metrics/AbcSize:
   Max: 40
@@ -53,12 +33,6 @@ Metrics/PerceivedComplexity:
 Style/AccessorMethodName:
   Exclude:
     - 'db/migrate/20150423175928_add_title_and_content_index_to_storytime_post.storytime.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/AlignArray:
-  Exclude:
-    - 'spec/features/reviews_spec.rb'
 
 # Offense count: 13
 # Cop supports --auto-correct.
@@ -179,13 +153,6 @@ Style/ExtraSpacing:
 Style/GuardClause:
   Exclude:
     - 'app/models/person.rb'
-
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, UseHashRocketsWithSymbolValues.
-# SupportedStyles: ruby19, ruby19_no_mixed_keys, hash_rockets
-Style/HashSyntax:
-  Enabled: false
 
 # Offense count: 3
 # Cop supports --auto-correct.

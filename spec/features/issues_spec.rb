@@ -50,7 +50,7 @@ feature "zarządzanie numerami" do
 
       scenario "wyświetlenie szczegółów numeru" do
         visit "/issues"
-        click_link("3")
+        click_link "3"
 
         expect(page).to have_content("Numer 3/2020")
         expect(page).to have_link("Przygotuj do wydania")
@@ -69,7 +69,7 @@ feature "zarządzanie numerami" do
         click_button 'Utwórz'
 
         visit "/issues"
-        click_link ("3")
+        click_link "3"
 
         expect(page).to have_content("próbny tytuł")
       end
@@ -79,12 +79,13 @@ feature "zarządzanie numerami" do
         end
         scenario "Przygotowanie numeru do wydania" do
           visit "/issues"
-          click_link ("3")
-          click_link("Przygotuj do wydania")
-          expect(page).to have_content("Wybierz artykuły")
-          check('Zaakceptowany tytuł')
-          click_button 'Przygotuj numer do wydania'
 
+          click_link "3"
+          click_link "Przygotuj do wydania"
+          expect(page).to have_content("Wybierz artykuły")
+
+          check 'Zaakceptowany tytuł'
+          click_button 'Przygotuj numer do wydania'
           expect(page).not_to have_css(".has-error")
           expect(page).not_to have_content("Wybierz artykuły do wydania")
         end
@@ -102,9 +103,10 @@ feature "zarządzanie numerami" do
 
           scenario "Wydanie numeru" do
             visit "/issues"
-            click_link ("3")
+            click_link "3"
             expect(page).to have_content("Wydaj numer")
-            click_link("Wydaj numer")
+
+            click_link "Wydaj numer"
             expect(page).to have_content("3/2020 [OPUBLIKOWANY]")
           end
           context "wydany numer" do
@@ -117,9 +119,10 @@ feature "zarządzanie numerami" do
             end
             scenario "Wyświetl wydany numer jako niezalogowany użytkownik" do
               visit "/public_issues"
-              click_link("Wyloguj")
-              click_link("Numery")
-              click_link("3")
+
+              click_link "Wyloguj"
+              click_link "Numery"
+              click_link "3"
               expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")
               expect(page).to have_css("li a",text: "3/2020")
             end

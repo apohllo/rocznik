@@ -4,7 +4,7 @@ class Issue < ActiveRecord::Base
 
   has_many :submissions
   has_many :articles
-  
+
   scope :published, -> { where(published: true) }
 
   def title
@@ -14,7 +14,7 @@ class Issue < ActiveRecord::Base
   def submissions_ready?
     !self.submissions.accepted.empty?
   end
-  
+
   def publish
     self.update_attributes(published: true)
   end
@@ -32,6 +32,16 @@ class Issue < ActiveRecord::Base
       true
     rescue
       false
+    end
+  end
+
+  def status
+    if self.published?
+      "Opublikowany"
+    elsif self.prepared?
+      "Do publikacji"
+    else
+      ""
     end
   end
 end
