@@ -71,7 +71,7 @@
               = link_to revision.file_name, revision.article.url
             - else
               = revision.file_name
-          %td= revision.received.strftime("%d-%m-%Y")
+          %td= revision.received_date
           %td= revision.pages
           %td= revision.pictures
           %td.text-right
