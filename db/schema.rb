@@ -11,9 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160120155321) do
->>>>>>> 25ff57202ffd6d42caac2e2a38ea943f283b5e43
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,8 +123,8 @@ ActiveRecord::Schema.define(version: 20160120155321) do
     t.datetime "updated_at",              null: false
     t.text     "roles",      default: [], null: false, array: true
     t.string   "sex"
-    t.text     "competence"
     t.string   "photo"
+    t.text     "competence"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
@@ -339,20 +337,6 @@ ActiveRecord::Schema.define(version: 20160120155321) do
 
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
-
-  create_table "user_infos", force: :cascade do |t|
-    t.string   "name"
-    t.string   "surname"
-    t.string   "email"
-    t.string   "password"
-    t.string   "password_confirmation"
-    t.string   "sex"
-    t.string   "academic_degree"
-    t.string   "knowledge"
-    t.string   "status"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
