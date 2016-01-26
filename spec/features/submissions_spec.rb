@@ -96,6 +96,26 @@ feature "zgloszenia" do
           expect(page).to have_css(".has-error")
         end
       end
+      context "2 zgłoszenia w bazie danych" do
+        before do
+          Submission.create!(person_id: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów", english_title: "Alice 
+            in Wonderland", polish_abstract: "Słów parę o tej bajce", english_abstract: "Little about that story", polish_keywords: "alicja",
+            received: "19-01-2016", language: "polski")
+          Submission.create!(person_id: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy", english_title: "Desert 
+            and something", polish_abstract: "Porywająca lektura", english_abstract: "Super lecture", polish_keywords: "pustynia",
+            received: "11-01-2016", language: "polski")	
+        end
+      
+        scenario "filtrowanie zgłoszeń po statusie" do
+          visit "/submissions"
+        
+          fill_in "Data początkowa", with: "19/1/2016"
+          click_on("Filtruj")
+ 
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).not_to have_content("W pustyni i w puszczy")
+        end
+      end
     end
   end
 end
