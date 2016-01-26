@@ -29,4 +29,13 @@ class Review < ActiveRecord::Base
   def submission
     self.article_revision.submission
   end
+  
+  def deadline_date
+    if self.deadline
+      self.deadline.strftime("%d-%m-%Y")
+    else
+      "[BRAK DEADLINE'u]"
+    end
+  end
+  
 end

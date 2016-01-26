@@ -102,7 +102,19 @@ class Submission < ActiveRecord::Base
   end
   
   def last_review
-    self.last_revision.reviews.order(:deadline).last
+    if self.last_revision
+      self.last_revision.reviews.order(:deadline).last
+    else
+      nil
+    end
+  end
+  
+  def last_deadline
+    if self.last_review
+      self.last_review.deadline_date
+    else
+      "[BRAK DEADLINE'u]"
+    end
   end
   
   private
