@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :admin?
+  before_action :admin_required
 
   def index
     @query_params = params[:q] || {}
@@ -40,6 +40,6 @@ class PeopleController < ApplicationController
 
   private
   def person_params
-    params.require(:person).permit(:name,:surname,:degree,:email,:discipline,roles: [])
+    params.require(:person).permit(:name,:surname,:degree,:email,:sex,:discipline,:photo,:competence,roles: [])
   end
 end
