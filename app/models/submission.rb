@@ -96,6 +96,10 @@ class Submission < ActiveRecord::Base
       revision.reviews
     end
   end
+  
+  def authors_institutions
+    self.authorships.flat_map{|e| e.person.current_institutions }.uniq
+  end
 
   def last_revision
     self.article_revisions.order(:created_at).last
