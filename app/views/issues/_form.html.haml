@@ -1,5 +1,0 @@
-= simple_form_for @issue do |f|
-  = f.input :volume, label: "Numer"
-  = f.input :year, label: "Rok"
-  - label = @issue.new_record? ? "Utwórz" : "Zapisz"
-  = f.submit label, class: %w{btn btn-primary btn-outline}
