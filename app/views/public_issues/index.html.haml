@@ -1,0 +1,15 @@
+.scroll-panel-header
+  %h3.scroll-panel-title Numery rocznika
+.scroll-panel-body
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Numer
+        %th Rok
+        %th Liczba artykułów
+    %tbody
+      - @issues.each do |issue|
+        %tr.table-row-link{"data-url" => public_issue_path(issue) }
+          %td= link_to issue.volume, public_issue_path(issue)
+          %td= issue.year
+          %td= issue.articles.count

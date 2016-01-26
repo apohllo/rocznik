@@ -66,7 +66,7 @@ class Submission < ActiveRecord::Base
     if self.issue
       issue.title
     else
-      "[BRAK PRZYNALEŻNOŚCI DO NUMERU]"
+      "[BRAK NUMERU]"
     end
   end
 

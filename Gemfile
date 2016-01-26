@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 # Use postgresql as the database for Active Record
@@ -27,8 +26,8 @@ gem 'storytime', '~> 2.0.0'
 gem 'devise'
 gem 'rails4-autocomplete'
 gem 'ransack'
-gem 'simple_form_ransack', git: "https://github.com/kaspernj/simple_form_ransack.git"
-gem "postgres_ext"
+gem 'simple_form_ransack'
+gem 'postgres_ext'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -50,5 +49,6 @@ group :development, :test do
   gem 'spring'
   gem 'capybara'
   gem 'rspec-rails', '~> 3.0'
-  gem 'filterrific'  
+  gem 'rubocop', require: false
+  gem 'overcommit'
 end

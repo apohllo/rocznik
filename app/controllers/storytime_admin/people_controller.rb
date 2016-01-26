@@ -3,7 +3,7 @@ module StorytimeAdmin
     # Set active navigation link
     set_tab :admin, :people
 
-  private
+    private
     ##########################################
     ### Customize permitted_params
     ##########################################

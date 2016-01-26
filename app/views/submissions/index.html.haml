@@ -10,7 +10,7 @@
   %table.table.table-hover.table-admin
     %thead
       %tr
-        %th Nr wydania
+        %th Numer
         %th Tytuł
         %th Autor korespondujący
         %th Redaktor
@@ -20,7 +20,7 @@
     %tbody
       - @submissions.each do |submission|
         %tr.table-row-link
-          %td= submission.issue_id
+          %td= submission.issue_title
           %td= link_to submission.title, submission
           %td
             - if submission.author
