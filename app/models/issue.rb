@@ -6,6 +6,7 @@ class Issue < ActiveRecord::Base
   has_many :articles
 
   scope :published, -> { where(published: true) }
+  scope :latest, -> { order("volume desc") }
 
   def title
     "#{self.volume}\/#{self.year}"
