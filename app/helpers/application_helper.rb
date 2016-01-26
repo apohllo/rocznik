@@ -7,10 +7,14 @@ module ApplicationHelper
   end
 
   def active?(url)
-    if request_uri.gsub(%r{/+},"") == url.gsub(%r{/+},"")
+    if URI.parse(request_uri).path == URI.parse(url).path
       "active"
     else
       ""
     end
+  end
+
+  def acronym(short,long)
+    raw("<acronym title='#{long}'>#{short}</acronym>")
   end
 end
