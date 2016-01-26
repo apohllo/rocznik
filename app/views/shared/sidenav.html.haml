@@ -1,2 +1,5 @@
 %ul.nav.navbar-sidebar.nav-pills.nav-stacked
-  %li{:class => active?("")}= link_to "Strona główna", "/"
+  %li{:class => active?(root_path)}= link_to "Strona główna", root_path
+  %li{:class => active?(public_issues_path)}= link_to "Numery", public_issues_path
+  - Issue.published.each do |issue|
+    %li{:class => active?(public_issue_path(issue))}= link_to issue.title, public_issue_path(issue)
