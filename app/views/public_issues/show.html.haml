@@ -1,0 +1,9 @@
+.scroll-panel-header
+  %h3.scroll-panel-title
+    Numer
+    = @issue.title
+.scroll-panel-body
+  %h3 Artykuły
+  %ul
+    - @issue.articles.each do |article|
+      %li= article.authors_and_title

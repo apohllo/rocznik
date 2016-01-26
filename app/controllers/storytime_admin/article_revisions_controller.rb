@@ -3,7 +3,7 @@ module StorytimeAdmin
     # Set active navigation link
     set_tab :admin, :article_revisions
 
-  private
+    private
     ##########################################
     ### Customize permitted_params
     ##########################################
