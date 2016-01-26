@@ -12,3 +12,6 @@
 !/log/.keep
 /tmp
 db/dumps
+*~
+public/uploads
+.*sw?

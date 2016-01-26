@@ -1,5 +1,7 @@
 # Rocznik Kognitywistyczny - system wspierający pracę redakcji
 
+[![Build Status](https://travis-ci.org/apohllo/rocznik.svg?branch=master)](https://travis-ci.org/apohllo/rocznik)
+
 Aplikacja bazuje na Ruby on Rails oraz module Storytime i wykorzystywana
 jest na stronie http://rocznik.kognitywistyka.eu Jest to system zgłaszania
 artykułów do czasopisma "Rocznik Kognitywistyczny".
@@ -28,4 +30,35 @@ Szkolnictwa Wyższego.
 * Sylwia Kapela (sylviacapella)
 * Agnieszka Rączka (ARaczka)
 * Marta Zięba (mzet94)
-
+* Katarzyna Persona (katt94)
+* Patryk Olczyk (patrykolczyk)
+* Krzysztofa Raputa (kraputa)
+* Marcin Kulawik (MarcinKulawik94)
+* Karolina Piekarz (Karolaa)
+* Julia Pukalska (julkapuk)
+* Jakub Korzycki (korzy)
+* Dorota Kuśmierz (chibika)
+* Andrzej Maleszewski (korowadlo)
+* Damian Kałwa (dkalwa)
+* Agnieszka Karolczyk (ecolla)
+* Klara Nartowska (hakuna18)
+* Łukasz Krawczyk (lukikrk)
+* Justyna Rząca (cary1014)
+* Barbara Masiulaniec (mbasik)
+* Magdalena Goryl(Medz333)
+* Joanna Jaworska (jaworska)
+* Dagmara Bator (dzikichomik)
+* Anna Bogusz (anbo222)
+* Adrianna Drak (drianka)
+* Robert Głód (robson3999)
+* Paulina Beck (Rudziszcze91)
+* Paulina Ziarko (rosablomma)
+* Maja Chłodnicka (MajaCh)
+* Joanna Byszuk (JoannaBy)
+* Dmytro Beskrestnov (dmitrijbes)
+* Adrianna Bielicz (Liczanna)
+* Aleksndra Bassara (olabas)
+* Barbara Sapielak (gadi-promienna)
+* Anna Szczepańczyk (Anaasz)
+* Filip Papierzyński (katemplujacy)
+* Aleksandra Filipek (olkaf123)
