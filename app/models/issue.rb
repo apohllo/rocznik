@@ -1,6 +1,6 @@
 class Issue < ActiveRecord::Base
   validates :year, presence: true, numericality: {greater_than: 2000}
-  validates :volume, presence: true, numericality: true
+  validates :volume, presence: true, numericality: true, uniqueness: true
 
   has_many :submissions
   has_many :articles
