@@ -88,23 +88,23 @@ feature "zarządzanie numerami" do
           expect(page).not_to have_css(".has-error")
           expect(page).not_to have_content("Wybierz artykuły do wydania")
         end
-        
+
         context "przygotowany do wydania" do
           before do
             Issue.first.update_attributes(prepared: true)
             Article.create!(issue: Issue.first, submission:Submission.first)
           end
-          
+
           scenario "brak numeru na liście wydanych numerów" do
             visit "/submissions"
             expect(page).not_to have_css("li a",text: "3/2020")
           end
-        
+
           scenario "Wydanie numeru" do
             visit "/issues"
             click_link ("3")
             expect(page).to have_content("Wydaj numer")
-            click_link("Wydaj numer")    
+            click_link("Wydaj numer")
             expect(page).to have_content("3/2020 [OPUBLIKOWANY]")
           end
           context "wydany numer" do
@@ -120,11 +120,11 @@ feature "zarządzanie numerami" do
               click_link("Wyloguj")
               click_link("Numery")
               click_link("3")
-              expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")    
-              expect(page).to have_css("li a",text: "3/2020")         
-            end    
-          end         
-        end      
+              expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")
+              expect(page).to have_css("li a",text: "3/2020")
+            end
+          end
+        end
       end
 
       scenario "Sprawdzenie czy nie da sie utworzyć rocznika z roku mniejszego niż 2000" do
