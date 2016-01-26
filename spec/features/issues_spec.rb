@@ -121,10 +121,8 @@ feature "zarządzanie numerami" do
               visit "/public_issues"
 
               click_link "Wyloguj"
-              click_link "Numery"
-              click_link "3"
+              click_link "3/2020"
               expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")
-              expect(page).to have_css("li a",text: "3/2020")
             end
           end
         end
