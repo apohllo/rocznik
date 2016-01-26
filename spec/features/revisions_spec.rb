@@ -10,7 +10,7 @@ feature "zarządzanie recenzjami" do
       before do
         author = Person.create!(name: "Dominika", surname: "Skoczeń", email: "d@o2.pl", discipline: "informatyka", sex: "kobieta")
         editor = Person.create!(name: "Piotr", surname: "Szysz", email: "p@o2.pl", discipline: "matematyka", sex: "mężczyzna")
-        reviewer = Person.create!(name: "Anna", surname: "Salceson", email: "a@o2.pl", discipline: "polonistyka", sex: "kobieta")
+        reviewer = Person.create!(name: "Anna", surname: "Salceson", email: "a@o2.pl", discipline: "polonistyka", sex: "kobieta", roles: ["recenzent"])
         country = Country.create!(name: "Polska")
         uj = Institution.create!(name: "Uniwersytet Jagielloński", country: country)
         pw = Institution.create!(name: "Politechnika Wrocławska", country: country)
@@ -27,13 +27,13 @@ feature "zarządzanie recenzjami" do
         visit '/submissions'
         
         click_link("Wielki Bęben")
-        click_button 'Dodaj recenzenta'
+        click_link 'Dodaj recenzenta'
         within("#new_review") do
             select "Salceson, Anna,", from: "Recenzent"
             select "wysłane zapytanie", from: "Status"
             fill_in "Zapytanie wysłano", with: "01-01-2016"
             fill_in "Deadline", with: "05-03-2016"
-            fill_in "Bla bla bla", with: "Uwagi"
+            fill_in "Uwagi", with: "Bardzo mądra uwaga"
           end
           click_button 'Dodaj'
           expect(page).to have_content("Anna Salceson")
@@ -43,13 +43,13 @@ feature "zarządzanie recenzjami" do
         visit '/submissions'
         
         click_link("Wielki Bęben")
-        click_button 'Dodaj recenzenta'
+        click_link 'Dodaj recenzenta'
         within("#new_review") do
             select "Salceson, Anna,", from: "Recenzent"
             select "wysłane zapytanie", from: "Status"
             fill_in "Zapytanie wysłano", with: "01/01/2016"
             fill_in "Deadline", with: "05/03/2016"
-            fill_in "Bla bla bla", with: "Uwagi"
+            fill_in "Uwagi", with: "Bardzo mądra uwaga"
           end
           click_button 'Dodaj'
           expect(page).not_to have_css(".has-error")
