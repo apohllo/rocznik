@@ -27,6 +27,21 @@ class Person < ActiveRecord::Base
     "#{self.degree} #{self.name} #{self.surname}"
   end
 
+def salutation
+ if Person.methods.include?('sex') 
+    then
+         if(self.sex == "K") 
+        then salutation = "Pani"
+        elsif (self.sex == "M") 
+        then salutation = "Panie"
+        else salutation = "Użytkowniku"
+        end
+      else salutation = "użytkowniku"
+    end
+    
+  end
+
+
   def reverse_full_name
     "#{self.surname}, #{self.name}, #{self.degree}"
   end
