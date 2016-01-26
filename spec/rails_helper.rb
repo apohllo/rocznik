@@ -1,3 +1,4 @@
+# encoding: utf-8
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -66,6 +67,6 @@ RSpec.shared_context "admin login" do
       fill_in 'Adres e-mail', with: email
       fill_in 'Hasło', with: password
     end
-    click_button 'Log in'
+    click_button 'Zaloguj się'
   end
 end

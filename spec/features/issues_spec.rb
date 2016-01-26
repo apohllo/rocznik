@@ -4,7 +4,7 @@ feature "zarządzanie numerami" do
   scenario "zarządzanie numerami bez uprawnień" do
     visit '/issues'
 
-    expect(page).to have_content 'Log in'
+    expect(page).to have_content 'Zaloguj się'
   end
 
   context "po zalogowaniu" do
@@ -54,6 +54,13 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_content("Numer 3/2020")
         expect(page).to have_link("Przygotuj do wydania")
+      end
+
+      scenario "dostępność edycji numeru" do
+        visit "/issues"
+        click_link "3"
+
+        expect(page).to have_link("Edytuj")
       end
 
       scenario "dodawanie zgłoszenia z istniejącym numerem i sprawdzenie zgłoszenia w numerze" do
@@ -137,6 +144,26 @@ feature "zarządzanie numerami" do
         end
         click_button 'Utwórz'
 
+        expect(page).to have_css(".has-error")
+      end
+      
+      scenario "Sprawdzenie, czy da sie utworzyc rocznik z nieunikalnym numerem" do
+        visit '/issues/new'
+
+        within("#new_issue") do
+          fill_in "Numer", with: 1
+          fill_in "Rok", with: 2001
+        end
+        click_button "Utwórz"
+        
+        visit '/issues/new'
+        
+        within("#new_issue") do
+          fill_in "Numer", with: 1
+          fill_in "Rok", with: 2001
+        end
+        click_button "Utwórz"
+        
         expect(page).to have_css(".has-error")
       end
     end
