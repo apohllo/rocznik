@@ -35,8 +35,8 @@ feature "zarządzanie recenzjami" do
             fill_in "Deadline", with: "05-03-2016"
             fill_in "Uwagi", with: "Bardzo mądra uwaga"
           end
-          click_button 'Dodaj'
-          expect(page).to have_content("Anna Salceson")
+        click_button 'Dodaj'
+        expect(page).to have_content("Anna Salceson")
       end
     
       scenario "Dodawanie recenzenta o innej afiliacji niż autor" do
@@ -51,8 +51,8 @@ feature "zarządzanie recenzjami" do
             fill_in "Deadline", with: "05/03/2016"
             fill_in "Uwagi", with: "Bardzo mądra uwaga"
           end
-          click_button 'Dodaj'
-          expect(page).not_to have_css(".has-error")
+        click_button 'Dodaj'
+        expect(page).not_to have_css(".has-error")
       end
     end
   end
