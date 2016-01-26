@@ -13,6 +13,7 @@ class Review < ActiveRecord::Base
   validates :article_revision_id, presence: true
   validates :status, presence: true
   validates :asked, presence: true
+  validates :deadline, presence: true
   validate :authors_reviewer_shared_institutions
 
   def title

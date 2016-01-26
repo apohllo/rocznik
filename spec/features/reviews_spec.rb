@@ -77,6 +77,14 @@ feature "recenzowanie" do
         expect(page).to have_content("16-01-2017")
         expect(page).not_to have_content("10-12-2016")
       end
+      
+      scenario "dodawanie recenzji bez deadlinu" do
+        visit "/reviews"
+        
+        Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "",
+                       person: person_1, article_revision: article_revision_1)
+        expect(page).to have_css(".has-error")
+      end
 
       scenario "sortowanie recenzji wzgledem deadlinu" do
         visit "/reviews"
