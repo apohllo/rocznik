@@ -77,8 +77,10 @@ feature "zarządzanie osobami" do
 
     context "z dwoma osobami w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
-        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com", discipline: "psychologia", competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
+                       discipline: "filozofia", competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
+        Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com",
+                       discipline: "psychologia", competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
       end
 
       scenario "wyszukanie osoby" do
