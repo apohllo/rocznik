@@ -100,7 +100,11 @@ class Submission < ActiveRecord::Base
   def last_revision
     self.article_revisions.order(:created_at).last
   end
-
+  
+  def last_review
+    self.last_revision.reviews.order(:deadline).last
+  end
+  
   private
   def cut_text(text)
     if text.size > MAX_LENGTH

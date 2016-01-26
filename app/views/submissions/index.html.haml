@@ -15,6 +15,7 @@
         %th Autor korespondujący
         %th Redaktor
         %th Data nadesłania
+        %th Deadline recenzji
         %th Status
         %th
     %tbody
@@ -33,6 +34,7 @@
             - else
               = submission.editor
           %td= submission.received.strftime("%d-%m-%Y")
+          %td= submission.last_review.deadline.strftime("%d-%m-%Y")
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
           %td.text-right
             = destroy_button(submission,"Czy na pewno chcesz usunąć to zgłoszenie")
