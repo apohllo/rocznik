@@ -139,6 +139,26 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_css(".has-error")
       end
+      
+      scenario "Sprawdzenie, czy da sie utworzyc rocznik z nieunikalnym numerem" do
+        visit '/issues/new'
+
+        within("#new_issue") do
+          fill_in "Numer", with: 1
+          fill_in "Rok", with: 2001
+        end
+        click_button "Utwórz"
+        
+        visit '/issues/new'
+        
+        within("#new_issue") do
+          fill_in "Numer", with: 1
+          fill_in "Rok", with: 2001
+        end
+        click_button "Utwórz"
+        
+        expect(page).to have_css(".has-error")
+      end
     end
   end
 end
