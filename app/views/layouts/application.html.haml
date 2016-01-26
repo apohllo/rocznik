@@ -12,9 +12,8 @@
         .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"}
           #sidebar.col-sm-4.col-md-3.sidebar-offcanvas{:role => "navigation"}
             = render file: "shared/sidenav"
-          .col-md-9.col-sm-9.main
+          .col-md-9.col-sm-8.main
             = yield
-      .container
         %footer
           %p
             %a{:href => "http://validator.w3.org/check?uri=http%3A%2F%2Frocznik.kognitywistyka.eu%2F"}
