@@ -17,7 +17,6 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-
   %li{:class => active?(public_issues_path)}= link_to "Numery", public_issues_path
   - Issue.published.each do |issue|
     %li{:class => active?(public_issue_path(issue))}= link_to issue.title, public_issue_path(issue)
