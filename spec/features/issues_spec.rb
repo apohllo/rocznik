@@ -72,6 +72,9 @@ feature "zarządzanie numerami" do
           select "3/2020", from: "Nr wydania"
           fill_in "Otrzymano", with: "12-01-2016"
           fill_in "Tytuł", with: "próbny tytuł"
+          fill_in "Title", with: "trial"
+          fill_in "Abstract", with: "trial abstract"
+          fill_in "Key words", with: "trial key words"
         end
         click_button 'Utwórz'
 
@@ -80,10 +83,12 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_content("próbny tytuł")
       end
+
       context "z jednym zaakceptowanym zgłoszeniem" do
         before do
           Submission.create!(status:'przyjęty', language:"polski", issue: Issue.first, polish_title: "Zaakceptowany tytuł", received: "2016-01-17")
         end
+       
         scenario "Przygotowanie numeru do wydania" do
           visit "/issues"
 
