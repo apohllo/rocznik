@@ -23,4 +23,17 @@ class ArticleRevision < ActiveRecord::Base
       "[BRAK PLIKU]"
     end
   end
+  
+  def authors_institutions
+    self.submission.authors_institutions
+  end
+  
+  def received_date
+    if self.received
+      self.received.strftime("%d-%m-%Y")
+    else
+      "[DATA NIEZNANA]"
+    end
+  end
+  
 end

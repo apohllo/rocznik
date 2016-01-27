@@ -1,2 +1,21 @@
 %ul.nav.navbar-sidebar.nav-pills.nav-stacked
-  %li{:class => active?("")}= link_to "Strona główna", "/"
+  %li{:class => active?("")}
+    = link_to "Strona główna", "/"
+  %li{:class => active?(public_issues_path)}= link_to "Numery", public_issues_path
+  - Issue.published.each do |issue|
+    %li{:class => active?(public_issue_path(issue))}= link_to issue.title, public_issue_path(issue)
+.sm-buttons.icon-bar.vertical
+  .fb-like{"data-action" => "like", "data-href" => "https://www.facebook.com/Rocznik-Kognitywistyczny-213997978935029/", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "true", "data-width" => "300"}
+  .twitter-like
+    %a.twitter-follow-button{"data-show-count" => "false", "data-size" => "small", :href => "https://twitter.com/RocznikKog"} Follow @RocznikKog
+  :javascript
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
+  :javascript
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.5";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));

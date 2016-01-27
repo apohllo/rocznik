@@ -7,6 +7,13 @@ class IssuesController < ApplicationController
     @query.sorts = ['year desc','volume desc'] if @query.sorts.empty?
     @issues = @query.result(distinct: true)
   end
+  
+  
+  def publish
+    @issue = Issue.find(params[:id])
+    @issue.publish
+    redirect_to @issue
+  end
 
   def new
     @issue = Issue.new

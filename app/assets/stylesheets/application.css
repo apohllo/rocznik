@@ -106,3 +106,6 @@ input[type=file].file.form-control {
 	margin-right:6px;
 	margin-top:2px; 
 }
+.fb-like, .twitter-like, .sm-buttons{
+    padding-top: 5%;
+}

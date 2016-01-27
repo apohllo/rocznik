@@ -7,7 +7,7 @@ module ApplicationHelper
   end
 
   def active?(url)
-    if request_uri.gsub(%r{/+},"") == url.gsub(%r{/+},"")
+    if URI.parse(request_uri).path == URI.parse(url).path
       "active"
     else
       ""

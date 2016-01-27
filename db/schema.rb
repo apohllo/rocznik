@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120092743) do
+ActiveRecord::Schema.define(version: 20160125222143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20160120092743) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.boolean  "prepared",   default: false
+    t.boolean  "published",  default: false
   end
 
   create_table "people", force: :cascade do |t|
@@ -124,6 +125,7 @@ ActiveRecord::Schema.define(version: 20160120092743) do
     t.text     "roles",      default: [], null: false, array: true
     t.string   "sex"
     t.string   "photo"
+    t.text     "competence"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
@@ -320,9 +322,7 @@ ActiveRecord::Schema.define(version: 20160120092743) do
     t.string   "status"
     t.string   "polish_title"
     t.string   "english_title"
-    t.text     "polish_abstract"
     t.text     "english_abstract"
-    t.string   "polish_keywords"
     t.string   "english_keywords"
     t.text     "remarks"
     t.text     "funding"
