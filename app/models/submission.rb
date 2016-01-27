@@ -11,8 +11,9 @@ class Submission < ActiveRecord::Base
   validates :language, presence: true, inclusion: [POLISH, ENGLISH]
   validates :received, presence: true
   validates :polish_title, presence: true, if: -> (r){ r.language == POLISH}
-  validates :english_title, presence: true, if: -> (r){ r.language == ENGLISH}
-
+  validates :english_title, presence: true
+  validates :english_abstract, presence: true
+  validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
   has_one :article
@@ -34,9 +35,7 @@ class Submission < ActiveRecord::Base
   end
 
   def abstract
-    if !self.polish_abstract.blank?
-      self.polish_abstract
-    elsif !self.english_abstract.blank?
+    if !self.english_abstract.blank?
       self.english_abstract
     else
       "[BRAK STRESZCZENIA]"
@@ -44,9 +43,7 @@ class Submission < ActiveRecord::Base
   end
 
   def keywords
-    if !self.polish_keywords.blank?
-      self.polish_keywords
-    elsif !self.english_keywords.blank?
+    if !self.english_keywords.blank?
       self.english_keywords
     else
       "[BRAK SŁÓW KLUCZOWYCH]"
