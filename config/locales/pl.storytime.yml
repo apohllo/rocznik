@@ -1,0 +1,140 @@
+pl:
+  common:
+    are_you_sure_you_want_to_delete: "Czy na pewno chcesz usunąć %{resource_name}?"
+
+  flash:
+    admin:
+      create:
+        success: "%{resource_name} pomyślnie utworzone."
+      update:
+        success: "%{resource_name} pomyślnie zaktualizowane."
+    blogs:
+      destroy:
+        success: "Blog usunięty pomyślnie."
+    comments:
+      create:
+        success: "Pomyślnie dodano komentarz."
+      update:
+        success: "Pomyślnie zmieniono komentarz."
+    posts:
+      create:
+        success: "Pomyślnie utworzono wpis."
+      update:
+        success: "Pomyślnie uaktualniono wpis."
+      destroy:
+        success: "Pomyślnie usunięto wpis."
+    sites:
+      create:
+        success: "Pomyślnie utworzono stronę."
+      update:
+        success: "Pomyślnie uaktualniono stronę."
+      destroy:
+        success: "Pomyślnie usunięto stronę."
+    snippets:
+      create:
+        success: "Pomyślnie utworzono snippet."
+      update:
+        success: "Pomyślnie zaktualizowano snippet."
+      destroy:
+        success: "Pomyślnie usunięto snippet."
+    subscriptions:
+      create:
+        success: "Subskrypcja została utworzona."
+        fail: "Nie można było utworzyć subskrypcji."
+      update:
+        success: "Subskrypcja pomyślnie uaktualniona."
+      destroy:
+        success: "Twoje dane zostały usunięte z listy subskrypcji."
+        fail: "Nie można było usunąć twoich danych z listy subskrypcji."
+    users:
+      create:
+        success: "Pomyślnie utworzono użytkownika."
+      update:
+        success: "Pomyślnie uaktualniono użytkownika."
+    roles:
+      update:
+        success: "Pomyślnie uaktualniono uprawnienia."
+    navigations:
+      destroy:
+        success: "Pomyślnie usunięto nawigację."
+
+  simple_form:
+    labels:
+      site:
+        post_slug_style: "Post URL Style"
+        ga_tracking_id: "Google Analytics Tracking ID"
+      comment:
+        content: "Skomentuj zawartość"
+      user:
+        storytime_name: "Nazwa"
+
+  footer:
+    attribute: 'Stworzone przez <a href="http://www.github.com/FlyoverWorks/storytime" target="_blank">Storytime</a>.'
+
+  dashboard:
+    admin:
+      unconfigured_model: "Próbujesz dostać się do strony modelu, który nie został skonfigurowany w Storytime.."
+    sites:
+      new: "Ustaw swoją stronę."
+      root_post_id_label: "Strona domowa"
+      root_post_id_hint: "Wybierz stronę lub blog który wyświetlisz na ścieżce, gdzie zamontowane jest Storytime. Pozostaw puste, by użyć widok z aplikacji hosta."      
+      subscription_email_from_label: "Adres email, z którego wysyłane są subskrypcje"
+      edit: "Ustawienia strony"
+      basic_info: "Podstawowe informacje"
+      permissions: "Uprawnienia"
+      save_permissions: "Zapisz"
+      save_button: "Zapisz"
+      layout_hint: "Pozostaw puste, by używać domyślnego layoutu Storytime"
+      domain_hint: "Wpisz pełną domenę twojej strony(np. www.example.com)"
+    users:
+      users_header: "Użytkownicy"
+      create_new_user: "Nowy"
+      edit_user_button: "Edytuj"
+      edit_user_header: "Edytuj użytkowników"
+      email: "Email"
+      name: "Nazwa"
+      role: "Rola"
+      actions: "Akcje"
+    media:
+      media_header: "Media"
+      select_media: "Wybierz media"
+      select_media_by_url: "Poprzez URL:"
+      select_media_from_file: "Wybierz"
+    posts:
+      autosaves:
+        available: "Istnieje wersja %{resource} nowsza niż poniższa wersja."
+        view_autosave: "Zobacz autosave"
+      select_or_create: "Wybierz %{resource} do edycji"
+      create_post: "Stwórz"
+      additional_fields: "Dodatkowe pola"
+      advanced_settings: "Advanced Settings"
+      featured_images: "Występujące obrazy"
+      remove_image: "Usuń obraz"
+      new:
+        header: "Nowy %{resource}"
+    navigations:
+      create:
+        success: "Pomyślnie stworzono listę nawigacji."
+      update:
+        success: "Pomyślnie zmodyfikowano listę nawigacji."
+
+  layout:
+    title: "Storytime"
+    subscribe_to: "Zasubskrybuj %{site_name}"
+    subscribe_modal_msg: "Bądź na czasie z %{site_name} poprzez zarejestrowanie się do naszej listy mailingowej!"
+
+  pagination:
+    first: "<i class='fa fa-caret-left'></i><i class='fa fa-caret-left'></i>"
+    previous: "<i class='fa fa-caret-left'></i>"
+    next: "<i class='fa fa-caret-right'></i>"
+    last: "<i class='fa fa-caret-right'></i><i class='fa fa-caret-right'></i>"
+
+  storytime:
+    dashboard:
+      navigations:
+        index:
+          header: "Listy nawigacji"
+        new: 
+          header: "Nowa lista nawigacji"
+        edit:
+          header: "Edytuj listę nawigacji"
