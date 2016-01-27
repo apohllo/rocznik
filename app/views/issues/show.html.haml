@@ -1,9 +1,16 @@
 .scroll-panel-header
+  -unless @issue.published?
+    - if @issue.prepared?
+      = link_to "Wydaj numer", publish_issue_path(@issue), class: %w{btn btn-default btn-sm pull-right}, method: :patch
+    - else
+      = link_to "Przygotuj do wydania", prepare_form_issue_path(@issue), class: ['btn btn-default btn-sm pull-right', ('disabled' unless @issue.submissions_ready?)]
   = link_to "Numery rocznika", issues_path, class: %w{btn btn-default btn-sm pull-right}
   = link_to "Nowy numer", new_issue_path, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title
     Numer
     = @issue.title
+    = @issue.published? ? " [OPUBLIKOWANY]" : ""
+  = link_to "Edytuj", edit_issue_path(@issue), class: %w{btn btn-primary btn-sm}
 .scroll-panel-body
   %h3 Zgłoszone artykuły
   %table.table.table-hover.table-admin

@@ -11,4 +11,7 @@
 /log/*
 !/log/.keep
 /tmp
+*~
 public/uploads
+.*sw?
+.idea

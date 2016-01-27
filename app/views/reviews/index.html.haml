@@ -1,14 +1,21 @@
 .scroll-panel-header
   %h3.scroll-panel-title Recenzje
 .scroll-panel-body
+  = simple_search_form_for @query do |f|
+    = f.input :status_start, collection: Review::STATUS_MAPPING.keys, include_blank: true
+    = f.submit "Filtruj", class: %w{btn btn-default btn-sm}
+.scroll-panel-body
   %table.table.table-hover.table-admin
     %thead
       %tr
         %th Tytuł
         %th Recenzent
-        %th Data zapytania
-        %th Deadline
-        %th Status
+        %th
+          = sort_link(@query, :asked, "Data zapytania")
+        %th
+          = sort_link(@query, :deadline, "Deadline")
+        %th
+          = sort_link(@query, :status, "Status")
         %th
     %tbody
       - @reviews.each do |review|

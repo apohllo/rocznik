@@ -7,10 +7,14 @@
       %tr
         %th Numer
         %th Rok
+        %th Liczba zgłoszeń
         %th Liczba artykułów
+        %th Status
     %tbody
       - @issues.each do |issue|
         %tr.table-row-link{"data-url" => issue_path(issue) }
           %td= link_to issue.volume, issue
           %td= issue.year
           %td= issue.submissions.count
+          %td= issue.articles.count
+          %td= issue.status
