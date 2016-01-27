@@ -22,7 +22,20 @@
     %dd= @submission.received.strftime("%d-%m-%Y")
   %dl
     %dt Streszczenie
-    %dd= @submission.abstract
+    %dd#abstract
+      %div
+        = @submission.abstract
+        %div.more= @submission.abstract
+        :javascript
+          $().ready(function() {   
+            $('div.more').hide().
+              before('<a class="showMore" href="">Czytaj dalej &raquo;</a>').
+              prev().toggle(function() {
+                $(this).next().slideDown();
+              }, function() {
+                $(this).next().slideUp();
+              });   
+          });
   %dl
     %dt Słowa kluczowe
     %dd= @submission.keywords
