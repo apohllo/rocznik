@@ -86,9 +86,13 @@ feature "zarządzanie numerami" do
 
       context "z jednym zaakceptowanym zgłoszeniem" do
         before do
-          Submission.create!(status:'przyjęty', language:"polski", issue: Issue.first, polish_title: "Zaakceptowany tytuł", received: "2016-01-17")
+          Submission.create!(status:'przyjęty', language:"polski", issue:
+                             Issue.first, polish_title: "Zaakceptowany tytuł",
+                             english_title: "Accepted title", english_abstract:
+                             "Short abstract", english_keywords: "brain,
+                             language", received: "2016-01-17")
         end
-       
+
         scenario "Przygotowanie numeru do wydania" do
           visit "/issues"
 
@@ -151,7 +155,7 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_css(".has-error")
       end
-      
+
       scenario "Sprawdzenie, czy da sie utworzyc rocznik z nieunikalnym numerem" do
         visit '/issues/new'
 
@@ -160,15 +164,15 @@ feature "zarządzanie numerami" do
           fill_in "Rok", with: 2001
         end
         click_button "Utwórz"
-        
+
         visit '/issues/new'
-        
+
         within("#new_issue") do
           fill_in "Numer", with: 1
           fill_in "Rok", with: 2001
         end
         click_button "Utwórz"
-        
+
         expect(page).to have_css(".has-error")
       end
     end
