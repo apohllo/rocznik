@@ -109,3 +109,19 @@ input[type=file].file.form-control {
 .fb-like, .twitter-like, .sm-buttons{
     padding-top: 5%;
 }
+
+td.after_review {
+  background-color: #f7f89f;
+}
+
+td.author_correction {
+  background-color: #6edbb8;
+}
+
+td.editor_correction {
+  background-color: #6edadb;
+}
+
+td.published {
+  background-color: #6ade31;
+}
