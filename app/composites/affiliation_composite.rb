@@ -13,24 +13,10 @@ class AffiliationComposite
   def save
     @person = Person.find(@person_id)
     return false unless self.valid?
-    country = Country.where(name: @country).first
-    if country.nil?
-      country = Country.create!(name: @country)
-    end
-    institution = Institution.where(name: @institution).where(country_id: country.id).first
-    if institution.nil?
-      institution = Institution.create!(name: @institution,country_id: country.id)
-    end
-    department = Department.where(name: @department).where(institution_id: institution.id).first
-    if department.nil?
-      department = Department.create!(name: @department,institution_id: institution.id)
-    end
-    affiliation = Affiliation.new(year_from: @year_from, year_to: @year_to)
-    affiliation.person = @person
-    affiliation.department = department
-    affiliation.save!
-    true
-  rescue ActiveRecord::RecordInvalid
+    department = Department.register!(@department, @institution, @country)
+    Affiliation.create(year_from: @year_from, year_to: @year_to, department: department, person: person)
+  rescue ActiveRecord::RecordInvalid => ex
+    ex.record.errors.each{|a,e| self.errors.add(ex.record.class.name.dasherize.downcase,e) }
     false
   end
 end
