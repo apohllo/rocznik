@@ -16,12 +16,12 @@ feature "Artykuły" do
         editor = Person.create!(name: 'Adam', surname: 'Kapusta', email: 'a.kapusta@gmail.com', sex: 'mężczyzna',
                                 discipline: 'filozofia', roles: ['redaktor'])
         issue_1 = Issue.create!(year: 2001, volume: 1)
-        issue_2 = Issue.create!(year: 2002, volume: 2)
+        Issue.create!(year: 2002, volume: 2)
         submission = Submission.create!(polish_title: 'Wiemy wszystko', english_title: 'We know everything',
                                         english_abstract: 'Tak po prostu', english_keywords: 'knowledge',
                                         person: editor, issue: issue_1, language: 'polski', received: '28-01-2016',
                                         status: 'przyjęty')
-        article = Article.create!(submission: submission, issue: issue_1)
+        Article.create!(submission: submission, issue: issue_1)
       end
 
       scenario "Wyświetlanie artykułu" do
