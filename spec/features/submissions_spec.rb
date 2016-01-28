@@ -36,7 +36,7 @@ feature "zgloszenia" do
           fill_in "Key words", with: "englsh key words"
           select "Andrzej Kapusta", from: "Redaktor"
           select "nadesłany", from: "Status"
-          select "3/2020", from: "Nr wydania"
+          select "3/2020", from: "Numer"
         end
         click_button("Utwórz")
 

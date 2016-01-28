@@ -24,11 +24,11 @@ class Submission < ActiveRecord::Base
 
   MAX_LENGTH = 80
 
-  def title
+  def title(cut=true)
     if !self.polish_title.blank?
-      cut_text(self.polish_title)
+      cut_text(self.polish_title,cut)
     elsif !self.english_title.blank?
-      cut_text(self.english_title)
+      cut_text(self.english_title,cut)
     else
       "[BRAK TYTUŁU]"
     end
@@ -93,7 +93,7 @@ class Submission < ActiveRecord::Base
       revision.reviews
     end
   end
-  
+
   def authors_institutions
     self.authorships.flat_map{|e| e.person.current_institutions }.uniq
   end
@@ -103,8 +103,8 @@ class Submission < ActiveRecord::Base
   end
 
   private
-  def cut_text(text)
-    if text.size > MAX_LENGTH
+  def cut_text(text,cut)
+    if text.size > MAX_LENGTH && cut
       text[0...MAX_LENGTH] + "..."
     else
       text
