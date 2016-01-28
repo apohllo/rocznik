@@ -23,4 +23,9 @@ class Department < ActiveRecord::Base
     department = Department.create!(name: @department, institution: institution) if department.nil?
     department
   end
+
+  def self.for_autocomplete(term)
+    self.where("LOWER(departments.name) ILIKE ?",term+"%").order(:name).
+      select(:name).map{|d| {label: d.name, value: d.name } }.uniq
+  end
 end

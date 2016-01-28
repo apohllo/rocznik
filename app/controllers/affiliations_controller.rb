@@ -1,9 +1,5 @@
 class AffiliationsController < ApplicationController
-  before_action :admin_required, except:
-    [:autocomplete_institution_name,:autocomplete_country_name,:autocomplete_department_name]
-  autocomplete :country, :name
-  autocomplete :institution, :name
-  autocomplete :department, :name
+  before_action :admin_required, except: [:institution, :country, :department]
 
   def new
     @affiliation = AffiliationComposite.new
@@ -25,10 +21,16 @@ class AffiliationsController < ApplicationController
     redirect_to affiliation.person
   end
 
-  def autocomplete_department_name
-    departments = Department.where("LOWER(departments.name) ILIKE ?",params[:term]+"%").
-      order(:name).all.map(&:name).uniq
-    render json: departments.map{|name| {label: name, value: name } }
+  def institutions
+    render json: Institution.for_autocomplete(params[:term])
+  end
+
+  def departments
+    render json: Department.for_autocomplete(params[:term])
+  end
+
+  def countries
+    render json: Country.for_autocomplete(params[:term])
   end
 
   private

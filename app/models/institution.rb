@@ -15,4 +15,8 @@ class Institution < ActiveRecord::Base
     institution = Institution.create!(name: name, country: country) if institution.nil?
     institution
   end
+
+  def self.for_autocomplete(term)
+    self.where("LOWER(institutions.name) ILIKE ?",term+"%").order(:name).select(:name).map(&:name)
+  end
 end

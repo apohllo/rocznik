@@ -7,9 +7,9 @@
 .scroll-panel-body
   = simple_form_for @affiliation, url: affiliations_path do |f|
     = f.input :person_id, as: :hidden
-    = f.input :country, label: "Państwo", as: :string
-    = f.input :institution, label: "Instytucja"
-    = f.input :department, label: "Wydział/instytut"
+    = f.input :country, label: "Państwo", as: :autocomplete, source: countries_affiliations_path, input_html: { class: 'form-control' }
+    = f.input :institution, label: "Instytucja", as: :autocomplete, source: institutions_affiliations_path, input_html: { class: 'form-control' }
+    = f.input :department, label: "Wydział/instytut", as: :autocomplete, source: departments_affiliations_path, input_html: { class: 'form-control' }
     = f.input :year_from, label: "Rok od"
     = f.input :year_to, label: "Rok do"
     = f.submit "Dodaj", class: %w{btn btn-primary btn-outline}

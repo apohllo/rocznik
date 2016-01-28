@@ -8,4 +8,8 @@ class Country < ActiveRecord::Base
     country = Country.create!(name: name) if country.nil?
     country
   end
+
+  def self.for_autocomplete(term)
+    self.where("LOWER(countries.name) ILIKE ?",term+"%").order(:name).select(:name).map(&:name)
+  end
 end
