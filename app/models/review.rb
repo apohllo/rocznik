@@ -31,6 +31,14 @@ class Review < ActiveRecord::Base
     self.article_revision.submission
   end
   
+  def deadline_date
+    if self.deadline
+      self.deadline.strftime("%d-%m-%Y")
+    else
+      "[BRAK DEADLINE'u]"
+    end
+  end
+  
   def authors_reviewer_shared_institutions
     authors_institutions = self.article_revision.authors_institutions
     reviewer_institutions = self.person.current_institutions
@@ -39,4 +47,5 @@ class Review < ActiveRecord::Base
       errors.add(:person,"'#{person.full_name}' ma taką samą afiliację jak jeden z autorów.")
     end
   end
+
 end
