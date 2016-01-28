@@ -11,8 +11,9 @@ class Submission < ActiveRecord::Base
   validates :language, presence: true, inclusion: [POLISH, ENGLISH]
   validates :received, presence: true
   validates :polish_title, presence: true, if: -> (r){ r.language == POLISH}
-  validates :english_title, presence: true, if: -> (r){ r.language == ENGLISH}
-
+  validates :english_title, presence: true
+  validates :english_abstract, presence: true
+  validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
   has_one :article
@@ -23,20 +24,18 @@ class Submission < ActiveRecord::Base
 
   MAX_LENGTH = 80
 
-  def title
+  def title(cut=true)
     if !self.polish_title.blank?
-      cut_text(self.polish_title)
+      cut_text(self.polish_title,cut)
     elsif !self.english_title.blank?
-      cut_text(self.english_title)
+      cut_text(self.english_title,cut)
     else
       "[BRAK TYTUŁU]"
     end
   end
 
   def abstract
-    if !self.polish_abstract.blank?
-      self.polish_abstract
-    elsif !self.english_abstract.blank?
+    if !self.english_abstract.blank?
       self.english_abstract
     else
       "[BRAK STRESZCZENIA]"
@@ -44,9 +43,7 @@ class Submission < ActiveRecord::Base
   end
 
   def keywords
-    if !self.polish_keywords.blank?
-      self.polish_keywords
-    elsif !self.english_keywords.blank?
+    if !self.english_keywords.blank?
       self.english_keywords
     else
       "[BRAK SŁÓW KLUCZOWYCH]"
@@ -97,13 +94,33 @@ class Submission < ActiveRecord::Base
     end
   end
 
+  def authors_institutions
+    self.authorships.flat_map{|e| e.person.current_institutions }.uniq
+  end
+
   def last_revision
     self.article_revisions.order(:created_at).last
   end
-
+  
+  def last_review
+    if self.last_revision
+      self.last_revision.reviews.order(:deadline).last
+    else
+      nil
+    end
+  end
+  
+  def last_deadline
+    if self.last_review
+      self.last_review.deadline_date
+    else
+      "[BRAK DEADLINE'u]"
+    end
+  end
+  
   private
-  def cut_text(text)
-    if text.size > MAX_LENGTH
+  def cut_text(text,cut)
+    if text.size > MAX_LENGTH && cut
       text[0...MAX_LENGTH] + "..."
     else
       text
