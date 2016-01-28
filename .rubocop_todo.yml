@@ -14,12 +14,6 @@ Metrics/AbcSize:
 Metrics/CyclomaticComplexity:
   Max: 8
 
-# Offense count: 177
-# Configuration parameters: AllowHeredoc, AllowURI, URISchemes.
-# URISchemes: http, https
-Metrics/LineLength:
-  Max: 205
-
 # Offense count: 12
 # Configuration parameters: CountComments.
 Metrics/MethodLength:

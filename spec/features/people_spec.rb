@@ -53,7 +53,8 @@ feature "zarządzanie osobami" do
 
     context "z jedną osobą w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "mężczyzna")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex:
+                       "mężczyzna")
       end
 
       scenario "wyświetlenie szczegółów osoby" do

@@ -1,0 +1,15 @@
+.scroll-panel-header
+  %h3.scroll-panel-title Publikowane artykuły
+.scroll-panel-body
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Numer
+        %th Tytuł
+        %th Autorzy
+    %tbody
+      - @articles.each do |article|
+        %tr.table-row-link{"data-url" => article_path(article) }
+          %td= article.issue_title
+          %td= link_to article.title, article
+          %td= article.authors_inline
