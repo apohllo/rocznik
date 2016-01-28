@@ -43,20 +43,6 @@ feature "Artykuły" do
         expect(page).not_to have_css('.has-error')
         expect(page).to have_content("2/2002")
       end
-      
-      scenario "Przyjazny url bez polskich znaków" do
-        visit '/articles'
-        click_on 'Wiemy wszystko'
-
-        expect(page).to have_link(/\d+-wiemy-wszystko/)
-      end
-      
-      scenario "Przyjazny url z polskimi znakami" do
-        visit '/articles'
-        click_on 'Jerzozwież'
-
-        expect(page).to have_link(/\d+-jerzozwiez/)
-      end
     end
   end
 end
