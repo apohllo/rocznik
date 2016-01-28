@@ -21,7 +21,12 @@ feature "Artykuły" do
                                         english_abstract: 'Tak po prostu', english_keywords: 'knowledge',
                                         person: editor, issue: issue_1, language: 'polski', received: '28-01-2016',
                                         status: 'przyjęty')
-        Article.create!(submission: submission, issue: issue_1)
+        submission2 = Submission.create!(polish_title: 'Jerzozwież', english_title: 'Porcupine',
+                                        english_abstract: 'O jerzozwieżach', english_keywords: 'zwierzęta',
+                                        person: editor, issue: issue_1, language: 'polski', received: '28-01-2016',
+                                        status: 'przyjęty')
+        Article.create!(submission: submission, issue: issue_1, status: 'po recenzji')
+        Article.create!(submission: submission2, issue: issue_1, status: 'po recenzji')
       end
 
       scenario "Wyświetlanie artykułu" do
@@ -39,6 +44,20 @@ feature "Artykuły" do
 
         expect(page).not_to have_css('.has-error')
         expect(page).to have_content("2/2002")
+      end
+      
+      scenario "Przyjazny url bez polskich znaków" do
+        visit '/articles'
+        click_on 'Wiemy wszystko'
+
+        expect(page).to have_link(/\d+-wiemy-wszystko/)
+      end
+      
+      scenario "Przyjazny url z polskimi znakami" do
+        visit '/articles'
+        click_on 'Jerzozwież'
+
+        expect(page).to have_link(/\d+-jerzozwiez/)
       end
     end
   end
