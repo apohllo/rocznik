@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :authorships, only: [:new, :create, :destroy]
   resources :reviews
   resources :article_revisions, only: [:new, :create, :destroy]
+  resources :articles
 
   devise_for :users
   mount Storytime::Engine => "/"
