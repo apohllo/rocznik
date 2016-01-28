@@ -101,7 +101,23 @@ class Submission < ActiveRecord::Base
   def last_revision
     self.article_revisions.order(:created_at).last
   end
-
+  
+  def last_review
+    if self.last_revision
+      self.last_revision.reviews.order(:deadline).last
+    else
+      nil
+    end
+  end
+  
+  def last_deadline
+    if self.last_review
+      self.last_review.deadline_date
+    else
+      "[BRAK DEADLINE'u]"
+    end
+  end
+  
   private
   def cut_text(text,cut)
     if text.size > MAX_LENGTH && cut
