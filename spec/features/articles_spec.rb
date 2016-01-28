@@ -56,7 +56,7 @@ feature "Artykuły" do
       scenario "Przyjazny url z polskimi znakami" do
         visit '/articles'
         click_on 'Jerzozwież'
-
+        
         expect(page).to have_link(/\d+-jerzozwiez/)
       end
     end
