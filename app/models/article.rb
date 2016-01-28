@@ -1,7 +1,10 @@
 class Article < ActiveRecord::Base
   STATUS_MAPPING = {
-    "korekta redakcyjna" => :editor_correction, "korekta autorska" => :author_correction, "opublikowany" => :published
+    "korekta redakcyjna" => :editor_correction,
+    "korekta autorska" => :author_correction,
+    "opublikowany" => :published
   }
+  validates :status, presence: true, inclusion: STATUS_MAPPING.keys
   belongs_to :issue
   belongs_to :submission
 
