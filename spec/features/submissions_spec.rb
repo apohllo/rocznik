@@ -22,8 +22,13 @@ feature "zgloszenia" do
     context "redaktor w bazie danych" do
       before do
 <<<<<<< HEAD
+<<<<<<< HEAD
         Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
                        "mężczyzna", roles: ['redaktor'])
+=======
+        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email: "a.kapusa@gmail.com", sex:
+                       "mężczyzna", roles: ['redaktor', 'recenzent'])
+>>>>>>> 9cf3b9ba2f801f3954a5fd9a6b4fd9aeafb5c37f
 =======
         Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email: "a.kapusa@gmail.com", sex:
                        "mężczyzna", roles: ['redaktor', 'recenzent'])
