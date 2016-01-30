@@ -62,6 +62,15 @@ feature "Artykuły" do
         expect(page).not_to have_css('.has-error')
         expect(page).to have_content("korekta autorska")
       end
+      
+      scenario "filtrowanie artykułów po statusie" do
+        visit "/articles"
+        select "po recenzji", from: "Status"
+        click_on("Filtruj")
+
+        expect(page).to have_content("Wiemy wszystko")
+        expect(page).not_to have_content("Jerzozwież")
+ end
     end
   end
 end
