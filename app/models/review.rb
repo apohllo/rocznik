@@ -8,10 +8,9 @@ class Review < ActiveRecord::Base
   belongs_to :person
   belongs_to :article_revision
 
-  validates :status, inclusion: STATUS_MAPPING.keys
+  validates :status, inclusion: STATUS_MAPPING.keys, presence: true
   validates :person_id, presence: true
   validates :article_revision_id, presence: true
-  validates :status, presence: true
   validates :asked, presence: true
   validate :authors_reviewer_shared_institutions
 
@@ -30,7 +29,15 @@ class Review < ActiveRecord::Base
   def submission
     self.article_revision.submission
   end
-  
+
+  def deadline_date
+    if self.deadline
+      self.deadline.strftime("%d-%m-%Y")
+    else
+      "[BRAK DEADLINE'u]"
+    end
+  end
+
   def authors_reviewer_shared_institutions
     authors_institutions = self.article_revision.authors_institutions
     reviewer_institutions = self.person.current_institutions
@@ -39,4 +46,5 @@ class Review < ActiveRecord::Base
       errors.add(:person,"'#{person.full_name}' ma taką samą afiliację jak jeden z autorów.")
     end
   end
+
 end

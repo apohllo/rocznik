@@ -6,4 +6,6 @@
   %h3 Artykuły
   %ul
     - @issue.articles.each do |article|
-      %li= article.authors_and_title
+      %li
+        = article.authors_inline + "."
+        %i= article.title
