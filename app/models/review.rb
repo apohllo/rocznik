@@ -37,6 +37,10 @@ class Review < ActiveRecord::Base
       "[BRAK DEADLINE'u]"
     end
   end
+  
+  def missed_deadline
+    deadline.strftime("%Y-%m-%d") < Time.now.strftime("%Y-%m-%d") && status == "wysłane zapytanie"
+  end
 
   def authors_reviewer_shared_institutions
     authors_institutions = self.article_revision.authors_institutions
