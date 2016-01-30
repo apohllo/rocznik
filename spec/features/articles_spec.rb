@@ -14,7 +14,7 @@ feature "Artykuły" do
     context "Z artykułem" do
       before do
         editor = Person.create!(name: 'Adam', surname: 'Kapusta', email: 'a.kapusta@gmail.com', sex: 'mężczyzna',
-                                discipline: 'filozofia', roles: ['redaktor'])
+                                discipline: ['filozofia'], roles: ['redaktor'])
         issue_1 = Issue.create!(year: 2001, volume: 1)
         Issue.create!(year: 2002, volume: 2)
         submission = Submission.create!(polish_title: 'Wiemy wszystko', english_title: 'We know everything',
