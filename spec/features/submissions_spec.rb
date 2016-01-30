@@ -21,7 +21,7 @@ feature "zgloszenia" do
 
     context "redaktor w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email: "a.kapusa@gmail.com", sex:
+        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
                        "mężczyzna", roles: ['redaktor'])
         Issue.create!(volume: 3, year: 2020)
         Issue.create!(volume: 4, year: 2020)
