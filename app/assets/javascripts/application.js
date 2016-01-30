@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require autocomplete-rails
 //= require turbolinks
 //= require_tree .
 
@@ -53,3 +52,4 @@ $(document).ready(function() {
         return false;
     });
 });
+//= require simple_form_autocomplete
