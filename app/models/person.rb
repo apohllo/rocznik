@@ -47,14 +47,18 @@ class Person < ActiveRecord::Base
     "#{self.surname}, #{self.name}, #{self.degree}"
   end
 
+  def short_name
+    "#{self.name[0]}. #{self.surname}"
+  end
+
   def roles_inclusion
     invalid_role = self.roles.find{|r| !ROLE_MAP.keys.include?(r) }
     if invalid_role
       errors.add(:roles,"'#{invalid_role}' is a invalid role.")
     end
   end
-  
+
   def current_institutions
     self.affiliations.current.map{|e| e.institution}
-  end 
+  end
 end
