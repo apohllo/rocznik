@@ -9,4 +9,7 @@
   %dl
     %dt Numer
     %dd= @article.issue_title
+  %dl
+    %dt Status
+    %dd{class: "#{Article::STATUS_MAPPING[@article.status]}"}= @article.status
   = link_to "Edytuj", edit_article_path(@article), class: %w{btn btn-primary btn-sm}

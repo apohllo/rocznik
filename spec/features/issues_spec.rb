@@ -109,7 +109,7 @@ feature "zarządzanie numerami" do
         context "przygotowany do wydania" do
           before do
             Issue.first.update_attributes(prepared: true)
-            Article.create!(issue: Issue.first, submission:Submission.first)
+            Article.create!(issue: Issue.first, submission:Submission.first, status: 'po recenzji')
           end
 
           scenario "brak numeru na liście wydanych numerów" do
