@@ -1,34 +1,15 @@
 class AffiliationsController < ApplicationController
-  before_action :admin_required, except:
-    [:autocomplete_institution_name,:autocomplete_country_name,:autocomplete_department_name]
-  autocomplete :country, :name
-  autocomplete :institution, :name
-  autocomplete :department, :name
+  before_action :admin_required, except: [:institution, :country, :department]
 
   def new
-    @affiliation = Affiliation.new
+    @affiliation = AffiliationComposite.new
     @affiliation.person = Person.find(params[:person_id])
   end
 
   def create
-    country = Country.where(name: params[:country]).first
-    if country.nil?
-      country = Country.create(name: params[:country])
-    end
-    institution = Institution.where(name: params[:institution]).where(country_id: country.id).first
-    if institution.nil?
-      institution = Institution.create(name: params[:institution],country_id: country.id)
-    end
-    department = Department.where(name: params[:department]).where(institution_id: institution.id).first
-    if department.nil?
-      department = Department.create(name: params[:department],institution_id: institution.id)
-    end
-    person = Person.find(params[:person_id])
-    affiliation = Affiliation.new(affiliation_params)
-    affiliation.person = person
-    affiliation.department = department
-    if affiliation.save
-      redirect_to person
+    @affiliation = AffiliationComposite.new(params[:affiliation_composite])
+    if @affiliation.save
+      redirect_to @affiliation.person
     else
       render :new
     end
@@ -40,10 +21,16 @@ class AffiliationsController < ApplicationController
     redirect_to affiliation.person
   end
 
-  def autocomplete_department_name
-    departments = Department.where("LOWER(departments.name) ILIKE ?",params[:term]+"%").
-      order(:name).all.map(&:name).uniq
-    render json: departments.map{|name| {label: name, value: name } }
+  def institutions
+    render json: Institution.for_autocomplete(params[:term])
+  end
+
+  def departments
+    render json: Department.for_autocomplete(params[:term])
+  end
+
+  def countries
+    render json: Country.for_autocomplete(params[:term])
   end
 
   private

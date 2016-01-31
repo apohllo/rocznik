@@ -69,7 +69,7 @@ feature "zarządzanie numerami" do
         within("#new_submission") do
           select "nadesłany", from: "Status"
           select "polski", from: "Język"
-          select "3/2020", from: "Nr wydania"
+          select "3/2020", from: "Numer"
           fill_in "Otrzymano", with: "12-01-2016"
           fill_in "Tytuł", with: "próbny tytuł"
           fill_in "Title", with: "trial"
@@ -109,7 +109,7 @@ feature "zarządzanie numerami" do
         context "przygotowany do wydania" do
           before do
             Issue.first.update_attributes(prepared: true)
-            Article.create!(issue: Issue.first, submission:Submission.first)
+            Article.create!(issue: Issue.first, submission:Submission.first, status: 'po recenzji')
           end
 
           scenario "brak numeru na liście wydanych numerów" do
@@ -138,7 +138,7 @@ feature "zarządzanie numerami" do
 
               click_link "Wyloguj"
               click_link "3/2020"
-              expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")
+              expect(page).to have_content(/\[autor nieznany\].*Zaakceptowany tytuł/)
             end
           end
         end
