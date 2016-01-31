@@ -90,6 +90,18 @@ feature "zgloszenia" do
           expect(page).to have_content("[BRAK DEADLINE'u]")
         end
 
+        scenario "edycja zgloszenia" do
+          visit "/submissions/"
+          click_on("W pustyni i w puszczy")
+          click_on("Edytuj")
+
+          fill_in "Otrzymano", with: "16/07/2016"
+          click_on("Zapisz")
+
+          expect(page).not_to have_css(".has-error")
+          expect(page).to have_content("16-07-2016")
+        end
+
         context "Z recenzją" do
           before do
             revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
