@@ -8,7 +8,7 @@
     %a.navbar-brand{:href => "http://rocznik.kognitywistyka.eu"}rocznik.kognitywistyka.eu
   .navbar-collapse.collapse
     %ul.nav.navbar-nav.navbar-right
-      %li &nbsp;
+      %li= link_to "Dodaj artykuł", add_submissions_path
       - if user?
         %li= link_to "Wyloguj", destroy_user_session_path, method: :delete
       - else

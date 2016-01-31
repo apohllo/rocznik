@@ -1,0 +1,10 @@
+= simple_form_for @submission do |f|
+  %h3 Język polski
+  = f.input :polish_title, label: "Tytuł"
+  %h3 Język angielski
+  = f.input :english_title, label: "Tytuł"
+  = f.input :english_abstract, label: "Streszczenie"
+  = f.input :english_keywords, label: "Słowa kluczowe"
+
+  - label = "Zapisz"
+  = f.submit label, class: %w{btn btn-primary btn-outline}
