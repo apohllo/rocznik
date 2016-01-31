@@ -10,12 +10,24 @@ class Submission < ActiveRecord::Base
   MAX_LENGTH = 80
 
   validates :status,
-            on: :create,
+            on: :update,
             presence: true,
             inclusion: STATUS_MAPPING.keys
 
+  validates :polish_title,
+            presence: true
+
+  validates :english_title,
+            presence: true
+
+  validates :english_abstract,
+            presence: true
+
+  validates :english_keywords,
+            presence: true
+
   validates :language,
-            on: :create,
+            on: :update,
             presence: true,
             inclusion: [POLISH, ENGLISH]
 

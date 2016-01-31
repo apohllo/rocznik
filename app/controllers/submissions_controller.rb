@@ -13,13 +13,13 @@ class SubmissionsController < ApplicationController
 
   def new
     @submission = Submission.new
-    @submission.received = Time.now
     @submission.status = 'nadesłany'
     @author_id = params[:author_id]
   end
 
   def create
-    @submission = Submission.new(submission_params)
+    @submission = Submission.new(new_submission_params)
+    @submission.received = Time.now
     @author_id = params[:author_id]
     if @submission.save
       if @author_id
@@ -38,7 +38,7 @@ class SubmissionsController < ApplicationController
 
   def update
     @submission = Submission.find(params[:id])
-    if @submission.update_attributes(submission_params)
+    if @submission.update_attributes(update_submission_params)
       redirect_to @submission
     else
       render :edit
@@ -52,12 +52,12 @@ class SubmissionsController < ApplicationController
   end
 
   private
-  def submission_params
+
+  def new_submission_params
+    params.require(:submission).permit(:funding,:polish_title,:english_title,:english_abstract,:english_keywords)
+  end
+
+  def update_submission_params
     params.require(:submission).permit(:status,:language,:received,:funding,:remarks,:polish_title,:polish_abstract,:polish_keywords,:english_title,:english_abstract,:english_keywords,:person_id)
   end
-
-  def add_submission_params
-    params.require(:submission).permit(:article, :polish_title,:english_title,:english_abstract,:english_keywords, :funding)
-  end
-
 end
