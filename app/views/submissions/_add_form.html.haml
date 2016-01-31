@@ -1,4 +1,4 @@
-= simple_form_for @submission do |f|
+= simple_form_for @submission, method: :post, url: receive_submissions_path do |f|
   %h3 Język polski
   = f.input :polish_title, label: "Tytuł"
   %h3 Język angielski

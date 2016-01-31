@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :people
   resources :submissions do
     get :add, on: :collection
+    post :receive, on: :collection
   end
   resources :affiliations, only: [:new, :create, :destroy] do
     get :autocomplete_institution_name, on: :collection

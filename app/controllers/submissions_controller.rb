@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class SubmissionsController < ApplicationController
-  before_action :admin_required, except: [:add]
+  before_action :admin_required, except: [:add, :receive]
 
   def index
     @submissions = Submission.order('received desc').all
@@ -20,6 +20,11 @@ class SubmissionsController < ApplicationController
 
   def add
     @submission = Submission.new
+  end
+
+  def receive
+    @submission = Submission.new(add_submission_params)
+    render text: params
   end
 
   def create
@@ -58,6 +63,10 @@ class SubmissionsController < ApplicationController
   private
   def submission_params
     params.require(:submission).permit(:status,:language,:received,:funding,:remarks,:polish_title,:polish_abstract,:polish_keywords,:english_title,:english_abstract,:english_keywords,:person_id)
+  end
+
+  def add_submission_params
+    params.require(:submission).permit(:polish_title,:english_title,:english_abstract,:english_keywords)
   end
 
 end
