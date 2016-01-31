@@ -8,12 +8,27 @@ class Submission < ActiveRecord::Base
   POLISH = 'polski'
   ENGLISH = 'angielski'
   MAX_LENGTH = 80
+
+  validates :status,
+            on: :create,
+            presence: true,
+            inclusion: STATUS_MAPPING.keys
+
+  validates :language,
+            on: :create,
+            presence: true,
+            inclusion: [POLISH, ENGLISH]
+
+  validates :received,
+            presence: true
   
-  validates :status, presence: true, inclusion: STATUS_MAPPING.keys
-  validates :language, presence: true, inclusion: [POLISH, ENGLISH]
-  validates :received, presence: true
-  validates :polish_title, presence: true, if: -> (r){ r.language == POLISH}
-  validates :english_title, presence: true, if: -> (r){ r.language == ENGLISH}
+  validates :polish_title,
+            presence: true,
+            if: -> (r){ r.language == POLISH}
+
+  validates :english_title,
+            presence: true,
+            if: -> (r){ r.language == ENGLISH}
 
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy

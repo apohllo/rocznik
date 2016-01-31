@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class SubmissionsController < ApplicationController
-  before_action :admin_required, except: [:add, :receive]
+  before_action :admin_required, except: [:new, :create]
 
   def index
     @submissions = Submission.order('received desc').all
@@ -16,15 +16,6 @@ class SubmissionsController < ApplicationController
     @submission.received = Time.now
     @submission.status = 'nadesłany'
     @author_id = params[:author_id]
-  end
-
-  def add
-    @submission = Submission.new
-  end
-
-  def receive
-    @submission = Submission.new(add_submission_params)
-    render text: params
   end
 
   def create
