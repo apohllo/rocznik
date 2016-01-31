@@ -39,7 +39,7 @@ class Review < ActiveRecord::Base
   end
   
   def missed_deadline
-      self.deadline < Time.now && status == "wysłane zapytanie"
+      self.deadline < Time.now && self.status == "wysłane zapytanie"
   end
 
   def authors_reviewer_shared_institutions
