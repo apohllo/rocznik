@@ -54,10 +54,10 @@ class SubmissionsController < ApplicationController
   private
 
   def new_submission_params
-    params.require(:submission).permit(:funding,:polish_title,:english_title,:english_abstract,:english_keywords)
+    params.require(:submission).permit(:article, :funding,:polish_title,:english_title,:english_abstract,:english_keywords)
   end
 
   def update_submission_params
-    params.require(:submission).permit(:status,:language,:received,:funding,:remarks,:polish_title,:polish_abstract,:polish_keywords,:english_title,:english_abstract,:english_keywords,:person_id)
+    params.require(:submission).permit(:article, :status,:language,:received,:funding,:remarks,:polish_title,:polish_abstract,:polish_keywords,:english_title,:english_abstract,:english_keywords,:person_id)
   end
 end

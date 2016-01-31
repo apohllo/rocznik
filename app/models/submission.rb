@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class Submission < ActiveRecord::Base
+  mount_uploader :article, ArticleUploader
+
   STATUS_MAPPING = {
     "nadesłany" => :sent, "u redaktora" => :editor, "w recenzji" => :review,
     "przyjęty" => :positive, "odrzucony" => :negative, "do poprawy" => :correction
@@ -42,11 +44,12 @@ class Submission < ActiveRecord::Base
             presence: true,
             if: -> (r){ r.language == ENGLISH}
 
+  validates :article,
+            presence: true
+
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
   belongs_to :person
-
-  mount_uploader :article, ArticleUploader
 
   def title
     if !self.polish_title.blank?
