@@ -22,7 +22,7 @@
     %dd= @submission.received.strftime("%d-%m-%Y")
   %dl
     %dt Streszczenie
-    %dd= @submission.abstract
+    %dd.more= @submission.abstract
   %dl
     %dt Słowa kluczowe
     %dd= @submission.keywords

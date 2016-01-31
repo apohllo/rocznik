@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20160128101602) do
     t.string   "sex"
     t.string   "photo"
     t.text     "competence"
+    t.string   "photo"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
