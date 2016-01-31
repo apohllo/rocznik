@@ -3,7 +3,7 @@
     = hidden_field_tag :author_id, @author_id
   %h3 Autorzy
   = f.simple_fields_for :authorships do |af|
-    = af.simple_fields_for :person_attributes do |pf|
+    = af.simple_fields_for :person do |pf|
       = pf.input :name, label: "Imię"
       = pf.input :surname, label: "Nazwisko"
       = pf.input :email, label: "E-mail"

@@ -16,7 +16,7 @@ class SubmissionsController < ApplicationController
     @submission.status = 'nadesłany'
     @author_id = params[:author_id]
 
-    @submission.authorships.build
+    @submission.authorships.build(person: Person.new)
   end
 
   def create
