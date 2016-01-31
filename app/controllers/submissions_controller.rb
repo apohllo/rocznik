@@ -15,6 +15,8 @@ class SubmissionsController < ApplicationController
     @submission = Submission.new
     @submission.status = 'nadesłany'
     @author_id = params[:author_id]
+
+    @submission.authorships.build
   end
 
   def create
@@ -54,10 +56,17 @@ class SubmissionsController < ApplicationController
   private
 
   def new_submission_params
-    params.require(:submission).permit(:article, :funding,:polish_title,:english_title,:english_abstract,:english_keywords)
+    params.require(:submission)
+      .permit(:article, :funding,:polish_title,:english_title,
+        :english_abstract,:english_keywords,
+        authorships_attributes: authorships_params)
   end
 
   def update_submission_params
     params.require(:submission).permit(:article, :status,:language,:received,:funding,:remarks,:polish_title,:polish_abstract,:polish_keywords,:english_title,:english_abstract,:english_keywords,:person_id)
+  end
+
+  def authorships_params
+    [{ person_attributes: [:name, :surname, :email, :discipline] }]
   end
 end

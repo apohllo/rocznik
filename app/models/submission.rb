@@ -48,6 +48,9 @@ class Submission < ActiveRecord::Base
             presence: true
 
   has_many :authorships, dependent: :destroy
+  accepts_nested_attributes_for :authorships
+  validates_associated :authorships
+
   has_many :article_revisions, dependent: :destroy
   belongs_to :person
 
