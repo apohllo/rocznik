@@ -66,7 +66,7 @@ class SubmissionsController < ApplicationController
   end
 
   def add_submission_params
-    params.require(:submission).permit(:polish_title,:english_title,:english_abstract,:english_keywords, :funding)
+    params.require(:submission).permit(:article, :polish_title,:english_title,:english_abstract,:english_keywords, :funding)
   end
 
 end

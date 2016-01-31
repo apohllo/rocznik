@@ -7,6 +7,8 @@ class Submission < ActiveRecord::Base
   }
   POLISH = 'polski'
   ENGLISH = 'angielski'
+  MAX_LENGTH = 80
+  
   validates :status, presence: true, inclusion: STATUS_MAPPING.keys
   validates :language, presence: true, inclusion: [POLISH, ENGLISH]
   validates :received, presence: true
@@ -17,7 +19,7 @@ class Submission < ActiveRecord::Base
   has_many :article_revisions, dependent: :destroy
   belongs_to :person
 
-  MAX_LENGTH = 80
+  mount_uploader :article, ArticleUploader
 
   def title
     if !self.polish_title.blank?
