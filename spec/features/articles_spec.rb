@@ -50,14 +50,18 @@ feature "Artykuły" do
         visit '/articles'
         click_on 'Wiemy wszystko'
 
-        expect(page).to have_link(/\d+-wiemy-wszystko/)
+        submission_id = Submission.find_by_polish_title("Wiemy wszystko").id
+        article_id = Article.find_by_submission_id(submission_id).id
+        current_path.should == "/articles/#{article_id}-wiemy-wszystko"
       end
       
       scenario "Przyjazny url z polskimi znakami" do
         visit '/articles'
         click_on 'Jerzozwież'
         
-        expect(page).to have_link(/\d+-jerzozwiez/)
+        submission_id = Submission.find_by_polish_title("Jerzozwież").id
+        article_id = Article.find_by_submission_id(submission_id).id
+        current_path.should == "/articles/#{article_id}-jerzozwiez"
       end
     end
   end
