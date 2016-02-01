@@ -34,4 +34,5 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'rubocop', require: false
   gem 'overcommit'
+  gem 'timecop'
 end
