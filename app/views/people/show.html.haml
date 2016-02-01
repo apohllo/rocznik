@@ -21,7 +21,7 @@
     %dt Role w systemie
     %dd= @person.roles.join(", ")
   = link_to "Edytuj", edit_person_path(@person), class: %w{btn btn-primary btn-sm}
-  //= link_to "Napisz wiadomość", 
+  //= link_to "Napisz wiadomość", send_email_path(), class: %w{btn btn-primary btn-sm} 
   %h3 Afiliacje
   %table.table.table-hover.table-admin
     %thead
