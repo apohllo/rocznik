@@ -1,0 +1,58 @@
+:javascript
+  $(document).ready(function() {
+    !function(d,s,id){
+        var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+        if(!d.getElementById(id)){
+            js=d.createElement(s);
+            js.id=id;
+            js.src=p+'://platform.twitter.com/widgets.js';
+            fjs.parentNode.insertBefore(js,fjs);
+        }
+    }(document, 'script', 'twitter-wjs');
+  });
+  $(document).ready(function() {
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.5";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  });
+  $(document).ready(function() {
+    $('.flash').fadeOut(2000,function(el){ el.hide(); })
+  });
+  $(document).ready(function() {
+      var showChar = 100; // How many characters are shown by default
+      var ellipsestext = "...";
+      var moretext = "<div class='btn btn-default btn-sm'>Rozwiń &raquo;</div>";
+      var lesstext = "<div class='btn btn-default btn-sm'> &laquo; Zwiń</div>";
+
+
+      $('.more').each(function() {
+          var content = $(this).html();
+
+          if(content.length > showChar) {
+
+              var c = content.substr(0, showChar);
+              var h = content.substr(showChar, content.length - showChar);
+
+              var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+              $(this).html(html);
+          }
+      });
+
+      $(".morelink").click(function(){
+          if($(this).hasClass("less")) {
+              $(this).removeClass("less");
+              $(this).html(moretext);
+          } else {
+              $(this).addClass("less");
+              $(this).html(lesstext);
+          }
+          $(this).parent().prev().toggle();
+          $(this).prev().toggle();
+          return false;
+      });
+  });
