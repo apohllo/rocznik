@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   before_action :admin_required
 
   def index
+    @articles = Article.order('created_at').all
     @query_params = params[:q] || {}
     @query = Article.ransack(@query_params)
     @query.sorts = ['created_at'] if @query.sorts.empty?
