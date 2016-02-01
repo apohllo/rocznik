@@ -22,7 +22,7 @@ feature "Artykuły" do
                                         person: editor, issue: issue_1, language: 'polski', received: '28-01-2016',
                                         status: 'przyjęty')
         submission2 = Submission.create!(polish_title: 'Jerzozwież', english_title: 'Porcupine',
-                                        english_abstract: 'O zwierzętach z kolcami', english_keywords: 'animals',
+                                        english_abstract: 'O jerzozwieżach', english_keywords: 'zwierzęta',
                                         person: editor, issue: issue_1, language: 'polski', received: '28-01-2016',
                                         status: 'przyjęty')
         Article.create!(submission: submission, issue: issue_1, status: 'po recenzji')
@@ -46,6 +46,24 @@ feature "Artykuły" do
         expect(page).to have_content("2/2002")
       end
       
+      scenario "Przyjazny url bez polskich znaków" do
+        visit '/articles'
+        click_on 'Wiemy wszystko'
+
+        submission_id = Submission.find_by_polish_title("Wiemy wszystko").id
+        article_id = Article.find_by_submission_id(submission_id).id
+        current_path.should == "/articles/#{article_id}-wiemy-wszystko"
+      end
+      
+      scenario "Przyjazny url z polskimi znakami" do
+        visit '/articles'
+        click_on 'Jerzozwież'
+        
+        submission_id = Submission.find_by_polish_title("Jerzozwież").id
+        article_id = Article.find_by_submission_id(submission_id).id
+        current_path.should == "/articles/#{article_id}-jerzozwiez"
+      end
+
       scenario "Sprawdzenie statusu 'po recenzji'" do
         visit '/articles'
         click_on 'Wiemy wszystko'
@@ -70,7 +88,7 @@ feature "Artykuły" do
 
         expect(page).to have_content("Wiemy wszystko")
         expect(page).not_to have_content("Jerzozwież")
- end
+      end
     end
   end
 end

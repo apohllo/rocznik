@@ -5,7 +5,7 @@ class PublicIssuesController < ApplicationController
   end
 
   def show
-    @issue = Issue.find(params[:id])
+    @issue = Issue.find_by_volume(params[:id])
   end
 
 end

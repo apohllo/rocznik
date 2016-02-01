@@ -29,7 +29,7 @@ feature "recenzowanie" do
         Review.create!(status: "recenzja negatywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
                        person_1, article_revision: article_revision_2)
       end
-
+      
       scenario "sprawdzanie możliwości edytowania recenzji" do
         visit '/reviews'
         click_on('Dlaczego solipsyzm?, v. 1')
@@ -42,6 +42,7 @@ feature "recenzowanie" do
         click_on("Edytuj")
         fill_in "Treść recenzji", with: "Testowa recenzja"
         select "recenzja przyjęta", from: "Status"
+        fill_in "Zapytanie wysłano", with: "16/01/2016"
         click_on("Zapisz")
 
         expect(page).to have_content("Testowa recenzja")

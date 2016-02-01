@@ -45,4 +45,8 @@ class Issue < ActiveRecord::Base
       ""
     end
   end
+  
+  def to_param
+    [volume, year].join("-")
+  end
 end
