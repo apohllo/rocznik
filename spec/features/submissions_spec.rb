@@ -63,6 +63,16 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
+        
+        scenario "Filtrowanie zgłoszeń po tytule" do
+          visit "/submissions"
+
+          fill_in "Tytuł", with: "Alice in Wonderland"
+          click_on("Filtruj")
+
+          expect(page).to have_content("Alice in Wonderland")
+          expect(page).not_to have_content("Desert and something")
+        end
 
         scenario "Filtrowanie zgłoszeń po numerze rocznika" do
           visit "/submissions"
