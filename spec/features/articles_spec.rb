@@ -26,7 +26,7 @@ feature "Artykuły" do
                                         person: editor, issue: issue_1, language: 'polski', received: '28-01-2016',
                                         status: 'przyjęty')
         Article.create!(submission: submission, issue: issue_1, status: 'po recenzji')
-        Article.create!(submission: submission2, issue: issue_1, status: 'po recenzji')
+        Article.create!(submission: submission2, issue: issue_1, status: 'opublikowany')
       end
 
       scenario "Wyświetlanie artykułu" do
@@ -62,6 +62,32 @@ feature "Artykuły" do
         submission_id = Submission.find_by_polish_title("Jerzozwież").id
         article_id = Article.find_by_submission_id(submission_id).id
         current_path.should == "/articles/#{article_id}-jerzozwiez"
+      end
+
+      scenario "Sprawdzenie statusu 'po recenzji'" do
+        visit '/articles'
+        click_on 'Wiemy wszystko'
+
+        expect(page).to have_css(".after_review")
+      end
+      
+      scenario "Zmiana statusu artykułu'" do
+        visit '/articles'
+        click_on 'Wiemy wszystko'
+        click_on 'Edytuj'
+        select "korekta autorska", from: "Status"
+        
+        expect(page).not_to have_css('.has-error')
+        expect(page).to have_content("korekta autorska")
+      end
+      
+      scenario "filtrowanie artykułów po statusie" do
+        visit "/articles"
+        select "po recenzji", from: "Status"
+        click_on("Filtruj")
+
+        expect(page).to have_content("Wiemy wszystko")
+        expect(page).not_to have_content("Jerzozwież")
       end
     end
   end
