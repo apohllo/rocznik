@@ -22,8 +22,8 @@
         %tr.table-row-link
           %td= link_to review.title, review
           %td= link_to review.person.full_name, review.person
-          %td= review.asked.strftime("%d-%m-%Y")
-          %td= review.deadline.strftime("%d-%m-%Y")
+          %td= review.asked_date
+          %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
           %td.text-right
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
