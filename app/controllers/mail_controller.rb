@@ -2,15 +2,17 @@ class MailController < ApplicationController
   before_action :admin_required
 
   def write_email
-    @simplemail.addressee = 
-    @simplemail.subject
-    @simplemail.body
-    @simplemail.sender = current_user.email
+    @simplemail = SimpleMail.new
+    #@simplemail.sender = current_user.email
   end
 
   def send_email
-    @mail = UserMailer.new
+    @simplemail = SimpleMail.new(mail_params)
+    if @simplemail.valid?
+      UserMailer.send_email(@simplemail).deliver
+      redirect_to submissions_path
+    else
+      render :write_email
+    end
   end
-
-
-
+end

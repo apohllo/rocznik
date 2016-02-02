@@ -1,8 +1,7 @@
-=simple_form_for @simplemail do |f|
+=simple_form_for @simplemail, url: send_email_path do |f|
   = f.input :addressee, label: "Do:"
   = f.input :subject, label: "Tytuł"
   = f.input :body, label: "Treść"
-  = f.input :sender, label: "Od"
-  - label = @simplemail.new_record? ? "Wyślij"
-  = f.submit label, class: %w{btn btn-primary btn-outline}
+  //= f.input :sender, label: "Od"
+  = f.submit "Wyślij", class: %w{btn btn-primary btn-outline}
 
