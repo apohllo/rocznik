@@ -98,3 +98,4 @@
           %td.text-right
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
   = link_to "Dodaj recenzenta", new_review_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
+  = link_to "Pokaż recenzje", new_review_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
