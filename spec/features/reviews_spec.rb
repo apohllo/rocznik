@@ -29,7 +29,7 @@ feature "recenzowanie" do
         Review.create!(status: "recenzja negatywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
                        person_1, article_revision: article_revision_2)
       end
-      
+
       scenario "sprawdzanie możliwości edytowania recenzji" do
         visit '/reviews'
         click_on('Dlaczego solipsyzm?, v. 1')
@@ -73,13 +73,25 @@ feature "recenzowanie" do
         expect(page).not_to have_css(".has-error")
         expect(page).to have_content(/Recenzje.*Wojciech Nowak/)
       end
-      
+
+      scenario "Brak zaznaczenia przekroczonego deadline'u" do
+        Timecop.freeze(Date.parse("15-01-2016")) do
+          visit '/submissions'
+
+          click_on("Dlaczego solipsyzm?")
+
+          expect(page).not_to have_css(".exceeded-deadline")
+        end
+      end
+
       scenario "Zaznaczenie przekroczonego deadline'u" do
-        visit '/submissions'
-        
-        click_on("Dlaczego solipsyzm?")
-          
-        expect(page).to have_css(".exceeded-deadline")
+        Timecop.freeze(Date.parse("15-02-2016")) do
+          visit '/submissions'
+
+          click_on("Dlaczego solipsyzm?")
+
+          expect(page).to have_css(".exceeded-deadline")
+        end
       end
 
       scenario "filtrowanie recenzji po statusie" do
