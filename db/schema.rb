@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125222143) do
+ActiveRecord::Schema.define(version: 20160128101602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,10 +44,12 @@ ActiveRecord::Schema.define(version: 20160125222143) do
   add_index "article_revisions", ["submission_id"], name: "index_article_revisions_on_submission_id", using: :btree
 
   create_table "articles", force: :cascade do |t|
-    t.string  "status"
-    t.string  "DOI"
-    t.integer "issue_id"
-    t.integer "submission_id"
+    t.string   "status"
+    t.string   "DOI"
+    t.integer  "issue_id"
+    t.integer  "submission_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree

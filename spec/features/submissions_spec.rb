@@ -22,7 +22,7 @@ feature "zgloszenia" do
     context "redaktor w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email: "a.kapusa@gmail.com", sex:
-                       "mężczyzna", roles: ['redaktor'])
+                       "mężczyzna", roles: ['redaktor', 'recenzent'])
         Issue.create!(volume: 3, year: 2020)
         Issue.create!(volume: 4, year: 2020)
       end
@@ -36,7 +36,7 @@ feature "zgloszenia" do
           fill_in "Key words", with: "englsh key words"
           select "Andrzej Kapusta", from: "Redaktor"
           select "nadesłany", from: "Status"
-          select "3/2020", from: "Nr wydania"
+          select "3/2020", from: "Numer"
         end
         click_button("Utwórz")
 
@@ -54,7 +54,7 @@ feature "zgloszenia" do
                              "desert", received: "11-01-2016", language: "polski", issue: Issue.last)
         end
 
-        scenario "filtrowanie zgłoszeń po statusie" do
+        scenario "Filtrowanie zgłoszeń po statusie" do
           visit "/submissions"
 
           select "odrzucony", from: "Status"
@@ -63,8 +63,18 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
+        
+        scenario "Filtrowanie zgłoszeń po tytule" do
+          visit "/submissions"
 
-        scenario "filtrowanie zgłoszeń po numerze rocznika" do
+          fill_in "Tytuł", with: "Alicja w krainie czarów"
+          click_on("Filtruj")
+
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).not_to have_content("W pustyni i w puszczy")
+        end
+
+        scenario "Filtrowanie zgłoszeń po numerze rocznika" do
           visit "/submissions"
 
           select "3/2020", from: "Numer rocznika"
@@ -74,7 +84,7 @@ feature "zgloszenia" do
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
 
-        scenario "filtrowanie zgłoszeń po statusie" do
+        scenario "Filtrowanie zgłoszeń po statusie" do
           visit "/submissions"
 
           fill_in "Data początkowa", with: "19/1/2016"
@@ -82,6 +92,38 @@ feature "zgloszenia" do
 
           expect(page).to have_content("Alicja w krainie czarów")
           expect(page).not_to have_content("W pustyni i w puszczy")
+        end
+
+        scenario "Wyświetlanie braku dealine'u" do
+          visit '/submissions'
+
+          expect(page).to have_content("[BRAK DEADLINE'u]")
+        end
+
+        scenario "edycja zgloszenia" do
+          visit "/submissions/"
+          click_on("W pustyni i w puszczy")
+          click_on("Edytuj")
+
+          fill_in "Otrzymano", with: "16/07/2016"
+          click_on("Zapisz")
+
+          expect(page).not_to have_css(".has-error")
+          expect(page).to have_content("16-07-2016")
+        end
+
+        context "Z recenzją" do
+          before do
+            revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
+            Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
+                           status: "recenzja pozytywna", asked: '1/01/2016')
+          end
+
+          scenario "Wyświetlanie dealine'u" do
+            visit '/submissions'
+
+            expect(page).to have_content('28-01-2016')
+          end
         end
       end
 
