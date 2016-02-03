@@ -61,7 +61,9 @@
         %th Nadesłano
         %th Liczba stron
         %th Liczba ilustracji
-        %th
+        %th Usuń
+        %th Edytuj
+        %th Zobacz
     %tbody
       - @submission.article_revisions.each do |revision|
         %tr
@@ -76,6 +78,14 @@
           %td= revision.pictures
           %td.text-right
             = destroy_button(revision,"Czy na pewno chcesz usunąć tę wersję wraz z recenzjami?")
+          %td
+            - if @submission.status == 'przyjęty'
+              - if revision == @submission.article_revisions.last
+                - if revision.acceptation == NIL || revision.acceptation == 'nie'
+                  = link_to "Edytuj", edit_article_revision_path(revision, submission_id: @submission.id), class: %w{btn btn-primary btn-sm}
+          %td
+            - if revision.acceptation != NIL || revision.comment != NIL
+              = link_to "Zobacz", article_revision_path(revision, submission_id: @submission.id), class: %w{btn btn-primary btn-sm}
   = link_to "Dodaj wersję", new_article_revision_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
   %h3 Recenzje
   %table.table.table-hover.table-admin

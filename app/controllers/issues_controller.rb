@@ -20,11 +20,11 @@ class IssuesController < ApplicationController
       render :new
     end
   end
-  
+
   def edit
     @issue = Issue.find(params[:id])
   end
-  
+
   def update
     @issue = Issue.find(params[:id])
     if @issue.update_attributes(issue_params)
@@ -33,15 +33,16 @@ class IssuesController < ApplicationController
       render :edit
     end
   end
-  
+
   def show
     @issue = Issue.find(params[:id])
+    #@issue = Issue.joins(submissions: :article_revisions).find(params[:id])
   end
-  
+
   private
-    
+
   def issue_params
     params.require(:issue).permit(:year,:volume)
   end
-    
+
 end

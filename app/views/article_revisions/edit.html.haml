@@ -1,0 +1,12 @@
+.scroll-panel-header
+  = link_to "Anuluj", @article_revision.submission, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title
+    Akceptacja wersji artykułu
+    %strong
+      = @article_revision.submission.title
+.scroll-panel-body
+  = simple_form_for @article_revision do |f|
+    = hidden_field_tag :submission_id, @article_revision.submission.id
+    = f.input :acceptation, collection: ArticleRevision::ACCEPT_MAPPING.keys, label: "Akceptujesz?"
+    = f.input :comment, label: "Komentarz"
+    = f.submit "Dodaj", class: %w{btn btn-primary btn-outline}
