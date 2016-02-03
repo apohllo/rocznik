@@ -8,8 +8,28 @@ class IssuesController < ApplicationController
     @issues = @query.result(distinct: true)
   end
 
+
+  def publish
+    @issue = Issue.find_by_volume(params[:id])
+    @issue.publish
+    redirect_to @issue
+  end
+
   def new
     @issue = Issue.new
+  end
+
+  def prepare_form
+    @issue = Issue.find_by_volume(params[:id])
+  end
+
+  def prepare
+    @issue = Issue.find_by_volume(params[:id])
+    if params[:issue][:submission_ids] && @issue.prepare_to_publish(params[:issue][:submission_ids])
+      redirect_to @issue
+    else
+      render :prepare_form
+    end
   end
 
   def create
@@ -22,11 +42,11 @@ class IssuesController < ApplicationController
   end
 
   def edit
-    @issue = Issue.find(params[:id])
+    @issue = Issue.find_by_volume(params[:id])
   end
 
   def update
-    @issue = Issue.find(params[:id])
+    @issue = Issue.find_by_volume(params[:id])
     if @issue.update_attributes(issue_params)
       redirect_to @issue
     else
@@ -35,8 +55,7 @@ class IssuesController < ApplicationController
   end
 
   def show
-    @issue = Issue.find(params[:id])
-    #@issue = Issue.joins(submissions: :article_revisions).find(params[:id])
+    @issue = Issue.find_by_volume(params[:id])
   end
 
   private

@@ -2,7 +2,11 @@ class ReviewsController < ApplicationController
   before_action :admin_required
 
   def index
-    @reviews = Review.order('deadline desc').all
+    @reviews = Review.order('deadline asc').all
+    @query_params = params[:q] || {}
+    @query = Review.ransack(@query_params)
+    @query.sorts = ['deadline asc'] if @query.sorts.empty?
+    @reviews = @query.result(distinct: true)
   end
 
   def show
@@ -13,7 +17,8 @@ class ReviewsController < ApplicationController
     @review = Review.new
     if params[:submission_id]
       submission = Submission.find(params[:submission_id])
-      @review.article_revision = submission.article_revisions.order(:created_at).last
+      @review.article_revision = submission.last_revision
+      @from = submission_path(submission)
       if @review.article_revision.nil?
         flash[:error] = 'Zgłoszenie nie posiada przypisanych wersji!'
         redirect_to submission
@@ -23,6 +28,7 @@ class ReviewsController < ApplicationController
     if params[:person_id]
       person = Person.find(params[:person_id])
       @review.person = person
+      @from = person_path(person)
     end
     @review.status = 'wysłane zapytanie'
     @review.asked = Time.now
@@ -31,27 +37,19 @@ class ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-    if params[:article_revision_id]
-      article_revision = ArticleRevision.find(params[:article_revision_id])
-      @review.article_revision = article_revision
-      if @review.save
-        redirect_to article_revision.submission
+    if @review.save
+      if params[:from]
+        redirect_to params[:from]
       else
-        render :new
-      end
-    elsif params[:person_id]
-      person = Person.find(params[:person_id])
-      @review.person = person
-      if @review.save
-        redirect_to person
-      else
-        render :new
+        flash[:error] = 'Niepoprawne wywołanie'
+        redirect_to submissions_path
       end
     else
-      flash[:error] = 'Niepoprawne wywołanie'
-      redirect_to submissions_path
+      @from = params[:from]
+      render :new
     end
   end
+
 
   def edit
     @review = Review.find(params[:id])
