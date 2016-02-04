@@ -56,8 +56,11 @@ td.positive, dd.positive {
 td.negative, dd.negative {
   background-color: #ff0000;
 }
-td.correction, dd.correction {
-  background-color: #808080;
+td.minor_review, dd.minor_review {
+  background-color: #f49e33;
+}
+td.major_review, dd.major_review {
+  background-color: #ff791e;
 }
 td.blacklist, dd.blacklist {
   background-color: #000000;
@@ -92,4 +95,53 @@ input[type=file].file.form-control {
   border: none;
   box-shadow: none;
   padding: 0;
+}
+
+#review_content{
+  height: 400px;
+}
+
+.helpbox{
+	float: left;
+	margin-right:6px;
+	margin-top:2px;
+}
+.fb-like, .twitter-like, .sm-buttons{
+    padding-top: 5%;
+}
+
+td.after_review {
+  background-color: #f7f89f;
+}
+
+td.author_correction {
+  background-color: #6edbb8;
+}
+
+td.editor_correction {
+  background-color: #6edadb;
+}
+
+td.published {
+  background-color: #6ade31;
+}
+
+dd.after_review {
+  background-color: #f7f89f;
+}
+
+dd.author_correction {
+  background-color: #6edbb8;
+}
+
+dd.editor_correction {
+  background-color: #6edadb;
+}
+
+dd.published {
+  background-color: #6ade31;
+}
+
+.morecontent span {
+  display: none;
 }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825174141) do
+ActiveRecord::Schema.define(version: 20160128101602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,18 @@ ActiveRecord::Schema.define(version: 20150825174141) do
   end
 
   add_index "article_revisions", ["submission_id"], name: "index_article_revisions_on_submission_id", using: :btree
+
+  create_table "articles", force: :cascade do |t|
+    t.string   "status"
+    t.string   "DOI"
+    t.integer  "issue_id"
+    t.integer  "submission_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
+  add_index "articles", ["submission_id"], name: "index_articles_on_submission_id", using: :btree
 
   create_table "authorships", force: :cascade do |t|
     t.integer  "person_id"
@@ -94,6 +106,15 @@ ActiveRecord::Schema.define(version: 20150825174141) do
 
   add_index "institutions", ["country_id"], name: "index_institutions_on_country_id", using: :btree
 
+  create_table "issues", force: :cascade do |t|
+    t.integer  "year"
+    t.integer  "volume"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "prepared",   default: false
+    t.boolean  "published",  default: false
+  end
+
   create_table "people", force: :cascade do |t|
     t.string   "name",                    null: false
     t.string   "surname",                 null: false
@@ -104,6 +125,9 @@ ActiveRecord::Schema.define(version: 20150825174141) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.text     "roles",      default: [], null: false, array: true
+    t.string   "sex"
+    t.string   "photo"
+    t.text     "competence"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
@@ -116,13 +140,6 @@ ActiveRecord::Schema.define(version: 20150825174141) do
     t.date     "asked"
     t.date     "deadline"
     t.text     "content"
-    t.integer  "scope"
-    t.integer  "meritum"
-    t.integer  "language"
-    t.integer  "intelligibility"
-    t.integer  "novelty"
-    t.integer  "literature"
-    t.integer  "general"
     t.text     "remarks"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
@@ -307,9 +324,7 @@ ActiveRecord::Schema.define(version: 20150825174141) do
     t.string   "status"
     t.string   "polish_title"
     t.string   "english_title"
-    t.text     "polish_abstract"
     t.text     "english_abstract"
-    t.string   "polish_keywords"
     t.string   "english_keywords"
     t.text     "remarks"
     t.text     "funding"
@@ -318,8 +333,10 @@ ActiveRecord::Schema.define(version: 20150825174141) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "person_id"
+    t.integer  "issue_id"
   end
 
+  add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
 
   create_table "users", force: :cascade do |t|
@@ -343,11 +360,14 @@ ActiveRecord::Schema.define(version: 20150825174141) do
   add_foreign_key "affiliations", "departments"
   add_foreign_key "affiliations", "people"
   add_foreign_key "article_revisions", "submissions"
+  add_foreign_key "articles", "issues"
+  add_foreign_key "articles", "submissions"
   add_foreign_key "authorships", "people"
   add_foreign_key "authorships", "submissions"
   add_foreign_key "departments", "institutions"
   add_foreign_key "institutions", "countries"
   add_foreign_key "reviews", "article_revisions"
   add_foreign_key "reviews", "people"
+  add_foreign_key "submissions", "issues"
   add_foreign_key "submissions", "people"
 end

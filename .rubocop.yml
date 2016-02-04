@@ -1,0 +1,30 @@
+AllCops:
+  DisabledByDefault: true
+Style/StringLiterals:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
+Style/AccessModifierIndentation:
+  Enabled: true
+Style/CommentIndentation:
+  Enabled: true
+Style/IndentationConsistency:
+  Enabled: true
+Style/IndentationWidth:
+  Enabled: true
+Style/HashSyntax:
+  Enabled: true
+Lint/AmbiguousRegexpLiteral:
+  Enabled: true
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: true
+Lint/UselessAssignment:
+  Enabled: true
+Style/AlignArray:
+  Enabled: true
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - 'db/schema.rb'
+    - 'config/initializers/devise.rb'
+    - 'db/migrate/20150423175928_add_title_and_content_index_to_storytime_post.storytime.rb'

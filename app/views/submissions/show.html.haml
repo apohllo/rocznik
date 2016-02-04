@@ -22,14 +22,18 @@
     %dd= @submission.received.strftime("%d-%m-%Y")
   %dl
     %dt Streszczenie
-    %dd= @submission.abstract
+    %dd.more= @submission.abstract
   %dl
     %dt Słowa kluczowe
     %dd= @submission.keywords
   - if @submission.remarks
     %dl
       %dt Uwagi
-      %dd= @submission.remarks
+      %dd= simple_format(@submission.remarks)
+  - if @submission.funding
+    %dl
+      %dt Finansowanie
+      %dd= simple_format(@submission.funding)
   = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}
   %h3 Autorzy
   %table.table.table-hover.table-admin
@@ -67,7 +71,7 @@
               = link_to revision.file_name, revision.article.url
             - else
               = revision.file_name
-          %td= revision.received.strftime("%d-%m-%Y")
+          %td= revision.received_date
           %td= revision.pages
           %td= revision.pictures
           %td.text-right
@@ -88,8 +92,8 @@
         %tr
           %td= review.version
           %td= link_to review.reviewer, review.person
-          %td= review.asked.strftime("%d-%m-%Y")
-          %td= review.deadline.strftime("%d-%m-%Y")
+          %td= review.asked_date
+          %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= link_to review.status, edit_review_path(review)
           %td.text-right
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
