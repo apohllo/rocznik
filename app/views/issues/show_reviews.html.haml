@@ -1,7 +1,18 @@
-<h1> Tytuł artykułu1 </h1>
-<h2>Recenzja1</h2>
-<h2>Recenzja2</h2>
-<br>
-<h1> Tytuł artykułu2 </h1>
-<h2>Recenzja1</h2>
-<h2>Recenzja2</h2>
+.scroll-panel-header
+  = link_to "Wróć do numeru", issue_path, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title
+    Recenzje zgłoszeń do numeru
+    = @issue.title
+.scroll-panel-body
+- @issue.submissions.each do |submission|
+  %h3= link_to submission.title, submission
+  .scroll-panel-body
+    - submission.reviews.each do |review|
+      %br
+      = link_to review.title, review
+      %br
+      = review.content
+      %br
+      Recenzent: 
+      = link_to review.reviewer, review.person
+      %br
