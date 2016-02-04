@@ -10,15 +10,15 @@ feature "zarządzanie osobami" do
 
     visit '/users/sign_in'
     within("#new_user") do
-      fill_in 'Email', with: email
-      fill_in 'Password', with: password
+      fill_in 'Adres e-mail', with: email
+      fill_in 'Hasło', with: password
     end
-    click_button 'Log in'
+    click_button 'Zaloguj się'
   end
 
   context "dobre hasło" do
     scenario "logowanie z poprawnymi danymi" do
-      expect(page).to have_content 'success'
+      expect(page).to have_content 'pomyślnie'
     end
   end
 
