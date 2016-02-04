@@ -5,6 +5,9 @@ class Affiliation < ActiveRecord::Base
   belongs_to :person
   belongs_to :department
 
+  scope :current, -> { where("year_from <= #{Date.today.year} OR year_from IS NULL").
+                       where("year_to >= #{Date.today.year} OR year_to IS NULL") }
+
   def person_name
     self.person.full_name
   end

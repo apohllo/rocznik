@@ -14,10 +14,10 @@
     %dd= link_to @review.person.full_name, @review.person
   %dl
     %dt Wysłano zapytanie
-    %dd= @review.asked.strftime("%d-%m-%Y")
+    %dd= @review.asked_date
   %dl
     %dt Deadline
-    %dd= @review.deadline.strftime("%d-%m-%Y")
+    %dd= @review.deadline_date
   %dl
     %dt Treść recenzji
     %dd= simple_format(@review.content)
@@ -25,4 +25,3 @@
     %dt Uwagi
     %dd= @review.remarks
   = link_to "Edytuj", edit_review_path(@review), class: %w{btn btn-primary btn-sm}
-
