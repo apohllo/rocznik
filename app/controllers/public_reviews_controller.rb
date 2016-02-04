@@ -1,44 +1,32 @@
 class PublicReviewsController < ApplicationController
 
-  def index
-    @query_params = params[:q] || {}
-    @query = Person.ransack(@query_params)
-    @query.sorts = ['surname asc','name asc'] if @query.sorts.empty?
-    @author_recomendation = @query.result(distinct: true)
+  def new_reviewer
+    @person = Person.new
   end
 
-  def new
-    @author_recommendation = Person.new
-    if params[:person_name, :person_surname]
-      person = Submission.find(params[:person_name, :person_surname])
-      flash[:error] = 'Osoba już istnieje.'
+  def create_reviewer
+    if
+      @person = Person.find(params[:person_id].where(Person.email == @person.email))
+      flash[:success] = 'Osoba już istnieje.'
     else
-      if params[:submission_id]
-        submission = Submission.find(params[:submission_id])
-        @author_recommendation.submission = submission.last_revision
-        @from = submission_path(submission)
-        if @author_recommendation.submission.nil?
-          flash[:error] = 'Propozycja nie została przypisane do zgłoszenia!'
-          return
+      @person = Person.new(author_recommendation_params)
+      if @author_recommendation.save
+        if params[:from]
+          redirect_to params[:from]
+        else
+          flash[:error] = 'Niepoprawne wywołanie.'
+          redirect_to public_reviews_path
         end
-        review = Review.find(params[:review_id])
-        @author_recommendation.review = review
-        @author_recommendation = person_path(review)
-      end    
+      else
+        @from = params[:from]
+        render :new
+      end
+      review = Review.new(params[:author_recommendation])
     end
-    @review.status = 'proponowana'
-    @review.asked = Time.now
-    @review.deadline = 45.days.from_now
-  end  
- 
+  end 
 
-  def create
-    @author_recomendation = Person.new(author_recomendation_params)
-    if @author_recomendation.save
-      redirect_to @author_recomendation
-    else
-      render :new
-    end
+  def finish_recommendation
+    flash[:success] = 'Dziękujemy za zgłoszenie'
   end
 
   private
