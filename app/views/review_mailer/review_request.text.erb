@@ -1,0 +1,12 @@
+Szanowna Pani/ Szanowny Panie <%= @review.person.surname %>
+===============================================
+
+W imieniu redakcji Rocznika Kognitywistycznego
+zwracam sie z prośbą o sporządzenie recenzji
+artykułu: "<%= @review.title %>
+Streszczenie <%= @review.abstract %>
+
+Z wyrazami szacunku
+redaktor <%= @review.editor %>
+
+( do: @review.person.email ? review.reviewer, review.person

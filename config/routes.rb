@@ -15,11 +15,10 @@ Rails.application.routes.draw do
     get :departments, on: :collection
   end
   resources :authorships, only: [:new, :create, :destroy]
-  resources :reviews
-  resources :article_revisions, only: [:new, :create, :destroy]
-  resources :reviews do 
-    post :reviews, on: :member
+  resources :reviews do
+    post :review_request, on: :member
   end
+  resources :article_revisions, only: [:new, :create, :destroy]
   resources :articles
 
   devise_for :users

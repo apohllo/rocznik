@@ -95,7 +95,7 @@
           %td= link_to review.reviewer, review.person
           %td= review.asked.strftime("%d-%m-%Y")
           %td= review.deadline.strftime("%d-%m-%Y")
-          %td{style: "text-align:center;"}= link_to image_tag("/assets/send_icon.png", size: "22x22")
+          %td{style: "text-align:center;"}= link_to image_tag("/assets/send_icon.png", size: "22x22"), review_request_review_path(review), method: :post
           %td= review.asked_date
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= link_to review.status, edit_review_path(review)
