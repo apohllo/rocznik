@@ -2,19 +2,22 @@
   = link_to "Nowe zgłoszenie", new_submission_path, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title Zgłoszone artykuły
 .scroll-panel-body
-  = simple_search_form_for @query, @query_params do |f|
+  = simple_search_form_for @query do |f|
     = f.input :status_start, collection: Submission::STATUS_MAPPING.keys, include_blank: true
-    = f.input :issue_id_eq, collection: Issue.all, include_blank: true, label: "Numer rocznika"
+    = f.input :english_title_or_polish_title_cont, label: "Tytuł"
+    = f.input :issue_id_eq, collection: Issue.latest.all, include_blank: true, label: "Numer rocznika"
+    = f.input :received_gteq, label: "Data początkowa", as: :string, input_html:{ type:"date" }, placeholder: "1/1/2001"
     = f.submit "Filtruj", class: %w{btn btn-default btn-sm}
 
   %table.table.table-hover.table-admin
     %thead
       %tr
-        %th Nr wydania
+        %th Numer
         %th Tytuł
         %th Autor korespondujący
         %th Redaktor
         %th Data nadesłania
+        %th Deadline recenzji
         %th Status
         %th
     %tbody
@@ -33,6 +36,7 @@
             - else
               = submission.editor
           %td= submission.received.strftime("%d-%m-%Y")
+          %td{class: ("exceeded-deadline" if submission.last_review != nil && submission.deadline_missed?)}= submission.last_deadline
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
           %td.text-right
             = destroy_button(submission,"Czy na pewno chcesz usunąć to zgłoszenie")

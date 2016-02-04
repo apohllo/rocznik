@@ -8,12 +8,12 @@ class AddTitleAndContentIndexToStorytimePost < ActiveRecord::Migration
       version = get_mysql_version
 
       if (type == "MyISAM") || (type == "InnoDB" && Gem::Version.new(version) >= Gem::Version.new("5.6.4"))
-        add_index :storytime_posts, [:title, :content], type: :fulltext, :length => 50
+        add_index :storytime_posts, [:title, :content], type: :fulltext, length: 50
       elsif type == "InnoDB"
-        add_index :storytime_posts, [:title, :content], :length => 50
+        add_index :storytime_posts, [:title, :content], length: 50
       end
     elsif Storytime.search_adapter == Storytime::MysqlFulltextSearchAdapter
-      add_index :storytime_posts, [:title, :content], type: :fulltext, :length => 50
+      add_index :storytime_posts, [:title, :content], type: :fulltext, length: 50
     end
   end
 
