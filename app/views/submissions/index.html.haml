@@ -36,7 +36,7 @@
             - else
               = submission.editor
           %td= submission.received.strftime("%d-%m-%Y")
-          %td= submission.last_deadline
+          %td{class: ("exceeded-deadline" if submission.last_review != nil && submission.deadline_missed?)}= submission.last_deadline
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
           %td.text-right
             = destroy_button(submission,"Czy na pewno chcesz usunąć to zgłoszenie")

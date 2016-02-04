@@ -93,6 +93,23 @@ feature "recenzowanie" do
           expect(page).to have_css(".exceeded-deadline")
         end
       end
+            
+      scenario "Brak zaznaczenia przekroczonego deadline'u w liscie zgloszen" do
+        Timecop.freeze(Date.parse("15-01-2016")) do
+          visit '/submissions'
+
+          expect(page).not_to have_css(".exceeded-deadline")
+        end
+      end
+
+      scenario "Zaznaczenie przekroczonego deadline'u w liscie zgloszen" do
+        Timecop.freeze(Date.parse("15-02-2016")) do
+          visit '/submissions'
+
+          expect(page).to have_css(".exceeded-deadline")
+        end
+      end
+
 
       scenario "filtrowanie recenzji po statusie" do
         visit "/reviews"

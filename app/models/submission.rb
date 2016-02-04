@@ -118,6 +118,10 @@ class Submission < ActiveRecord::Base
     end
   end
   
+  def deadline_missed?
+    self.reviews.any?{|r| r.deadline_missed? }
+  end
+  
   private
   def cut_text(text,cut)
     if text.size > MAX_LENGTH && cut
