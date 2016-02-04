@@ -63,6 +63,16 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
+        
+        scenario "Filtrowanie zgłoszeń po tytule" do
+          visit "/submissions"
+
+          fill_in "Tytuł", with: "Alicja w krainie czarów"
+          click_on("Filtruj")
+
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).not_to have_content("W pustyni i w puszczy")
+        end
 
         scenario "Filtrowanie zgłoszeń po numerze rocznika" do
           visit "/submissions"
@@ -88,6 +98,18 @@ feature "zgloszenia" do
           visit '/submissions'
 
           expect(page).to have_content("[BRAK DEADLINE'u]")
+        end
+
+        scenario "edycja zgloszenia" do
+          visit "/submissions/"
+          click_on("W pustyni i w puszczy")
+          click_on("Edytuj")
+
+          fill_in "Otrzymano", with: "16/07/2016"
+          click_on("Zapisz")
+
+          expect(page).not_to have_css(".has-error")
+          expect(page).to have_content("16-07-2016")
         end
 
         context "Z recenzją" do
