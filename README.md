@@ -62,3 +62,4 @@ Szkolnictwa Wyższego.
 * Anna Szczepańczyk (Anaasz)
 * Filip Papierzyński (katemplujacy)
 * Aleksandra Filipek (olkaf123)
+* Klaudia Grzegolec (Clodia)
