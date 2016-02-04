@@ -21,18 +21,8 @@ feature "zgloszenia" do
 
     context "redaktor w bazie danych" do
       before do
-<<<<<<< HEAD
-<<<<<<< HEAD
         Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
-                       "mężczyzna", roles: ['redaktor'])
-=======
-        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email: "a.kapusa@gmail.com", sex:
                        "mężczyzna", roles: ['redaktor', 'recenzent'])
->>>>>>> 9cf3b9ba2f801f3954a5fd9a6b4fd9aeafb5c37f
-=======
-        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email: "a.kapusa@gmail.com", sex:
-                       "mężczyzna", roles: ['redaktor', 'recenzent'])
->>>>>>> 9cf3b9ba2f801f3954a5fd9a6b4fd9aeafb5c37f
         Issue.create!(volume: 3, year: 2020)
         Issue.create!(volume: 4, year: 2020)
       end
@@ -117,7 +107,7 @@ feature "zgloszenia" do
 
       context "brak autora w bazie danych" do
         before do
-          person = Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email:
+          person = Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email:
                                   "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
           Submission.create!(status: "nadesłany", language: "polski", person: person, received: "20-01-2016",
                              polish_title: "Bukiet kotów", english_title: "cats", english_abstract: "Sth about cats",
