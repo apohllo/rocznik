@@ -24,12 +24,12 @@ feature "recenzowanie" do
                              english_keywords: "tag1, tag2")
         article_revision_2 =
           ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: submission_2)
-        Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "10-12-2016", person:
+        Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person:
                        person_1, article_revision: article_revision_1)
         Review.create!(status: "recenzja negatywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
                        person_1, article_revision: article_revision_2)
       end
-      
+
       scenario "sprawdzanie możliwości edytowania recenzji" do
         visit '/reviews'
         click_on('Dlaczego solipsyzm?, v. 1')
@@ -74,6 +74,43 @@ feature "recenzowanie" do
         expect(page).to have_content(/Recenzje.*Wojciech Nowak/)
       end
 
+      scenario "Brak zaznaczenia przekroczonego deadline'u" do
+        Timecop.freeze(Date.parse("15-01-2016")) do
+          visit '/submissions'
+
+          click_on("Dlaczego solipsyzm?")
+
+          expect(page).not_to have_css(".exceeded-deadline")
+        end
+      end
+
+      scenario "Zaznaczenie przekroczonego deadline'u" do
+        Timecop.freeze(Date.parse("15-02-2016")) do
+          visit '/submissions'
+
+          click_on("Dlaczego solipsyzm?")
+
+          expect(page).to have_css(".exceeded-deadline")
+        end
+      end
+            
+      scenario "Brak zaznaczenia przekroczonego deadline'u w liscie zgloszen" do
+        Timecop.freeze(Date.parse("15-01-2016")) do
+          visit '/submissions'
+
+          expect(page).not_to have_css(".exceeded-deadline")
+        end
+      end
+
+      scenario "Zaznaczenie przekroczonego deadline'u w liscie zgloszen" do
+        Timecop.freeze(Date.parse("15-02-2016")) do
+          visit '/submissions'
+
+          expect(page).to have_css(".exceeded-deadline")
+        end
+      end
+
+
       scenario "filtrowanie recenzji po statusie" do
         visit "/reviews"
 
@@ -81,18 +118,18 @@ feature "recenzowanie" do
         click_on "Filtruj"
 
         expect(page).to have_content("16-01-2017")
-        expect(page).not_to have_content("10-12-2016")
+        expect(page).not_to have_content("20-01-2016")
       end
 
       scenario "sortowanie recenzji wzgledem deadlinu" do
         visit "/reviews"
-        expect(page).to have_content(/10-12-2016.*16-01-2017/)
+        expect(page).to have_content(/20-01-2016.*16-01-2017/)
 
         click_on "Deadline"
-        expect(page).to have_content(/16-01-2017.*10-12-2016/)
+        expect(page).to have_content(/16-01-2017.*20-01-2016/)
 
         click_on "Deadline"
-        expect(page).to have_content(/10-12-2016.*16-01-2017/)
+        expect(page).to have_content(/20-01-2016.*16-01-2017/)
       end
     end
   end

@@ -142,3 +142,6 @@ dd.published {
   background-color: #6ade31;
 }
 
+.morecontent span {
+  display: none;
+}

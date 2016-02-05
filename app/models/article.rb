@@ -32,4 +32,8 @@ class Article < ActiveRecord::Base
       "[BRAK NUMERU]"
     end
   end
+  
+  def to_param
+    [id, title.parameterize].join("-")
+  end
 end
