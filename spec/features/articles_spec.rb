@@ -89,6 +89,13 @@ feature "Artykuły" do
         expect(page).to have_content("Wiemy wszystko")
         expect(page).not_to have_content("Jerzozwież")
       end
+      
+      scenario "sortowanie artykułu wzgledem tytułu" do
+        visit "/articles"
+        click_on("Tytuł")
+        
+        expect(page).to have_content(/Jerzozwież.*Wiemy wszystko/)
+      end
     end
   end
 end
