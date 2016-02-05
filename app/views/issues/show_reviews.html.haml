@@ -6,7 +6,7 @@
 .scroll-panel-body
 - @issue.submissions.each do |submission|
   %h3= link_to submission.title, submission
-  .scroll-panel-body
+  .scroll-panel_body
     - submission.reviews.each do |review|
       %br
       = link_to review.title, review
