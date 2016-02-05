@@ -8,7 +8,7 @@ class PublicReviewsController < ApplicationController
     @person = Person.where(email: params[:person][:email]).first
     unless @person
       @person = Person.new(person_params)
-      unless `@person.save`
+      unless @person.save
         render :new_reviewer
         return
       end
@@ -16,7 +16,7 @@ class PublicReviewsController < ApplicationController
       review = Review.create(person: @person, article_revision: @revision)
       @person = Preson.new
     end
-    flash[:success] = 'Dziękujemy za zgłoszenie.'
+    flash[:success] = 'Pozycja została dodana pomyślnie.'
   end 
 
   def finish
@@ -25,6 +25,6 @@ class PublicReviewsController < ApplicationController
 
   private
   def person_params
-    params.require(:person).permit(:name,:surname,:email,:sex,roles: [])
+    params.require(:person).permit(:name,:surname,:discipline,:email,:sex,roles: [])
   end
 end

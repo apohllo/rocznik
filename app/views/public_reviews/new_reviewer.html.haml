@@ -1,7 +1,14 @@
+%ol
+  - if @revision
+    - @revision.each do |revision|
+      %li= revision.reviews
+
 = simple_form_for @person do |f|
+  = f.association :article_revision, label: "Artykuł (wersja)", collection: ArticleReview.order('received desc').limit(20), label_method: :title
   = f.input :name, label: "Imię"
   = f.input :surname, label: "Nazwisko"
   = f.input :email, label: "E-mail"
+  = f.input :discipline, label: "Dyscyplina naukowa"
   = f.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
   = f.hidden_field :roles, value: "recenzent", label: "Role", name: "person[roles][]"
  
