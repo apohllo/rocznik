@@ -92,9 +92,12 @@ feature "Artykuły" do
       
       scenario "sortowanie artykułu wzgledem tytułu" do
         visit "/articles"
-        click_on("Tytuł")
         
+        click_on("Tytuł")
         expect(page).to have_content(/Jerzozwież.*Wiemy wszystko/)
+        
+        click_on("Tytuł")
+        expect(page).to have_content(/Wiemy wszystko.*Jerzozwież/)
       end
     end
   end
