@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   end
   resources :authorships, only: [:new, :create, :destroy]
   resources :reviews do
-    post :review_request, on: :member
+    post :ask, on: :member
   end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :articles
