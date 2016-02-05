@@ -4,7 +4,7 @@ feature "zarządzanie osobami" do
   scenario "zarządzanie osobami bez uprawnień" do
     visit '/people'
 
-    expect(page).to have_content 'Log in'
+    expect(page).to have_content 'Zaloguj się'
   end
 
   context "po zalogowaniu" do
@@ -54,13 +54,10 @@ feature "zarządzanie osobami" do
     context "z jedną osobą w bazie danych" do
      
       include_context "admin login"
-      #####################
+      
       before do
-
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia")      
-
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "mężczyzna")
-
+      Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex:
+                       "mężczyzna")
       end
 
       scenario "wyświetlenie szczegółów osoby" do

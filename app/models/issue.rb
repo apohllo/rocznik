@@ -1,11 +1,12 @@
 class Issue < ActiveRecord::Base
   validates :year, presence: true, numericality: {greater_than: 2000}
-  validates :volume, presence: true, numericality: true
+  validates :volume, presence: true, numericality: true, uniqueness: true
 
   has_many :submissions
   has_many :articles
 
   scope :published, -> { where(published: true) }
+  scope :latest, -> { order("volume desc") }
 
   def title
     "#{self.volume}\/#{self.year}"
@@ -25,7 +26,7 @@ class Issue < ActiveRecord::Base
         ids.each do |id|
           submission = Submission.find_by_id(id)
           next unless submission
-          Article.create!(submission: submission, issue: self, status: "przygotowany do publikacji")
+          Article.create!(submission: submission, issue: self, status: "po recenzji")
         end
         self.update_attributes(prepared: true)
       end
@@ -43,5 +44,9 @@ class Issue < ActiveRecord::Base
     else
       ""
     end
+  end
+  
+  def to_param
+    [volume, year].join("-")
   end
 end
