@@ -70,17 +70,6 @@ ActiveRecord::Schema.define(version: 20160207134047) do
   add_index "authorships", ["person_id"], name: "index_authorships_on_person_id", using: :btree
   add_index "authorships", ["submission_id"], name: "index_authorships_on_submission_id", using: :btree
 
-  create_table "comments", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "person_id"
-    t.integer  "article_revision_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
-  add_index "comments", ["article_revision_id"], name: "index_comments_on_article_revision_id", using: :btree
-  add_index "comments", ["person_id"], name: "index_comments_on_person_id", using: :btree
-
   create_table "countries", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -377,8 +366,6 @@ ActiveRecord::Schema.define(version: 20160207134047) do
   add_foreign_key "articles", "submissions"
   add_foreign_key "authorships", "people"
   add_foreign_key "authorships", "submissions"
-  add_foreign_key "comments", "article_revisions"
-  add_foreign_key "comments", "people"
   add_foreign_key "departments", "institutions"
   add_foreign_key "institutions", "countries"
   add_foreign_key "reviews", "article_revisions"
