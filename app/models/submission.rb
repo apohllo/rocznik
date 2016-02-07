@@ -135,5 +135,4 @@ class Submission < ActiveRecord::Base
       text
     end
   end
-
 end
