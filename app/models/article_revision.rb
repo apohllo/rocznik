@@ -3,11 +3,6 @@ class ArticleRevision < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   mount_uploader :article, ArticleUploader
 
-  ACCEPT_MAPPING = {
-    "tak" => "tak",
-    "nie" => "nie"
-  }
-
   validates :submission_id, presence: true
   validates :pages, presence: true, numericality: true
   validates :pictures, presence: true, numericality: true
@@ -28,11 +23,11 @@ class ArticleRevision < ActiveRecord::Base
       "[BRAK PLIKU]"
     end
   end
-  
+
   def authors_institutions
     self.submission.authors_institutions
   end
-  
+
   def received_date
     if self.received
       self.received.strftime("%d-%m-%Y")
@@ -40,5 +35,5 @@ class ArticleRevision < ActiveRecord::Base
       "[DATA NIEZNANA]"
     end
   end
-  
+
 end
