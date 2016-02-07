@@ -1,8 +1,12 @@
 class Authorship < ActiveRecord::Base
-  validates :person, presence: true
+  validates :person, presence: true, uniqueness: { scope: :submission_id }
 
   belongs_to :person
+  accepts_nested_attributes_for :person
+
   belongs_to :submission
+
+
 
   def author
     if person

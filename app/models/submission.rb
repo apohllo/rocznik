@@ -16,6 +16,11 @@ class Submission < ActiveRecord::Base
   validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
+
+  accepts_nested_attributes_for :article_revisions
+
+  scope :accepted, -> { where(status: "przyjęty") }
+  
   has_one :article
   belongs_to :person
   belongs_to :issue

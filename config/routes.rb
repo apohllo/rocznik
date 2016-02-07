@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :public_issues, only: [:index,:show]
   resources :people
   resources :submissions
+  resources :public_submissions, only: [:new, :create] do
+    get :authors, on: :collection
+  end
   resources :affiliations, only: [:new, :create, :destroy] do
     get :institutions, on: :collection
     get :countries, on: :collection
