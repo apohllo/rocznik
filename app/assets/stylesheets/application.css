@@ -38,7 +38,9 @@ h3.scroll-panel-title {
   padding-left: 20px;
   padding-bottom: 20px;
 }
-
+.navbar-right {
+    margin-right: 15px !important;
+}
 td.asked, td.editor, dd.asked, dd.editor {
   background-color: #ffff00;
 }
