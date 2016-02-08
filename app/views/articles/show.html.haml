@@ -14,5 +14,5 @@
     %dd{class: "#{Article::STATUS_MAPPING[@article.status]}"}= @article.status
   %dl
     %dt Numer DOI
-    %dd= @article.DOI
+    %dd= link_to @article.DOI, "http://dx.doi.org/"+@article.DOI
   = link_to "Edytuj", edit_article_path(@article), class: %w{btn btn-primary btn-sm}
