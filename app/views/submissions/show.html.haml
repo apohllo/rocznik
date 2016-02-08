@@ -53,7 +53,7 @@
             = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")
   = link_to "Dodaj autora", new_authorship_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
   %h3 Wersje
-  %table.table.table-hover.table-admin
+  %table.table.table-hover.table-admin#version
     %thead
       %tr
         %th Numer
