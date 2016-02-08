@@ -1,4 +1,4 @@
 = f.input :status, collection: Review::STATUS_MAPPING.keys
-= f.input :asked, label: "Zapytanie wysłano", as: :string, input_html: { value: l(f.object.asked, format: "%d-%m-%Y") }
-= f.input :deadline, label: "Deadline", as: :string, input_html: { value: l(f.object.deadline, format: "%d-%m-%Y") }
+= f.input :asked, label: "Zapytanie wysłano", as: :string, input_html: { value: l(f.object.asked, format: "%d-%m-%Y"), type:"date" }, hint: 'Data wysłania zapytania do recenzenta'
+= f.input :deadline, label: "Deadline", as: :string, input_html: { value: l(f.object.deadline, format: "%d-%m-%Y"), type:"date" }, hint: 'Data spodziewanej odpowiedzi na zapytanie o recenzję lub zadeklarowana data sporządzenia recenzji'
 = f.input :remarks, label: "Uwagi"

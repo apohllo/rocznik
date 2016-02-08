@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.1'
+gem 'rails', '~> 4.2.5'
 gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -34,4 +34,5 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'rubocop', require: false
   gem 'overcommit'
+  gem 'timecop'
 end

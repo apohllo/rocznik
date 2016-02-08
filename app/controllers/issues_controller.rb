@@ -10,7 +10,7 @@ class IssuesController < ApplicationController
   
   
   def publish
-    @issue = Issue.find(params[:id])
+    @issue = Issue.find_by_volume(params[:id])
     @issue.publish
     redirect_to @issue
   end
@@ -20,11 +20,11 @@ class IssuesController < ApplicationController
   end
 
   def prepare_form
-    @issue = Issue.find(params[:id])
+    @issue = Issue.find_by_volume(params[:id])
   end
 
   def prepare
-    @issue = Issue.find(params[:id])
+    @issue = Issue.find_by_volume(params[:id])
     if params[:issue][:submission_ids] && @issue.prepare_to_publish(params[:issue][:submission_ids])
       redirect_to @issue
     else
@@ -42,11 +42,11 @@ class IssuesController < ApplicationController
   end
 
   def edit
-    @issue = Issue.find(params[:id])
+    @issue = Issue.find_by_volume(params[:id])
   end
 
   def update
-    @issue = Issue.find(params[:id])
+    @issue = Issue.find_by_volume(params[:id])
     if @issue.update_attributes(issue_params)
       redirect_to @issue
     else
@@ -55,7 +55,12 @@ class IssuesController < ApplicationController
   end
 
   def show
-    @issue = Issue.find(params[:id])
+    @issue = Issue.find_by_volume(params[:id])
+  end
+  
+    
+  def show_reviews
+    @issue = Issue.find_by_volume(params[:id])
   end
 
   private
