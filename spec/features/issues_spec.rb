@@ -105,6 +105,32 @@ feature "zarządzanie numerami" do
           expect(page).not_to have_css(".has-error")
           expect(page).not_to have_content("Wybierz artykuły do wydania")
         end
+        
+        context "z jedną recenzją" do
+          before do
+            Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email: "a.kapusa@gmail.com", sex:
+                       "mężczyzna", roles: ['redaktor', 'recenzent'])
+            revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
+            Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
+                           status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
+          end
+          
+          scenario "dostępność przeglądu recenzji" do
+            visit "/issues"
+            
+            click_link "3"
+            expect(page).to have_link("Pokaż recenzje")
+          end
+          
+          scenario "wyświetlenie tytułów artykułów oraz treści rezenzji" do
+            visit "/issues"
+            
+            click_link "3"
+            click_link "Pokaż recenzje"
+            expect(page).to have_content("Zaakceptowany tytuł")
+            expect(page).to have_content("treść rezenzji")
+          end
+        end
 
         context "przygotowany do wydania" do
           before do
