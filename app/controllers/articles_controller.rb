@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
     @query_params = params[:q] || {}
     @query = Article.ransack(@query_params)
     @query.sorts = ['created_at'] if @query.sorts.empty?
-    @articles = @query.result(distinct: true)
+    @articles = @query.result.includes(:submission)
   end
 
   def show
