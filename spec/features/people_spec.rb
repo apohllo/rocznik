@@ -24,7 +24,7 @@ feature "zarządzanie osobami" do
         fill_in "Imię", with: "Andrzej"
         fill_in "Nazwisko", with: "Kapusta"
         fill_in "E-mail", with: "a.kapusta@gmail.com"
-        fill_in "Dyscyplina", with: "filozofia"
+        fill_in "Dyscyplina", check: 'filozofia'
         fill_in "Kompetencje", with: "Arystoteles"
         select "mężczyzna", from: "Płeć", visible: false
         check "recenzent"
