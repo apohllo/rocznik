@@ -26,7 +26,7 @@ class Issue < ActiveRecord::Base
         ids.each do |id|
           submission = Submission.find_by_id(id)
           next unless submission
-          Article.create!(submission: submission, issue: self, status: "przygotowany do publikacji")
+          Article.create!(submission: submission, issue: self, status: "po recenzji")
         end
         self.update_attributes(prepared: true)
       end
@@ -44,5 +44,9 @@ class Issue < ActiveRecord::Base
     else
       ""
     end
+  end
+  
+  def to_param
+    [volume, year].join("-")
   end
 end
