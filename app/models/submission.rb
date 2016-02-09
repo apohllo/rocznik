@@ -121,6 +121,10 @@ class Submission < ActiveRecord::Base
   def deadline_missed?
     self.reviews.any?{|r| r.deadline_missed? }
   end
+
+  def polish_language?
+    self.language == POLISH
+  end
   
   private
   def cut_text(text,cut)
