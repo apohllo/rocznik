@@ -8,8 +8,9 @@ feature "wersje" do
 
     context "redaktor, numer i zgłoszenie w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email: "a.kapusa@gmail.com", sex:
-                       "mężczyzna", roles: ['redaktor', 'recenzent'])
+        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"],
+                    email: "a.kapusa@gmail.com", sex:
+                   "mężczyzna", roles: ['redaktor', 'recenzent'])
         Issue.create!(volume: 3, year: 2020)
         Submission.create!(person_id: Person.first, status: "nadesłany", polish_title: "Alicja w krainie czarów",
                            english_title: "Alice in Wonderland", english_abstract: "Little about that story",
