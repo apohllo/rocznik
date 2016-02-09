@@ -122,7 +122,6 @@ ActiveRecord::Schema.define(version: 20160207134047) do
     t.string   "surname",                 null: false
     t.string   "email",                   null: false
     t.string   "degree"
-    t.string   "discipline",              null: false
     t.string   "orcid"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
@@ -130,6 +129,7 @@ ActiveRecord::Schema.define(version: 20160207134047) do
     t.string   "photo"
     t.string   "sex"
     t.text     "competence"
+    t.text     "discipline", default: [], null: false, array: true
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
