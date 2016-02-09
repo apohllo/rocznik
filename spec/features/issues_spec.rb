@@ -108,7 +108,7 @@ feature "zarządzanie numerami" do
         
         context "z jedną recenzją" do
           before do
-            Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email: "a.kapusa@gmail.com", sex:
+            Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
                        "mężczyzna", roles: ['redaktor', 'recenzent'])
             revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
