@@ -11,6 +11,13 @@ class Person < ActiveRecord::Base
     "mężczyzna" => "M"
   }
 
+  DISCIPLINE_MAPPING = {
+    "filozofia" => "F",
+    "psychologia" => "P",
+    "socjologia" => "S",
+    "lingwistyka" => "L"
+   }
+
   mount_uploader :photo, PhotoUploader
 
   validates :name, presence: true
