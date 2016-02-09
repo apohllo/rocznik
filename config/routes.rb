@@ -16,7 +16,9 @@ Rails.application.routes.draw do
     get :departments, on: :collection
   end
   resources :authorships, only: [:new, :create, :destroy]
-  resources :reviews
+  resources :reviews do
+    post :ask, on: :member
+  end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :articles
 
