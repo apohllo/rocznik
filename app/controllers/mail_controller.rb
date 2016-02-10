@@ -3,7 +3,7 @@ class MailController < ApplicationController
 
   def write_email
     @simplemail = SimpleMail.new
-    #@simplemail.sender = current_user.email
+  
   end
 
   def send_email
