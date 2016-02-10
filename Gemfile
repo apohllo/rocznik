@@ -28,11 +28,15 @@ group :development, :test do
   gem 'byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  #gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'capybara'
   gem 'rspec-rails', '~> 3.0'
   gem 'rubocop', require: false
   gem 'overcommit'
   gem 'timecop'
+end
+
+group :development do
+  gem 'web-console', '~> 2.0'
 end
