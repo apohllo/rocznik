@@ -13,7 +13,7 @@
     %dd= @person.sex
   %dl
     %dt Dyscypliny
-    %dd= @person.discipline
+    %dd= @person.discipline.join(", ")
   %dl
     %dt Kompetencje
     %dd= @person.competence

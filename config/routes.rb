@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get :prepare_form, on: :member
     patch :prepare, on: :member
     patch :publish, on: :member
+    get :show_reviews, on: :member
   end
   resources :public_issues, only: [:index,:show]
   resources :people
@@ -16,7 +17,7 @@ Rails.application.routes.draw do
   end
   resources :authorships, only: [:new, :create, :destroy]
   resources :reviews
-  resources :article_revisions, only: [:new, :create, :destroy]
+  resources :article_revisions
   resources :articles
   resources :user_mailer
     get 'mail/write_email', to: 'mail#write_email', as: :write_email
