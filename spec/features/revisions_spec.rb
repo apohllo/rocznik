@@ -12,7 +12,8 @@ feature "zarządzanie recenzjami" do
                                 "kobieta", roles: ["autor"])
         editor = Person.create!(name: "Piotr", surname: "Zujotu", email: "p@o2.pl", discipline: ["matematyka"], sex:
                                 "mężczyzna", roles: ["recenzent", "redaktor"])
-        reviewer = Person.create!(name: "Anna", surname: "Zpolibudy", email: "a@o2.pl", discipline: ["polonistyka"], sex:
+        reviewer = Person.create!(name: "Anna", surname: "Zpolibudy", email: "a@o2.pl",
+                                  discipline: ["polonistyka"], sex:
                                   "kobieta", roles: ["recenzent"])
         country = Country.create!(name: "Polska")
         uj = Institution.create!(name: "Uniwersytet Jagielloński", country: country)
