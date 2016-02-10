@@ -139,7 +139,7 @@ feature "recenzowanie" do
       
       scenario "sprawdzanie dostepnosci odnosnika do wyswietlania i edycji recenzji w pojedynczym zgloszeniu" do
         visit "/reviews"
-        click_on "tytuł, v. 1"
+        click_on "Dlaczego solipsyzm?"
         
         expect(page).to have_css(".fa fa-pencil")
         expect(page).to have_css(".fa fa-file-text")
