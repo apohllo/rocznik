@@ -28,3 +28,17 @@
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
           %td.text-right
             = destroy_button(submission)
+  -if @issue.prepared?
+    %h3 Publikowane artykuły
+    %table.table.table-hover.table-admin
+      %thead
+        %tr
+          %th Tytuł
+          %th Autorzy
+          %th Status
+      %tbody
+        - @issue.articles.each do |article|
+          %tr
+            %td= article.submission.title
+            %td= article.authors_inline
+            %td= article.status
