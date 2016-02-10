@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
 
+get "/404" => "errors#not_found"
+get "/500" => "errors#internal_server_error"
+
   resources :issues do
     get :prepare_form, on: :member
     patch :prepare, on: :member
