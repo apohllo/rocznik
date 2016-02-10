@@ -11,6 +11,14 @@ class Person < ActiveRecord::Base
     "mężczyzna" => "M"
   }
 
+  REVIEWER_MAP = {
+    "Nowy recenzent" => :new,
+    "Recenzuje w terminie" => :reviewsontime,
+    "Recenzuje po terminie" => :reviewslate,
+    "Nie chce recenzować" => :willnotreview,
+    "Chce rezencować" => :willreview
+  }
+  
   mount_uploader :photo, PhotoUploader
 
   validates :name, presence: true
@@ -18,7 +26,9 @@ class Person < ActiveRecord::Base
   validates :email, presence: true
   validates :discipline, presence: true
   validates :sex, presence: true, inclusion: SEX_MAPPING.keys
+  validates :reviewer_status, allow_blank: true, inclusion: REVIEWER_MAP.keys
   validate :roles_inclusion
+
 
   has_many :affiliations, dependent: :destroy
   has_many :authorships, dependent: :destroy
@@ -50,7 +60,7 @@ class Person < ActiveRecord::Base
       errors.add(:roles,"'#{invalid_role}' is a invalid role.")
     end
   end
-
+  
   def current_institutions
     self.affiliations.current.map{|e| e.institution}
   end
