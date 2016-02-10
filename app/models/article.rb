@@ -32,6 +32,46 @@ class Article < ActiveRecord::Base
       "[BRAK NUMERU]"
     end
   end
+
+  def abstract
+     if self.submission
+       self.submission.english_abstract
+     else
+       "[BRAK STRESZCZENIA]"
+     end
+  end
+
+  def keywords
+    if self.submission
+      self.submission.english_keywords
+    else
+      "[BRAK SŁÓW KLUCZOWYCH]"
+    end
+  end 
+
+  def affiliations
+    if self.submission
+      self.submission.authors_institutions    
+    else
+      "[BRAK AFFILIACJI]"
+    end
+  end
+ 
+  def pages
+   if !self.article_pages.blank?
+       self.article_pages
+   else
+      "[BRAK STRON]"
+   end
+  end
+
+  def link
+    if !self.link_to_article.blank?
+      self.link_to_article
+    else
+      "[BRAK LINKU DO ŚCIÁGNIĘCIA ARTYKUŁU]"
+    end
+  end
   
   def to_param
     [id, title.parameterize].join("-")

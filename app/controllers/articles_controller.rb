@@ -1,11 +1,26 @@
 class ArticlesController < ApplicationController
   before_action :admin_required
+  
+
+  def new
+    @article = Article.new
+  end
+
+  def create
+    @article = Article.new(article_params)
+    if @article.save
+      redirect_to @article
+    else
+      render :new
+    end
+  end
+  
 
   def index
     @query_params = params[:q] || {}
     @query = Article.ransack(@query_params)
     @query.sorts = ['created_at'] if @query.sorts.empty?
-    @articles = @query.result.includes(:submission)
+    @articles = @query.result
   end
 
   def show
@@ -27,6 +42,6 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:issue_id, :status)
+    params.require(:article).permit(:issue_id, :status, :article_pages, :link_to_article)
   end
 end

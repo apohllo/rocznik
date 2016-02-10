@@ -7,8 +7,23 @@
     %dt Autorzy
     %dd= @article.authors_inline
   %dl
+    %dt Affiliacje
+    %dd= @article.affiliations
+  %dl
     %dt Numer
     %dd= @article.issue_title
+  %dl
+    %dt Streszczenie
+    %dd= @article.abstract
+  %dl
+    %dt Slowa kluczowe
+    %dd= @article.keywords
+  %dl
+    %dt Strony
+    %dd= @article.pages
+  %dl
+    %dt Link do ściągnięcia artykułu
+    %dd= @article.link
   %dl
     %dt Status
     %dd{class: "#{Article::STATUS_MAPPING[@article.status]}"}= @article.status

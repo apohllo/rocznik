@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207134047) do
+ActiveRecord::Schema.define(version: 20160210202630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 20160207134047) do
 
   create_table "article_revisions", force: :cascade do |t|
     t.integer  "submission_id"
-    t.integer  "version",       default: 0
+    t.integer  "version",       default: 1
     t.date     "received"
     t.integer  "pages"
     t.integer  "pictures",      default: 0
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "code"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "code",          default: "tekst_"
     t.string   "article"
     t.string   "accepted"
     t.text     "comment"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 20160207134047) do
     t.integer  "submission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "article_pages"
+    t.string   "link_to_article"
   end
 
   add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
@@ -126,8 +128,8 @@ ActiveRecord::Schema.define(version: 20160207134047) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.text     "roles",      default: [], null: false, array: true
-    t.string   "photo"
     t.string   "sex"
+    t.string   "photo"
     t.text     "competence"
     t.text     "discipline", default: [], null: false, array: true
   end
@@ -336,7 +338,6 @@ ActiveRecord::Schema.define(version: 20160207134047) do
     t.datetime "updated_at",       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
-    t.string   "article"
   end
 
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
