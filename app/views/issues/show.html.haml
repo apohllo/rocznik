@@ -11,6 +11,7 @@
     = @issue.title
     = @issue.published? ? " [OPUBLIKOWANY]" : ""
   = link_to "Edytuj", edit_issue_path(@issue), class: %w{btn btn-primary btn-sm}
+  = link_to "Pokaż recenzje", show_reviews_issue_path(@issue), class: %w{btn btn-default btn-sm}
 .scroll-panel-body
   %h3 Zgłoszone artykuły
   %table.table.table-hover.table-admin
@@ -19,7 +20,6 @@
         %th Tytuł
         %th Data nadesłania
         %th Status
-        %th
     %tbody
       - @issue.submissions.each do |submission|
         %tr
