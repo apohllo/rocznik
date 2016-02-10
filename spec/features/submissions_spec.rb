@@ -21,7 +21,7 @@ feature "zgloszenia" do
 
     context "redaktor w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email: "a.kapusa@gmail.com", sex:
+        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
                        "mężczyzna", roles: ['redaktor', 'recenzent'])
         Issue.create!(volume: 3, year: 2020)
         Issue.create!(volume: 4, year: 2020)
@@ -64,6 +64,16 @@ feature "zgloszenia" do
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
 
+        scenario "Filtrowanie zgłoszeń po tytule" do
+          visit "/submissions"
+
+          fill_in "Tytuł", with: "Alicja w krainie czarów"
+          click_on("Filtruj")
+
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).not_to have_content("W pustyni i w puszczy")
+        end
+
         scenario "Filtrowanie zgłoszeń po numerze rocznika" do
           visit "/submissions"
 
@@ -90,6 +100,18 @@ feature "zgloszenia" do
           expect(page).to have_content("[BRAK DEADLINE'u]")
         end
 
+        scenario "edycja zgloszenia" do
+          visit "/submissions/"
+          click_on("W pustyni i w puszczy")
+          click_on("Edytuj")
+
+          fill_in "Otrzymano", with: "16/07/2016"
+          click_on("Zapisz")
+
+          expect(page).not_to have_css(".has-error")
+          expect(page).to have_content("16-07-2016")
+        end
+
         context "Z recenzją" do
           before do
             revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
@@ -107,7 +129,7 @@ feature "zgloszenia" do
 
       context "brak autora w bazie danych" do
         before do
-          person = Person.create!(name: "Andrzej", surname: "Kapusta", discipline: "filozofia", email:
+          person = Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email:
                                   "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
           Submission.create!(status: "nadesłany", language: "polski", person: person, received: "20-01-2016",
                              polish_title: "Bukiet kotów", english_title: "cats", english_abstract: "Sth about cats",

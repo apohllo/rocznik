@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160204183624) do
+=======
+ActiveRecord::Schema.define(version: 20160207134047) do
+>>>>>>> a4ded3e918c20448fe740fec24714824bc5ea995
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +43,8 @@ ActiveRecord::Schema.define(version: 20160204183624) do
     t.datetime "updated_at",                       null: false
     t.string   "code",          default: "tekst_"
     t.string   "article"
+    t.string   "accepted"
+    t.text     "comment"
   end
 
   add_index "article_revisions", ["submission_id"], name: "index_article_revisions_on_submission_id", using: :btree
@@ -120,7 +126,10 @@ ActiveRecord::Schema.define(version: 20160204183624) do
     t.string   "surname",                      null: false
     t.string   "email",                        null: false
     t.string   "degree"
+<<<<<<< HEAD
     t.string   "discipline",                   null: false
+=======
+>>>>>>> a4ded3e918c20448fe740fec24714824bc5ea995
     t.string   "orcid"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
@@ -128,7 +137,11 @@ ActiveRecord::Schema.define(version: 20160204183624) do
     t.string   "sex"
     t.string   "photo"
     t.text     "competence"
+<<<<<<< HEAD
     t.string   "reviewer_status"
+=======
+    t.text     "discipline", default: [], null: false, array: true
+>>>>>>> a4ded3e918c20448fe740fec24714824bc5ea995
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
@@ -335,6 +348,7 @@ ActiveRecord::Schema.define(version: 20160204183624) do
     t.datetime "updated_at",       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
+    t.string   "article"
   end
 
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree

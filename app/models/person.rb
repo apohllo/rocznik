@@ -19,6 +19,13 @@ class Person < ActiveRecord::Base
     "Chce rezencować" => :willreview
   }
   
+  DISCIPLINE_MAPPING = {
+    "filozofia" => "F",
+    "psychologia" => "P",
+    "socjologia" => "S",
+    "lingwistyka" => "L"
+   }
+
   mount_uploader :photo, PhotoUploader
 
   validates :name, presence: true
@@ -60,7 +67,8 @@ class Person < ActiveRecord::Base
       errors.add(:roles,"'#{invalid_role}' is a invalid role.")
     end
   end
-  
+
+
   def current_institutions
     self.affiliations.current.map{|e| e.institution}
   end

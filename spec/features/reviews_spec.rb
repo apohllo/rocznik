@@ -6,11 +6,11 @@ feature "recenzowanie" do
 
     context "recenzja w bazie" do
       before do
-        person_1 = Person.create!(name:"Andrzej", surname:"Kapusta", discipline:"filozofia", sex: "mężczyzna", email:
+        person_1 = Person.create!(name:"Andrzej", surname:"Kapusta", discipline:["filozofia"], sex: "mężczyzna", email:
                                   "a.kapusta@gmail.com", roles: ['redaktor'])
-        Person.create!(name:"Anna", surname:"Genialna", discipline:"filozofia", email: "a.genialna@gmail.com", sex:
+        Person.create!(name:"Anna", surname:"Genialna", discipline:["filozofia"], email: "a.genialna@gmail.com", sex:
                        "kobieta",roles: ['recenzent'])
-        Person.create!(name:"Wojciech", surname:"Nowak", discipline:"fizyka", email: "w.nowak@gmail.com", sex:
+        Person.create!(name:"Wojciech", surname:"Nowak", discipline:["psychologia"], email: "w.nowak@gmail.com", sex:
                        "mężczyzna",roles: ['recenzent'])
         submission_1 =
           Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person: person_1,
@@ -24,7 +24,7 @@ feature "recenzowanie" do
                              english_keywords: "tag1, tag2")
         article_revision_2 =
           ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: submission_2)
-        Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "10-12-2016", person:
+        Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person:
                        person_1, article_revision: article_revision_1)
         Review.create!(status: "recenzja negatywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
                        person_1, article_revision: article_revision_2)
@@ -42,6 +42,7 @@ feature "recenzowanie" do
         click_on("Edytuj")
         fill_in "Treść recenzji", with: "Testowa recenzja"
         select "recenzja przyjęta", from: "Status"
+        fill_in "Zapytanie wysłano", with: "16/01/2016"
         click_on("Zapisz")
 
         expect(page).to have_content("Testowa recenzja")
@@ -73,6 +74,43 @@ feature "recenzowanie" do
         expect(page).to have_content(/Recenzje.*Wojciech Nowak/)
       end
 
+      scenario "Brak zaznaczenia przekroczonego deadline'u" do
+        Timecop.freeze(Date.parse("15-01-2016")) do
+          visit '/submissions'
+
+          click_on("Dlaczego solipsyzm?")
+
+          expect(page).not_to have_css(".exceeded-deadline")
+        end
+      end
+
+      scenario "Zaznaczenie przekroczonego deadline'u" do
+        Timecop.freeze(Date.parse("15-02-2016")) do
+          visit '/submissions'
+
+          click_on("Dlaczego solipsyzm?")
+
+          expect(page).to have_css(".exceeded-deadline")
+        end
+      end
+            
+      scenario "Brak zaznaczenia przekroczonego deadline'u w liscie zgloszen" do
+        Timecop.freeze(Date.parse("15-01-2016")) do
+          visit '/submissions'
+
+          expect(page).not_to have_css(".exceeded-deadline")
+        end
+      end
+
+      scenario "Zaznaczenie przekroczonego deadline'u w liscie zgloszen" do
+        Timecop.freeze(Date.parse("15-02-2016")) do
+          visit '/submissions'
+
+          expect(page).to have_css(".exceeded-deadline")
+        end
+      end
+
+
       scenario "filtrowanie recenzji po statusie" do
         visit "/reviews"
 
@@ -80,18 +118,18 @@ feature "recenzowanie" do
         click_on "Filtruj"
 
         expect(page).to have_content("16-01-2017")
-        expect(page).not_to have_content("10-12-2016")
+        expect(page).not_to have_content("20-01-2016")
       end
 
       scenario "sortowanie recenzji wzgledem deadlinu" do
         visit "/reviews"
-        expect(page).to have_content(/10-12-2016.*16-01-2017/)
+        expect(page).to have_content(/20-01-2016.*16-01-2017/)
 
         click_on "Deadline"
-        expect(page).to have_content(/16-01-2017.*10-12-2016/)
+        expect(page).to have_content(/16-01-2017.*20-01-2016/)
 
         click_on "Deadline"
-        expect(page).to have_content(/10-12-2016.*16-01-2017/)
+        expect(page).to have_content(/20-01-2016.*16-01-2017/)
       end
     end
   end
