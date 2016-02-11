@@ -1,5 +1,5 @@
 - if flash[:notice]
-  {style: "text-color:center;"}= flash[:notice]
+  = flash[:notice]
 .scroll-panel-header
   = link_to "Zgłoszenia", submissions_path, class: %w{btn btn-default btn-sm pull-right}
   = link_to "Nowe zgłoszenie", new_submission_path, class: %w{btn btn-default btn-sm pull-right}
