@@ -16,7 +16,7 @@ class Submission < ActiveRecord::Base
   validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
-  has_one :article
+  has_many :article
   belongs_to :person
   belongs_to :issue
 
@@ -66,7 +66,15 @@ class Submission < ActiveRecord::Base
       "[BRAK NUMERU]"
     end
   end
-
+  
+  def article_type
+    if self.polish_title
+      self.polish_title
+    else
+      "[BRAK]"
+    end
+  end
+  
   def author
     authorship = self.authorships.where(corresponding: true).first
     if authorship

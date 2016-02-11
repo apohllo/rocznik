@@ -24,6 +24,14 @@ class Article < ActiveRecord::Base
       "[BRAK TYTUŁU]"
     end
   end
+  
+  def title_original
+    if self.submission
+      self.submission.title(false)
+    else
+      "[BRAK TYTUŁU]"
+    end
+  end
 
   def issue_title
     if self.issue
