@@ -24,7 +24,7 @@ feature "zarządzanie osobami" do
         fill_in "Imię", with: "Andrzej"
         fill_in "Nazwisko", with: "Kapusta"
         fill_in "E-mail", with: "a.kapusta@gmail.com"
-        fill_in "Dyscyplina", with: "filozofia"
+        check "filozofia"
         fill_in "Kompetencje", with: "Arystoteles"
         select "mężczyzna", from: "Płeć", visible: false
         check "recenzent"
@@ -56,9 +56,10 @@ feature "zarządzanie osobami" do
       include_context "admin login"
       
       before do
+
       Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex:
-                       "mężczyzna")
-      end
+
+    end
 
       scenario "wyświetlenie szczegółów osoby" do
         visit "/people"
@@ -101,9 +102,9 @@ feature "zarządzanie osobami" do
     context "z dwoma osobami w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
-                       discipline: "filozofia", competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
+                       discipline: ["filozofia"], competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
         Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com",
-                       discipline: "psychologia", competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
+                       discipline: ["psychologia"], competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
       end
     
 
