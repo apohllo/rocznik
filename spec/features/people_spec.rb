@@ -4,7 +4,7 @@ feature "zarządzanie osobami" do
   scenario "zarządzanie osobami bez uprawnień" do
     visit '/people'
 
-    expect(page).to have_content 'Log in'
+    expect(page).to have_content 'Zaloguj się'
   end
 
   context "po zalogowaniu" do
@@ -24,7 +24,7 @@ feature "zarządzanie osobami" do
         fill_in "Imię", with: "Andrzej"
         fill_in "Nazwisko", with: "Kapusta"
         fill_in "E-mail", with: "a.kapusta@gmail.com"
-        fill_in "Dyscyplina", with: "filozofia"
+        check "filozofia"
         fill_in "Kompetencje", with: "Arystoteles"
         select "mężczyzna", from: "Płeć", visible: false
         check "recenzent"
@@ -36,6 +36,7 @@ feature "zarządzanie osobami" do
       expect(page).to have_content("Kapusta")
       expect(page).to have_content("a.kapusta@gmail.com")
       expect(page).to have_content("Arystoteles")
+      expect(page).to have_content("filozofia")
       expect(page).to have_css("img[src*='person']")
     end
 
@@ -53,7 +54,8 @@ feature "zarządzanie osobami" do
 
     context "z jedną osobą w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex: "mężczyzna")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
+                      sex: "mężczyzna")
       end
 
       scenario "wyświetlenie szczegółów osoby" do
@@ -78,9 +80,9 @@ feature "zarządzanie osobami" do
     context "z dwoma osobami w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
-                       discipline: "filozofia", competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
+                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
         Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com",
-                       discipline: "psychologia", competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
+                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
       end
 
       scenario "wyszukanie osoby" do

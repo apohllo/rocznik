@@ -4,7 +4,7 @@ feature "zarządzanie numerami" do
   scenario "zarządzanie numerami bez uprawnień" do
     visit '/issues'
 
-    expect(page).to have_content 'Log in'
+    expect(page).to have_content 'Zaloguj się'
   end
 
   context "po zalogowaniu" do
@@ -56,15 +56,25 @@ feature "zarządzanie numerami" do
         expect(page).to have_link("Przygotuj do wydania")
       end
 
+      scenario "dostępność edycji numeru" do
+        visit "/issues"
+        click_link "3"
+
+        expect(page).to have_link("Edytuj")
+      end
+
       scenario "dodawanie zgłoszenia z istniejącym numerem i sprawdzenie zgłoszenia w numerze" do
         visit '/submissions/new'
 
         within("#new_submission") do
           select "nadesłany", from: "Status"
           select "polski", from: "Język"
-          select "3/2020", from: "Nr wydania"
+          select "3/2020", from: "Numer"
           fill_in "Otrzymano", with: "12-01-2016"
           fill_in "Tytuł", with: "próbny tytuł"
+          fill_in "Title", with: "trial"
+          fill_in "Abstract", with: "trial abstract"
+          fill_in "Key words", with: "trial key words"
         end
         click_button 'Utwórz'
 
@@ -73,10 +83,16 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_content("próbny tytuł")
       end
+
       context "z jednym zaakceptowanym zgłoszeniem" do
         before do
-          Submission.create!(status:'przyjęty', language:"polski", issue: Issue.first, polish_title: "Zaakceptowany tytuł", received: "2016-01-17")
+          Submission.create!(status:'przyjęty', language:"polski", issue:
+                             Issue.first, polish_title: "Zaakceptowany tytuł",
+                             english_title: "Accepted title", english_abstract:
+                             "Short abstract", english_keywords: "brain,
+                             language", received: "2016-01-17")
         end
+
         scenario "Przygotowanie numeru do wydania" do
           visit "/issues"
 
@@ -90,10 +106,36 @@ feature "zarządzanie numerami" do
           expect(page).not_to have_content("Wybierz artykuły do wydania")
         end
 
+        context "z jedną recenzją" do
+          before do
+            Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
+                       "mężczyzna", roles: ['redaktor', 'recenzent'])
+            revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
+            Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
+                           status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
+          end
+
+          scenario "dostępność przeglądu recenzji" do
+            visit "/issues"
+
+            click_link "3"
+            expect(page).to have_link("Pokaż recenzje")
+          end
+
+          scenario "wyświetlenie tytułów artykułów oraz treści rezenzji" do
+            visit "/issues"
+
+            click_link "3"
+            click_link "Pokaż recenzje"
+            expect(page).to have_content("Zaakceptowany tytuł")
+            expect(page).to have_content("treść rezenzji")
+          end
+        end
+
         context "przygotowany do wydania" do
           before do
             Issue.first.update_attributes(prepared: true)
-            Article.create!(issue: Issue.first, submission:Submission.first)
+            Article.create!(issue: Issue.first, submission:Submission.first, status: 'po recenzji')
           end
 
           scenario "brak numeru na liście wydanych numerów" do
@@ -122,7 +164,7 @@ feature "zarządzanie numerami" do
 
               click_link "Wyloguj"
               click_link "3/2020"
-              expect(page).to have_content("[autor nieznany]; 'Zaakceptowany tytuł'")
+              expect(page).to have_content(/\[autor nieznany\].*Zaakceptowany tytuł/)
             end
           end
         end
@@ -136,6 +178,26 @@ feature "zarządzanie numerami" do
           fill_in "Rok", with: 1999
         end
         click_button 'Utwórz'
+
+        expect(page).to have_css(".has-error")
+      end
+
+      scenario "Sprawdzenie, czy da sie utworzyc rocznik z nieunikalnym numerem" do
+        visit '/issues/new'
+
+        within("#new_issue") do
+          fill_in "Numer", with: 1
+          fill_in "Rok", with: 2001
+        end
+        click_button "Utwórz"
+
+        visit '/issues/new'
+
+        within("#new_issue") do
+          fill_in "Numer", with: 1
+          fill_in "Rok", with: 2001
+        end
+        click_button "Utwórz"
 
         expect(page).to have_css(".has-error")
       end

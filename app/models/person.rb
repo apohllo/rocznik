@@ -11,12 +11,25 @@ class Person < ActiveRecord::Base
     "mężczyzna" => "M"
   }
 
+  DISCIPLINE_MAPPING = {
+    "filozofia" => "F",
+    "psychologia" => "P",
+    "socjologia" => "S",
+    "lingwistyka" => "L",
+    "kognitywistyka" => "K",
+    "informatyka" => "I",
+    "logika" => "O",
+    "neuropsychologia" => "N",
+    "etyka" => "E",
+    "medycyna" => "M",
+    "psychiatria" => "Y"
+   }
+
   mount_uploader :photo, PhotoUploader
 
   validates :name, presence: true
   validates :surname, presence: true
   validates :email, presence: true
-  validates :discipline, presence: true
   validates :sex, presence: true, inclusion: SEX_MAPPING.keys
   validate :roles_inclusion
 
@@ -40,10 +53,18 @@ class Person < ActiveRecord::Base
     "#{self.surname}, #{self.name}, #{self.degree}"
   end
 
+  def short_name
+    "#{self.name[0]}. #{self.surname}"
+  end
+
   def roles_inclusion
     invalid_role = self.roles.find{|r| !ROLE_MAP.keys.include?(r) }
     if invalid_role
       errors.add(:roles,"'#{invalid_role}' is a invalid role.")
     end
+  end
+
+  def current_institutions
+    self.affiliations.current.map{|e| e.institution}
   end
 end

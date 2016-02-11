@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122123016) do
+ActiveRecord::Schema.define(version: 20160207134047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,23 +31,27 @@ ActiveRecord::Schema.define(version: 20160122123016) do
 
   create_table "article_revisions", force: :cascade do |t|
     t.integer  "submission_id"
-    t.integer  "version",       default: 1
+    t.integer  "version",       default: 0
     t.date     "received"
     t.integer  "pages"
     t.integer  "pictures",      default: 0
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.string   "code",          default: "tekst_"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "code"
     t.string   "article"
+    t.string   "accepted"
+    t.text     "comment"
   end
 
   add_index "article_revisions", ["submission_id"], name: "index_article_revisions_on_submission_id", using: :btree
 
   create_table "articles", force: :cascade do |t|
-    t.string  "status"
-    t.string  "DOI"
-    t.integer "issue_id"
-    t.integer "submission_id"
+    t.string   "status"
+    t.string   "DOI"
+    t.integer  "issue_id"
+    t.integer  "submission_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
@@ -118,14 +122,14 @@ ActiveRecord::Schema.define(version: 20160122123016) do
     t.string   "surname",                 null: false
     t.string   "email",                   null: false
     t.string   "degree"
-    t.string   "discipline",              null: false
     t.string   "orcid"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.text     "roles",      default: [], null: false, array: true
+    t.string   "photo"
     t.string   "sex"
     t.text     "competence"
-    t.string   "photo"
+    t.text     "discipline", default: [], null: false, array: true
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
@@ -322,9 +326,7 @@ ActiveRecord::Schema.define(version: 20160122123016) do
     t.string   "status"
     t.string   "polish_title"
     t.string   "english_title"
-    t.text     "polish_abstract"
     t.text     "english_abstract"
-    t.string   "polish_keywords"
     t.string   "english_keywords"
     t.text     "remarks"
     t.text     "funding"
@@ -334,6 +336,7 @@ ActiveRecord::Schema.define(version: 20160122123016) do
     t.datetime "updated_at",       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
+    t.string   "article"
   end
 
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree

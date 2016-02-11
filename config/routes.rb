@@ -1,21 +1,24 @@
 Rails.application.routes.draw do
 
-  
+
   resources :issues do
     get :prepare_form, on: :member
     patch :prepare, on: :member
     patch :publish, on: :member
+    get :show_reviews, on: :member
   end
   resources :public_issues, only: [:index,:show]
   resources :people
   resources :submissions
   resources :affiliations, only: [:new, :create, :destroy] do
-    get :autocomplete_institution_name, on: :collection
-    get :autocomplete_country_name, on: :collection
-    get :autocomplete_department_name, on: :collection
+    get :institutions, on: :collection
+    get :countries, on: :collection
+    get :departments, on: :collection
   end
   resources :authorships, only: [:new, :create, :destroy]
   resources :reviews
+  resources :article_revisions
+  resources :articles
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :profiles, only: [:show, :edit]
 
