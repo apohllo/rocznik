@@ -63,7 +63,7 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
-        
+
         scenario "Filtrowanie zgłoszeń po tytule" do
           visit "/submissions"
 

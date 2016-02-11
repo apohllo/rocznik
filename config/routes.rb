@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
   resources :authorships, only: [:new, :create, :destroy]
   resources :reviews
-  resources :article_revisions, only: [:new, :create, :destroy]
+  resources :article_revisions
   resources :articles
 
   devise_for :users
