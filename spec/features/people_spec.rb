@@ -131,41 +131,46 @@ feature "zarządzanie osobami" do
     context "Z uzytkownikiem, ktory ma pięć recenzji" do
       include_context "admin login"
       before do 
-        person1 = Person.create!(name: "Andrzej", surname: "Ziemniak", email: "a.ziemniak@gmail.com", discipline: "filozofia", roles: 'A')
-        person2 = Person.create!(name: "Andrzej", surname: "Marchew", email: "a.marchew@gmail.com", discipline: "filozofia", roles: 'R')
-        person3 = Person.create!(name: "Agata", surname: "Kalarepa", email: "a.kalarepa@gmail.com", discipline: "filozofia", roles: 'R')
-        submission = Submission.create(person_id: person1)
+        person_1 = Person.create!(name: "Andrzej", surname: "Ziemniak", email: "a.ziemniak@gmail.com", discipline: "filozofia", competence: "percepcja wzrokowa", sex: "mężczyzna", roles: ["autor"])
+        person_2 = Person.create!(name: "Andrzej", surname: "Marchew", email: "a.marchew@gmail.com", discipline: "filozofia", competence: "percepcja dźwięki", sex: "mężczyzna", roles: ["recenzent"])
+        person_3 = Person.create!(name: "Agata", surname: "Kalarepa", email: "a.kalarepa@gmail.com", discipline: "filozofia", competence: "percepcja dźwięki", sex: "kobieta", roles: ["recenzent"])
+        submission = Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person: person_1, polish_title: "Arystoteles.", english_title: "title2", english_abstract: "abstract2",english_keywords: "tag1, tag2")
         
-        revision1 = ArticleRevision.create!(submission: submission, pages: '100')
-        revision2 = ArticleRevision.create!(submission: submission, pages: '100')
-        revision3 = ArticleRevision.create!(submission: submission, pages: '100')
-        revision4 = ArticleRevision.create!(submission: submission, pages: '100')
-        revision5 = ArticleRevision.create!(submission: submission, pages: '100')
-        revision6 = ArticleRevision.create!(submission: submission, pages: '100')
-        revision7 = ArticleRevision.create!(submission: submission, pages: '100')
-        revision8 = ArticleRevision.create!(submission: submission, pages: '100')
+        article_revision_1 = ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: submission)
+        article_revision_2 = ArticleRevision.create!(version:"2.0", received:"19-01-2016", pages:"5", submission: submission)
+        article_revision_3 = ArticleRevision.create!(version:"3.0", received:"20-01-2016", pages:"5", submission: submission)
+        article_revision_4 = ArticleRevision.create!(version:"4.0", received:"21-01-2016", pages:"5", submission: submission)
+        article_revision_5 = ArticleRevision.create!(version:"5.0", received:"22-01-2016", pages:"5", submission: submission)
+
+        Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_2, article_revision: article_revision_2)
+        Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_2, article_revision: article_revision_3)
+        Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_2, article_revision: article_revision_4)
+        Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_2, article_revision: article_revision_5)
+         Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_2, article_revision: article_revision_2)
+          Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_3, article_revision: article_revision_3)
+           Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_3, article_revision: article_revision_3)
         
         
-        Review.create!(status: :accepted, person_id: person2, asked: Time.now, article_revision_id: revision1.article_revision_id )
-        Review.create!(status: :accepted, person_id: person2, asked: Time.now, article_revision_id: revision2.article_revision_id )
-        Review.create!(status: :accepted, person_id: person2.person_id, asked: Time.now, article_revision_id: revision3.article_revision_id)
-        Review.create!(status: :accepted, person_id: person2.person_id, asked: Time.now, article_revision_id: revision4.article_revision_id)
-        Review.create!(status: :accepted, person_id: person2.person_id, asked: Time.now, article_revision_id: revision5.article_revision_id )
-        Review.create!(status: :accepted, person_id: person3.person_id, asked: Time.now, article_revision_id: revision5.article_revision_id )
-        Review.create!(status: :accepted, person_id: person3.person_id, asked: Time.now, article_revision_id: revision5.article_revision_id )
           end
 
       scenario "wyświetlenie szczegółów osoby" do
         visit "/people"
         click_link("Marchew")
-        expect(page).to have_content("Gratulujemy i bardzo dziekujemy.")
-        expect(page).to have_content("p", text: "5")
+        expect(page).to have_content("Gratulujemy i bardzo dziękujemy!")
+        expect(page).to have_content("5")
         end
 
       scenario "wyświetlenie szczegółów osoby" do
         visit "/people"
         click_link("Kalarepa")
-        expect(page).not_to have_content("Gratulujemy i bardzo dziekujemy.")
+        expect(page).not_to have_content("Gratulujemy i bardzo dziękujemy!")
         
         end
 

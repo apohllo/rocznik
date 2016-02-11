@@ -60,13 +60,10 @@
             %td.text-right
               = destroy_button(authorship)
     = link_to "Dodaj zgłoszenie", new_submission_path(author_id: @person.id), class: %w{btn btn-default btn-sm}
-  - if @person.roles.include?("recenzent")
-    -if(@congratulations==true)
-      %p To już #{@salutation} #{@reviews_count} recenzja. Gratulujemy i bardzo dziekujemy.
-      
-
-    
-
+  - if (@congratulations==true) && (@person.roles.include?("recenzent"))
+    <br> <br>
+    %p.jumbotron <span class="glyphicon glyphicon-star"> </span> #{@salutation} <span class="glyphicon glyphicon-star"></span>
+  - if @person.roles.include?("recenzent") 
     %h3 Przypisane recenzje
     %table.table.table-hover.table-admin
       %thead
@@ -76,7 +73,7 @@
           %th Status
           %th 
       %tbody
-        @person.reviews.
+        
         - @person.reviews.each do |review|
           %tr
             %td= link_to review.title, review

@@ -35,15 +35,24 @@ class PeopleController < ApplicationController
     end
   end
 
-  def show
+def show
     @person = Person.find(params[:id])
-    reviews_count = @person.reviews.where.not("status = 'wysłane zapytanie' or status ='recenzja odrzucona' ").count
+    reviews_count = @person.reviews.where.not("status ='recenzja odrzucona' or  status ='wysłano zapytanie'").count
     if (reviews_count%5==0)&&(reviews_count>=5)
       then @congratulations = true
+      @reviews_count = reviews_count
     end
-    @reviews_count = reviews_count
-    @salutation = @person.salutation
-  end
+    if(@person.sex == "kobieta") 
+        then @salutation = "Pani #{@person.name} #{@person.surname} przyjęła już #{reviews_count} recenzję. <br>
+        Gratulujemy i bardzo dziękujemy!"
+        elsif (@person.sex == "mężczyzna") 
+        then @salutation = "Pan #{@person.name} #{@person.surname} przyjął już #{@reviews_count} recenzję. <br>
+        Gratulujemy i bardzo dziękujemy!"
+
+        else @salutation = "Użytkownik #{@person.name} #{@person.surname} przyjął już #{@reviews_count} recenzję.
+        Gratulujemy i bardzo dziękujemy!"
+        end
+    end
 
   private
   def person_params
