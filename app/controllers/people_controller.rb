@@ -37,7 +37,14 @@ class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id])
   end
-
+  
+  def reviewer?
+   if @person.roles.include?("recenzent")
+      puts "jest" 
+    else puts "nie jest"
+    end
+  end
+  
   private
   def person_params
     params.require(:person).permit(:name,:surname,:degree,:email,:sex,:discipline,:photo,:competence,:status, roles: [], reviewer_role: [], discipline: [])

@@ -68,8 +68,13 @@ class Person < ActiveRecord::Base
     end
   end
 
-
   def current_institutions
     self.affiliations.current.map{|e| e.institution}
   end
+
+
+  def reviewer?
+   self.roles.include?("recenzent")
+  end
+  
 end

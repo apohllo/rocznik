@@ -12,6 +12,7 @@
   .roles
     %strong Role
     = f.collection_check_boxes :roles, Person::ROLE_MAP.keys, :to_s, :to_s, include_blank: false, item_wrapper_class: 'checkbox_container'
+  - if @person.reviewer? && !@person.new_record?
   = f.input :reviewer_status, collection: Person::REVIEWER_MAP.keys, label: "Status recenzenta"
   - label = @person.new_record? ? "Utwórz" : "Zapisz"
   = f.submit label, class: %w{btn btn-primary btn-outline}

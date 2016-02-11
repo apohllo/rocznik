@@ -93,4 +93,6 @@
             %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
             %td.text-right
               = destroy_button(submission)
+              
+    
     /= link_to "Dodaj", edit_person_path(@person), class: %w{btn btn-default btn-sm}
