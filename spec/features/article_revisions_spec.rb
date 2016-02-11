@@ -32,7 +32,7 @@ feature "wersje" do
         within("#version") do
           expect(page).to have_content("plik.pdf")
           expect(page).to have_content("16-07-2016")
-          expect(page).to have_content("Edytuj")
+          expect(page).to have_css("a[title='Edytuj komentarz']")
         end
       end
 
@@ -48,8 +48,8 @@ feature "wersje" do
           visit "/submissions/"
           click_on("Alicja w krainie czarów")
           within('#version') do
-            expect(page).to have_content('Edytuj')
-            expect(page).to have_content('Zobacz')
+            expect(page).to have_css("a[title='Edytuj komentarz']")
+            expect(page).to have_css("a[title='Zobacz komentarz']")
             expect(page).to have_css('.fa-trash-o')
           end
         end
@@ -58,7 +58,7 @@ feature "wersje" do
           visit "/submissions/"
           click_on("Alicja w krainie czarów")
           within("#version") do
-            click_on("Edytuj")
+            click_on("Edytuj komentarz")
           end
 
           fill_in "Komentarz", with: "Przecinka brakuje jednak w 31 wierszu"
@@ -66,7 +66,7 @@ feature "wersje" do
           click_on("Zapisz")
 
           within("#version") do
-            click_on("Zobacz")
+            click_on("Zobacz komentarz")
           end
 
           expect(page).to have_content("Przecinka brakuje jednak w 31 wierszu")
