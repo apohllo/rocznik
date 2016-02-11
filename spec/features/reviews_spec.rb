@@ -138,7 +138,7 @@ feature "recenzowanie" do
       end
       
       scenario "sprawdzanie dostepnosci odnosnika do wyswietlania i edycji recenzji w pojedynczym zgloszeniu" do
-        visit "/reviews"
+        visit "/submissions"
         click_on "Dlaczego solipsyzm?"
         
         expect(page).to have_css('a[title="Wyświetl recenzję"]')
