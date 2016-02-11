@@ -131,6 +131,18 @@ feature "recenzowanie" do
         click_on "Deadline"
         expect(page).to have_content(/20-01-2016.*16-01-2017/)
       end
+      
+      scenario "reset filtrów" do
+        visit "/reviews"
+        expect(page).to have_content("Artykuł, którego nikt nie chce recenzować, v. 1")
+        expect(page).to have_content("Ten nudny, v. 1")
+        select "recenzja pozytywna", from: "Status"
+        click_button 'Filtruj'
+        expect(page).not_to have_content("Ten nudny, v. 1")
+        click_button 'x'
+        expect(page).to have_content("Artykuł, którego nikt nie chce recenzować, v. 1")
+        expect(page).to have_content("Ten nudny, v. 1")
+      end
     end
   end
 end

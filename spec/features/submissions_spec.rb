@@ -144,6 +144,23 @@ feature "zgloszenia" do
 
           expect(page).to have_css(".has-error")
         end
+        
+        scenario "reset filtrów i formularza" do
+        visit "/submissions"
+        fill_in "Tytuł", with: "Ten nudny"
+        expect(page).to have_content("Ten nudny", count: 2)
+        click_button 'x'
+        expect(page).not_to have_content("Ten nudny", count: 2)
+        select "w recenzji", from: "Status"
+        fill_in "Data początkowa", with: "12/2/2016"
+        select "1/2111", from: "Numer rocznika"
+        click_button 'Filtruj'
+        expect(page).to have_content("Artykuł, którego nikt nie chce recenzować")
+        expect(page).not_to have_content("Ten nudny")
+        click_button 'x'
+        expect(page).to have_content("Artykuł, którego nikt nie chce recenzować")
+        expect(page).to have_content("Ten nudny")
+      end
       end
     end
   end

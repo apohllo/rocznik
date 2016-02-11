@@ -102,6 +102,21 @@ feature "zarządzanie osobami" do
         expect(page).to have_content("Wanda")
         expect(page).not_to have_content("Andrze")
       end
+        
+      scenario "reset filtrów i formularza" do
+        visit "/people"
+        fill_in "Nazwisko", with: "Kalafior"
+        expect(page).to have_content("Kalafior", count: 2)
+        click_button 'x'
+        expect(page).not_to have_content("Kalafior", count: 2)
+        select "autor", from: "Rola"
+        click_button 'Filtruj'
+        expect(page).to have_content("Wanda")
+        expect(page).not_to have_content("Andrzej")
+        click_button 'x'
+        expect(page).to have_content("Wanda")
+        expect(page).to have_content("Andrzej")
+      end
     end
   end
 end
