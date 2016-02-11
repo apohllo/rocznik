@@ -134,14 +134,14 @@ feature "recenzowanie" do
       
       scenario "reset filtrów" do
         visit "/reviews"
-        expect(page).to have_content("Artykuł, którego nikt nie chce recenzować, v. 1")
-        expect(page).to have_content("Ten nudny, v. 1")
-        select "recenzja pozytywna", from: "Status"
+        expect(page).to have_content("16-01-2017")
+        expect(page).to have_content("20-01-2016")
+        select "recenzja negatywna", from: "Status"
         click_button 'Filtruj'
-        expect(page).not_to have_content("Ten nudny, v. 1")
+        expect(page).not_to have_content("20-01-2016")
         click_button 'x'
-        expect(page).to have_content("Artykuł, którego nikt nie chce recenzować, v. 1")
-        expect(page).to have_content("Ten nudny, v. 1")
+        expect(page).to have_content("16-01-2017")
+        expect(page).to have_content("20-01-2016")
       end
     end
   end

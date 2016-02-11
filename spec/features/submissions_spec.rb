@@ -148,19 +148,19 @@ feature "zgloszenia" do
         scenario "reset filtrów i formularza" do
         visit "/submissions"
         fill_in "Tytuł", with: "Ten nudny"
-        expect(page).to have_content("Ten nudny", count: 2)
+        expect(page).to have_xpath("//input[@value='Ten nudny']")
         click_button 'x'
-        expect(page).not_to have_content("Ten nudny", count: 2)
-        select "w recenzji", from: "Status"
+        find_field('Tytuł').value.blank?
+        select "odrzucony", from: "Status"
         fill_in "Data początkowa", with: "12/2/2016"
-        select "1/2111", from: "Numer rocznika"
+        select "3/2020", from: "Numer rocznika"
         click_button 'Filtruj'
-        expect(page).to have_content("Artykuł, którego nikt nie chce recenzować")
-        expect(page).not_to have_content("Ten nudny")
+        expect(page).to have_content("Alicja w krainie czarów")
+        expect(page).not_to have_content("W pustyni i w puszczy")
         click_button 'x'
-        expect(page).to have_content("Artykuł, którego nikt nie chce recenzować")
-        expect(page).to have_content("Ten nudny")
-      end
+        expect(page).to have_content("Alicja w krainie czarów")
+        expect(page).to have_content("W pustyni i w puszczy")
+        end
       end
     end
   end

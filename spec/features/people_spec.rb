@@ -106,9 +106,9 @@ feature "zarządzanie osobami" do
       scenario "reset filtrów i formularza" do
         visit "/people"
         fill_in "Nazwisko", with: "Kalafior"
-        expect(page).to have_content("Kalafior", count: 2)
+        expect(page).to have_xpath("//input[@value='Kalafior']")
         click_button 'x'
-        expect(page).not_to have_content("Kalafior", count: 2)
+        find_field('Nazwisko').value.blank?
         select "autor", from: "Rola"
         click_button 'Filtruj'
         expect(page).to have_content("Wanda")
