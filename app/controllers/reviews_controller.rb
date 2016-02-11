@@ -69,9 +69,17 @@ class ReviewsController < ApplicationController
     review.destroy
     redirect_to review.submission
   end
-
+  
+  def send_reminder
+    review = Review.find(params[:id])
+    ReviewerMailer.reminder(review).deliver_now
+    redirect_to review.submission, flash: {notice: "Przypomnienie zostało wysłane"}
+  end
+  
+  
   private
   def review_params
     params.require(:review).permit(:person_id,:status,:asked,:deadline,:remarks,:content,:article_revision_id)
   end
+
 end

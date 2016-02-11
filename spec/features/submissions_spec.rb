@@ -144,6 +144,14 @@ feature "zgloszenia" do
 
           expect(page).to have_css(".has-error")
         end
+        
+        scenario "wysłanie przypomnienia o recenzji"
+          visit '/submissions'
+          click_on("Artykuł, którego nikt nie chce recenzowaćł")
+          expect(page).to have_content("remind_icon.png")
+          click_on("remind_icon.png")
+          expect(page).to have_content("Przypomnienie zostało wysłane")
+        end
       end
     end
   end
