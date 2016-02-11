@@ -134,15 +134,15 @@ feature "recenzowanie" do
       
       scenario "sprawdzanie dostepnosci odnosnika do edycji recenzji w widoku zgloszenia" do
         visit "/reviews"
-        expect(page). to have_css('a[title: "Edytuj recenzję"]')
+        expect(page). to have_css('a[title="Edytuj recenzję"]')
       end
       
       scenario "sprawdzanie dostepnosci odnosnika do wyswietlania i edycji recenzji w pojedynczym zgloszeniu" do
         visit "/reviews"
         click_on "Dlaczego solipsyzm?"
         
-        expect(page).to have_css('a[title: "Wyświetl recenzję"]')
-        expect(page).to have_css('a[title: "Edytuj recenzję"]')
+        expect(page).to have_css('a[title="Wyświetl recenzję"]')
+        expect(page).to have_css('a[title="Edytuj recenzję"]')
       end
     end
   end
