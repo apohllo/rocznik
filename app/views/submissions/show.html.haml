@@ -98,8 +98,8 @@
           %td= review.asked_date
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
-          %td= link_to "", show_review_path(review), class: %w{fa fa-file-text}
-          %td= link_to "", edit_review_path(review), class: %i{fa fa-pencil}
           %td.text-right
+            = link_to "", review_path(review), class: %w{fa fa-file-text}, title: "Wyświetl recenzję"
+            = link_to "", edit_review_path(review), class: %i{fa fa-pencil}, title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
   = link_to "Dodaj recenzenta", new_review_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
