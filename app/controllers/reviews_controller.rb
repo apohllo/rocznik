@@ -81,5 +81,4 @@ class ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:person_id,:status,:asked,:deadline,:remarks,:content,:article_revision_id)
   end
-
 end
