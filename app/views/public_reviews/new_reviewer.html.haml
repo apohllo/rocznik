@@ -4,7 +4,7 @@
       %li= revision.reviews
 
 = simple_form_for @person do |f|
-  = f.association :article_revision, label: "Artykuł (wersja)", collection: ArticleReview.order('received desc').limit(20), label_method: :title
+  = select_tag(:revision_id, options_from_collection_for_select(ArticleRevision.order('received desc').limit(20), :id, :title))
   = f.input :name, label: "Imię"
   = f.input :surname, label: "Nazwisko"
   = f.input :email, label: "E-mail"
@@ -13,4 +13,4 @@
   = f.hidden_field :roles, value: "recenzent", label: "Role", name: "person[roles][]"
  
   = f.submit 'Dodaj propozycję', class: %w{btn btn-primary btn-outline}
-  = button_to 'Zakończ dodawanie recenzentów', finish_reviews_path
+  = button_to 'Zakończ dodawanie recenzentów', :finish_reviews_path
