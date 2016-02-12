@@ -11,12 +11,25 @@ class Person < ActiveRecord::Base
     "mężczyzna" => "M"
   }
 
+  DISCIPLINE_MAPPING = {
+    "filozofia" => "F",
+    "psychologia" => "P",
+    "socjologia" => "S",
+    "lingwistyka" => "L",
+    "kognitywistyka" => "K",
+    "informatyka" => "I",
+    "logika" => "O",
+    "neuropsychologia" => "N",
+    "etyka" => "E",
+    "medycyna" => "M",
+    "psychiatria" => "Y"
+   }
+
   mount_uploader :photo, PhotoUploader
 
   validates :name, presence: true
   validates :surname, presence: true
   validates :email, presence: true
-  validates :discipline, presence: true
   validates :sex, presence: true, inclusion: SEX_MAPPING.keys
   validate :roles_inclusion
 
