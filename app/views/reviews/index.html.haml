@@ -17,6 +17,7 @@
         %th
           = sort_link(@query, :status, "Status")
         %th
+        %th
     %tbody
       - @reviews.each do |review|
         %tr.table-row-link
@@ -26,4 +27,5 @@
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
           %td.text-right
+            = link_to "", edit_review_path(review), class: %i{fa fa-pencil}, title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
