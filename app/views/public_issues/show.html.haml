@@ -8,5 +8,5 @@
     - @issue.articles.each do |article|
       %li
         = article.authors_inline + "." 
-        %i= link_to article.title, article
+        %i= link_to article.title, public_article_path(article)
         

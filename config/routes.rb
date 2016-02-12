@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :reviews
   resources :article_revisions
   resources :articles
+  resources :public_articles, only: [:show]
 
   devise_for :users
   mount Storytime::Engine => "/"

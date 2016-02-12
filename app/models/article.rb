@@ -57,17 +57,17 @@ class Article < ActiveRecord::Base
     end
   end
  
-  def pages
-   if !self.article_pages.blank?
-       self.article_pages
+  def article_pages
+   if !self.pages.blank?
+       self.pages
    else
       "[BRAK STRON]"
    end
   end
 
   def link
-    if !self.link_to_article.blank?
-      self.link_to_article
+    if !self.external_link.blank?
+      self.external_link
     else
       "[BRAK LINKU DO ŚCIÁGNIĘCIA ARTYKUŁU]"
     end
