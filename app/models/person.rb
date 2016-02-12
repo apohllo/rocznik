@@ -43,6 +43,10 @@ class Person < ActiveRecord::Base
     "#{self.degree} #{self.name} #{self.surname}"
   end
 
+  def full_name_without_degree
+    "#{self.name} #{self.surname}"
+  end
+
   def reverse_full_name
     "#{self.surname}, #{self.name}, #{self.degree}"
   end
