@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   resources :issues do
     get :prepare_form, on: :member
     patch :prepare, on: :member
