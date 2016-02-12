@@ -92,5 +92,5 @@
             %td= link_to submission.title, submission
             %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
             %td.text-right
-              = destroy_button(submission)
+              = destroy_button(submission, "Czy na pewno chcesz usunąć to zgłoszenie?")
     /= link_to "Dodaj", edit_person_path(@person), class: %w{btn btn-default btn-sm}
