@@ -74,7 +74,7 @@ class Person < ActiveRecord::Base
 
 
   def reviewer?
-   self.roles.include?("recenzent")
+    self.roles.include?("recenzent")
   end
   
 end

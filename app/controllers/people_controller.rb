@@ -38,16 +38,9 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
   end
   
-  def reviewer?
-   if @person.roles.include?("recenzent")
-      puts "jest" 
-    else puts "nie jest"
-    end
-  end
-  
   private
   def person_params
-    params.require(:person).permit(:name,:surname,:degree,:email,:sex,:discipline,:photo,:competence,:status, roles: [], reviewer_role: [], discipline: [])
+    params.require(:person).permit(:name,:surname,:degree,:email,:sex,:photo,:competence,:reviewer_status, roles: [], discipline: [])
 
   end
 end
