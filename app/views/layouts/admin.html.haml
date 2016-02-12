@@ -9,8 +9,10 @@
         - if flash[:error]
           .flash-error= flash[:error]
       .container.middle-row
-        .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"} 
-          .col-md-12.col-sm-8.main
+        .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"}
+          #sidebar.col-sm-4.col-md-3.sidebar-offcanvas{:role => "navigation"}
+            = render file: "shared/sidenav"
+          .col-md-9.col-sm-8.main
             = yield
         %footer
           %p
