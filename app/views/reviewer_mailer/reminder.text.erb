@@ -3,7 +3,7 @@ Szanowna Pani/ Szanowny Panie <%= @review.person.surname %>
 Przypominamy, że upływa termin napisania recenzji 
 dla artykułu: <%= @review.title %>
 Ostatnia wersji artukułu znajduje się pod tym linkiem: 
-<%= link_to "kliknij żeby ściągnąć", @review.article_revision.latest %>
+<%= link_to "kliknij żeby ściągnąć", @review.article_revision.article.url %>
 
 Z poważaniem,
 <%= @review.article_revision.editor %>

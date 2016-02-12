@@ -21,8 +21,8 @@ feature "zgloszenia" do
 
     context "redaktor w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
-                       "mężczyzna", roles: ['redaktor', 'recenzent'])
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
+                       "mężczyzna", roles: ['redaktor', 'recenzent'], discipline:["psychologia"])
         Issue.create!(volume: 3, year: 2020)
         Issue.create!(volume: 4, year: 2020)
       end
@@ -63,7 +63,7 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
-        
+
         scenario "Filtrowanie zgłoszeń po tytule" do
           visit "/submissions"
 
@@ -124,13 +124,20 @@ feature "zgloszenia" do
 
             expect(page).to have_content('28-01-2016')
           end
+          
+          scenario "wysłanie przypomnienia o recenzji" do
+            visit '/submissions'
+            click_on("Alicja w krainie czarów")
+            page.find(".reminder").click
+            # expect(page).to have_content("Przypomnienie zostało wysłane") <- js?
+          end
         end
       end
 
       context "brak autora w bazie danych" do
         before do
-          person = Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email:
-                                  "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
+          person = Person.create!(name: "Andrzej", surname: "Kapusta", email:
+                                  "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'], discipline:["psychologia"])
           Submission.create!(status: "nadesłany", language: "polski", person: person, received: "20-01-2016",
                              polish_title: "Bukiet kotów", english_title: "cats", english_abstract: "Sth about cats",
                              english_keywords: "cats cat")
@@ -143,14 +150,6 @@ feature "zgloszenia" do
           click_button("Dodaj")
 
           expect(page).to have_css(".has-error")
-        end
-        
-        scenario "wysłanie przypomnienia o recenzji"
-          visit '/submissions'
-          click_on("Artykuł, którego nikt nie chce recenzowaćł")
-          expect(page).to have_content("remind_icon.png")
-          click_on("remind_icon.png")
-          expect(page).to have_content("Przypomnienie zostało wysłane")
         end
       end
     end
