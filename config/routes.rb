@@ -16,11 +16,12 @@ Rails.application.routes.draw do
     get :departments, on: :collection
   end
   resources :authorships, only: [:new, :create, :destroy]
-  resources :reviews do
+  resources :public_reviews do
     get :new_reviewer, on: :collection
     post :create_reviewer, on: :collection
     get :finish, on: :collection
   end
+  resources :reviews
   resources :article_revisions
   resources :articles
 
