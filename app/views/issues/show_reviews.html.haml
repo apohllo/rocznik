@@ -4,15 +4,16 @@
     Recenzje zgłoszeń do numeru
     = @issue.title
 .scroll-panel-body
-- @issue.submissions.each do |submission|
-  %h3= link_to submission.title, submission
-  .scroll-panel_body
-    - submission.reviews.each do |review|
-      %br
-      = link_to review.title, review
-      %br
-      = review.content
-      %br
-      Recenzent: 
-      = link_to review.reviewer, review.person
-      %br
+  - @issue.submissions.each do |submission|
+    %h2= link_to submission.title(false), submission
+    %i= submission.authors_inline
+    .scroll-panel_body
+      - submission.reviews.group_by(&:person).each do |reviewer,reviews|
+        %h3
+          Recenzent:
+          = reviewer.full_name
+        - reviews.each do |review|
+          %h4
+            Wersja
+            = review.version
+          = simple_format(review.text)
