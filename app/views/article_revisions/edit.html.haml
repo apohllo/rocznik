@@ -4,7 +4,6 @@
     = @article_revision.title
 .scroll-panel-body
   = simple_form_for @article_revision do |f|
-    = hidden_field_tag :submission_id, @article_revision.submission.id
     = f.input :accepted, as: :boolean, label: "Zatwierdź"
     = f.input :comment, label: "Komentarz"
     = f.submit "Zapisz", class: %w{btn btn-primary btn-outline}
