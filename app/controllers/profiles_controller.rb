@@ -1,11 +1,11 @@
-class ProfilesController < ApplicationController
+class ProfilesController < PeopleController
   before_action :user?
    
   def show
-    @profile = Profile.find(params[:id])
+    @profile = Person.find(params[:id])
   end
   
   def edit
-    @profile = Profile.find(params[:id])
+    @profile = Person.find(params[:id])
   end
 end
