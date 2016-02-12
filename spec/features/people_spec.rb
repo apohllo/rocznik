@@ -103,5 +103,12 @@ feature "zarządzanie osobami" do
         expect(page).not_to have_content("Andrze")
       end
     end
+    scenario "Przy usuwaniu zgłoszenia powinno być pytanie, czy użytkownik chce usunąć dane
+    zgłoszenie." do
+      visit "/people/1"
+      #page.find(".btn_btn-outline_btn-danger").click
+      page.find(:xpath, "//a[@href='authorships/2']").click
+      expect(page).to have_content("Czy na pewno chcesz usunąć to zgłoszenie?")
+    end
   end
 end
