@@ -4,5 +4,5 @@ class ChangeArticle < ActiveRecord::Migration
 	t.string :article_pages
 	t.string :link_to_article
         end
-end
+  end
 end
