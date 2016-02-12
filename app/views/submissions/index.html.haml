@@ -8,8 +8,7 @@
     = f.input :issue_id_eq, collection: Issue.latest.all, include_blank: true, label: "Numer rocznika"
     = f.input :received_gteq, label: "Data początkowa", as: :string, input_html:{ type:"date" }, placeholder: "1/1/2001"
     = f.submit "Filtruj", class: %w{btn btn-default btn-sm}
-    = link_to (f.button :button, 'x', :type => 'reset', :class => 'btn btn-danger btn-sm'), "", :onclick => "reload(); return false"
-
+    = reset_filters(f)
   %table.table.table-hover.table-admin
     %thead
       %tr
