@@ -25,8 +25,8 @@ feature "Artykuły" do
                                         english_abstract: 'O jerzozwieżach', english_keywords: 'zwierzęta',
                                         person: editor, issue: issue_1, language: 'polski', received: '28-01-2016',
                                         status: 'przyjęty')
-        Article.create!(submission: submission, issue: issue_1, status: 'po recenzji')
-        Article.create!(submission: submission2, issue: issue_1, status: 'opublikowany')
+        Article.create!(submission: submission, issue: issue_1, status: 'po recenzji', DOI: 40000)
+        Article.create!(submission: submission2, issue: issue_1, status: 'opublikowany', DOI: 42000)
       end
 
       scenario "Wyświetlanie artykułu" do
@@ -69,6 +69,17 @@ feature "Artykuły" do
         click_on 'Wiemy wszystko'
 
         expect(page).to have_css(".after_review")
+      end
+
+      scenario "Zmiana numeru DOI" do
+        visit '/articles'
+        click_on 'Wiemy wszystko'
+        click_on 'Edytuj'
+        fill_in "Numer DOI", with: 40000
+        click_button 'Zapisz'
+
+        expect(page).not_to have_css('.has-error')
+        expect(page).to have_content("40000")
       end
 
       scenario "Zmiana statusu artykułu'" do
