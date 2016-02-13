@@ -19,7 +19,12 @@
     %dd= @person.competence
   %dl
     %dt Role w systemie
-    %dd= @person.roles.join(", ")
+    %dd= @person.roles.join
+  %dl
+    - if @person.reviewer?
+      %dt Status recenzenta
+      %dd= @person.reviewer_status
+  
   = link_to "Edytuj", edit_person_path(@person), class: %w{btn btn-primary btn-sm}
   %h3 Afiliacje
   %table.table.table-hover.table-admin
