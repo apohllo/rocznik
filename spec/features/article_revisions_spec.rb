@@ -8,8 +8,7 @@ feature "wersje" do
 
     context "redaktor, numer i zgłoszenie w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"],
-                    email: "a.kapusa@gmail.com", sex:
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                    "mężczyzna", roles: ['redaktor', 'recenzent'])
         Issue.create!(volume: 3, year: 2020)
         Submission.create!(person_id: Person.first, status: "nadesłany", polish_title: "Alicja w krainie czarów",
@@ -32,7 +31,7 @@ feature "wersje" do
         within("#version") do
           expect(page).to have_content("plik.pdf")
           expect(page).to have_content("16-07-2016")
-          expect(page).to have_content("Edytuj")
+          expect(page).to have_css("a[title='Edytuj komentarz']")
         end
       end
 
@@ -48,8 +47,8 @@ feature "wersje" do
           visit "/submissions/"
           click_on("Alicja w krainie czarów")
           within('#version') do
-            expect(page).to have_content('Edytuj')
-            expect(page).to have_content('Zobacz')
+            expect(page).to have_css("a[title='Edytuj komentarz']")
+            expect(page).to have_css("a[title='Zobacz komentarz']")
             expect(page).to have_css('.fa-trash-o')
           end
         end
@@ -58,7 +57,7 @@ feature "wersje" do
           visit "/submissions/"
           click_on("Alicja w krainie czarów")
           within("#version") do
-            click_on("Edytuj")
+            click_on("Edytuj komentarz")
           end
 
           fill_in "Komentarz", with: "Przecinka brakuje jednak w 31 wierszu"
@@ -66,7 +65,7 @@ feature "wersje" do
           click_on("Zapisz")
 
           within("#version") do
-            click_on("Zobacz")
+            click_on("Zobacz komentarz")
           end
 
           expect(page).to have_content("Przecinka brakuje jednak w 31 wierszu")
