@@ -14,7 +14,7 @@ class Article < ActiveRecord::Base
   end
 
   def authors_inline
-    self.authors.empty? ? "[autor nieznany]" :  self.authors.map(&:short_name).join(', ')
+    self.authors.empty? ? "[autor nieznany]" : self.authors.map(&:short_name).join(', ')
   end
 
   def title
