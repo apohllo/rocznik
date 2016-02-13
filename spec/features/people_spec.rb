@@ -82,7 +82,7 @@ feature "zarządzanie osobami" do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
                        competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
         Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com",
-                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
+                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor", "redaktor"])
       end
 
       scenario "wyszukanie osoby" do
@@ -102,13 +102,31 @@ feature "zarządzanie osobami" do
         expect(page).to have_content("Wanda")
         expect(page).not_to have_content("Andrze")
       end
-    end
-    scenario "Przy usuwaniu zgłoszenia powinno być pytanie, czy użytkownik chce usunąć dane
-    zgłoszenie." do
-      visit "/people/1"
-      #page.find(".btn_btn-outline_btn-danger").click
-      page.find(:xpath, "//a[@href='authorships/2']").click
-      expect(page).to have_content("Czy na pewno chcesz usunąć to zgłoszenie?")
-    end
+      
+      before do
+          Issue.create!(volume: 3, year: 2020)
+      end
+      
+      scenario "przy usuwaniu zgłoszenia powinno być pytanie, czy użytkownik chce usunąć dane zgłoszenie" do
+        visit "/people"
+        click_on 'Kalafior'
+        click_on 'Dodaj zgłoszenie'
+        
+        within("#new_submission") do
+          fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
+          fill_in "Title", with: "English title"
+          fill_in "Abstract", with: "abc"
+          fill_in "Key words", with: "def"
+          fill_in "Otrzymano", with: "19/2/2016"
+          select "Andrzej Kapusta", from: "Redaktor"
+        end
+        click_button("Utwórz")
+        
+        visit "/people"
+        click_on 'Kalafior'
+        page.find(".btn-danger").click 
+        expect(page).to have_content("Zapytanie") #nie wiem, czy o to chodzi, ale samego tekstu "Czy chcesz..." nie znajduje.
+      end
+    end    
   end
 end
