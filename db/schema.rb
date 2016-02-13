@@ -126,8 +126,8 @@ ActiveRecord::Schema.define(version: 20160207134047) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.text     "roles",      default: [], null: false, array: true
-    t.string   "photo"
     t.string   "sex"
+    t.string   "photo"
     t.text     "competence"
     t.text     "discipline", default: [], null: false, array: true
   end
