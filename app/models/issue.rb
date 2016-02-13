@@ -36,6 +36,10 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  def reviewes
+    self.submission. flat_map(&: finalized_reviews).map(&: person).uniq
+  end
+
   def status
     if self.published?
       "Opublikowany"
