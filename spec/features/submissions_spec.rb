@@ -128,8 +128,21 @@ feature "zgloszenia" do
           scenario "wysłanie przypomnienia o recenzji" do
             visit '/submissions'
             click_on("Alicja w krainie czarów")
+            click_on("Dodaj wersję")
+            
+            within("#new_article_revision") do
+              page.attach_file('Artykuł', Rails.root +  'app/assets/images/remind_icon.png')
+              fill_in "Liczba stron", with: "5"
+              fill_in "Liczba ilustracji", with: "1"
+             end
+            click_button("Dodaj")
+            
             page.find(".reminder").click
-            # expect(page).to have_content("Przypomnienie zostało wysłane") <- js?
+            # expect(page).to have_css(".flash-confirmation") dla treści powiadomienia także nie działa
+            open_email('a.kapusa@gmail.com') # zdaje się, że wlaściwy email się nie otwiera (Person.first.email też nie działa)
+            expect(current_email).to have_content 'Z poważaniem,'
+            current_email.click_link 'kliknij żeby ściągnąć'
+            current_email.save_and_open
           end
         end
       end
