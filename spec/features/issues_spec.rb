@@ -240,6 +240,19 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_css(".has-error")
       end
+      
+       scenario "Sprawdzenie czy da sie utworzyć rocznik z numeru mniejszego niż 1" do
+        visit '/issues/new'
+
+        within("#new_issue") do
+          fill_in "Numer", with: 0
+          fill_in "Rok", with: 2016
+        end
+        click_button 'Utwórz'
+
+        expect(page).to have_css(".has-error")
+      end
+      
     end
   end
 end
