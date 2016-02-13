@@ -40,7 +40,6 @@ feature "zarządzanie osobami" do
       expect(page).to have_css("img[src*='person']")
     end
 
-
     scenario "tworzenie nowej osoby z brakującymi elementami" do
       visit '/people/new'
 

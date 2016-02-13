@@ -110,7 +110,6 @@ feature "recenzowanie" do
         end
       end
 
-
       scenario "filtrowanie recenzji po statusie" do
         visit "/reviews"
 
