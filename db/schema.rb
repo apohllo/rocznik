@@ -130,10 +130,6 @@ ActiveRecord::Schema.define(version: 20160207134047) do
     t.string   "photo"
     t.text     "competence"
     t.text     "discipline", default: [], null: false, array: true
-<<<<<<< HEAD
-
-=======
->>>>>>> d47912d0071a542ce52cf7546faf664d8767358f
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
