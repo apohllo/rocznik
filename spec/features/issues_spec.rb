@@ -105,26 +105,26 @@ feature "zarządzanie numerami" do
           expect(page).not_to have_css(".has-error")
           expect(page).not_to have_content("Wybierz artykuły do wydania")
         end
-        
+
         context "z jedną recenzją" do
           before do
-            Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
+            Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                        "mężczyzna", roles: ['redaktor', 'recenzent'])
             revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
                            status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
           end
-          
+
           scenario "dostępność przeglądu recenzji" do
             visit "/issues"
-            
+
             click_link "3"
             expect(page).to have_link("Pokaż recenzje")
           end
-          
+
           scenario "wyświetlenie tytułów artykułów oraz treści rezenzji" do
             visit "/issues"
-            
+
             click_link "3"
             click_link "Pokaż recenzje"
             expect(page).to have_content("Zaakceptowany tytuł")
@@ -201,6 +201,19 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_css(".has-error")
       end
+      
+       scenario "Sprawdzenie czy da sie utworzyć rocznik z numeru mniejszego niż 1" do
+        visit '/issues/new'
+
+        within("#new_issue") do
+          fill_in "Numer", with: 0
+          fill_in "Rok", with: 2016
+        end
+        click_button 'Utwórz'
+
+        expect(page).to have_css(".has-error")
+      end
+      
     end
   end
 end
