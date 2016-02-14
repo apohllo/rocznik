@@ -18,6 +18,9 @@ class ProfileController < PeopleController
     end
   end
   
+  def update_password
+  end
+  
   private
   def user_params
     params.require(:user).permit(:encrypted_password)
