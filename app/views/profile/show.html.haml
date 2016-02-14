@@ -17,4 +17,5 @@
   %dl
     %dt Role w systemie
     %dd= @person.roles.join(", ")
-  = link_to "Edytuj swoje dane", edit_profile_path(@profile), class: %w{btn btn-primary btn-sm}
+  = link_to "Edytuj swoje dane", edit_profile_path(@person), class: %w{btn btn-primary btn-sm}
+  = link_to "Edytuj hasło", edit_password_path(@person), class: %w{btn btn-primary btn-sm}

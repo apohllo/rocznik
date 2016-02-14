@@ -1,8 +1,8 @@
 .scroll-panel-header
-  = link_to "Anuluj", @profile, class: %w{btn btn-default btn-sm pull-right}
+  = link_to "Anuluj", @person, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title Edycja profilu użytkownika
 .scroll-panel-body
-  = simple_form_for @profile do |f|
+  = simple_form_for @person do |f|
     = f.input :degree, label: "Stopień"
     = f.input :name, label: "Imię"
     = f.input :surname, label: "Nazwisko"
