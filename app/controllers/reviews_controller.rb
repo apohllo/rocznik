@@ -72,7 +72,7 @@ class ReviewsController < ApplicationController
   
  def ask
     review = Review.find(params[:id])
-    ReviewMailer.ask(review).deliver
+    ReviewMailer.ask(review).deliver_now
     redirect_to review.submission
  end
   
