@@ -103,5 +103,31 @@ feature "zarządzanie osobami" do
         expect(page).not_to have_content("Andrze")
       end
     end
+    context "określony status i nieokreślony status" do
+      before do
+        Person.create!(name: "Aleksandra", surname: "Hol", email: "alka.hol@onet.com",
+                      sex: "kobieta", roles: ["recenzent"])
+        Person.create!(name: "Anna", surname: "Kawiarka", email: "annakawi@rka.pl",
+                      sex: "kobieta", roles: ["recenzent"], reviewer_status: "Recenzuje w terminie")
+      end
+      
+      scenario "wyświetlenie statusu recenzenta" do
+        visit "/people"
+        click_on 'Hol'
+        expect(page).not_to have_content("Status recenzenta")
+        
+        visit "/people"
+        click_on 'Kawiarka'
+        expect(page).to have_content("Status recenzenta")    
+      end
+
+      scenario "zmiana statusu recenzenta" do
+        visit "/people"
+        click_on 'Hol'
+        click_on 'Edytuj'
+        select "Recenzuje po terminie", from: "Status recenzenta"
+        click_on 'Zapisz'
+      end
+    end
   end
 end

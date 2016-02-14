@@ -21,7 +21,7 @@
     %dt Role w systemie
     %dd= @person.roles.join
   %dl
-    - if @person.reviewer?
+    - if @person.reviewer?  && !@person.reviewer_status.blank?
       %dt Status recenzenta
       %dd= @person.reviewer_status
   
