@@ -40,7 +40,6 @@ feature "zarządzanie osobami" do
       expect(page).to have_css("img[src*='person']")
     end
 
-
     scenario "tworzenie nowej osoby z brakującymi elementami" do
       visit '/people/new'
 
@@ -101,6 +100,21 @@ feature "zarządzanie osobami" do
 
         expect(page).to have_content("Wanda")
         expect(page).not_to have_content("Andrze")
+      end
+        
+      xscenario "reset filtrów i formularza" do
+        visit "/people"
+        fill_in "Nazwisko", with: "Kalafior"
+        expect(page).to have_xpath("//input[@value='Kalafior']")
+        click_button 'x'
+        find_field('Nazwisko').value.blank?
+        select "autor", from: "Rola"
+        click_button 'Filtruj'
+        expect(page).to have_content("Wanda")
+        expect(page).not_to have_content("Andrzej")
+        click_button 'x'
+        expect(page).to have_content("Wanda")
+        expect(page).to have_content("Andrzej")
       end
     end
   end
