@@ -43,6 +43,45 @@ feature "zarządzanie numerami" do
       expect(page).to have_content(2017)
     end
 
+    context "proba test" do
+      before do
+        Issue.create!(volume: 98, year: 2098)
+        Issue.create!(volume: 99, year: 2099)
+        Submission.create!(status:'przyjęty', language:"polski", issue:
+                             Issue.last, polish_title: "proba",
+                             english_title: "test", english_abstract:
+                             "english", english_keywords: "test,
+                             exam", received: "2015-01-17")
+
+      end
+
+      scenario "sprawdzanie niedostepnosci linku" do
+        visit '/issues/98-2098'
+
+        expect(page).to have_css(".disabled")
+      end
+
+      scenario "sprawdzanie dostepnosci linku" do
+        visit '/issues/99-2099'
+
+        expect(page).not_to have_css(".disabled")
+      end
+
+      scenario "przygotowanie numeru do wydania" do
+        visit '/issues/99-2099'
+        click_link "Przygotuj do wydania"
+
+        expect(page).to have_content("Przygotuj numer do wydania")
+      end
+
+      scenario "wyswietlenie publikowanych artykulow" do
+        visit '/issues/99-2099/prepare_form'
+        click_button "Przygotuj numer do wydania"
+
+        expect(page).to have_content("Publikowane artykuły")
+      end
+    end
+
     context "z jednym numerem w bazie danych" do
       before do
         Issue.create!(volume: 3, year: 2020)
