@@ -99,12 +99,8 @@
           %td= link_to review.reviewer, review.person
           %td= review.asked_date
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
-<<<<<<< HEAD
-          %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= link_to review.status, edit_review_path(review)
-          %td{style: "text-align:center;"}= link_to image_tag("/assets/icon.png", size: "22x22", alt: "mail"), ask_review_path(review), method: :post
-=======
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
->>>>>>> e933750cf1c5172da20c6930f5655b0a7980a61e
+          %td{style: "text-align:center;"}= link_to image_tag("/assets/icon.png", size: "22x22", alt: "mail"), ask_review_path(review), method: :post
           %td.text-right
             = link_to "", review_path(review), class: %w{fa fa-file-text}, title: "Wyświetl recenzję"
             = link_to "", edit_review_path(review), class: %i{fa fa-pencil}, title: "Edytuj recenzję"

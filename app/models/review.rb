@@ -18,21 +18,20 @@ class Review < ActiveRecord::Base
     "#{self.article_revision.title}"
   end
 
-<<<<<<< HEAD
   def abstract
     self.submission.abstract
   end
 
   def editor
     self.submission.editor
-=======
+  end
+  
   def text
     if self.content.blank?
       "[BRAK TREŚCI]"
     else
       self.content
     end
->>>>>>> e933750cf1c5172da20c6930f5655b0a7980a61e
   end
 
   def reviewer
