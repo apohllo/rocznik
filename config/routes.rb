@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   resources :article_revisions
   resources :articles
   resources :article_revisions, only: [:new, :create, :destroy]
-  resources :profiles, only: [:show, :edit]
+  resource :profile, only: [:show, :edit, :update, :update_password]
 
   devise_for :users
   mount Storytime::Engine => "/"
