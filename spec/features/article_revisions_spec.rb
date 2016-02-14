@@ -35,6 +35,22 @@ feature "wersje" do
         end
       end
 
+      scenario "Dodawanie nowej wersji bez pliku" do
+        visit '/submissions/'
+        click_on("Alicja w krainie czarów")
+
+        click_on("Dodaj wersję")
+
+        fill_in "Otrzymano", with: "16/07/2016"
+        fill_in "Liczba stron", with: '1'
+        fill_in "Liczba ilustracji", with: '1'
+        click_button 'Dodaj'
+
+        within("#new_article_revision") do
+          expect(page).to have_css('.has-error')
+        end
+      end
+
       context "wersja w bazie" do
         before do
           ArticleRevision.create!(submission: Submission.first,

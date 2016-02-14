@@ -7,6 +7,7 @@ class ArticleRevision < ActiveRecord::Base
   validates :pages, presence: true, numericality: true
   validates :pictures, presence: true, numericality: true
   validates :version, presence: true, numericality: true
+  validates :article, presence: true
 
   def title
     "#{self.submission.title}, v. #{self.version}"
