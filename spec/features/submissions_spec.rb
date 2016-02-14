@@ -46,10 +46,10 @@ feature "zgloszenia" do
 
       context "2 zgłoszenia w bazie danych" do
         before do
-          Submission.create!(person_id: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów",
+          Submission.create!(person: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów",
                              english_title: "Alice in Wonderland", english_abstract: "Little about that story",
                              english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.first)
-          Submission.create!(person_id: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy",
+          Submission.create!(person: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy",
                              english_title: "Desert and something", english_abstract: "Super lecture", english_keywords:
                              "desert", received: "11-01-2016", language: "polski", issue: Issue.last)
         end
@@ -114,7 +114,8 @@ feature "zgloszenia" do
 
         context "Z recenzją" do
           before do
-            revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
+            revision = ArticleRevision.create!(submission: Submission.first, article: File.new(Rails.root + 'app/assets/images/remind_icon.png'), 
+                           pages: 1, pictures: 1, version: 1)
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
                            status: "recenzja pozytywna", asked: '1/01/2016')
           end
@@ -127,21 +128,14 @@ feature "zgloszenia" do
           
           scenario "wysłanie przypomnienia o recenzji" do
             visit '/submissions'
+            clear_emails
             click_on("Alicja w krainie czarów")
-            click_on("Dodaj wersję")
-            
-            within("#new_article_revision") do
-              page.attach_file('Artykuł', Rails.root +  'app/assets/images/remind_icon.png')
-              fill_in "Liczba stron", with: "5"
-              fill_in "Liczba ilustracji", with: "1"
-             end
-            click_button("Dodaj")
-            
             page.find(".reminder").click
-            # expect(page).to have_css(".flash-confirmation") dla treści powiadomienia także nie działa
-            open_email('a.kapusa@gmail.com') # zdaje się, że wlaściwy email się nie otwiera (Person.first.email też nie działa)
+            expect(page).to have_css(".flash-confirmation")
+            open_email('a.kapusa@gmail.com')
             expect(current_email).to have_content 'Z poważaniem,'
-            current_email.click_link 'kliknij żeby ściągnąć'
+            expect(current_email).to have_content 'Kapusta'
+            expect(current_email).to have_content 'remind_icon.png'
             current_email.save_and_open
           end
         end
@@ -163,6 +157,23 @@ feature "zgloszenia" do
           click_button("Dodaj")
 
           expect(page).to have_css(".has-error")
+        end
+        
+        xscenario "reset filtrów i formularza" do
+          visit "/submissions"
+          fill_in "Tytuł", with: "Ten nudny"
+          expect(page).to have_xpath("//input[@value='Ten nudny']")
+          click_button 'x'
+          find_field('Tytuł').value.blank?
+          select "odrzucony", from: "Status"
+          fill_in "Data początkowa", with: "12/2/2016"
+          select "3/2020", from: "Numer rocznika"
+          click_button 'Filtruj'
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).not_to have_content("W pustyni i w puszczy")
+          click_button 'x'
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).to have_content("W pustyni i w puszczy")
         end
       end
     end
