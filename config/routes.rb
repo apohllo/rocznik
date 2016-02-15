@@ -24,9 +24,13 @@ get "/500" => "errors#internal_server_error"
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
   resources :articles
+<<<<<<< HEAD
   resources :user_mailer
     get 'mail/write_email', to: 'mail#write_email', as: :write_email
     post 'mail/send_email', to: 'mail#send_email', as: :send_email
+=======
+  resources :public_articles, only: [:show]
+>>>>>>> c34aaed3036613a8896dcfe2ae657bcdfad807dc
 
   devise_for :users
   mount Storytime::Engine => "/"
