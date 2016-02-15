@@ -22,4 +22,9 @@ module ApplicationHelper
   def acronym(short,long)
     raw("<acronym title='#{long}'>#{short}</acronym>")
   end
+  
+  def reset_filters(f)
+    link_to (f.button :button, 'x', :type => 'reset', :class => 'btn btn-danger btn-sm'), 
+      '', :onclick => 'reload(); return false'
+  end
 end
