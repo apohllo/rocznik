@@ -35,7 +35,7 @@ class Submission < ActiveRecord::Base
   end
  
   def finalized_reviews
-    self.article_reviews.flat_map(&: finalized_reviews)
+    self.article_reviews.flat_map(&:finalized_reviews)
   end
   
   def abstract
