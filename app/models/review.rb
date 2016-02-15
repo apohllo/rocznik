@@ -26,6 +26,14 @@ class Review < ActiveRecord::Base
     self.submission.editor
   end
 
+  def text
+    if self.content.blank?
+      "[BRAK TREŚCI]"
+    else
+      self.content
+    end
+  end
+
   def reviewer
     self.person.full_name
   end

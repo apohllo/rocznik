@@ -1,0 +1,9 @@
+.scroll-panel-header
+  = link_to "Wróć", @article_revision.submission, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title
+    = @article_revision.title
+.scroll-panel-body
+  %p
+    Akceptacja ostatecznej wersji:
+    = @article_revision.accepted? ? raw("&#10004;") : raw("&#10007;")
+  %p= @article_revision.comment

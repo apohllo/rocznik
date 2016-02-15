@@ -50,7 +50,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-
   def edit
     @review = Review.find(params[:id])
   end
@@ -70,12 +69,11 @@ class ReviewsController < ApplicationController
     redirect_to review.submission
   end
 
-  def ask
+ def ask
     review = Review.find(params[:id])
-    ReviewMailer.ask(review).deliver
+    ReviewMailer.ask(review).deliver_now
     redirect_to review.submission
-  end
-
+ end
 
   private
   def review_params

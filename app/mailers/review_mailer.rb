@@ -1,7 +1,7 @@
 class ReviewMailer < ApplicationMailer
 
-  def review_request(review)
+  def ask(review)
     @review = review
-    mail(to: @review.person.email, subject: 'Prośba o recenzję')
+    mail(from: @review.article_revision.submission.person.email, to: @review.person.email, subject: 'Prośba o recenzję')
   end
 end

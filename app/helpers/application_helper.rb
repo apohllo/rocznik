@@ -3,7 +3,12 @@ module ApplicationHelper
 
   def destroy_button(object,confirmation="")
     link_to raw("<i class=\"fa fa-trash-o\"></i>"), object, :method => :delete,
-      :class => %w{btn btn-sm btn-outline btn-danger}, :"data-confirm" => confirmation
+      :class => %w{btn btn-outline btn-danger}, :"data-confirm" => confirmation
+  end
+
+  def edit_button(object,path,title="")
+    link_to raw("<i class=\"fa fa-pencil-square-o\"></i>"), path, class: %w{btn btn-outline btn-default},
+      title: title
   end
 
   def active?(url)
@@ -16,5 +21,10 @@ module ApplicationHelper
 
   def acronym(short,long)
     raw("<acronym title='#{long}'>#{short}</acronym>")
+  end
+  
+  def reset_filters(f)
+    link_to (f.button :button, 'x', :type => 'reset', :class => 'btn btn-danger btn-sm'), 
+      '', :onclick => 'reload(); return false'
   end
 end
