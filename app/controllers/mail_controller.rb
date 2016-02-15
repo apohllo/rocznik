@@ -2,8 +2,7 @@ class MailController < ApplicationController
   before_action :admin_required
 
   def write_email
-    @simplemail = SimpleMail.new
-  
+    @simplemail = SimpleMail.new 
   end
 
   def send_email
