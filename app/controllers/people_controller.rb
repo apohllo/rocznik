@@ -37,7 +37,13 @@ class PeopleController < ApplicationController
   def show
     @person = Person.find(params[:id])
   end
-
+  
+  def search
+    @person = Person.find(params[:id])
+    @link = "https://www.google.pl/search?q=(person_params
+    )+(person_params)"
+  end
+  
   private
   def person_params
     params.require(:person).permit(:name,:surname,:degree,:email,:sex,:photo,:competence,roles: [], discipline: [])
