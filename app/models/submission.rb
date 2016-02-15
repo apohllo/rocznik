@@ -24,6 +24,14 @@ class Submission < ActiveRecord::Base
 
   MAX_LENGTH = 80
 
+  def authors
+    self.authorships.map(&:person)
+  end
+
+  def authors_inline
+    self.authors.empty? ? "[AUTOR NIEZNANY]" :  self.authors.map(&:short_name).join(', ')
+  end
+
   def title(cut=true)
     if !self.polish_title.blank?
       cut_text(self.polish_title,cut)
@@ -109,7 +117,7 @@ class Submission < ActiveRecord::Base
   def last_revision
     self.article_revisions.order(:created_at).last
   end
-  
+
   def last_review
     if self.last_revision
       self.last_revision.reviews.order(:deadline).last
@@ -117,7 +125,7 @@ class Submission < ActiveRecord::Base
       nil
     end
   end
-  
+
   def last_deadline
     if self.last_review
       self.last_review.deadline_date
@@ -125,11 +133,15 @@ class Submission < ActiveRecord::Base
       "[BRAK DEADLINE'u]"
     end
   end
-  
+
   def deadline_missed?
     self.reviews.any?{|r| r.deadline_missed? }
   end
-  
+
+  def polish_language?
+    self.language == POLISH
+  end
+
   private
   def cut_text(text,cut)
     if text.size > MAX_LENGTH && cut
