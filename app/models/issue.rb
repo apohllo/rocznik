@@ -37,7 +37,7 @@ class Issue < ActiveRecord::Base
   end
 
   def reviews
-    self.submission.flat_map(&: finalized_reviews).map(&: person).uniq
+    self.submission.flat_map(&:finalized_reviews).map(&:person).uniq
   end
 
   def status
