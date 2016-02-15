@@ -24,8 +24,7 @@ get "/500" => "errors#internal_server_error"
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
   resources :articles
-  resources :article_revisions, only: [:new, :create, :destroy]
-  resource :profile, only: [:show, :edit, :update, :update_password]
+  resource :profile, only: [:show, :edit, :edit_password, :update, :update_password]
   resources :public_articles, only: [:show]
 
 
