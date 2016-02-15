@@ -27,6 +27,6 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:issue_id, :status, :pages, :external_link)
+    params.require(:article).permit(:issue_id, :status, :pages, :external_link, :DOI)
   end
 end

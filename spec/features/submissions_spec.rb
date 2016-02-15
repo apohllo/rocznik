@@ -21,7 +21,7 @@ feature "zgloszenia" do
 
     context "redaktor w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                        "mężczyzna", roles: ['redaktor', 'recenzent'])
         Issue.create!(volume: 3, year: 2020)
         Issue.create!(volume: 4, year: 2020)
@@ -129,7 +129,7 @@ feature "zgloszenia" do
 
       context "brak autora w bazie danych" do
         before do
-          person = Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email:
+          person = Person.create!(name: "Andrzej", surname: "Kapusta", email:
                                   "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
           Submission.create!(status: "nadesłany", language: "polski", person: person, received: "20-01-2016",
                              polish_title: "Bukiet kotów", english_title: "cats", english_abstract: "Sth about cats",

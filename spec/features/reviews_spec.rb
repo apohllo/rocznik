@@ -6,11 +6,11 @@ feature "recenzowanie" do
 
     context "recenzja w bazie" do
       before do
-        person_1 = Person.create!(name:"Andrzej", surname:"Kapusta", discipline:["filozofia"], sex: "mężczyzna", email:
+        person_1 = Person.create!(name:"Andrzej", surname:"Kapusta", sex: "mężczyzna", email:
                                   "a.kapusta@gmail.com", roles: ['redaktor'])
-        Person.create!(name:"Anna", surname:"Genialna", discipline:["filozofia"], email: "a.genialna@gmail.com", sex:
+        Person.create!(name:"Anna", surname:"Genialna", email: "a.genialna@gmail.com", sex:
                        "kobieta",roles: ['recenzent'])
-        Person.create!(name:"Wojciech", surname:"Nowak", discipline:["psychologia"], email: "w.nowak@gmail.com", sex:
+        Person.create!(name:"Wojciech", surname:"Nowak", email: "w.nowak@gmail.com", sex:
                        "mężczyzna",roles: ['recenzent'])
         submission_1 =
           Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person: person_1,
@@ -93,7 +93,7 @@ feature "recenzowanie" do
           expect(page).to have_css(".exceeded-deadline")
         end
       end
-            
+
       scenario "Brak zaznaczenia przekroczonego deadline'u w liscie zgloszen" do
         Timecop.freeze(Date.parse("15-01-2016")) do
           visit '/submissions'
@@ -130,6 +130,19 @@ feature "recenzowanie" do
 
         click_on "Deadline"
         expect(page).to have_content(/20-01-2016.*16-01-2017/)
+      end
+      
+      scenario "sprawdzanie dostepnosci odnosnika do edycji recenzji w widoku zgloszenia" do
+        visit "/reviews"
+        expect(page). to have_css('a[title="Edytuj recenzję"]')
+      end
+      
+      scenario "sprawdzanie dostepnosci odnosnika do wyswietlania i edycji recenzji w pojedynczym zgloszeniu" do
+        visit "/submissions"
+        click_on "Dlaczego solipsyzm?"
+        
+        expect(page).to have_css('a[title="Wyświetl recenzję"]')
+        expect(page).to have_css('a[title="Edytuj recenzję"]')
       end
     end
   end
