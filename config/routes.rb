@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
 
+get "/404" => "errors#not_found"
+get "/500" => "errors#internal_server_error"
 
   resources :issues do
     get :prepare_form, on: :member
     patch :prepare, on: :member
     patch :publish, on: :member
+    get :show_reviews, on: :member
   end
   resources :public_issues, only: [:index,:show]
   resources :people
@@ -15,8 +18,11 @@ Rails.application.routes.draw do
     get :departments, on: :collection
   end
   resources :authorships, only: [:new, :create, :destroy]
-  resources :reviews
+  resources :reviews do
+    post :ask, on: :member
+  end
   resources :article_revisions, only: [:new, :create, :destroy]
+  resources :article_revisions
   resources :articles
 
   devise_for :users

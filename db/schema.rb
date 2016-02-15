@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128101602) do
+ActiveRecord::Schema.define(version: 20160207134047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20160128101602) do
     t.datetime "updated_at",                       null: false
     t.string   "code",          default: "tekst_"
     t.string   "article"
+    t.string   "accepted"
+    t.text     "comment"
   end
 
   add_index "article_revisions", ["submission_id"], name: "index_article_revisions_on_submission_id", using: :btree
@@ -120,7 +122,6 @@ ActiveRecord::Schema.define(version: 20160128101602) do
     t.string   "surname",                 null: false
     t.string   "email",                   null: false
     t.string   "degree"
-    t.string   "discipline",              null: false
     t.string   "orcid"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
@@ -128,6 +129,7 @@ ActiveRecord::Schema.define(version: 20160128101602) do
     t.string   "sex"
     t.string   "photo"
     t.text     "competence"
+    t.text     "discipline", default: [], null: false, array: true
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree

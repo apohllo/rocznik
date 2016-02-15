@@ -43,6 +43,45 @@ feature "zarządzanie numerami" do
       expect(page).to have_content(2017)
     end
 
+    context "proba test" do
+      before do
+        Issue.create!(volume: 98, year: 2098)
+        Issue.create!(volume: 99, year: 2099)
+        Submission.create!(status:'przyjęty', language:"polski", issue:
+                             Issue.last, polish_title: "proba",
+                             english_title: "test", english_abstract:
+                             "english", english_keywords: "test,
+                             exam", received: "2015-01-17")
+
+      end
+
+      scenario "sprawdzanie niedostepnosci linku" do
+        visit '/issues/98-2098'
+
+        expect(page).to have_css(".disabled")
+      end
+
+      scenario "sprawdzanie dostepnosci linku" do
+        visit '/issues/99-2099'
+
+        expect(page).not_to have_css(".disabled")
+      end
+
+      scenario "przygotowanie numeru do wydania" do
+        visit '/issues/99-2099'
+        click_link "Przygotuj do wydania"
+
+        expect(page).to have_content("Przygotuj numer do wydania")
+      end
+
+      scenario "wyswietlenie publikowanych artykulow" do
+        visit '/issues/99-2099/prepare_form'
+        click_button "Przygotuj numer do wydania"
+
+        expect(page).to have_content("Publikowane artykuły")
+      end
+    end
+
     context "z jednym numerem w bazie danych" do
       before do
         Issue.create!(volume: 3, year: 2020)
@@ -104,6 +143,32 @@ feature "zarządzanie numerami" do
           click_button 'Przygotuj numer do wydania'
           expect(page).not_to have_css(".has-error")
           expect(page).not_to have_content("Wybierz artykuły do wydania")
+        end
+
+        context "z jedną recenzją" do
+          before do
+            Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
+                       "mężczyzna", roles: ['redaktor', 'recenzent'])
+            revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
+            Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
+                           status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
+          end
+
+          scenario "dostępność przeglądu recenzji" do
+            visit "/issues"
+
+            click_link "3"
+            expect(page).to have_link("Pokaż recenzje")
+          end
+
+          scenario "wyświetlenie tytułów artykułów oraz treści rezenzji" do
+            visit "/issues"
+
+            click_link "3"
+            click_link "Pokaż recenzje"
+            expect(page).to have_content("Zaakceptowany tytuł")
+            expect(page).to have_content("treść rezenzji")
+          end
         end
 
         context "przygotowany do wydania" do
@@ -175,6 +240,19 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_css(".has-error")
       end
+      
+       scenario "Sprawdzenie czy da sie utworzyć rocznik z numeru mniejszego niż 1" do
+        visit '/issues/new'
+
+        within("#new_issue") do
+          fill_in "Numer", with: 0
+          fill_in "Rok", with: 2016
+        end
+        click_button 'Utwórz'
+
+        expect(page).to have_css(".has-error")
+      end
+      
     end
   end
 end
