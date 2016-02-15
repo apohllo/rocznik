@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207134047) do
+ActiveRecord::Schema.define(version: 20160212141645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 20160207134047) do
     t.integer  "submission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "pages"
+    t.string   "external_link"
   end
 
   add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
