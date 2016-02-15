@@ -141,6 +141,7 @@ feature "zarządzanie osobami" do
         click_on 'Edytuj'
         select "Recenzuje po terminie", from: "Status recenzenta"
         click_on 'Zapisz'
+        expect(page).to have_content("Recenzuje po terminie")
       end
     end
   end
