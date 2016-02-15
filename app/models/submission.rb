@@ -130,6 +130,10 @@ class Submission < ActiveRecord::Base
     self.reviews.any?{|r| r.deadline_missed? }
   end
 
+  def polish_language?
+    self.language == POLISH
+  end
+
   private
   def cut_text(text,cut)
     if text.size > MAX_LENGTH && cut
