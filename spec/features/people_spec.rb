@@ -81,7 +81,7 @@ feature "zarządzanie osobami" do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
                        competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
         Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com",
-                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
+                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor", "redaktor"])
       end
 
       scenario "wyszukanie osoby" do
@@ -101,8 +101,12 @@ feature "zarządzanie osobami" do
         expect(page).to have_content("Wanda")
         expect(page).not_to have_content("Andrze")
       end
-        
-      xscenario "reset filtrów i formularza" do
+      
+      before do
+          Issue.create!(volume: 3, year: 2020)
+      end
+      
+       xscenario "reset filtrów i formularza" do
         visit "/people"
         fill_in "Nazwisko", with: "Kalafior"
         expect(page).to have_xpath("//input[@value='Kalafior']")
@@ -116,6 +120,28 @@ feature "zarządzanie osobami" do
         expect(page).to have_content("Wanda")
         expect(page).to have_content("Andrzej")
       end
+      
+      scenario "przy usuwaniu zgłoszenia powinno być pytanie, czy użytkownik chce usunąć dane zgłoszenie" do
+        visit "/people"
+        click_on 'Kalafior'
+        click_on 'Dodaj zgłoszenie'
+        
+        within("#new_submission") do
+          fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
+          fill_in "Title", with: "English title"
+          fill_in "Abstract", with: "abc"
+          fill_in "Key words", with: "def"
+          fill_in "Otrzymano", with: "19/2/2016"
+          select "Andrzej Kapusta", from: "Redaktor"
+        end
+        click_button("Utwórz")
+        
+        visit "/people"
+        click_on 'Kalafior'
+        page.find(".btn-danger").click 
+        expect(page).to have_content("Zapytanie")
+      end
+      
     end
   end
 end
