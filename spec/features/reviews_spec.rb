@@ -110,7 +110,6 @@ feature "recenzowanie" do
         end
       end
 
-
       scenario "filtrowanie recenzji po statusie" do
         visit "/reviews"
 
@@ -119,6 +118,18 @@ feature "recenzowanie" do
 
         expect(page).to have_content("16-01-2017")
         expect(page).not_to have_content("20-01-2016")
+      end
+
+      xscenario "reset filtrów" do
+        visit "/reviews"
+        expect(page).to have_content("16-01-2017")
+        expect(page).to have_content("20-01-2016")
+        select "recenzja negatywna", from: "Status"
+        click_button 'Filtruj'
+        expect(page).not_to have_content("20-01-2016")
+        click_button 'x'
+        expect(page).to have_content("16-01-2017")
+        expect(page).to have_content("20-01-2016")
       end
 
       scenario "sortowanie recenzji wzgledem deadlinu" do
