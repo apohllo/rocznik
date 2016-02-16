@@ -25,6 +25,7 @@ get "/500" => "errors#internal_server_error"
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
   resources :articles
+  resources :public_articles, only: [:show]
 
   devise_for :users
   mount Storytime::Engine => "/"
