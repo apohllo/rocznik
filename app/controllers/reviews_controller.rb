@@ -68,13 +68,13 @@ class ReviewsController < ApplicationController
     review.destroy
     redirect_to review.submission
   end
-  
- def ask
+
+  def ask
     review = Review.find(params[:id])
     ReviewMailer.ask(review).deliver_now
     redirect_to review.submission
- end
-  
+  end
+
   private
   def review_params
     params.require(:review).permit(:person_id,:status,:asked,:deadline,:remarks,:content,:article_revision_id)
