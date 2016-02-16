@@ -81,6 +81,13 @@ class ReviewsController < ApplicationController
     redirect_to review.submission, flash: {notice: "Zapytanie zostało wysłane"}
   end
 
+  def accepted
+    review = Review.find(params[:id])
+    review.status = 'zaakceptowano'
+    review.save
+    redirect_to review.submission, flash: {notice: "Dziękujemy"}
+  end
+
   private
   def review_params
     params.require(:review).permit(:person_id,:status,:asked,:deadline,:remarks,:content,:article_revision_id)
