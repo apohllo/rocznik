@@ -6,22 +6,22 @@ feature 'Emailer' do
     include_context "admin login"
 
     background do
-        Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
-                         "mężczyzna", roles: ['redaktor', 'recenzent'])
-        Person.create!(name: "Adam", surname: "Kapusta", discipline: ["filozofia"], email: "adam.kapusa@gmail.com", sex:
-                         "mężczyzna", roles: ['redaktor', 'recenzent'])
-        Issue.create!(volume: 31, year: 2021)
-        Submission.create!(person: Person.first, status: "przyjęty", polish_title: "Alicja w krainie czarów",
-                               english_title: "Alice in Wonderland", english_abstract: "Little about that story",
-                               english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.first)
-        ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: Submission.first)
-        Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person:
-                         Person.last, article_revision: ArticleRevision.first)
+      Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
+                     "mężczyzna", roles: ['redaktor', 'recenzent'])
+      Person.create!(name: "Adam", surname: "Kapusta", discipline: ["filozofia"], email: "adam.kapusa@gmail.com", sex:
+                     "mężczyzna", roles: ['redaktor', 'recenzent'])
+      Issue.create!(volume: 31, year: 2021)
+      Submission.create!(person: Person.first, status: "przyjęty", polish_title: "Alicja w krainie czarów",
+                         english_title: "Alice in Wonderland", english_abstract: "Little about that story",
+                         english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.first)
+      ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: Submission.first)
+      Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person:
+                     Person.last, article_revision: ArticleRevision.first)
 
       clear_emails
       visit '/submissions'
       click_link 'Alicja w krainie czarów'
-      click_link 'mail'
+      click_link 'Wyślij zapytanie o recenzję'
 
       open_email('adam.kapusa@gmail.com')
     end
