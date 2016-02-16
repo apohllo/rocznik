@@ -5,14 +5,17 @@
     = @submission.title
 .scroll-panel-body
   %dl
-    %dt Status
-    %dd{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
-  %dl
+  .col-md-2
     - if @submission.polish_language?
       = image_tag('pl.png')
     - else
       = image_tag('gb.png')
   %dl
+  .col-md-4
+    %dt Status
+    %dd{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
+  %dl
+  .col-md-3
     %dt Redaktor
     %dd
       - if @submission.person
@@ -20,9 +23,15 @@
       - else
         = @submission.editor
   %dl 
+  .col-md-3
     %dt Otrzymano
     %dd= @submission.received.strftime("%d-%m-%Y")
-  %dl
+
+
+
+
+  %br
+  %br
     %dt Streszczenie
     %dd.more= @submission.abstract
   %dl
