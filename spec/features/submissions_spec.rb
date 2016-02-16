@@ -114,8 +114,10 @@ feature "zgloszenia" do
 
         context "Z recenzją" do
           before do
-            revision = ArticleRevision.create!(submission: Submission.first, article: File.new(Rails.root + 'app/assets/images/remind_icon.png'), 
-                           pages: 1, pictures: 1, version: 1)
+            revision =
+              ArticleRevision.create!(submission: Submission.first,
+                                      article: File.new(Rails.root + 'app/assets/images/remind_icon.png'), pages: 1,
+                                      pictures: 1, version: 1)
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
                            status: "recenzja pozytywna", asked: '1/01/2016')
           end
@@ -125,7 +127,7 @@ feature "zgloszenia" do
 
             expect(page).to have_content('28-01-2016')
           end
-          
+
           scenario "wysłanie przypomnienia o recenzji" do
             visit '/submissions'
             clear_emails
@@ -144,7 +146,7 @@ feature "zgloszenia" do
       context "brak autora w bazie danych" do
         before do
           person = Person.create!(name: "Andrzej", surname: "Kapusta", email:
-                                  "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'], discipline:["psychologia"])
+                                  "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
           Submission.create!(status: "nadesłany", language: "polski", person: person, received: "20-01-2016",
                              polish_title: "Bukiet kotów", english_title: "cats", english_abstract: "Sth about cats",
                              english_keywords: "cats cat")
@@ -158,7 +160,7 @@ feature "zgloszenia" do
 
           expect(page).to have_css(".has-error")
         end
-        
+
         xscenario "reset filtrów i formularza" do
           visit "/submissions"
           fill_in "Tytuł", with: "Ten nudny"
