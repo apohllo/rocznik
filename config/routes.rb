@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-get "/404" => "errors#not_found"
-get "/500" => "errors#internal_server_error"
+  get "/404" => "errors#not_found"
+  get "/500" => "errors#internal_server_error"
 
   resources :issues do
     get :prepare_form, on: :member
@@ -20,6 +20,7 @@ get "/500" => "errors#internal_server_error"
   resources :authorships, only: [:new, :create, :destroy]
   resources :reviews do
     post :ask, on: :member
+    post :send_reminder, on: :member
   end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
