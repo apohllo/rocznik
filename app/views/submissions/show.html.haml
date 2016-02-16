@@ -100,6 +100,10 @@
           %td= review.asked_date
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
+          %td{style: "text-align:center;"}= link_to image_tag("/assets/remind_icon.png", size: "32x32"), send_reminder_review_path(review), class: "reminder", method: :post
+          .flash
+            - if flash[:notice]
+              .flash-confirmation= flash[:notice]
           %td.text-right
             = icon_to 'fa-send-o', ask_review_path(review), method: :post, title: "Wyślij zapytanie o recenzję"
             = icon_to 'fa-comment-o', review_path(review), title: "Wyświetl recenzję"

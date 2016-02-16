@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :authorships, only: [:new, :create, :destroy]
   resources :reviews do
     post :ask, on: :member
+    post :send_reminder, on: :member
   end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
