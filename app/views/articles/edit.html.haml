@@ -7,6 +7,8 @@
   = simple_form_for @article do |f|
     = f.association :issue, label: "Numer", collection: Issue.latest.all, include_blank: false, label_method: :title
     = f.input :status, collection: Article::STATUS_MAPPING.keys
+    = f.input :pages, label:"Strony"
+    = f.input :external_link, label:"Link do ściągnięcia artykuła"
     = f.input :DOI, label: "Numer DOI"
     = f.submit "Zapisz", class: %w{btn btn-primary btn-outline}
 
