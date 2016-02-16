@@ -34,11 +34,11 @@ class Article < ActiveRecord::Base
   end
 
   def abstract
-     if self.submission
-       self.submission.english_abstract
-     else
-       "[BRAK STRESZCZENIA]"
-     end
+    if self.submission
+      self.submission.english_abstract
+    else
+      "[BRAK STRESZCZENIA]"
+    end
   end
 
   def keywords
@@ -47,22 +47,22 @@ class Article < ActiveRecord::Base
     else
       "[BRAK SŁÓW KLUCZOWYCH]"
     end
-  end 
+  end
 
   def affiliations
     if self.submission
-      self.submission.authors_institutions    
+      self.submission.authors_institutions
     else
       "[BRAK AFFILIACJI]"
     end
   end
- 
+
   def article_pages
-   if !self.pages.blank?
-       self.pages
-   else
+    if !self.pages.blank?
+      self.pages
+    else
       "[BRAK STRON]"
-   end
+    end
   end
 
   def link
@@ -72,7 +72,7 @@ class Article < ActiveRecord::Base
       "[BRAK LINKU DO ŚCIÁGNIĘCIA ARTYKUŁU]"
     end
   end
-  
+
   def to_param
     [id, title.parameterize].join("-")
   end

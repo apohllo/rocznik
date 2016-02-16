@@ -48,9 +48,9 @@ feature "zarządzanie numerami" do
         Issue.create!(volume: 98, year: 2098)
         Issue.create!(volume: 99, year: 2099)
         Submission.create!(status:'przyjęty', language:"polski", issue:
-                             Issue.last, polish_title: "proba",
-                             english_title: "test", english_abstract:
-                             "english", english_keywords: "test,
+                           Issue.last, polish_title: "proba",
+                           english_title: "test", english_abstract:
+                           "english", english_keywords: "test,
                              exam", received: "2015-01-17")
 
       end
@@ -148,7 +148,7 @@ feature "zarządzanie numerami" do
         context "z jedną recenzją" do
           before do
             Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
-                       "mężczyzna", roles: ['redaktor', 'recenzent'])
+                           "mężczyzna", roles: ['redaktor', 'recenzent'])
             revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
                            status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
@@ -240,8 +240,8 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_css(".has-error")
       end
-      
-       scenario "Sprawdzenie czy da sie utworzyć rocznik z numeru mniejszego niż 1" do
+
+      scenario "Sprawdzenie czy da sie utworzyć rocznik z numeru mniejszego niż 1" do
         visit '/issues/new'
 
         within("#new_issue") do
@@ -252,7 +252,7 @@ feature "zarządzanie numerami" do
 
         expect(page).to have_css(".has-error")
       end
-      
+
     end
   end
 end
