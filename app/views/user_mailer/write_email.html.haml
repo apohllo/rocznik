@@ -1,7 +1,5 @@
-=simple_form_for @simplemail, url: send_email_path do |f|
-  = f.input :addressee, label: "Do:"
-  = f.input :subject, label: "Tytuł"
-  = f.input :body, label: "Treść"
-  //= f.input :sender, label: "Od"
-  = f.submit "Wyślij", class: %w{btn btn-primary btn-outline}
-
+.scroll-panel-header
+  = link_to "Anuluj", person_path, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title Nowa wiadomość
+.scroll-panel-body
+  = render partial: "form"
