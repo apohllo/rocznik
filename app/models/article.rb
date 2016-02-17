@@ -18,7 +18,7 @@ class Article < ActiveRecord::Base
   end
 
   def authors_mail
-    self.authors.empty? ? "[brak adresów e-mail]" : self.authors.map(&:mail)
+    self.authors.empty? ? "[brak adresów e-mail]" : self.authors.email
   end
   
   def title
