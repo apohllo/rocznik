@@ -12,9 +12,9 @@ class Authorship < ActiveRecord::Base
     end
   end
   
-  def email
+  def mail
     if person
-      self.person.email
+      self.person.mail
     else
       "[BRAK ADRESU E-MAIL]"
     end
