@@ -11,7 +11,15 @@ class Authorship < ActiveRecord::Base
       "[BRAK AUTORA]"
     end
   end
-
+  
+  def email
+    if person
+      self.person.email
+    else
+      "[BRAK ADRESU E-MAIL]"
+    end
+  end
+  
   def title
     self.submission.title
   end
