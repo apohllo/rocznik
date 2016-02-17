@@ -79,9 +79,9 @@ feature "zarządzanie osobami" do
     context "z dwoma osobami w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
-                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
+                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"], discipline: ["filozofia"])
         Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com",
-                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor", "redaktor"])
+                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor", "redaktor"], discipline: ["etyka"])
       end
 
       scenario "wyszukanie osoby" do
@@ -99,7 +99,16 @@ feature "zarządzanie osobami" do
         click_on("Filtruj")
 
         expect(page).to have_content("Wanda")
-        expect(page).not_to have_content("Andrze")
+        expect(page).not_to have_content("Andrzej")
+      end
+      
+      scenario "filtrowanie osob po roli" do
+        visit "/people"
+        select "filozofia", from: "Dyscypliny"
+        click_on("Filtruj")
+
+        expect(page).to have_content("Andrzej")
+        expect(page).not_to have_content("Wanda")
       end
       
       before do
