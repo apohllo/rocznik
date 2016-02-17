@@ -20,12 +20,14 @@
         %th Tytuł
         %th Data nadesłania
         %th Status
+        %th Podpisana umowa
     %tbody
       - @issue.submissions.each do |submission|
         %tr
           %td= link_to submission.title, submission
           %td= submission.received.strftime("%d-%m-%Y")
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
+          %td{style: "text-align:center;width:30px;"}= submission.signed? ? image_tag("/assets/check.png", size: "22x22", alt: "check") : image_tag("/assets/x.png", size: "15x15", alt: "x")
           %td.text-right
             = destroy_button(submission)
   -if @issue.prepared?

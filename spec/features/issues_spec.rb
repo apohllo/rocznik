@@ -43,6 +43,37 @@ feature "zarządzanie numerami" do
       expect(page).to have_content(2017)
     end
 
+    context "Sprawdzenie podpisania umowy" do 
+    	before do 
+    		Issue.create!(volume: 500, year: 2500)
+    		Issue.create!(volume: 501, year: 2501)
+    		Submission.create!(status:'przyjęty', language:"polski", issue:
+                           Issue.first, polish_title: "brak podpisu",
+                           english_title: "unsigned", english_abstract:
+                           "english", english_keywords: "sign,
+                             test", received: "2015-01-17")
+    		Submission.create!(status:'przyjęty', language:"polski", issue:
+                           Issue.last, polish_title: "obecnosc podpisu",
+                           english_title: "signed", english_abstract:
+                           "english", english_keywords: "sign,
+                             test", received: "2015-01-17", signed: true)
+    	end
+
+    	scenario "podpisana umowa" do
+    		visit '/issues'
+    		click_link '501'
+
+    		expect(page).to have_css("img[src*='check.png']")
+    	end
+
+    	scenario "niepodpisana umowa" do
+    		visit '/issues'
+    		click_link '500'
+
+    		expect(page).to have_css("img[src*='x.png']")
+    	end
+    end
+
     context "proba test" do
       before do
         Issue.create!(volume: 98, year: 2098)

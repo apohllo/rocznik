@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212141645) do
+ActiveRecord::Schema.define(version: 20160217130614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -334,10 +334,11 @@ ActiveRecord::Schema.define(version: 20160212141645) do
     t.text     "funding"
     t.date     "received"
     t.string   "language"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
+    t.boolean  "signed",           default: false
   end
 
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
