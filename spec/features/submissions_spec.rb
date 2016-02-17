@@ -178,6 +178,28 @@ feature "zgloszenia" do
           expect(page).to have_content("W pustyni i w puszczy")
         end
       end
+
+      context "historia zgloszen" do
+        before do
+          Submission.create!(person: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów",
+                             english_title: "Alice in Wonderland", english_abstract: "Little about that story",
+                             english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.first)
+          Submission.create!(person: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy",
+                             english_title: "Desert and something", english_abstract: "Super lecture", english_keywords:
+                                 "desert", received: "11-01-2016", language: "polski", issue: Issue.last)
+        end
+
+
+        scenario "test versions po create submission" do
+          visit '/submissions/1'
+
+          expect(page).have_content("Wersja")
+          expect(page).have_content("1")
+          expect(page).have_content("Obecna")
+        end
+
+
+      end
     end
   end
 end
