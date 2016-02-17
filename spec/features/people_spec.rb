@@ -36,9 +36,9 @@ feature "zarządzanie osobami" do
       expect(page).to have_content("Kapusta")
       expect(page).to have_content("a.kapusta@gmail.com")
       expect(page).to have_content("Arystoteles")
+      expect(page).to have_content("filozofia")
       expect(page).to have_css("img[src*='person']")
     end
-
 
     scenario "tworzenie nowej osoby z brakującymi elementami" do
       visit '/people/new'
@@ -57,9 +57,10 @@ feature "zarządzanie osobami" do
       
       before do
 
-      Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex:
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
+                      sex: "mężczyzna")
+      end
 
-    end
 
       scenario "wyświetlenie szczegółów osoby" do
         visit "/people"
@@ -102,9 +103,9 @@ feature "zarządzanie osobami" do
     context "z dwoma osobami w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
-                       discipline: ["filozofia"], competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
+                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"], discipline: ["filozofia"])
         Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com",
-                       discipline: ["psychologia"], competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
+                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"], discipline: ["etyka"])
       end
     
 
@@ -124,10 +125,35 @@ feature "zarządzanie osobami" do
         click_on("Filtruj")
 
         expect(page).to have_content("Wanda")
-        expect(page).not_to have_content("Andrze")
+        expect(page).not_to have_content("Andrzej")
+      end
+      
+      scenario "filtrowanie osob po roli" do
+        visit "/people"
+        select "filozofia", from: "Dyscypliny"
+        click_on("Filtruj")
+
+        expect(page).to have_content("Andrzej")
+        expect(page).not_to have_content("Wanda")
+      end
+        
+      xscenario "reset filtrów i formularza" do
+        visit "/people"
+        fill_in "Nazwisko", with: "Kalafior"
+        expect(page).to have_xpath("//input[@value='Kalafior']")
+        click_button 'x'
+        find_field('Nazwisko').value.blank?
+        select "autor", from: "Rola"
+        click_button 'Filtruj'
+        expect(page).to have_content("Wanda")
+        expect(page).not_to have_content("Andrzej")
+        click_button 'x'
+        expect(page).to have_content("Wanda")
+        expect(page).to have_content("Andrzej")
       end
 
     end
+
 
     context "Z uzytkownikiem, ktory ma pięć recenzji" do
       include_context "admin login"
@@ -179,3 +205,7 @@ feature "zarządzanie osobami" do
 
 
 end
+
+  end
+end
+
