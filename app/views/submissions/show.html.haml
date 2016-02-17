@@ -119,15 +119,16 @@
         %th Data zmiany
         %th Status
     %tbody
-      - @submission.versions.each do |version|
+      - if defined?(@submission.versions.last)
+        - @submission.versions.each do |version|
+          %tr
+            %td= version.index+1
+            %td= @submission.version_author version
+            %td= version.created_at
+            - if !version.reify(dup: true).nil?
+              %td{class: "#{Submission::STATUS_MAPPING[version.reify(dup: true).status]}"}= version.reify(dup: true).status
         %tr
-          %td= version.index+1
-          %td= @submission.version_author version
-          %td= version.created_at
-          - if !version.reify(dup: true).nil?
-            %td{class: "#{Submission::STATUS_MAPPING[version.reify(dup: true).status]}"}= version.reify(dup: true).status
-    %tr
-      %td Obecna
-      %td= @submission.version_author @submission.versions.last
-      %td= @submission.versions.last.created_at
-      %td{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
+          %td Obecna
+          %td= @submission.version_author @submission.versions.last
+          %td= @submission.versions.last.created_at
+          %td{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status

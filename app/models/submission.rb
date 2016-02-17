@@ -139,6 +139,14 @@ class Submission < ActiveRecord::Base
     self.language == POLISH
   end
 
+  def version_author version
+    if defined?(version.whodunnit)
+      user_id = version.whodunnit
+      return User.find(user_id).storytime_name
+    end
+    "error"
+  end
+
   private
   def cut_text(text,cut)
     if text.size > MAX_LENGTH && cut
