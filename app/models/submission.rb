@@ -24,6 +24,11 @@ class Submission < ActiveRecord::Base
 
   MAX_LENGTH = 80
 
+  has_paper_trail :on => [:create, :update, :destroy],
+                  :ignore => [:issue_id,:language,:received,:funding,
+                              :remarks,:polish_title,:english_title,:english_abstract,
+                              :english_keywords,:person_id]
+
   def authors
     self.authorships.map(&:person)
   end
