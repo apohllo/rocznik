@@ -32,6 +32,7 @@ group :development, :test do
   gem 'spring'
   gem 'capybara'
   gem 'capybara-email'
+  gem 'launchy'
   gem 'rspec-rails', '~> 3.0'
   gem 'rubocop', require: false
   gem 'overcommit'
