@@ -5,6 +5,13 @@
   - Issue.published.each do |issue|
     %li{:class => active?(public_issue_path(issue))}= link_to issue.title, public_issue_path(issue)
 .sm-buttons.icon-bar.vertical
-  .fb-like{"data-action" => "like", "data-href" => "https://www.facebook.com/Rocznik-Kognitywistyczny-213997978935029/", "data-layout" => "button", "data-share" => "true", "data-show-faces" => "true", "data-width" => "300"}
+  .fb-like{"data-action" => "like",
+          "data-href" => "https://www.facebook.com/Rocznik-Kognitywistyczny-213997978935029/",
+          "data-layout" => "button",
+          "data-share" => "true",
+          "data-show-faces" => "true",
+          "data-width" => "300"}
   .twitter-like
-    %a.twitter-follow-button{"data-show-count" => "false", "data-size" => "small", :href => "https://twitter.com/RocznikKog"} Follow @RocznikKog
+    %a.twitter-follow-button{"data-show-count" => "false",
+                            "data-size" => "small",
+                            :href => "https://twitter.com/RocznikKog"} Follow @RocznikKog
