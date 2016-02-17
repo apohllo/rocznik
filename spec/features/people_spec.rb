@@ -79,9 +79,9 @@ feature "zarządzanie osobami" do
     context "z dwoma osobami w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
-                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
+                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"], discipline: ["filozofia"])
         Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com",
-                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
+                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"], discipline: ["etyka"])
       end
 
       scenario "wyszukanie osoby" do
@@ -99,7 +99,16 @@ feature "zarządzanie osobami" do
         click_on("Filtruj")
 
         expect(page).to have_content("Wanda")
-        expect(page).not_to have_content("Andrze")
+        expect(page).not_to have_content("Andrzej")
+      end
+      
+      scenario "filtrowanie osob po roli" do
+        visit "/people"
+        select "filozofia", from: "Dyscypliny"
+        click_on("Filtruj")
+
+        expect(page).to have_content("Andrzej")
+        expect(page).not_to have_content("Wanda")
       end
         
       xscenario "reset filtrów i formularza" do
@@ -115,6 +124,33 @@ feature "zarządzanie osobami" do
         click_button 'x'
         expect(page).to have_content("Wanda")
         expect(page).to have_content("Andrzej")
+      end
+    end
+    context "określony status i nieokreślony status" do
+      before do
+        Person.create!(name: "Aleksandra", surname: "Hol", email: "alka.hol@onet.com",
+                      sex: "kobieta", roles: ["recenzent"])
+        Person.create!(name: "Anna", surname: "Kawiarka", email: "annakawi@rka.pl",
+                      sex: "kobieta", roles: ["recenzent"], reviewer_status: "Recenzuje w terminie")
+      end
+      
+      scenario "wyświetlenie statusu recenzenta" do
+        visit "/people"
+        click_on 'Hol'
+        expect(page).not_to have_content("Status recenzenta")
+        
+        visit "/people"
+        click_on 'Kawiarka'
+        expect(page).to have_content("Status recenzenta")    
+      end
+
+      scenario "zmiana statusu recenzenta" do
+        visit "/people"
+        click_on 'Hol'
+        click_on 'Edytuj'
+        select "Recenzuje po terminie", from: "Status recenzenta"
+        click_on 'Zapisz'
+        expect(page).to have_content("Recenzuje po terminie")
       end
     end
   end
