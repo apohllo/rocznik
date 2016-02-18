@@ -3,7 +3,6 @@ require 'rails_helper'
 
 feature "Formularz dodania proponowanych recenzentów" do
    
-end
 scenario "Dodawanie proponowanego recenzenta" do
       visit '/public_reviews/new_reviewer'
 
@@ -18,4 +17,9 @@ scenario "Dodawanie proponowanego recenzenta" do
       expect(page).not_to have_css(".has-error")
       expect(page).to have_content("Andrzej")
       expect(page).to have_content("Kapusta")
+
+      click_button 'Zakończ dodawanie recenzentów'
+      expect(page).to have_content("Dziękujemy za podanie propozycji recenzentów.")
     end
+
+end
