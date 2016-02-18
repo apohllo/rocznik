@@ -18,6 +18,22 @@ class Review < ActiveRecord::Base
     "#{self.article_revision.title}"
   end
 
+  def abstract
+    self.submission.abstract
+  end
+
+  def editor
+    self.submission.editor
+  end
+  
+  def text
+    if self.content.blank?
+      "[BRAK TREŚCI]"
+    else
+      self.content
+    end
+  end
+
   def reviewer
     self.person.full_name
   end
@@ -30,11 +46,25 @@ class Review < ActiveRecord::Base
     self.article_revision.submission
   end
 
+  def asked_date
+    if self.asked
+      self.asked.strftime("%d-%m-%Y")
+    else
+      "[BRAK DATY]"
+    end
+  end
+
   def deadline_date
     if self.deadline
       self.deadline.strftime("%d-%m-%Y")
     else
       "[BRAK DEADLINE'u]"
+    end
+  end
+
+  def deadline_missed?
+    if self.deadline
+      self.deadline < Time.now && [:asked,:accepted].map{|t| STATUS_MAPPING.key(t) }.include?(self.status)
     end
   end
 
