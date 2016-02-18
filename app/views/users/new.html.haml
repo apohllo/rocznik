@@ -1,6 +1,6 @@
 
  %h2 Zarejestruj się
- = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+ = simple_form_for(@user) do |f|
    = f.error_notification
    .form-inputs
      = f.input :name, required:true
