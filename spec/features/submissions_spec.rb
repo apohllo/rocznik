@@ -111,6 +111,15 @@ feature "zgloszenia" do
           click_on("Filtruj")
           expect(page).to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/)
         end
+        
+        scenario "Filtrowanie po języku" do
+          visit "/submissions"
+          
+          select "angielski", from: "Język"
+        
+          click_on("Filtruj")
+          expect(page).not_to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/) 
+        end
 
         scenario "Wyświetlanie braku dealine'u" do
           visit '/submissions'
