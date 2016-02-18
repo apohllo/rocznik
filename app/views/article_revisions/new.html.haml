@@ -10,7 +10,7 @@
     = f.input :version, label: "Wersja"
     = f.input :code, label: "Kod"
     = f.input :article, label: "Artykuł"
-    = f.input :received, label: "Otrzymano", as: :string
+    = f.input :received, label: "Otrzymano", as: :string, input_html: { value: l(f.object.received, format: "%d-%m-%Y") }
     = f.input :pages, label: "Liczba stron"
     = f.input :pictures, label: "Liczba ilustracji"
     = f.submit "Dodaj", class: %w{btn btn-primary btn-outline}
