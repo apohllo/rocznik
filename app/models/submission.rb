@@ -16,7 +16,8 @@ class Submission < ActiveRecord::Base
   validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
-  has_many :article
+  has_one :article
+  has_many :follow_ups, :class_name => "article"
   belongs_to :person
   belongs_to :issue
 
