@@ -52,6 +52,9 @@ feature "zgloszenia" do
           Submission.create!(person: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy",
                              english_title: "Desert and something", english_abstract: "Super lecture", english_keywords:
                              "desert", received: "11-01-2016", language: "polski", issue: Issue.last)
+          Submission.create!(person: Person.first, status: "nadesłany", polish_title: "Zupa",
+                             english_title: "Soup", english_abstract: "Soup is good", english_keywords:
+                             "soup", received: "11-01-2016", language: "polski", issue: Issue.last)
         end
 
         scenario "Filtrowanie zgłoszeń po statusie" do
@@ -99,21 +102,12 @@ feature "zgloszenia" do
 
           expect(page).to have_content("[BRAK DEADLINE'u]")
         end
-        
-      context "2 zgłoszenia w bazie danych" do
-        before do
-          Issue.create!(volume: 3, year: 2020)
-          Submission.create!(person_id: Person.first, status: "nadesłany", polish_title: "Coś mądrego",
-                             english_title: "Something smart", english_abstract: "something smart people would read",
-                             english_keywords: "smart", received: "19-01-2016", language: "polski", issue: "3/2020")
-      end
-        
-        scenario "Wyświetlanie przypisanego numeru"
+
+        scenario "Wyświetlanie przypisanego numeru" do
           visit '/submissions'
-          click_on '3/2020'
-          expect(page).to have_content("Numer 2/2020")
-          expect(page).to have_content("Zgłoszone artykuły")
-          expect(page).to have_content("Coś mądrego")
+          click_link('3/2020', match: :first)
+          expect(page).to have_content('Numer 3/2020')
+          expect(page).to have_content("Alicja w krainie czarów")
         end
 
         scenario "edycja zgloszenia" do
