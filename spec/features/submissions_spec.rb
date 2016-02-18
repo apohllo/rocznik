@@ -147,7 +147,6 @@ feature "zgloszenia" do
             expect(current_email).to have_content 'Z poważaniem,'
             expect(current_email).to have_content 'Kapusta'
             expect(current_email).to have_content 'remind_icon.png'
-            current_email.save_and_open
           end
         end
       end
