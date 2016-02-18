@@ -9,18 +9,6 @@
         - if flash[:error]
           .flash-error= flash[:error]
       .container.middle-row
-        .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"}
-          #sidebar.col-sm-4.col-md-3.sidebar-offcanvas{:role => "navigation"}
-            = render file: "shared/sidenav"
-          .col-md-9.col-sm-8.main
+        .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"} 
+          .col-md-12.col-sm-8.main
             = yield
-        %footer
-          %p
-            %a{:href => "http://validator.w3.org/check?uri=http%3A%2F%2Frocznik.kognitywistyka.eu%2F"}
-              Walidator HTML5
-            /%a{:href => "http://jigsaw.w3.org/css-validator/validator?uri=http://kognitywistyka.eu/"}
-            /Valid CSS
-            |
-            %a{:href => "http://www.apohllo.pl", :target => "_blank"}
-              Administrator
-      = render file: "shared/js_footer"
