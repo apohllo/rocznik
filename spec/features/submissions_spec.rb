@@ -89,7 +89,23 @@ feature "zgloszenia" do
 
           expect(page).to have_content("[BRAK DEADLINE'u]")
         end
-
+        
+      context "2 zgłoszenia w bazie danych" do
+        before do
+          Issue.create!(volume: 3, year: 2020)
+          Submission.create!(person_id: Person.first, status: "nadesłany", polish_title: "Coś mądrego",
+                             english_title: "Something smart", english_abstract: "something smart people would read",
+                             english_keywords: "smart", received: "19-01-2016", language: "polski", issue: "3/2020")
+      end
+        
+        scenario "Wyświetlanie przypisanego numeru"
+          visit '/submissions'
+          click_on '3/2020'
+          expect(page).to have_content("Numer 2/2020")
+          expect(page).to have_content("Zgłoszone artykuły")
+          expect(page).to have_content("Coś mądrego")
+        end
+      
         context "Z recenzją" do
           before do
             revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
