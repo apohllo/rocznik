@@ -37,6 +37,7 @@ class PeopleController < ApplicationController
 
 def show
     @person = Person.find(params[:id])
+
     reviews_count = @person.reviews.where.not("status ='recenzja odrzucona' or  status ='wysłano zapytanie'").count
     if (reviews_count%5==0)&&(reviews_count>=5)
       then @congratulations = true
@@ -54,8 +55,11 @@ def show
         end
     end
 
+  end
+  
   private
   def person_params
-    params.require(:person).permit(:name,:surname,:degree,:email,:sex,:photo,:competence,roles: [], discipline: [])
+    params.require(:person).permit(:name,:surname,:degree,:email,:sex,:photo,:competence,:reviewer_status, roles: [], discipline: [])
+
   end
 end

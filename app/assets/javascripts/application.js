@@ -16,3 +16,7 @@
 //= require turbolinks
 //= require_tree .
 //= require simple_form_autocomplete
+
+function reload() {
+    window.location.href =  window.location.href.split("?")[0]
+}
