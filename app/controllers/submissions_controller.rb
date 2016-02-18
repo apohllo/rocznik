@@ -24,6 +24,7 @@ class SubmissionsController < ApplicationController
 
   def create
     @submission = Submission.new(submission_params)
+    SubmissionRegistrationMailer.registration_confirmation(@submission).deliver_now
     @author_id = params[:author_id]
     if @submission.save
       if @author_id
