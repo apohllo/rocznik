@@ -8,8 +8,10 @@
     %dt Status
     %dd{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
   %dl
-    %dt Język
-    %dd= @submission.language
+    - if @submission.polish_language?
+      = image_tag('pl.png')
+    - else
+      = image_tag('gb.png')
   %dl
     %dt Redaktor
     %dd
@@ -53,7 +55,7 @@
             = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")
   = link_to "Dodaj autora", new_authorship_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
   %h3 Wersje
-  %table.table.table-hover.table-admin
+  %table.table.table-hover.table-admin#version
     %thead
       %tr
         %th Numer
@@ -75,6 +77,9 @@
           %td= revision.pages
           %td= revision.pictures
           %td.text-right
+            - sign = revision.accepted? ? raw("&#10004;") : raw("&#10007;")
+            = link_to sign, article_revision_path(revision), class: %w{btn btn-outline btn-default}, title: "Zobacz komentarz"
+            = edit_button(revision,edit_article_revision_path(revision),"Edytuj komentarz")
             = destroy_button(revision,"Czy na pewno chcesz usunąć tę wersję wraz z recenzjami?")
   = link_to "Dodaj wersję", new_article_revision_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
   %h3 Recenzje
@@ -94,7 +99,14 @@
           %td= link_to review.reviewer, review.person
           %td= review.asked_date
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
-          %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= link_to review.status, edit_review_path(review)
+          %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
+          %td{style: "text-align:center;"}= link_to image_tag("/assets/remind_icon.png", size: "32x32"), send_reminder_review_path(review), class: "reminder", method: :post
+          .flash
+            - if flash[:notice]
+              .flash-confirmation= flash[:notice]
           %td.text-right
+            = icon_to 'fa-send-o', ask_review_path(review), method: :post, title: "Wyślij zapytanie o recenzję"
+            = icon_to 'fa-comment-o', review_path(review), title: "Wyświetl recenzję"
+            = icon_to 'fa-pencil-square-o', edit_review_path(review), title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
   = link_to "Dodaj recenzenta", new_review_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
