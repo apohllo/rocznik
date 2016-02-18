@@ -25,9 +25,10 @@ Rails.application.routes.draw do
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
   resources :articles
+  resources :public_articles, only: [:show]
+
     get 'mail/write_email/:id', to: 'mail#write_email', as: :write_email
     post 'mail/send_email', to: 'mail#send_email', as: :send_email
-  resources :public_articles, only: [:show]
 
   devise_for :users
   mount Storytime::Engine => "/"
