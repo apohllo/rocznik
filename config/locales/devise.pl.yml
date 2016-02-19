@@ -49,6 +49,7 @@ pl:
       signed_in: "Zostałeś/aś pomyślnie zalogowany/a."
       signed_out: "Zostałeś/aś pomyślnie wylogowany/a."
       already_signed_out: "Zostałeś już wylogowany/a."
+      log_in: "Zaloguj się/a"
     unlocks:
       send_instructions: "W ciągu kilku minut otrzymasz mail z instrukcjami, jak odblokować konto."
       send_paranoid_instructions: "Jeśli Twoje konto istnieje, w ciągu kilku minut otrzymasz mail z instrukcjami, jak je odblokować."
