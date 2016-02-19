@@ -22,6 +22,7 @@ feature "Sprawdzanie opublikowanych artykulów" do
 
     expect(page).to have_content("Wiemy wszystko")
     expect(page).to have_content("A. Kapusta")
+    expect(page).to have_content("a@k.com")
     expect(page).to have_content("Tak po prostu")
     expect(page).to have_content("knowledge")
     expect(page).to have_content("http://bulka")
