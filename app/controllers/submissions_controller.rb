@@ -50,11 +50,7 @@ class SubmissionsController < ApplicationController
 
   def destroy
     submission = Submission.find(params[:id])
-    if submission.article_revision.review.exists?
-      redirect_to @submission, flash: {notice: "Należy usunąć powiązane recenzje"}
-    else 
-      submission.destroy
-    end
+    submission.destroy
     redirect_to submissions_path
   end
 
