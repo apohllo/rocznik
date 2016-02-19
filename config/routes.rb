@@ -30,7 +30,10 @@ Rails.application.routes.draw do
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
   resources :articles
-  resource :profile, only: [:show, :edit, :edit_password, :update, :update_password]
+  resource :profile, only: [:show, :edit, :update] do
+    get :edit_password
+    post :update_password
+  end
   resources :public_articles, only: [:show]
 
 
