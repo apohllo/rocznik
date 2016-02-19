@@ -17,6 +17,10 @@ class Article < ActiveRecord::Base
     self.authors.empty? ? "[autor nieznany]" : self.authors.map(&:short_name).join(', ')
   end
 
+  def authors_mail
+    self.authors.empty? ? "[brak adresów e-mail]" : self.authors.map(&:email).join(', ')
+  end
+
   def authors_metadata
     self.authors.empty? ? "[autor nieznany]" : self.authors.map(&:full_name_without_degree)
   end
