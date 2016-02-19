@@ -17,7 +17,7 @@ class Submission < ActiveRecord::Base
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
   has_one :article
-  has_many :follow_ups, :class_name => "article"
+  belongs_to :follow_up, inverse_of: :follow_ups, class_name: "Article"
   belongs_to :person
   belongs_to :issue
 
@@ -76,9 +76,9 @@ class Submission < ActiveRecord::Base
     end
   end
   
-  def article_type
-    if self.polish_title
-      self.polish_title
+  def follow_ups
+    if self.follows_up_id
+      self.follows_up_id
     else
       "[BRAK]"
     end
