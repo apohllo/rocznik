@@ -14,8 +14,8 @@ class Submission < ActiveRecord::Base
   validates :english_title, presence: true
   validates :english_abstract, presence: true
   validates :english_keywords, presence: true
-  has_many :authorships, dependent: :destroy_with_error
-  has_many :article_revisions, dependent: :restrict
+  has_many :authorships, dependent: :destroy
+  has_many :article_revisions, dependent: :restrict_with_error
   has_one :article
   belongs_to :person
   belongs_to :issue
