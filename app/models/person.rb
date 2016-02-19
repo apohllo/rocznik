@@ -83,6 +83,19 @@ class Person < ActiveRecord::Base
     self.affiliations.current.map{|e| e.institution}
   end
 
+def reviews_count
+    reviews_count = self.reviews.where.not("status ='recenzja odrzucona' or  status ='wysłano zapytanie'").count
+  end
+
+def congratulations
+    
+    if (self.reviews_count%5==0)&&(self.reviews_count>=5)
+      then true
+      else false
+    end
+  end
+
+
 
   def reviewer?
     self.roles.include?("recenzent")
