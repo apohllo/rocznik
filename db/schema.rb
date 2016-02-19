@@ -120,18 +120,19 @@ ActiveRecord::Schema.define(version: 20160212141645) do
   end
 
   create_table "people", force: :cascade do |t|
-    t.string   "name",                    null: false
-    t.string   "surname",                 null: false
-    t.string   "email",                   null: false
+    t.string   "name",                         null: false
+    t.string   "surname",                      null: false
+    t.string   "email",                        null: false
     t.string   "degree"
     t.string   "orcid"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.text     "roles",      default: [], null: false, array: true
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.text     "roles",           default: [], null: false, array: true
     t.string   "sex"
     t.string   "photo"
     t.text     "competence"
-    t.text     "discipline", default: [], null: false, array: true
+    t.text     "discipline",      default: [], null: false, array: true
+    t.string   "reviewer_status"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree

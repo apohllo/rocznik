@@ -17,6 +17,14 @@ class Article < ActiveRecord::Base
     self.authors.empty? ? "[autor nieznany]" : self.authors.map(&:short_name).join(', ')
   end
 
+  def authors_mail
+    self.authors.empty? ? "[brak adresów e-mail]" : self.authors.map(&:email).join(', ')
+  end
+
+  def authors_metadata
+    self.authors.empty? ? "[autor nieznany]" : self.authors.map(&:full_name_without_degree)
+  end
+
   def title
     if self.submission
       self.submission.title(false)
@@ -70,6 +78,14 @@ class Article < ActiveRecord::Base
       self.external_link
     else
       "[BRAK LINKU DO ŚCIÁGNIĘCIA ARTYKUŁU]"
+    end
+  end
+
+  def year
+    if !self.issue.year.blank?
+       self.issue.year
+    else 
+       "[BRAK ROKU WYDANIA]"
     end
   end
 
