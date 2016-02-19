@@ -55,12 +55,12 @@ class Person < ActiveRecord::Base
 
   before_validation -> (record) { record.roles.reject!(&:blank?) }
 
-  def mail
-    "#{self.mail}"
-  end
-  
   def full_name
     "#{self.degree} #{self.name} #{self.surname}"
+  end
+
+  def full_name_without_degree
+    "#{self.name} #{self.surname}"
   end
 
   def reverse_full_name
