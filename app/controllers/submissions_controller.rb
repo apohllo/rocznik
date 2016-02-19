@@ -24,10 +24,18 @@ class SubmissionsController < ApplicationController
   def create
     @submission = Submission.new(submission_params)
     @author_id = params[:author_id]
+    @email = params[:email]
+    @password = 
     if @submission.save
-      if @author_id
+      if @email = 0
+	person = Person.new(email: @email, password: @password)
+        Newperson_mailer.registration_newperson(@submission).deliver_now
+      else
+#tu  wysłanie potwierdzenia dla użytkowników istniejących w bazie#	
+      end
+	if @author_id
         authorship = Authorship.new(person_id: @author_id,submission: @submission)
-        authorship.save
+        authorship.save	
       end
       redirect_to @submission
     else
