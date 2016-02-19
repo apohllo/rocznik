@@ -12,20 +12,16 @@ class AuthorshipsController < ApplicationController
     end
   end
 
-  def create_password(len=8)
-	SecureRandom.hex(len) = temporary_password    
-  end
-
   def create
     submission = Submission.find(params[:submission_id])
     @authorship = Authorship.new(authorship_params)
     @authorship.submission = submission
-    @email = params[:email]
-    @password = temporary_password 
+    @email = params[:authorship.person.email]
+    @password = create_password 
     if @authorship.save
       if @email = 0
-	person = Person.new(email: @email, password: @password)
-	Newperson_mailer.registration_newperson(@submission).deliver_now
+	user = User.new(email: @email, password: @password)
+	User_mailer.registration_newperson(@submission).deliver_now
       end
       redirect_to submission
     else
@@ -42,5 +38,9 @@ class AuthorshipsController < ApplicationController
   private
   def authorship_params
     params.require(:authorship).permit(:person_id,:corresponding,:position)
+  end
+
+  def create_password(len=8) 
+        SecureRandom.hex(len)
   end
 end
