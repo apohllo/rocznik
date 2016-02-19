@@ -1,0 +1,13 @@
+Szanowna Pani/ Szanowny Panie <%= @submission.person.surname %>
+
+Informujemy o zmianie statusu artykułu: "<%= @submission.title %>"
+na "<%= @submission.status %>" 
+
+<%#Poniżej znajduje się pełna treść recenzji 
+<%= @review.article_revision.article.url %>
+
+<%#Treść dostępna jest również pod adresem:
+<%= link_to "recenzja", @review.article_revision.article.url %>
+
+Z wyrazami szacunku,
+redaktor

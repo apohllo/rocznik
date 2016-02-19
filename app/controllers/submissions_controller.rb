@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class SubmissionsController < ApplicationController
+  after_update :sentMsg
   before_action :admin_required
   layout "admin"
 
@@ -47,6 +48,12 @@ class SubmissionsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def sentMsg
+    submission = Submission.find(params[:id])
+    SubmissionMailer.sentMsg(submission).deliver_now
+    redirect_to submission, flash: {notice: "Informacja o zmianie statusu została wysłana"}
   end
 
   def destroy

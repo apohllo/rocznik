@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   end
   resources :public_issues, only: [:index,:show]
   resources :people
-  resources :submissions
+  resources :submissions do
+    post :sentMsg, on: :member
+  end
   resources :affiliations, only: [:new, :create, :destroy] do
     get :institutions, on: :collection
     get :countries, on: :collection

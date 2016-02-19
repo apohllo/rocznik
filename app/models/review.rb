@@ -16,7 +16,7 @@ class Review < ActiveRecord::Base
 
   def title
     "#{self.article_revision.title}"
-  end
+  end 
   
   def status
     self.submission.status
