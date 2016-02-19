@@ -7,6 +7,8 @@ class ArticleRevision < ActiveRecord::Base
   validates :pages, presence: true, numericality: true
   validates :pictures, presence: true, numericality: true
   validates :version, presence: true, numericality: true
+  
+  scope :latest, -> { order("created_at desc").first }
 
   def title
     "#{self.submission.title}, v. #{self.version}"
@@ -35,5 +37,9 @@ class ArticleRevision < ActiveRecord::Base
       "[DATA NIEZNANA]"
     end
   end
-
+  
+  def editor
+    self.submission.person
+  end
+  
 end
