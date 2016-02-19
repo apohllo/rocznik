@@ -6,4 +6,7 @@
   %h3 Artykuły
   %ul
     - @issue.articles.each do |article|
-      %li= article.authors_and_title
+      %li
+        = article.authors_inline + "." 
+        %i= link_to article.title, public_article_path(article)
+        

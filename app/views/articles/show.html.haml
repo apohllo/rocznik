@@ -1,0 +1,37 @@
+.scroll-panel-header
+  = link_to "Artykuły", articles_path, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title
+    = @article.title
+.scroll-panel-body
+  %dl
+    %dt Autorzy
+    %dd= @article.authors_inline
+  %dl
+    %dt Affiliacje
+    %dd= @article.affiliations
+  %dl
+    %dt Numer
+    %dd= @article.issue_title
+  %dl
+    %dt Streszczenie
+    %dd= @article.abstract
+  %dl
+    %dt Slowa kluczowe
+    %dd= @article.keywords
+  %dl
+    %dt Strony
+    %dd= @article.article_pages
+  %dl
+    %dt Link do ściągnięcia artykułu
+    %dd= @article.link
+  %dl
+    %dt Status
+    %dd{class: "#{Article::STATUS_MAPPING[@article.status]}"}= @article.status
+  %dl
+    %dt Numer DOI
+    %dd
+      - if @article.DOI
+        = link_to @article.DOI, "http://dx.doi.org/"+@article.DOI
+      - else
+        [Brak numeru DOI]
+  = link_to "Edytuj", edit_article_path(@article), class: %w{btn btn-primary btn-sm}

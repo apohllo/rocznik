@@ -1,5 +1,6 @@
 class ArticleRevisionsController < ApplicationController
   before_action :admin_required
+  layout "admin"
 
   def new
     @article_revision = ArticleRevision.new
@@ -24,6 +25,23 @@ class ArticleRevisionsController < ApplicationController
     end
   end
 
+  def update
+    @article_revision = ArticleRevision.find(params[:id])
+    if @article_revision.update_attributes(article_revision_params)
+      redirect_to @article_revision.submission
+    else
+      render :edit
+    end
+  end
+
+  def edit
+    @article_revision = ArticleRevision.find(params[:id])
+  end
+
+  def show
+    @article_revision = ArticleRevision.find(params[:id])
+  end
+
   def destroy
     article_revision = ArticleRevision.find(params[:id])
     article_revision.destroy
@@ -32,6 +50,6 @@ class ArticleRevisionsController < ApplicationController
 
   private
   def article_revision_params
-    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article)
+    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article,:comment,:accepted)
   end
 end

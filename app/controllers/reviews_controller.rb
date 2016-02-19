@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :admin_required
+  layout "admin"
 
   def index
     @reviews = Review.order('deadline asc').all
@@ -67,6 +68,18 @@ class ReviewsController < ApplicationController
     review = Review.find(params[:id])
     review.destroy
     redirect_to review.submission
+  end
+
+  def send_reminder
+    review = Review.find(params[:id])
+    ReviewerMailer.reminder(review).deliver_now
+    redirect_to review.submission, flash: {notice: "Przypomnienie zostało wysłane"}
+  end
+
+  def ask
+    review = Review.find(params[:id])
+    ReviewMailer.ask(review).deliver_now
+    redirect_to review.submission, flash: {notice: "Zapytanie zostało wysłane"}
   end
 
   private
