@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :admin_required
+  layout "admin"
 
   def index
     @reviews = Review.order('deadline asc').all

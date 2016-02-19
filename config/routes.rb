@@ -23,6 +23,11 @@ Rails.application.routes.draw do
     post :send_reminder, on: :member
     post :ask_for_review, on: :member
   end
+  resources :public_reviews do
+    get :new_reviewer, on: :collection
+    post :create_reviewer, on: :collection
+    get :finish, on: :collection
+  end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
   resources :articles
