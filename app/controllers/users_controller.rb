@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 	@user = User.new(user_params)
     if User.where(email: user_params[:email]).first
   	  flash[:notice] = "Ten email ma już przypisane konto"
-      redirect_to new_person_path_users
+      redirect_to new_person_users_path
     else
       if @user.save
         #log_in @user
