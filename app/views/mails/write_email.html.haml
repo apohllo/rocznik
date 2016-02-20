@@ -1,7 +1,8 @@
 .scroll-panel-header
   = link_to "Anuluj", @person, class: %w{btn btn-default btn-sm pull-right}
-  %h3.scroll-panel-title Nowa wiadomość do
-  	%strong
+  %h3.scroll-panel-title 
+    Nowa wiadomość do
+    %strong
       = @person.email
 .scroll-panel-body
   = render partial: "form"
