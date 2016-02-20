@@ -85,14 +85,13 @@ feature "zarządzanie osobami" do
 
       scenario "wysłanie wiadomości do osoby" do
             visit '/people'
-            click_on("Kapusta")
-            click_on("Napisz wiadomość")
+            click_on 'Kapusta'
+            click_on 'Napisz wiadomość'
             expect(page).to have_css("h3", text: "Nowa wiadomość do a.kapusta@gmail.com")
-       #     
+       #     fill_in 'Tytuł', with: "Pierwszy mail"
+       #     fill_in 'Treść', with: "Szanowny Panie, wysyłam swojego pierwszego maila. Z poważaniem, A.D."
        #
        #     expect(current_email).to have_content 'Z poważaniem,'
-       #     expect(current_email).to have_content 'Kapusta'
-       #     expect(current_email).to have_content 'remind_icon.png'
       end
     end
 
