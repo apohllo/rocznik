@@ -20,6 +20,13 @@
       - else
         = @submission.editor
   %dl
+    %dt Numer rocznika
+    %dd
+      - if @submission.issue
+        = link_to @submission.issue_title, @submission.issue
+      - else
+        = @submission.issue
+  %dl
     %dt Otrzymano
     %dd= @submission.received.strftime("%d-%m-%Y")
   %dl
