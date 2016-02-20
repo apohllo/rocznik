@@ -27,17 +27,17 @@
   .col-md-3
     %br
     %dt Numer rocznika
+    %dd= @submission.received.strftime("%d-%m-%Y")
+  %br
+  %dl
+  %br
+  %br
+    %dt Numer rocznika
     %dd
       - if @submission.issue
         = link_to @submission.issue_title, @submission.issue
       - else
         = @submission.issue
-  %br
-  %dl
-  %br
-  %br
-    %dt Otrzymano
-    %dd= @submission.received.strftime("%d-%m-%Y")
   %dl
     %dt Streszczenie
     %dd.more= @submission.abstract
