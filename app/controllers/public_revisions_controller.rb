@@ -1,26 +1,35 @@
 class PublicRevisionsController < ApplicationController
 
   def new
-    @public_revision = PublicRevision.new
-    @public_revision.submission = Submission.find(params[:submission_id])
-    @public_revision.code = 'tekst_'
-    @public_revision.received = Time.now
+    @revision = ArticleRevision.new
+    @revision.submission = Submission.find(params[:submission_id])
+    @revision.code = 'tekst_'
+    @revision.version = @revision.submission.article_revisions.count + 1
+    if @revision.version == 1
+      @revision.received = @revision.submission.received
+    else
+      @revision.received = Time.now
+    end
   end
 
   def create
     submission = Submission.find(params[:submission_id])
-    @public_revision = PublicRevision.new(public_revision_params)
-    @public_revision.submission = submission
-    if @public_revision.save
+    @revision = ArticleRevision.new(article_revision_params)
+    @revision.submission = submission
+    if @revision.save
       redirect_to submission
     else
       render :new
     end
   end
 
+  def show
+    @revision = ArticleRevision.find(params[:id])
+  end
+
   private
-  def public_revision_params
-    params.require(:public_revision).permit ( :status, :file, :pages, :pictures, :received )
+    def article_revision_params
+    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article,:comment,:accepted)
   end
 
 end

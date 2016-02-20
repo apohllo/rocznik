@@ -19,7 +19,6 @@ class Submission < ActiveRecord::Base
   has_one :article
   belongs_to :person
   belongs_to :issue
-  accepts_nested_attributes_for :article_revisions
 
   scope :accepted, -> { where(status: "przyjęty") }
 
