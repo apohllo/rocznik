@@ -42,8 +42,8 @@ class PeopleController < ApplicationController
 
   def search
     @person = Person.find(params[:id])
-    @link = "https://www.google.pl/search?q=(person_params
-    )+(person_params)"
+    @link = "https://www.google.pl/search?q=@person[:name]+@person[:surname]"
+    redirect_to @link
   end
 
   private
