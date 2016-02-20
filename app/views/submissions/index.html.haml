@@ -13,12 +13,11 @@
   %table.table.table-hover.table-admin
     %thead
       %tr
-        = sort_link(@query, :received)
         %th Numer
         %th Tytuł
         %th Autor korespondujący
         %th Redaktor
-        %th Data nadesłania
+        %th  = sort_link(@query, :received, "Data nadesłania")
         %th Deadline recenzji
         %th Status
         %th

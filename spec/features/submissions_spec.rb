@@ -197,6 +197,11 @@ feature "zgloszenia" do
           expect(page).to have_css(".has-error")
         end
 
+        scenario "sortowanie zgłoszeń względem daty nadesłania" do
+          visit "/submissions"
+          expect(page).to have_content(/01-01-2015.*01-01-2016/)
+        end
+
         xscenario "reset filtrów i formularza" do
           visit "/submissions"
           fill_in "Tytuł", with: "Ten nudny"

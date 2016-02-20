@@ -5,7 +5,6 @@ class SubmissionsController < ApplicationController
   layout "admin"
 
   def index
-    @submissions = Submission.order('received asc').all
     @query_params = params[:q] || {}
     @query = Submission.ransack(@query_params)
     @query.sorts = ['received desc'] if @query.sorts.empty?
