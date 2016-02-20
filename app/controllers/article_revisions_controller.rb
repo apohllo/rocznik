@@ -1,5 +1,6 @@
 class ArticleRevisionsController < ApplicationController
   before_action :admin_required
+  layout "admin"
 
   def new
     @article_revision = ArticleRevision.new

@@ -44,6 +44,7 @@ feature "zgloszenia" do
         expect(page).to have_content("Testowy tytuł zgłoszenia")
       end
 
+
       context "2 zgłoszenia w bazie danych" do
         before do
           Submission.create!(person: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów",
@@ -52,6 +53,17 @@ feature "zgloszenia" do
           Submission.create!(person: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy",
                              english_title: "Desert and something", english_abstract: "Super lecture", english_keywords:
                              "desert", received: "11-01-2016", language: "polski", issue: Issue.last)
+          Submission.create!(person: Person.first, status: "nadesłany", polish_title: "Zupa",
+                             english_title: "Soup", english_abstract: "Soup is good", english_keywords:
+                             "soup", received: "11-01-2016", language: "polski", issue: Issue.last)
+        end
+
+        scenario "Sprawdzenie linku do numeru" do
+          visit "/submissions"
+          click_on("Alicja w krainie czarów")
+          click_on("3/2020")
+
+          expect(page).to have_content("Numer 3/2020")
         end
 
         scenario "Filtrowanie zgłoszeń po statusie" do
@@ -93,11 +105,36 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
+        
+        scenario "Filtrowanie po języku" do
+          visit "/submissions"
+          
+          select "polski", from: "Język"
+          
+          click_on("Filtruj")
+          expect(page).to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/)
+        end
+        
+        scenario "Filtrowanie po języku" do
+          visit "/submissions"
+          
+          select "angielski", from: "Język"
+        
+          click_on("Filtruj")
+          expect(page).not_to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/) 
+        end
 
         scenario "Wyświetlanie braku dealine'u" do
           visit '/submissions'
 
           expect(page).to have_content("[BRAK DEADLINE'u]")
+        end
+
+        scenario "Wyświetlanie przypisanego numeru" do
+          visit '/submissions'
+          click_link('3/2020', match: :first)
+          expect(page).to have_content('Numer 3/2020')
+          expect(page).to have_content("Alicja w krainie czarów")
         end
 
         scenario "edycja zgloszenia" do
@@ -138,7 +175,6 @@ feature "zgloszenia" do
             expect(current_email).to have_content 'Z poważaniem,'
             expect(current_email).to have_content 'Kapusta'
             expect(current_email).to have_content 'remind_icon.png'
-            current_email.save_and_open
           end
         end
       end
