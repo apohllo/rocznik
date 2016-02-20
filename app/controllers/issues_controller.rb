@@ -1,5 +1,6 @@
 class IssuesController < ApplicationController
   before_action :admin_required
+  layout "admin"
 
   def index
     @query_params = params[:q] || {}
