@@ -27,6 +27,6 @@ class PublicReviewsController < ApplicationController
 
   private
   def person_params
-    params.require(:person).permit(:name,:surname,:discipline,:email,:sex,roles: [])
+    params.require(:person).permit(:name,:surname,:email,:sex,roles: [])
   end
 end
