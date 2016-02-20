@@ -40,25 +40,3 @@
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
           %td.text-right
             = destroy_button(submission,"Czy na pewno chcesz usunąć to zgłoszenie")
-
-:javascript
-  $(function(){
-      var header = $('#stickedHeader');
-      var headerPositionTop = header.position().top;
-      
-      $(window).scroll(function(){
-          if(parseInt($(window).scrollTop()) > headerPositionTop) {
-              if (header.hasClass('static')) { 
-                  header.removeClass('static').addClass('fixed');
-              }
-          }
-          else {
-              if (header.hasClass('fixed')) {
-                  header.removeClass('fixed').addClass('static');
-              }
-          }
-      });
-  });
-:css
-  .fixed {position: fixed; top:50px; background: white; width: 100%}
-  .static {position: static;}
