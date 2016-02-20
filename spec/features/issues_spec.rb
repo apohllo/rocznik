@@ -195,7 +195,7 @@ feature "zarządzanie numerami" do
               Issue.first.update_attributes(published: true)
             end
             scenario "Pojawienie się numeru na liście wydanych numerów" do
-              visit "/submissions"
+              visit "/public_issues"
               expect(page).to have_css("li a",text: "3/2020")
             end
             scenario "Wyświetl wydany numer jako niezalogowany użytkownik" do

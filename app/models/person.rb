@@ -11,6 +11,14 @@ class Person < ActiveRecord::Base
     "mężczyzna" => "M"
   }
 
+  REVIEWER_MAP = {
+    "Nowy recenzent" => :new,
+    "Recenzuje w terminie" => :reviewsontime,
+    "Recenzuje po terminie" => :reviewslate,
+    "Nie chce recenzować" => :willnotreview,
+    "Chce rezencować" => :willreview
+  }
+  
   DISCIPLINE_MAPPING = {
     "filozofia" => "F",
     "psychologia" => "P",
@@ -31,7 +39,9 @@ class Person < ActiveRecord::Base
   validates :surname, presence: true
   validates :email, presence: true
   validates :sex, presence: true, inclusion: SEX_MAPPING.keys
+  validates :reviewer_status, allow_blank: true, inclusion: REVIEWER_MAP.keys
   validate :roles_inclusion
+
 
   has_many :affiliations, dependent: :destroy
   has_many :authorships, dependent: :destroy
@@ -47,6 +57,10 @@ class Person < ActiveRecord::Base
 
   def full_name
     "#{self.degree} #{self.name} #{self.surname}"
+  end
+
+  def full_name_without_degree
+    "#{self.name} #{self.surname}"
   end
 
   def reverse_full_name
@@ -67,4 +81,10 @@ class Person < ActiveRecord::Base
   def current_institutions
     self.affiliations.current.map{|e| e.institution}
   end
+
+
+  def reviewer?
+    self.roles.include?("recenzent")
+  end
+  
 end
