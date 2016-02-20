@@ -5,9 +5,6 @@
     = f.input :name, required:true, label: "imię"
     = f.input :surname, required:true, label: "nazwisko"
     = f.input :sex, collection: Person::SEX_MAPPING.keys, label: "płeć"
-    .disciplines
-      %h3 Dyscypliny
-      = f.collection_check_boxes :discipline, Person::DISCIPLINE_MAPPING.keys, :to_s, :to_s, include_blank: false, item_wrapper_class:       'checkbox_container'
   .form-actions
     = f.button :submit, "Zarejestruj się"
  
