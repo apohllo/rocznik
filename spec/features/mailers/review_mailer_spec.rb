@@ -25,4 +25,4 @@ feature "Zapytanie" do
       expect(current_email).to have_content 'Little about that story'
     end
   end
- end
+end
