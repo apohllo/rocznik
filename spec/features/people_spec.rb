@@ -83,16 +83,16 @@ feature "zarządzanie osobami" do
         expect(page).to have_css("img[src*='man.png']")
       end
 
-      #scenario "wysłanie wiadomości do osoby" do
-       #     visit '/people'
-       #     click_on("Napisz wiadomość")
-       #     expect(page).to have_css("h3", text: "Nowa wiadomość do")
+      scenario "wysłanie wiadomości do osoby" do
+            visit '/people'
+            click_on("Napisz wiadomość")
+            expect(page).to have_css("h3", text: "Nowa wiadomość do a.kapusta@gmail.com")
        #     
        #
        #     expect(current_email).to have_content 'Z poważaniem,'
        #     expect(current_email).to have_content 'Kapusta'
        #     expect(current_email).to have_content 'remind_icon.png'
-      #end
+      end
     end
 
     context "z dwoma osobami w bazie danych" do
