@@ -85,6 +85,7 @@ feature "zarządzanie osobami" do
 
       scenario "wysłanie wiadomości do osoby" do
             visit '/people'
+            click_on("Kapusta")
             click_on("Napisz wiadomość")
             expect(page).to have_css("h3", text: "Nowa wiadomość do a.kapusta@gmail.com")
        #     
