@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     @person = Person.new(person_params)
     @person.email = current_user.email
     if Person.where(current_user.email).first
-  	  flash[:notice] = "Ten email ma już przypisane dane osobowe"
+  	  flash[:notice] = "Ten email ma już przypisane dane"
     else
       if @person.save
         flash[:success] = "Rejestracja przebiegła pomyślnie"
