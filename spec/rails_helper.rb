@@ -1,3 +1,4 @@
+# encoding: utf-8
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -5,8 +6,14 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
+require 'capybara/rspec'
+require 'capybara/rails'
+require 'capybara/email/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
-
+class ActionDispatch::IntegrationTest
+  Capybara.server_port = 3001
+  Capybara.app_host = 'http://localhost:3001'
+end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -22,7 +29,7 @@ require 'rspec/rails'
 #
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-# Checks for pending migration and applies them before tests are run.
+# Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -49,9 +56,21 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+end
 
-  # Filter lines from Rails gems in backtraces.
-  config.filter_rails_from_backtrace!
-  # arbitrary gems may also be filtered via:
-  # config.filter_gems_from_backtrace("gem name")
+
+RSpec.shared_context "admin login" do
+  before do
+    email = "admin@localhost.com"
+    password = "password"
+
+    User.create(email: email, password: password, admin: true)
+
+    visit '/users/sign_in'
+    within("#new_user") do
+      fill_in 'Adres e-mail', with: email
+      fill_in 'Hasło', with: password
+    end
+    click_button 'Zaloguj się'
+  end
 end
