@@ -140,7 +140,7 @@ class Submission < ActiveRecord::Base
   end
 
   def version_author version
-    if defined?(version.whodunnit)
+    if !version.whodunnit.nil?
       user_id = version.whodunnit
       return User.find(user_id).storytime_name
     end

@@ -217,23 +217,47 @@ feature "zgloszenia" do
 
       context "historia zgloszen" do
         before do
-          Submission.create!(person: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów",
+          person = Person.create!(name: "Andrzej", surname: "Sałata", email:
+                                                     "a.salata@gmail.com", sex: "mężczyzna", roles: ['autor'])
+          issue = Issue.create!(volume: 12, year: 2020)
+          Submission.create!(person: person, status: "u redaktora", polish_title: "Alicja w krainie czarów",
                              english_title: "Alice in Wonderland", english_abstract: "Little about that story",
-                             english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.first)
-          Submission.create!(person: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy",
-                             english_title: "Desert and something", english_abstract: "Super lecture", english_keywords:
-                                 "desert", received: "11-01-2016", language: "polski", issue: Issue.last)
+                             english_keywords: "alice", received: "19-01-2016", language: "polski", issue: issue)
         end
 
 
-        scenario "test versions po create submission" do
-          visit '/submissions/1'
+        scenario "wyswietlenie historii po utworzeniu zgloszenia" do
+          visit '/submissions'
 
-          expect(page).have_content("Wersja")
-          expect(page).have_content("1")
-          expect(page).have_content("Obecna")
+          expect(page).to have_content("Alicja w krainie czarów")
+
+          click_on("Alicja w krainie czarów")
+
+          expect(page).to have_content("1")
+          expect(page).to have_content("Obecna")
+          expect(page).to have_content("u redaktora")
         end
 
+        scenario "wyswietlenie nowej pozycji w historii, po zmianie statusu zgloszenia" do
+          visit '/submissions'
+          expect(page).to have_content("Alicja w krainie czarów")
+          click_on("Alicja w krainie czarów")
+
+          click_on ("Edytuj")
+          select('przyjęty', :from => 'submission_status')
+          click_on ("Zapisz")
+
+          visit '/submissions'
+          expect(page).to have_content("Alicja w krainie czarów")
+          click_on("Alicja w krainie czarów")
+
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).to have_content("1")
+          expect(page).to have_content("2")
+          expect(page).to have_content("Obecna")
+          expect(page).to have_content("u redaktora")
+          expect(page).to have_content("przyjęty")
+        end
 
       end
     end
