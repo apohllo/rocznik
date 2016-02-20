@@ -17,6 +17,14 @@ feature "zarządzanie osobami" do
       expect(page).to have_css("#new_person input[value='Utwórz']")
     end
 
+    scenario "layout dla administratora" do
+      visit "/people"
+      expect(page).not_to have_css("#sidebar")
+
+      visit "/public_issues"
+      expect(page).to have_css("#sidebar")
+    end
+
     scenario "tworzenie nowej osoby" do
       visit '/people/new'
 
