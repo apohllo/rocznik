@@ -29,7 +29,7 @@ class Person < ActiveRecord::Base
 
   validates :name, presence: true
   validates :surname, presence: true
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
   validates :sex, presence: true, inclusion: SEX_MAPPING.keys
   validate :roles_inclusion
 
