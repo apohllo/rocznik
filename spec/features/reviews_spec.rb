@@ -40,7 +40,7 @@ feature "recenzowanie" do
         visit '/submissions'
         fill_in "Tytuł", with: "Arystoteles."
         click_on("Filtruj")
-        find(:xpath, '/html/body/div/div[2]/div/div[2]/div[2]/table/tbody/tr[1]/td[8]/a').click_button
+        page.find(".btn-danger").click 
         
         expect(page).to have_css(".has-error")
       end
