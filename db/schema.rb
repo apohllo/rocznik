@@ -131,8 +131,8 @@ ActiveRecord::Schema.define(version: 20160217130614) do
     t.string   "sex"
     t.string   "photo"
     t.text     "competence"
-    t.string   "reviewer_status"
     t.text     "discipline",      default: [], null: false, array: true
+    t.string   "reviewer_status"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
