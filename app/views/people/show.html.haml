@@ -23,7 +23,6 @@
   %dl
     %dt Więcej informacji
     %dd= link_to "Google", search_person_path(@person), target: "_blank", class: %w{btn btn-primary btn-sm}
-    %dd= @person.roles.join
   %dl
     - if @person.reviewer?  && !@person.reviewer_status.blank?
       %dt Status recenzenta
