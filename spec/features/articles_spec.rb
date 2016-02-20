@@ -71,7 +71,7 @@ feature "Artykuły" do
         expect(page).to have_css(".after_review")
       end
 
-      scenario "Zmiana statusu artykułu'" do
+      scenario "Zmiana numeru DOI" do
         visit '/articles'
         click_on 'Wiemy wszystko'
         click_on 'Edytuj'
@@ -81,8 +81,8 @@ feature "Artykuły" do
         expect(page).not_to have_css('.has-error')
         expect(page).to have_content("40000")
       end
-      
-      scenario "Zmiana numeru DOI'" do
+
+      scenario "Zmiana statusu artykułu'" do
         visit '/articles'
         click_on 'Wiemy wszystko'
         click_on 'Edytuj'
@@ -109,6 +109,18 @@ feature "Artykuły" do
 
         click_on("Tytuł")
         expect(page).to have_content(/Wiemy wszystko.*Jerzozwież/)
+      end
+      
+      scenario "filtrowanie artykułów po redaktorze" do
+        visit "/articles"
+        
+        select "Adam Kapusta", from: "Redaktor"
+        
+        click_on("Filtruj")
+        expect(page).to have_content(/Wiemy wszystko.*Jerzozwież/)
+        
+        click_on("Filtruj")
+        expect(page).not_to have_content(/Jerzozwież.*Wiemy wszystko/)
       end
     end
   end
