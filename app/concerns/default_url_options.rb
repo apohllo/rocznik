@@ -13,7 +13,9 @@ module DefaultUrlOptions
 
   def host
     if Rails.env.staging?
-      "localhost:3000"
+      "dev.kognitywistyka.eu"
+    elsif Rails.env.development?
+      "localhost"
     else
       "rocznik.kognitywistyka.eu"
     end
