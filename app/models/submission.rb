@@ -14,6 +14,7 @@ class Submission < ActiveRecord::Base
   validates :english_title, presence: true
   validates :english_abstract, presence: true
   validates :english_keywords, presence: true
+  validates :author_role, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
   has_one :article
