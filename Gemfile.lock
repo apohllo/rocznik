@@ -61,6 +61,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-email (2.4.0)
+      capybara (~> 2.4)
+      mail
     carrierwave (0.10.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -241,6 +244,8 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     leather (3.3.3.4)
       bootstrap-sass (~> 3.3.3)
       devise
@@ -437,12 +442,14 @@ PLATFORMS
 DEPENDENCIES
   byebug
   capybara
+  capybara-email
   coffee-rails (~> 4.1.0)
   devise
   devise-i18n-views
   haml
   jbuilder (~> 2.0)
   jquery-rails
+  launchy
   overcommit
   pg
   postgres_ext
