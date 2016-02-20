@@ -1,15 +1,27 @@
 .scroll-panel-header
   %h3.scroll-panel-title Numery rocznika
 .scroll-panel-body
-  %table.table.table-hover.table-admin
-    %thead
-      %tr
-        %th Numer
-        %th Rok
-        %th Liczba artykułów
-    %tbody
-      - @issues.each do |issue|
-        %tr.table-row-link{"data-url" => public_issue_path(issue) }
-          %td= link_to issue.volume, public_issue_path(issue)
-          %td= issue.year
-          %td= issue.articles.count
+  .row.text-center{:style => "float: center;"}
+    - @issues.each do |issue|
+      .panel.panel-primary.col-md-3.margin{:style => "margin: 0 10px 20px 10px"}
+        .panel-heading
+          %h3.panel-title= issue.title
+        .panel-body
+          %a{"data-refer" => public_issue_path(issue)}
+            %h2
+              %span= image_tag('read.png')
+          %div Liczba artykułów: #{issue.articles.count}
+
+:css
+  .panel-primary{
+    cursor: pointer;
+  }
+  .panel-primary:hover .panel-heading{
+    opacity: 0.8;
+  }
+
+:javascript
+  $('.panel-primary').click(function(){
+    var ref = $(this).find('a').data('refer');
+    window.location.href = ref;
+  })
