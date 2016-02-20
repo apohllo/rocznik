@@ -1,15 +1,9 @@
-
- %h2 Zarejestruj się
- = simple_form_for(@user) do |f|
-   = f.error_notification
-   .form-inputs
-     = f.input :name, required:true
-     = f.input :surname, required:true
-     = f.input :email, required: true, autofocus: true
-     = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable)
-     = f.input :password_confirmation, required: true
-     = f.input :sex, required:true
-     = f.input :discipline, required:true
-   .form-actions
-     = f.button :submit, "Zarejestruj się"
- = render "devise/shared/links"
+%h2 Zarejestruj się
+= simple_form_for(@user) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :email, required: true, autofocus: true
+    = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable)
+    = f.input :password_confirmation, required: true
+  .form-actions
+    = f.button :submit, "Zarejestruj się"

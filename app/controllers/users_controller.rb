@@ -2,22 +2,39 @@ class UsersController < ApplicationController
   
  
   def new
-    @person = Person.new
 	@user = User.new
   end
  
   def create
 	@user = User.new(user_params)
-    @person = Person.new(person_params)
-    if Person.where(email: person_params[:email])
+    if User.where(email: user_params[:email]).first
   	  flash[:notice] = "Ten email ma już przypisane konto"
+      redirect_to new_person_path_users
     else
-      if @person.save
-        log_in @person
-        flash[:success] = "Rejestracja przebiegła pomyślnie"
-        redirect_to @person
+      if @user.save
+        #log_in @user
+        redirect_to new_person_users_path
       else
         render :new
+      end
+    end
+  end
+  
+  def new_person
+    @person = Person.new
+  end
+
+  def create_person
+    @person = Person.new(person_params)
+    @person.email = current_user.email
+    if Person.where(current_user.email).first
+  	  flash[:notice] = "Ten email ma już przypisane dane osobowe"
+    else
+      if @person.save
+        flash[:success] = "Rejestracja przebiegła pomyślnie"
+        redirect_to "/"
+      else
+        render new_person_users_path
       end
     end
   end
@@ -25,11 +42,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
  
   def person_params
-    params.require(:person).permit(:name, :surname, :email, :password, :password_confirmation, :sex, :knowledge, :status)
+    params.require(:person).permit(:name, :surname, :sex, :knowledge, :status)
   end
 
 end

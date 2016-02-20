@@ -32,6 +32,11 @@ Rails.application.routes.draw do
   resources :articles
   resources :public_articles, only: [:show]
 
+  resources :users, only: [:new, :create] do
+    get :new_person, on: :collection
+    post :create_person, on: :collection
+  end
+
   devise_for :users
   mount Storytime::Engine => "/"
   root to: "blog_posts#index"

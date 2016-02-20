@@ -1,0 +1,12 @@
+%h2 Zarejestruj się
+= simple_form_for(@person) do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :name, required:true
+    = f.input :surname, required:true
+    = f.input :sex, required:true
+    = f.input :discipline, required:true
+  .form-actions
+    = f.button :submit, "Zarejestruj się"
+ 
+
