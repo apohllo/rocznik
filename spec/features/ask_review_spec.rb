@@ -3,8 +3,8 @@ require 'capybara/email/rspec'
 
 feature "Zapytanie" do
 
-  contex "po zalogowaniu" do
-    include_contex "admin login"
+  context "po zalogowaniu" do
+    include_context "admin login"
 
     background do
       Person.create!(name: "Joanna", surmame: "Gąska", email: "sz4n14@gmail.com", sex: "kobieta", roles: ['redaktor','recenzent'], discipline: ["psychologia"])
