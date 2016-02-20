@@ -1,4 +1,4 @@
-class MailController < ApplicationController
+class MailsController < ApplicationController
   before_action :admin_required
 
   def write_email
