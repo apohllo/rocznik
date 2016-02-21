@@ -191,7 +191,7 @@ feature "zarządzanie numerami" do
 
             click_link "4"
             click_link "Pokaż recenzentów"
-            expect(page).to have_content("recenzent")
+            expect(page).to have_content("dane recenzenta")
           end
         end
 
