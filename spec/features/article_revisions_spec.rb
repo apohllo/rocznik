@@ -101,7 +101,6 @@ feature "wersje" do
 
           expect(page).not_to have_content("nie może być puste")
         end
-
       end
     end
   end
