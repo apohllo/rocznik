@@ -1,10 +1,8 @@
 class PeopleController < ApplicationController
   before_action :admin_required
-<<<<<<< HEAD
-  
-=======
-  layout "admin"
->>>>>>> b10a22e05ad25451cd61555b4f26359ecc9d9e7b
+
+ layout "admin"
+
 
   def index
     @query_params = params[:q] || {}
@@ -57,9 +55,6 @@ def show
       end
     end
 
-
-  end
-  
 
   private
   def person_params

@@ -163,10 +163,7 @@ feature "zarządzanie osobami" do
         expect(page).to have_content("Wanda")
         expect(page).to have_content("Andrzej")
       end
-<<<<<<< HEAD
 
-=======
-      
       scenario "przy usuwaniu zgłoszenia powinno być pytanie, czy użytkownik chce usunąć dane zgłoszenie" do
         visit "/people"
         click_on 'Kalafior'
@@ -259,7 +256,4 @@ end
 
   end
 end
-<<<<<<< HEAD
 
-=======
->>>>>>> bdfe745a93b96622d2337098027f162f9de90a7d

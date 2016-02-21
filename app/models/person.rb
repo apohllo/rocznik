@@ -58,14 +58,12 @@ class Person < ActiveRecord::Base
   def full_name
     "#{self.degree} #{self.name} #{self.surname}"
   end
-<<<<<<< HEAD
-=======
+
 
   def full_name_without_degree
     "#{self.name} #{self.surname}"
   end
-
->>>>>>> bdfe745a93b96622d2337098027f162f9de90a7d
+  
   def reverse_full_name
     "#{self.surname}, #{self.name}, #{self.degree}"
   end
@@ -85,7 +83,7 @@ class Person < ActiveRecord::Base
     self.affiliations.current.map{|e| e.institution}
   end
 
-<<<<<<< HEAD
+
   def reviews_count
     reviews_count = self.reviews.where.not("status ='recenzja odrzucona' or  status ='wysłano zapytanie'").count
   end
@@ -98,11 +96,11 @@ class Person < ActiveRecord::Base
     end
     
   end
-=======
+
 
   def reviewer?
     self.roles.include?("recenzent")
   end
   
->>>>>>> bdfe745a93b96622d2337098027f162f9de90a7d
+
 end
