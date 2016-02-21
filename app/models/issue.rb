@@ -1,6 +1,6 @@
 class Issue < ActiveRecord::Base
   validates :year, presence: true, numericality: {greater_than: 2000}
-  validates :volume, presence: true, numericality: true, uniqueness: true
+  validates :volume, presence: true, numericality: {greater_than: 0}, uniqueness: true
 
   has_many :submissions
   has_many :articles
@@ -34,6 +34,10 @@ class Issue < ActiveRecord::Base
     rescue
       false
     end
+  end
+
+  def reviews
+    self.submission.flat_map(&:finalized_reviews).map(&:person).uniq
   end
 
   def status

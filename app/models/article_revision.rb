@@ -3,10 +3,11 @@ class ArticleRevision < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   mount_uploader :article, ArticleUploader
 
-  validates :submission_id, presence: true
   validates :pages, presence: true, numericality: true
   validates :pictures, presence: true, numericality: true
   validates :version, presence: true, numericality: true
+  
+  scope :latest, -> { order("created_at desc").first }
 
   def title
     "#{self.submission.title}, v. #{self.version}"
@@ -14,6 +15,10 @@ class ArticleRevision < ActiveRecord::Base
 
   def article?
     !!self.article.path
+  end
+
+  def finalized_reviews
+    self.reviews.finalized
   end
 
   def file_name
@@ -35,5 +40,9 @@ class ArticleRevision < ActiveRecord::Base
       "[DATA NIEZNANA]"
     end
   end
-
+  
+  def editor
+    self.submission.person
+  end
+  
 end
