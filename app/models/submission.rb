@@ -14,6 +14,9 @@ class Submission < ActiveRecord::Base
   validates :english_title, presence: true
   validates :english_abstract, presence: true
   validates :english_keywords, presence: true
+
+  after_create :notify_editors
+
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
 
@@ -140,11 +143,16 @@ class Submission < ActiveRecord::Base
   end
 
   private
+
   def cut_text(text,cut)
     if text.size > MAX_LENGTH && cut
       text[0...MAX_LENGTH] + "..."
     else
       text
     end
+  end
+
+  def notify_editors
+    EditorMailer.submission_notification(self).deliver_later
   end
 end
