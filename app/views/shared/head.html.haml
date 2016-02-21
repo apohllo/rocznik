@@ -1,4 +1,11 @@
 %head
+  - if request.url.include? "/public_articles/"
+    %meta{:name => "citation_title", :content => @article.title}
+    - @article.authors_metadata.each do |author|
+      %meta{:name => "citation_author", :content => author}
+    %meta{:name => "citation_publication_date", :content => @article.year}
+    %meta{:name => "citation_journal_title", :content => "Rocznik Kognitywistyczny"}
+    %meta{:name => "citation_issue", :content => @article.issue_title}
   %title Rocznik Kognitywistyczny
   %meta{:content => "http://rocznik.kognitywistyka.eu/", :property => "og:url"}/
   %meta{:content => "website", :property => "og:type"}/

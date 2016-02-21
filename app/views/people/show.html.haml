@@ -13,13 +13,18 @@
     %dd= @person.sex
   %dl
     %dt Dyscypliny
-    %dd= @person.discipline
+    %dd= @person.discipline.join(", ")
   %dl
     %dt Kompetencje
     %dd= @person.competence
   %dl
     %dt Role w systemie
-    %dd= @person.roles.join(", ")
+    %dd= @person.roles.join
+  %dl
+    - if @person.reviewer?  && !@person.reviewer_status.blank?
+      %dt Status recenzenta
+      %dd= @person.reviewer_status
+  
   = link_to "Edytuj", edit_person_path(@person), class: %w{btn btn-primary btn-sm}
   %h3 Afiliacje
   %table.table.table-hover.table-admin
@@ -58,7 +63,7 @@
             %td= authorship.date.strftime("%d-%m-%Y")
             %td{class: "#{Submission::STATUS_MAPPING[authorship.status]}"}= authorship.status
             %td.text-right
-              = destroy_button(authorship)
+              = destroy_button(authorship, "Czy na pewno chcesz usunąć to zgłoszenie?")
     = link_to "Dodaj zgłoszenie", new_submission_path(author_id: @person.id), class: %w{btn btn-default btn-sm}
   - if @person.roles.include?("recenzent")
     %h3 Przypisane recenzje
@@ -93,4 +98,6 @@
             %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
             %td.text-right
               = destroy_button(submission)
+              
+    
     /= link_to "Dodaj", edit_person_path(@person), class: %w{btn btn-default btn-sm}
