@@ -88,10 +88,11 @@ feature "zarządzanie osobami" do
             click_on 'Kapusta'
             click_on 'Napisz wiadomość'
             expect(page).to have_css("h3", text: "Nowa wiadomość do a.kapusta@gmail.com")
-       #     fill_in 'Tytuł', with: "Pierwszy mail"
-       #     fill_in 'Treść', with: "Szanowny Panie, wysyłam swojego pierwszego maila. Z poważaniem, A.D."
-       #
-       #     expect(current_email).to have_content 'Z poważaniem,'
+            fill_in 'Tytuł', with: 'Pierwszy mail'
+            fill_in 'Treść', with: 'Szanowny Panie, wysyłam swojego pierwszego maila. Z poważaniem, A.D.'
+            click_on 'Wyślij'
+            expect(current_email).to have_content 'Pierwszy mail'
+            expect(current_email).to have_content 'Szanowny Panie, wysyłam swojego pierwszego maila. Z poważaniem, A.D.'
       end
     end
 
