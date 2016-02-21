@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :admin_required
+  layout "admin"
 
   def index
     @reviews = Review.order('deadline asc').all
@@ -86,6 +87,11 @@ class ReviewsController < ApplicationController
     review.status = 'zaakceptowano'
     review.save
     redirect_to review.submission, flash: {notice: "Dziękujemy"}
+
+  def ask_for_review
+    review = Review.find(params[:id])
+    ReviewMailer.ask_for_review(review).deliver_now
+    redirect_to review.submission, flash: {notice: "Zapytanie zostało wysłane"}
   end
 
   private

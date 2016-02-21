@@ -63,7 +63,7 @@
             %td= authorship.date.strftime("%d-%m-%Y")
             %td{class: "#{Submission::STATUS_MAPPING[authorship.status]}"}= authorship.status
             %td.text-right
-              = destroy_button(authorship)
+              = destroy_button(authorship, "Czy na pewno chcesz usunąć to zgłoszenie?")
     = link_to "Dodaj zgłoszenie", new_submission_path(author_id: @person.id), class: %w{btn btn-default btn-sm}
   - if @person.roles.include?("recenzent")
     %h3 Przypisane recenzje

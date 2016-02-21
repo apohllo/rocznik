@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     patch :prepare, on: :member
     patch :publish, on: :member
     get :show_reviews, on: :member
+    get :show_reviewers, on: :member
   end
   resources :public_issues, only: [:index,:show]
   resources :people
@@ -21,7 +22,13 @@ Rails.application.routes.draw do
   resources :reviews do
     post :ask, on: :member
     post :send_reminder, on: :member
+    post :ask_for_review, on: :member
     get :accepted, on: :member
+  end
+  resources :public_reviews do
+    get :new_reviewer, on: :collection
+    post :create_reviewer, on: :collection
+    get :finish, on: :collection
   end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
