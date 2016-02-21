@@ -22,4 +22,4 @@
   = render partial: "author_form", locals: { authorship: authorship,
                                              submission: submission }
   
-  = button_to "Anuluj", controller: :public_submissions, action: :cancel, public_submission_id: submission.id
+  = button_to "Anuluj", controller: :public_submissions, action: :cancel, public_submission_id: submission.id, data: { confirm: "Are you sure?" }
