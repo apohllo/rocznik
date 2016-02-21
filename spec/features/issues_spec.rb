@@ -170,6 +170,30 @@ feature "zarządzanie numerami" do
             expect(page).to have_content("treść rezenzji")
           end
         end
+        context "recenzenci" do
+          before do
+            Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
+                           "mężczyzna", roles: ['redaktor', 'recenzent'])
+            revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
+            Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
+                           status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
+          end
+
+          scenario "dostępność przeglądu recenzentów" do
+            visit "/issues"
+
+            click_link "4"
+            expect(page).to have_link("Pokaż recenzentów")
+          end
+
+          scenario "wyświetlenie listy recenzentów" do
+            visit "/issues"
+
+            click_link "4"
+            click_link "Pokaż recenzentów"
+            expect(page).to have_content("recenzent")
+          end
+        end
 
         context "przygotowany do wydania" do
           before do
