@@ -11,13 +11,13 @@ class MailsController < ApplicationController
     @simplemail = SimpleMail.new(mail_params)
     if @simplemail.valid?
       UserMailer.send_email(@simplemail).deliver
-      redirect_to submissions_path
+      redirect_to people_path
     else
       render :write_email
     end
   end
   private
   def mail_params
-    params.require(:simplemail).permit(:from,:to,:subject,:body)
+    params.require(:simple_mail).permit(:from,:to,:subject,:body)
   end
 end
