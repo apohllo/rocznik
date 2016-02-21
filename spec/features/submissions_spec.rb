@@ -200,9 +200,9 @@ feature "zgloszenia" do
         scenario "sortowanie zgłoszeń względem daty nadesłania" do
           visit "/submissions"
           click_on("Data nadesłania")
-          expect(page).to have_content(/01-01-2015.*01-01-2016/)
-          click_on("Data nadesłania")
           expect(page).to have_content(/01-01-2016.*01-01-2015/)
+          click_on("Data nadesłania")
+          expect(page).to have_content(/01-01-2015.*01-01-2016/)
         end
 
         xscenario "reset filtrów i formularza" do
