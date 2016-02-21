@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :submissions
   resources :public_submissions, only: [:new, :create] do
     get :authors, on: :collection
+    post :add_author, on: :collection
+    post :cancel
   end
   resources :affiliations, only: [:new, :create, :destroy] do
     get :institutions, on: :collection

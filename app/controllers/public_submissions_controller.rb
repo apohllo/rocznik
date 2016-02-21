@@ -10,8 +10,6 @@ class PublicSubmissionsController < ApplicationController
   end
 
   def create
-    case params[:commit]
-    when 'Dalej'
       @submission = Submission.new(submission_params)
       submission.status = 'nadesłany'
       submission.received = DateTime.current
@@ -23,33 +21,33 @@ class PublicSubmissionsController < ApplicationController
       else
         render :new, locals: { submission: submission }
       end
+  end
 
-    when 'Zapisz i dodaj następnego'
-      @authorship = Authorship.new(authorship_params)
-      @submission = authorship.submission
 
-      check_authorship_person
-      build_authorship(position: authorship.position + 1) if authorship.save
+  def add_author
+    @authorship = Authorship.new(authorship_params)
+    @submission = authorship.submission
 
-      render_add_author
+    check_authorship_person
 
-    when 'Zapisz i zakończ'
-      @authorship = Authorship.new(authorship_params)
-      @submission = authorship.submission
-
-      check_authorship_person
-      if authorship.save
-        render :submission_confirmation, locals: { submission: submission.reload }
-      else
+    if authorship.save
+      if params[:add_next]
+        build_authorship(position: authorship.position + 1)
         render_add_author
+      else
+        render :submission_confirmation, locals: { submission: submission.reload }
       end
     else
-      @submission = Submission.find(authorship_params[:submission_id])
-      submission.destroy
-      render :submission_cancelled
+      render_add_author
     end
   end
 
+  def cancel
+     @submission = Submission.find(params[:public_submission_id])
+      submission.destroy
+      render :submission_cancelled
+  end 
+  
   def authors
     author = Person.find_by(email: params[:email]) if params[:email]
     render json: author
