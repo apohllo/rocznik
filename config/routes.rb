@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   resources :articles
   resource :profile, only: [:show, :edit, :update] do
     get :edit_password
-    post :update_password
+    patch :update_password
   end
   resources :public_articles, only: [:show]
 
