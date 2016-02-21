@@ -8,10 +8,16 @@ Rails.application.routes.draw do
     patch :prepare, on: :member
     patch :publish, on: :member
     get :show_reviews, on: :member
+    get :show_reviewers, on: :member
   end
   resources :public_issues, only: [:index,:show]
   resources :people
   resources :submissions
+  resources :public_submissions, only: [:new, :create] do
+    get :authors, on: :collection
+    post :add_author, on: :collection
+    post :cancel
+  end
   resources :affiliations, only: [:new, :create, :destroy] do
     get :institutions, on: :collection
     get :countries, on: :collection
@@ -21,6 +27,7 @@ Rails.application.routes.draw do
   resources :reviews do
     post :ask, on: :member
     post :send_reminder, on: :member
+    post :ask_for_review, on: :member
   end
   resources :public_reviews do
     get :new_reviewer, on: :collection
