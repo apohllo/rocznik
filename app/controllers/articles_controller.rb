@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :admin_required
   layout "admin"
+  
 
   def index
     @query_params = params[:q] || {}
@@ -24,6 +25,14 @@ class ArticlesController < ApplicationController
     else
       render :edit
     end
+  end
+  
+  def generate_certificate
+    @article = Article.find(params[:id])
+    pdf=@article.generate_certificate
+   
+    send_data pdf.render, filename: 'certificate.pdf', type: "application/pdf"
+      
   end
 
   private

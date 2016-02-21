@@ -31,7 +31,9 @@ Rails.application.routes.draw do
   end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
-  resources :articles
+  resources :articles do
+    get :generate_certificate, on: :member
+  end  
   resources :public_articles, only: [:show]
 
   devise_for :users
