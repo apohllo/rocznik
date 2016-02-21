@@ -41,7 +41,11 @@ class Submission < ActiveRecord::Base
       "[BRAK TYTUŁU]"
     end
   end
-
+ 
+  def finalized_reviews
+    self.article_revision.flat_map(&:finalized_reviews)
+  end
+  
   def abstract
     if !self.english_abstract.blank?
       self.english_abstract
