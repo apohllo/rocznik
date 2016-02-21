@@ -6,7 +6,7 @@ class ArticleRevision < ActiveRecord::Base
   validates :pages, presence: true, numericality: true
   validates :pictures, presence: true, numericality: true
   validates :version, presence: true, numericality: true
-  
+  validates :received, presence: true
   scope :latest, -> { order("created_at desc").first }
 
   def title
@@ -37,7 +37,7 @@ class ArticleRevision < ActiveRecord::Base
     if self.received
       self.received.strftime("%d-%m-%Y")
     else
-      "[DATA NIEZNANA]"
+     "[DATA NIEZNANA]"
     end
   end
   
