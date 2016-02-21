@@ -1,0 +1,18 @@
+= simple_form_for submission, url: public_submissions_path do |f|
+  = f.input :language, label: "Język", collection: %w{polski angielski}, include_blank: false
+  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Sekcja 'Finansowanie' jest przeznaczona do umieszczenia informacji, kto finansował badania opublikowane w artykule."}
+  = f.input :funding, label: "Finansowanie"
+
+  = f.input :polish_title, label: "Tytuł"
+  = f.input :english_title, label: "Title"
+  = f.input :english_abstract, label: "Abstract"
+  = f.input :english_keywords, label: "Key words"
+
+  = f.fields_for :article_revisions do |arf|
+    = arf.input :pages, label: "Liczba stron"
+    = arf.input :pictures, label: "Liczba ilustracji"
+    = arf.input :article, label: "Artykuł"
+ 
+  - label = "Dalej"
+  = f.submit label, class: %w{btn btn-success btn-outline}
+  
