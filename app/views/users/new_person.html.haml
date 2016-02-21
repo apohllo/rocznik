@@ -1,5 +1,5 @@
 %h2 Zarejestruj się
-= simple_form_for(@person) do |f|
+= simple_form_for(@person, url: create_person_users_path) do |f|
   = f.error_notification
   .form-inputs
     = f.input :name, required:true, label: "imię"

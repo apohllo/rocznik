@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     end
   end
   
+
   def new_person
     @person = Person.new
   end
@@ -44,7 +45,6 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
- 
   def person_params
     params.require(:person).permit(:name, :surname, :sex)
   end
