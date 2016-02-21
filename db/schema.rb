@@ -385,3 +385,8 @@ ActiveRecord::Schema.define(version: 20160212141645) do
   add_foreign_key "authorships", "submissions"
   add_foreign_key "departments", "institutions"
   add_foreign_key "institutions", "countries"
+  add_foreign_key "reviews", "article_revisions"
+  add_foreign_key "reviews", "people"
+  add_foreign_key "submissions", "issues"
+  add_foreign_key "submissions", "people"
+ end
