@@ -1,0 +1,19 @@
+= simple_form_for authorship, url: add_author_public_submissions_path do |f|
+  = f.input :submission_id, as: :hidden, input_html: { value: submission.id }
+  = f.input :position, as: :hidden, input_html: { value: authorship.position }
+  = f.input :corresponding, label: "Korespondujący?", as: :boolean,
+                                                      item_wrapper_class: 'checkbox_container'
+
+  = f.fields_for :person do |af|
+    = af.input :name, label: "Imię"
+    = af.input :surname, label: "Nazwisko"
+    = af.input :email, label: "E-mail"
+    = af.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
+    = af.input :discipline, label: "Dyscyplina naukowa"
+
+  %div
+    = check_box_tag 'add_next', 'yes'
+    = label_tag 'add_next', 'Dodaj kolejnego autora'
+
+  - label = "Zapisz"
+  = f.submit label, class: %w{btn btn-success btn-outline}
