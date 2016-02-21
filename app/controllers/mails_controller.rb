@@ -17,7 +17,7 @@ class MailsController < ApplicationController
     end
   end
   private
-    def mail_params
-      params.require(:simplemail).permit(:from,:to,:subject,:body)
+  def mail_params
+    params.require(:simplemail).permit(:from,:to,:subject,:body)
   end
 end
