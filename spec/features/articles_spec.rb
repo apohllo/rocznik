@@ -110,6 +110,18 @@ feature "Artykuły" do
         click_on("Tytuł")
         expect(page).to have_content(/Wiemy wszystko.*Jerzozwież/)
       end
+      
+      scenario "filtrowanie artykułów po redaktorze" do
+        visit "/articles"
+        
+        select "Adam Kapusta", from: "Redaktor"
+        
+        click_on("Filtruj")
+        expect(page).to have_content(/Wiemy wszystko.*Jerzozwież/)
+        
+        click_on("Filtruj")
+        expect(page).not_to have_content(/Jerzozwież.*Wiemy wszystko/)
+      end
     end
   end
 end
