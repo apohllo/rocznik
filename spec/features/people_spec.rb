@@ -186,6 +186,36 @@ feature "zarządzanie osobami" do
         click_on 'Zapisz'
         expect(page).to have_content("Recenzuje po terminie")
       end
+
+      scenario "Sprawdzenie, czy da się utworzyć osobę z nieunikalnym adresem e-mail" do
+        visit '/people/new'
+
+        within("#new_person") do
+          fill_in "Imię", with: "Anna"
+          fill_in "Nazwisko", with: "Kowalska"
+          fill_in "E-mail", with: "a.kowalska@gmail.com"
+          check "filozofia"
+          fill_in "Kompetencje", with: "Nietzsche"
+          select "kobieta", from: "Płeć", visible: false
+          check "recenzent"
+        end
+        click_button 'Utwórz'
+
+        visit '/people/new'
+        within("#new_person") do
+          fill_in "Imię", with: "Aleksandra"
+          fill_in "Nazwisko", with: "Kowalska"
+          fill_in "E-mail", with: "a.kowalska@gmail.com"
+          check "filozofia"
+          fill_in "Kompetencje", with: "Foucault"
+          select "kobieta", from: "Płeć", visible: false
+          check "recenzent"
+        end
+        click_button 'Utwórz'
+
+        expect(page).to have_css(".has-error")
+      end
+
     end
   end
 end

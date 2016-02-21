@@ -37,7 +37,7 @@ class Person < ActiveRecord::Base
 
   validates :name, presence: true
   validates :surname, presence: true
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: true
   validates :sex, presence: true, inclusion: SEX_MAPPING.keys
   validates :reviewer_status, allow_blank: true, inclusion: REVIEWER_MAP.keys
   validate :roles_inclusion
