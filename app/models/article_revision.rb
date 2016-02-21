@@ -3,7 +3,6 @@ class ArticleRevision < ActiveRecord::Base
   has_many :reviews, dependent: :restrict_with_error
   mount_uploader :article, ArticleUploader
 
-  validates :submission_id, presence: true
   validates :pages, presence: true, numericality: true
   validates :pictures, presence: true, numericality: true
   validates :version, presence: true, numericality: true
@@ -16,6 +15,10 @@ class ArticleRevision < ActiveRecord::Base
 
   def article?
     !!self.article.path
+  end
+
+  def finalized_reviews
+    self.reviews.finalized
   end
 
   def file_name

@@ -1,0 +1,67 @@
+.scroll-panel-header
+  %h3.scroll-panel-title
+    Dziękujemy!
+    %span.small Twoje zgłoszenie zostało zapisane
+
+.scroll-panel-body
+  %h4 Wersja
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Numer
+        %th Plik
+        %th Nadesłano
+        %th Liczba stron
+        %th Liczba ilustracji
+    %tbody
+      - submission.article_revisions.each do |revision|
+        %tr
+          %td= revision.version
+          %td
+            - if revision.article?
+              = link_to revision.file_name, revision.article.url
+            - else
+              = revision.file_name
+          %td= revision.received_date
+          %td= revision.pages
+          %td= revision.pictures
+
+  %h4 Autorzy
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Imię i Nazwisko
+        %th Email
+        %th Korespondujący?
+        %th Liczba porządkowa
+        %th
+    %tbody
+      - submission.authorships.each do |authorship|
+        %tr
+          %td= authorship.person.full_name
+          %td= authorship.person.email
+          %td= authorship.corresponding? ? raw("&#10004;") : ""
+          %td= authorship.position
+
+  %dl
+    %dt Tytuł
+    %dd= submission.title
+  %dl
+    %dt Status
+    %dd{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
+  %dl
+    %dt Język
+    %dd= submission.language
+  %dl
+    %dt Otrzymano
+    %dd= submission.received.strftime("%d-%m-%Y")
+  %dl
+    %dt Streszczenie
+    %dd= submission.abstract
+  %dl
+    %dt Słowa kluczowe
+    %dd= submission.keywords
+  - if submission.funding
+    %dl
+      %dt Finansowanie
+      %dd= simple_format(submission.funding)

@@ -16,6 +16,11 @@ class Submission < ActiveRecord::Base
   validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :restrict_with_error
+
+  accepts_nested_attributes_for :article_revisions
+
+  scope :accepted, -> { where(status: "przyjęty") }
+  
   has_one :article
   belongs_to :person
   belongs_to :issue
@@ -41,7 +46,11 @@ class Submission < ActiveRecord::Base
       "[BRAK TYTUŁU]"
     end
   end
-
+ 
+  def finalized_reviews
+    self.article_revision.flat_map(&:finalized_reviews)
+  end
+  
   def abstract
     if !self.english_abstract.blank?
       self.english_abstract
@@ -142,5 +151,4 @@ class Submission < ActiveRecord::Base
       text
     end
   end
-
 end
