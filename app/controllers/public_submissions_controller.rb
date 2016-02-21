@@ -10,17 +10,17 @@ class PublicSubmissionsController < ApplicationController
   end
 
   def create
-      @submission = Submission.new(submission_params)
-      submission.status = 'nadesłany'
-      submission.received = DateTime.current
-      submission.article_revisions.first.received = submission.received
+    @submission = Submission.new(submission_params)
+    submission.status = 'nadesłany'
+    submission.received = DateTime.current
+    submission.article_revisions.first.received = submission.received
 
-      if submission.save
-        build_authorship
-        render_add_author
-      else
-        render :new, locals: { submission: submission }
-      end
+    if submission.save
+      build_authorship
+      render_add_author
+    else
+      render :new, locals: { submission: submission }
+    end
   end
 
 
@@ -43,9 +43,9 @@ class PublicSubmissionsController < ApplicationController
   end
 
   def cancel
-     @submission = Submission.find(params[:public_submission_id])
-      submission.destroy
-      render :submission_cancelled
+    @submission = Submission.find(params[:public_submission_id])
+    submission.destroy
+    render :submission_cancelled
   end 
   
   def authors
