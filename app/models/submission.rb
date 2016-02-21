@@ -153,6 +153,8 @@ class Submission < ActiveRecord::Base
   end
 
   def notify_editors
-    EditorMailer.submission_notification(self).deliver_later
+    unless Person.editors.count.zero?
+      EditorMailer.submission_notification(self).deliver_later
+    end
   end
 end
