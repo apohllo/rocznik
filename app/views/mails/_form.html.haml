@@ -1,5 +1,7 @@
 =simple_form_for @simplemail, url: send_email_path do |f|
   = f.input :subject, label: "Tytuł"
   = f.input :body, label: "Treść"
+  = f.input :addressee, as: :hidden
+  = f.input :sender, as: :hidden
   = f.submit "Wyślij", class: %w{btn btn-primary btn-outline}
 
