@@ -19,7 +19,14 @@
         = link_to @submission.editor, @submission.person
       - else
         = @submission.editor
-  %dl 
+  %dl
+    %dt Numer rocznika
+    %dd
+      - if @submission.issue
+        = link_to @submission.issue_title, @submission.issue
+      - else
+        = @submission.issue
+  %dl
     %dt Otrzymano
     %dd= @submission.received.strftime("%d-%m-%Y")
   %dl
@@ -90,6 +97,7 @@
         %th Recenzent
         %th Zapytanie
         %th Dealine
+        %th Wiadomość
         %th Status
         %th
     %tbody
@@ -100,9 +108,15 @@
           %td= review.asked_date
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
-          %td{style: "text-align:center;"}= link_to image_tag("/assets/icon.png", size: "22x22", alt: "mail"), ask_review_path(review), method: :post
+          %td{style: "text-align:center;"}= link_to image_tag("/assets/remind_icon.png", size: "32x32"), send_reminder_review_path(review), class: "reminder", method: :post
+          .flash
+            - if flash[:notice]
+              .flash-confirmation= flash[:notice]
           %td.text-right
-            = link_to "", review_path(review), class: %w{fa fa-file-text}, title: "Wyświetl recenzję"
-            = link_to "", edit_review_path(review), class: %i{fa fa-pencil}, title: "Edytuj recenzję"
+            = icon_to 'fa-paper-plane', ask_for_review_review_path(review), method: :post, title: "Wyślij zapytanie o sporządzenie recenzji"
+            = icon_to 'fa-send-o', ask_review_path(review), method: :post, title: "Wyślij zapytanie o recenzję"
+            = icon_to 'fa-comment-o', review_path(review), title: "Wyświetl recenzję"
+            = icon_to 'fa-pencil-square-o', edit_review_path(review), title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
   = link_to "Dodaj recenzenta", new_review_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
+         

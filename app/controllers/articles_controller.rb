@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :admin_required
+  layout "admin"
+  before_action -> {set_title "Artykuły"}
 
   def index
     @query_params = params[:q] || {}
@@ -27,6 +29,6 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:issue_id, :status, :DOI)
+    params.require(:article).permit(:issue_id, :status, :pages, :external_link, :DOI)
   end
 end
