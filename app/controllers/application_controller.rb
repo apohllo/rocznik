@@ -27,6 +27,6 @@ class ApplicationController < ActionController::Base
   end
 
   def user_for_paper_trail
-    current_user.email
+    current_user.email unless !user?
   end
 end
