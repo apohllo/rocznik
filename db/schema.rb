@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 20160128101602) do
 
   create_table "article_revisions", force: :cascade do |t|
     t.integer  "submission_id"
-    t.integer  "version",       default: 0
+    t.integer  "version",       default: 1
     t.date     "received"
     t.integer  "pages"
     t.integer  "pictures",      default: 0
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "code"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "code",          default: "tekst_"
     t.string   "article"
   end
 
@@ -125,8 +125,8 @@ ActiveRecord::Schema.define(version: 20160128101602) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.text     "roles",      default: [], null: false, array: true
-    t.string   "photo"
     t.string   "sex"
+    t.string   "photo"
     t.text     "competence"
   end
 
