@@ -1,6 +1,7 @@
 class ArticleRevisionsController < ApplicationController
   before_action :admin_required
   layout "admin"
+  before_action -> {set_title "Wersja artykułu"}
 
   def new
     @article_revision = ArticleRevision.new
