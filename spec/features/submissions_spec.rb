@@ -112,7 +112,7 @@ feature "zgloszenia" do
           select "polski", from: "Język"
           
           click_on("Filtruj")
-          expect(page).to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/)
+          expect(page).to have_content(/Alicja w krainie czarów.*W pustyni i w puszczy/)
         end
         
         scenario "Filtrowanie po języku" do
@@ -121,7 +121,7 @@ feature "zgloszenia" do
           select "angielski", from: "Język"
         
           click_on("Filtruj")
-          expect(page).not_to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/) 
+          expect(page).not_to have_content(/Alicja w krainie czarów.*W pustyni i w puszczy/) 
         end
 
         scenario "Wyświetlanie braku dealine'u" do
@@ -148,6 +148,15 @@ feature "zgloszenia" do
           expect(page).not_to have_css(".has-error")
           expect(page).to have_content("16-07-2016")
         end
+
+        scenario "sortowanie zgłoszeń względem daty nadesłania" do
+          visit "/submissions"
+          click_on("Data nadesłania")
+          expect(page).to have_content(/31-12-2016.*01-01-2013/)
+          click_on("Data nadesłania")
+          expect(page).to have_content(/01-01-2013.*31-12-2016/)
+        end
+
 
         context "Z recenzją" do
           before do
@@ -195,14 +204,6 @@ feature "zgloszenia" do
           click_button("Dodaj")
 
           expect(page).to have_css(".has-error")
-        end
-
-        scenario "sortowanie zgłoszeń względem daty nadesłania" do
-          visit "/submissions"
-          click_on("Data nadesłania")
-          expect(page).to have_content(/01-01-2016.*01-01-2015/)
-          click_on("Data nadesłania")
-          expect(page).to have_content(/01-01-2015.*01-01-2016/)
         end
 
         xscenario "reset filtrów i formularza" do
