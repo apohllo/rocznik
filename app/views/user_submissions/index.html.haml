@@ -1,5 +1,4 @@
 .scroll-panel-header
-  = link_to "Nowe zgłoszenie", new_submission_path, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title Zgłoszone artykuły
 .scroll-panel-body
   %table.table.table-hover.table-admin
@@ -14,7 +13,7 @@
       - @submissions.each do |submission|
         %tr.table-row-link
           %td= submission.issue_title
-          %td= link_to submission.title, submission
+          %td= link_to submission.title, user_submissions_path(submission)
           %td
             - if submission.person
               = link_to submission.editor, submission.person
