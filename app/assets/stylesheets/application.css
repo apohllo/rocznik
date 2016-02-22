@@ -151,3 +151,7 @@ dd.published {
 .morecontent span {
   display: none;
 }
+
+.article-queue-id {
+    display: none;
+}
