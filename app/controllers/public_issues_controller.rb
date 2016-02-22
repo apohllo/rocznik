@@ -1,5 +1,6 @@
 class PublicIssuesController < ApplicationController
-  
+  before_action -> {set_title "Numery rocznika"}
+
   def index
     @issues = Issue.published
   end

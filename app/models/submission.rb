@@ -16,6 +16,11 @@ class Submission < ActiveRecord::Base
   validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
+
+  accepts_nested_attributes_for :article_revisions
+
+  scope :accepted, -> { where(status: "przyjęty") }
+  
   has_one :article
   belongs_to :follow_up, inverse_of: :follow_ups, class_name: "Article"
   belongs_to :person
@@ -151,5 +156,4 @@ class Submission < ActiveRecord::Base
       text
     end
   end
-
 end

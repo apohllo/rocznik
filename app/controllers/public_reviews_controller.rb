@@ -1,4 +1,5 @@
 class PublicReviewsController < ApplicationController
+  before_action -> {set_title "Recenzje"}
 
   def new_reviewer
     @person = Person.new

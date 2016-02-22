@@ -25,7 +25,11 @@
     %tbody
       - @submissions.each do |submission|
         %tr.table-row-link
-          %td= submission.issue_title
+          %td
+            - if submission.issue
+              = link_to submission.issue_title, submission.issue
+            - else
+              = submission.issue_title
           %td= link_to submission.title, submission
           %td
             - if submission.author

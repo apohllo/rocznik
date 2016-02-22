@@ -30,4 +30,8 @@ module ApplicationHelper
   def reset_filters(f)
     f.button :button, 'x', type: 'reset', class: 'btn btn-danger btn-sm', onclick: 'reload(); return false'
   end
+
+  def set_title(title = "")
+    @site_title = !title.empty? ? title + " - " + "Rocznik Kognitywistyczny" : "Rocznik Kognitywistyczny"
+  end
 end
