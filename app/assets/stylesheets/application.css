@@ -151,3 +151,15 @@ dd.published {
 .morecontent span {
   display: none;
 }
+
+.fixed{
+  position: fixed;
+  top: 50px;
+  background: white;
+  width: 100%;
+  display: table;
+}
+
+.static{
+  position: static;
+}
