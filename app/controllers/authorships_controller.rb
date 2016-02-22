@@ -1,6 +1,7 @@
 class AuthorshipsController < ApplicationController
   before_action :admin_required
   layout "admin"
+  before_action -> {set_title "Autorzy"}
 
   def new
     @authorship = Authorship.new

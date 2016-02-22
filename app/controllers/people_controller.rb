@@ -1,6 +1,7 @@
 class PeopleController < ApplicationController
   before_action :admin_required
   layout "admin"
+  before_action -> {set_title "Osoby"}
 
   def index
     @query_params = params[:q] || {}
