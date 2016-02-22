@@ -25,7 +25,7 @@ class Review < ActiveRecord::Base
   def editor
     self.submission.editor
   end
-  
+
   def text
     if self.content.blank?
       "[BRAK TREŚCI]"
