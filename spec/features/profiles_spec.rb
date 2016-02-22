@@ -8,7 +8,7 @@ feature "zarządzanie profilem użytkownika" do
     before :each do
       Person.create!(name: "Anna", surname: "Genialna", email: email,
                       sex: "kobieta")
-      User.create(email: email, password: real_password)
+      User.create!(email: email, password: real_password, password_confirmation: real_password)
   
       visit '/users/sign_in'
       within("#new_user") do
@@ -17,9 +17,20 @@ feature "zarządzanie profilem użytkownika" do
       end
       click_button 'Zaloguj się'
       
+      expect(page).to have_content 'pomyślnie'
+      
     end
     
     scenario "edytowanie profilu użytkownika" do
+      visit '/users/sign_in'
+      within("#new_user") do
+        fill_in 'Adres e-mail', with: email
+        fill_in 'Hasło', with: password
+      end
+      click_button 'Zaloguj się'
+      
+      expect(page).to have_content 'pomyślnie'
+      
         visit '/profile'
         click_on("Edytuj swoje dane")
         fill_in "Stopień", with: "Profesor"
