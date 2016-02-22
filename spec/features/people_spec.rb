@@ -91,7 +91,7 @@ feature "zarządzanie osobami" do
             fill_in 'Tytuł', with: 'Pierwszy mail'
             fill_in 'Treść', with: 'Szanowny Panie, wysyłam swojego pierwszego maila. Z poważaniem, A.D.'
             click_on 'Wyślij'
-            open_email('a.kapusa@gmail.com')
+            open_email('a.kapusta@gmail.com')
             expect(current_email).to have_content 'Szanowny Panie, wysyłam swojego pierwszego maila. Z poważaniem, A.D.'
       end
     end
