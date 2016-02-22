@@ -1,10 +1,10 @@
-%h2 Zarejestruj się
+%h2 Podaj dane
 = simple_form_for(@person, url: create_person_users_path) do |f|
   = f.error_notification
   .form-inputs
-    = f.input :name, required:true, label: "imię"
-    = f.input :surname, required:true, label: "nazwisko"
-    = f.input :sex, collection: Person::SEX_MAPPING.keys, label: "płeć"
+    = f.input :name, required:true, label: "Imię"
+    = f.input :surname, required:true, label: "Nazwisko"
+    = f.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
   .form-actions
     = f.button :submit, "Zarejestruj się"
  
