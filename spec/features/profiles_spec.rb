@@ -17,7 +17,6 @@ feature "zarządzanie profilem użytkownika" do
       end
       click_button 'Zaloguj się'
       
-      expect(page).to have_content 'pomyślnie'
     end
     
     scenario "edytowanie profilu użytkownika" do
@@ -30,7 +29,6 @@ feature "zarządzanie profilem użytkownika" do
         
         expect(page).not_to have_css(".has-error")
       end
-    end
     
     let(:new_password)          { "passwd1234" }
     let(:password_confirmation) { new_password }
@@ -45,7 +43,6 @@ feature "zarządzanie profilem użytkownika" do
         click_on("Zapisz")
         
         click_on "Wyloguj"
-        
         visit '/users/sign_in'
         within("#new_user") do
           fill_in 'Adres e-mail', with: email
@@ -70,6 +67,7 @@ feature "zarządzanie profilem użytkownika" do
       
         expect(page).to have_css(".has-error")
       end
+    end
   end
 end
     
