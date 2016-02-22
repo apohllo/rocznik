@@ -53,8 +53,9 @@ feature "wersje" do
 
       context "wersja w bazie" do
         before do
+          article_file = Rails.root.join("spec/features/files/plik.pdf").open
           ArticleRevision.create!(submission: Submission.first,
-                                  pages: 1, pictures: 1, version: 1,
+                                  pages: 1, pictures: 1, version: 1, article: article_file,
                                   comment: "Brakuje przecinka na 1 stronie w wierszu 30",
                                   accepted: '0')
         end
