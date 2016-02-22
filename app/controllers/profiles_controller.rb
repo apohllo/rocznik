@@ -37,6 +37,7 @@ class ProfilesController < ApplicationController
         render :edit_password
       end
     else
+      flash[:error] = "Niepoprawne hasło"
       render :edit_password
     end
   end
