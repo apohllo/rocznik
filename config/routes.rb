@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     patch :prepare, on: :member
     patch :publish, on: :member
     get :show_reviews, on: :member
-    get :show_reviewers, on: :member
   end
   resources :public_issues, only: [:index,:show]
   resources :people
@@ -39,10 +38,15 @@ Rails.application.routes.draw do
   resources :articles
   resources :public_articles, only: [:show]
 
+<<<<<<< HEAD
   resources :users, only: [:new, :create] do
     get :new_person, on: :collection
     post :create_person, on: :collection
   end
+=======
+    get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
+    post 'mails/send_email', to: 'mails#send_email', as: :send_email
+>>>>>>> 228a2c58193cd492010004a0df6e2e54542a2640
 
   devise_for :users
   mount Storytime::Engine => "/"
