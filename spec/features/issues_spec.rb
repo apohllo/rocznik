@@ -180,7 +180,7 @@ feature "zarządzanie numerami" do
                            status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
           end
 
-          scenario "dostępność przeglądu recenzentów" do
+          scenario "wyświetlenie linku do listy recenzentów" do
             visit "/issues"
 
             click_link "4"
