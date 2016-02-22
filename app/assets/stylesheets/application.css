@@ -151,3 +151,32 @@ dd.published {
 .morecontent span {
   display: none;
 }
+
+.submission_show {
+  clear:both;
+  padding: 20px 0px;
+}
+
+.col-md-3 {
+ text-align: center;
+ padding-top: 20px; 
+ padding-bottom: 2%
+}
+
+.col-sm-offset-2.col-sm-3 {
+ text-align: center;
+ padding-top: 20px;
+ padding-bottom: 2%;
+}
+
+.submission_show_tables {
+ padding-top: 5%;
+}
+
+.views_show {
+ clear:both;
+}
+
+.views-button {
+  padding-top: 4%;
+}

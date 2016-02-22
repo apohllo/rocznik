@@ -2,26 +2,35 @@
   = link_to "Recenzje", reviews_path, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title
     = @review.title
-.scroll-panel-body
+  .scroll-panel-body
+  .col-sm-offset-3.col-sm-4
   %dl
-    %dt Zgłoszenie
-    %dd= link_to @review.submission.title, @review.submission
-  %dl
+  .col-md-3
     %dt Status
     %dd{class: "#{Review::STATUS_MAPPING[@review.status]}"}= @review.status
   %dl
+  .col-md-3
     %dt Recenzent
     %dd= link_to @review.person.full_name, @review.person
   %dl
+  .col-md-3
     %dt Wysłano zapytanie
     %dd= @review.asked_date
   %dl
+  .col-md-3
     %dt Deadline
     %dd= @review.deadline_date
   %dl
+  .views_show
+    %dt Zgłoszenie
+    %dd= link_to @review.submission.title, @review.submission
+  %dl
+  .views_show
     %dt Treść recenzji
     %dd= simple_format(@review.content)
   %dl
+  .views_show
     %dt Uwagi
     %dd= @review.remarks
+  .views-button
   = link_to "Edytuj", edit_review_path(@review), class: %w{btn btn-primary btn-sm}
