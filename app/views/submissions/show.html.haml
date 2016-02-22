@@ -134,8 +134,9 @@
             %td= version.index+1
             %td= !version.whodunnit.nil? ? version.whodunnit : ""
             %td= version.created_at
-            - if !version.reify(dup: true).nil?
-              %td{class: "#{Submission::STATUS_MAPPING[version.reify(dup: true).status]}"}= version.reify(dup: true).status
+            - submission_version = version.reify(dup: true)
+            - if !submission_version.nil?
+              %td{class: "#{Submission::STATUS_MAPPING[submission_version.status]}"}= submission_version.status
         %tr
           %td Obecna
           %td= @submission.versions.last.whodunnit
