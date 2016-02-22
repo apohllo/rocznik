@@ -82,6 +82,18 @@ feature "zarządzanie osobami" do
 
         expect(page).to have_css("img[src*='man.png']")
       end
+
+      scenario "wysłanie wiadomości do osoby" do
+            visit '/people'
+            click_on 'Kapusta'
+            click_on 'Napisz wiadomość'
+            expect(page).to have_css("h3", text: "Nowa wiadomość do a.kapusta@gmail.com")
+            fill_in 'Tytuł', with: 'Pierwszy mail'
+            fill_in 'Treść', with: 'Szanowny Panie, wysyłam swojego pierwszego maila. Z poważaniem, A.D.'
+            click_on 'Wyślij'
+            open_email('a.kapusta@gmail.com')
+            expect(current_email).to have_content 'Szanowny Panie, wysyłam swojego pierwszego maila. Z poważaniem, A.D.'
+      end
     end
 
     context "z dwoma osobami w bazie danych" do

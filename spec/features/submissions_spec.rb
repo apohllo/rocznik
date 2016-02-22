@@ -53,6 +53,9 @@ feature "zgloszenia" do
           Submission.create!(person: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy",
                              english_title: "Desert and something", english_abstract: "Super lecture", english_keywords:
                              "desert", received: "11-01-2016", language: "polski", issue: Issue.last)
+          Submission.create!(person: Person.first, status: "nadesłany", polish_title: "Zupa",
+                             english_title: "Soup", english_abstract: "Soup is good", english_keywords:
+                             "soup", received: "11-01-2016", language: "polski", issue: Issue.last)
         end
 
         scenario "Sprawdzenie linku do numeru" do
@@ -125,6 +128,13 @@ feature "zgloszenia" do
           visit '/submissions'
 
           expect(page).to have_content("[BRAK DEADLINE'u]")
+        end
+
+        scenario "Wyświetlanie przypisanego numeru" do
+          visit '/submissions'
+          click_link('3/2020', match: :first)
+          expect(page).to have_content('Numer 3/2020')
+          expect(page).to have_content("Alicja w krainie czarów")
         end
 
         scenario "edycja zgloszenia" do
