@@ -4,7 +4,7 @@
       %li= review.reviewer
 
 = simple_form_for @person, url: create_reviewer_public_reviews_path do |f|
-  = select_tag "Artykuł (wersja)", :revision_id, options_from_collection_for_select(ArticleRevision.order('received desc').limit(20), :id, :title)
+  = label_tag("Artykuł (wersja)", select_tag(:revision_id, options_from_collection_for_select(ArticleRevision.order('received desc').limit(20), :id, :title)))
   = f.input :name, label: "Imię"
   = f.input :surname, label: "Nazwisko"
   = f.input :email, label: "E-mail"
