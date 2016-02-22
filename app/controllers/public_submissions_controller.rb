@@ -2,6 +2,7 @@
 
 class PublicSubmissionsController < ApplicationController
   attr_reader :submission, :authorship
+  before_action -> {set_title "Zgłoszenia"}
 
   def new
     @submission = Submission.new
