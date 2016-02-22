@@ -10,11 +10,11 @@
   %h3.scroll-panel-title
     = @submission.title
 .scroll-panel-body
-  .col-sm-offset-2.col-sm-3
+  .col-sm-offset-2.col-sm-3.details
     %dt Status
     %dd{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
   %dl
-  .col-md-3
+  .col-md-3.details
     %dt Redaktor
     %dd
       - if @submission.person
@@ -22,11 +22,10 @@
       - else
         = @submission.editor
   %dl 
-  .col-md-3
+  .col-md-3.details
     %dt Otrzymano
     %dd= @submission.received.strftime("%d-%m-%Y")
-  %dl
-  .submission_show
+  %dl.submission_show
     %dt Numer rocznika
     %dd
       - if @submission.issue
@@ -48,7 +47,7 @@
       %dt Finansowanie
       %dd= simple_format(@submission.funding)
   = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}
-  .submission_show_tables 
+  %h3.submission_show_tables
   %h3 Autorzy
   %table.table.table-hover.table-admin
     %thead

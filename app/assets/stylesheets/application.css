@@ -154,18 +154,12 @@ dd.published {
 }
 
 .submission_show {
-  clear:both;
+  clear: both;
   padding: 20px 0px;
 }
 
-.col-md-3 {
+.details {
  text-align: center;
- padding-top: 20px; 
-}
-
-.col-sm-offset-2.col-sm-3 {
- text-align: center;
- padding-top: 20px;
 }
 
 .submission_show_tables {
