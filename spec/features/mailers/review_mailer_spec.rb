@@ -25,5 +25,11 @@ feature "Zapytanie" do
       expect(current_email).to have_content 'Alicja w krainie czarów'
       expect(current_email).to have_content 'Little about that story'
     end
+
+    scenario "akceptacja recenzji" do
+      open_email('sz4n14@gmail.com')
+      current_email.save_and_open
+      expect(current_email).to have_current_path(accepted_review_url(@review))
+    end
   end
 end
