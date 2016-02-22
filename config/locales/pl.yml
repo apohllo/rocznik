@@ -130,7 +130,6 @@ pl:
     messages:
       accepted: musi zostać zaakceptowane
       blank: nie może być puste
-      
       confirmation: nie zgadza się z polem %{attribute}
       empty: nie może być puste
       equal_to: musi być równe %{count}

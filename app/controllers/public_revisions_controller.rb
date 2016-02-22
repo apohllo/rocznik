@@ -1,4 +1,5 @@
 class PublicRevisionsController < ApplicationController
+  before_action -> {set_title "Rewizje"}
 
   def new
     @revision = ArticleRevision.new
