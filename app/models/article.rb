@@ -8,6 +8,8 @@ class Article < ActiveRecord::Base
   validates :status, presence: true, inclusion: STATUS_MAPPING.keys
   belongs_to :issue
   belongs_to :submission
+  has_many :follow_ups, class_name: "Submission"
+
 
   def authors
     self.submission.authorships.map(&:person)

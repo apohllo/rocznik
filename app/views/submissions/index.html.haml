@@ -39,10 +39,8 @@
             - else
               = submission.editor
           %td
-            - if submission.follows_up_id
-              = link_to submission.follow_ups, "/reviews/" + submission.follow_ups.to_s
-            - else
-              = submission.follow_ups
+            - if submission.follow_up
+              = link_to submission.follow_up.title, submission.follow_up
           %td= submission.received.strftime("%d-%m-%Y")
           %td{class: ("exceeded-deadline" if submission.last_review != nil && submission.deadline_missed?)}= submission.last_deadline
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
