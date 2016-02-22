@@ -1,0 +1,13 @@
+<h3>Szanowna Pani/ Szanowny Panie <%= @review.person.surname %></h3>
+
+<p>W imieniu redakcji Rocznika Kognitywistycznego
+  zwracam się z prośbą o sporządzenie recenzji
+  artykułu: "<%= @review.title %>"
+  Streszczenie <%= @review.abstract %></p>
+
+<p>Akceptacja recenzji:</p>
+  <%= link_to 'Akceptuj recenzję', accepted_review_url(@review) %>
+
+<p> Z wyrazami szacunku
+  redaktor <%= @review.editor %>
+</p>
