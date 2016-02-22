@@ -6,7 +6,7 @@ class ArticleRevision < ActiveRecord::Base
   validates :pages, presence: true, numericality: true
   validates :pictures, presence: true, numericality: true
   validates :version, presence: true, numericality: true
-  
+  validates :article, presence: true
   scope :latest, -> { order("created_at desc").first }
 
   def title
@@ -15,10 +15,6 @@ class ArticleRevision < ActiveRecord::Base
 
   def article?
     !!self.article.path
-  end
-
-  def finalized_reviews
-    self.reviews.finalized
   end
 
   def file_name
