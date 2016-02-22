@@ -8,6 +8,8 @@
       .flash
         - if flash[:error]
           .flash-error= flash[:error]
+        - if flash[:notice]
+          .flash-notice= flash[:notice]
       .container.middle-row
         .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"}
           #sidebar.col-sm-4.col-md-3.sidebar-offcanvas{:role => "navigation"}

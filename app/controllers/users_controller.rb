@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       redirect_to new_person_users_path
     else
       if @user.save
-        #log_in @user
+        sign_in @user
         redirect_to new_person_users_path
       else
         render :new
@@ -28,11 +28,11 @@ class UsersController < ApplicationController
   def create_person
     @person = Person.new(person_params)
     @person.email = current_user.email
-    if Person.where(current_user.email).first
+    if Person.where(email: current_user.email).first
   	  flash[:notice] = "Ten email ma już przypisane dane"
     else
       if @person.save
-        flash[:success] = "Rejestracja przebiegła pomyślnie"
+        flash[:notice] = "Rejestracja przebiegła pomyślnie"
         redirect_to "/"
       else
         render new_person_users_path
