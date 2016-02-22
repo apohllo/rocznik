@@ -25,4 +25,8 @@ class ApplicationController < ActionController::Base
   def request_uri
     self.request.url
   end
+
+  def user_for_paper_trail
+    current_user.email
+  end
 end

@@ -29,10 +29,7 @@ class Submission < ActiveRecord::Base
 
   MAX_LENGTH = 80
 
-  has_paper_trail :on => [:create, :update, :destroy],
-                  :ignore => [:issue_id,:language,:received,:funding,
-                              :remarks,:polish_title,:english_title,:english_abstract,
-                              :english_keywords,:person_id]
+  has_paper_trail :on => [:create, :update, :destroy], :only => [:status]
 
   def authors
     self.authorships.map(&:person)
@@ -146,14 +143,6 @@ class Submission < ActiveRecord::Base
 
   def polish_language?
     self.language == POLISH
-  end
-
-  def version_author version
-    if !version.whodunnit.nil?
-      user_id = version.whodunnit
-      return User.find(user_id).storytime_name
-    end
-    "error"
   end
 
   private

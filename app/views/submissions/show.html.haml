@@ -132,16 +132,12 @@
         - @submission.versions.each do |version|
           %tr
             %td= version.index+1
-            %td= @submission.version_author version
+            %td= !version.whodunnit.nil? ? version.whodunnit : ""
             %td= version.created_at
             - if !version.reify(dup: true).nil?
               %td{class: "#{Submission::STATUS_MAPPING[version.reify(dup: true).status]}"}= version.reify(dup: true).status
         %tr
           %td Obecna
-          %td= @submission.version_author @submission.versions.last
+          %td= @submission.versions.last.whodunnit
           %td= @submission.versions.last.created_at
           %td{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
-
-
-
-      
