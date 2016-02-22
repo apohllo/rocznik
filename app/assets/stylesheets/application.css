@@ -157,16 +157,11 @@ dd.published {
   padding: 20px 0px;
 }
 
-.col-md-3 {
+.reviews_details {
  text-align: center;
  padding-top: 20px; 
- padding-bottom: 2%
-}
-
-.col-sm-offset-2.col-sm-3 {
- text-align: center;
- padding-top: 20px;
  padding-bottom: 2%;
+
 }
 
 .submission_show_tables {
@@ -174,7 +169,7 @@ dd.published {
 }
 
 .views_show {
- clear:both;
+ clear: both;
 }
 
 .views-button {

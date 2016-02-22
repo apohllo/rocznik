@@ -3,21 +3,20 @@
   %h3.scroll-panel-title
     = @review.title
   .scroll-panel-body
-  .col-sm-offset-3.col-sm-4
   %dl
-  .col-md-3
+  .col-sm-offset-1.col-sm-3.reviews_details
     %dt Status
     %dd{class: "#{Review::STATUS_MAPPING[@review.status]}"}= @review.status
   %dl
-  .col-md-3
+  .col-md-3.reviews_details
     %dt Recenzent
     %dd= link_to @review.person.full_name, @review.person
   %dl
-  .col-md-3
+  .col-md-3.reviews_details
     %dt Wysłano zapytanie
     %dd= @review.asked_date
   %dl
-  .col-md-3
+  .col-md-2.reviews_details
     %dt Deadline
     %dd= @review.deadline_date
   %dl
