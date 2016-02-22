@@ -71,7 +71,7 @@ feature "wersje" do
           expect(page).to have_content("Przecinka brakuje jednak w 31 wierszu")
           page.has_checked_field?("Zatwierdź")
         end
-
+        #testy walidacji daty przy tworzeniu nowej wersji
         scenario "Dodawanie nowej wersji bez podania daty otrzymania" do
           visit '/submissions/'
           click_on("Alicja w krainie czarów")
@@ -79,7 +79,7 @@ feature "wersje" do
           click_on("Dodaj wersję")
 
           fill_in "Otrzymano", with: ''
-          fill_in "Liczba stron", with: '1'
+          fill_in "Liczba stron", with: '5'
           fill_in "Liczba ilustracji", with: '1'
           attach_file("Artykuł", 'spec/features/files/plik.pdf')
           click_button 'Dodaj'
