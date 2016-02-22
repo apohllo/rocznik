@@ -18,10 +18,6 @@ class ArticleRevision < ActiveRecord::Base
     !!self.article.path
   end
 
-  def finalized_reviews
-    self.reviews.finalized
-  end
-
   def file_name
     if article?
       File.basename(self.article.path)
