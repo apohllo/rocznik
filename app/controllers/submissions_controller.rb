@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class SubmissionsController < ApplicationController
-  after_update :sentMsg
   before_action :admin_required
   layout "admin"
   before_action -> {set_title "Zgłoszone artykuły"}
@@ -44,17 +43,19 @@ class SubmissionsController < ApplicationController
 
   def update
     @submission = Submission.find(params[:id])
+    status = @submission.status
+    afterStatus = submission_params[:status]
     if @submission.update_attributes(submission_params)
+      if status != afterStatus
+        if afterStatus == 'odrzucony' || afterStatus == 'do poprawy' || afterStatus == 'przyjęty'
+          submission = Submission.find(params[:id])
+          SubmissionMailer.sentMsg(submission).deliver_now
+        end
+      end
       redirect_to @submission
     else
       render :edit
     end
-  end
-
-  def sentMsg
-    submission = Submission.find(params[:id])
-    SubmissionMailer.sentMsg(submission).deliver_now
-    redirect_to submission, flash: {notice: "Informacja o zmianie statusu została wysłana"}
   end
 
   def destroy
