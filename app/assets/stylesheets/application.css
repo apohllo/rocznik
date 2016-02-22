@@ -93,6 +93,12 @@ td.extension, dd.extension {
   color: #fff;
 }
 
+.flash .flash-confirmation {
+  padding: 10px 40px;
+  background: #179c08 none repeat scroll 0% 0%;
+  color: #fff;
+}
+
 input[type=file].file.form-control {
   border: none;
   box-shadow: none;

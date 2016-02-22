@@ -14,7 +14,15 @@ class Article < ActiveRecord::Base
   end
 
   def authors_inline
-    self.authors.empty? ? "[autor nieznany]" :  self.authors.map(&:short_name).join(', ')
+    self.authors.empty? ? "[autor nieznany]" : self.authors.map(&:short_name).join(', ')
+  end
+
+  def authors_mail
+    self.authors.empty? ? "[brak adresów e-mail]" : self.authors.map(&:email).join(', ')
+  end
+
+  def authors_metadata
+    self.authors.empty? ? "[autor nieznany]" : self.authors.map(&:full_name_without_degree)
   end
 
   def title
@@ -32,7 +40,55 @@ class Article < ActiveRecord::Base
       "[BRAK NUMERU]"
     end
   end
-  
+
+  def abstract
+    if self.submission
+      self.submission.english_abstract
+    else
+      "[BRAK STRESZCZENIA]"
+    end
+  end
+
+  def keywords
+    if self.submission
+      self.submission.english_keywords
+    else
+      "[BRAK SŁÓW KLUCZOWYCH]"
+    end
+  end
+
+  def affiliations
+    if self.submission
+      self.submission.authors_institutions
+    else
+      "[BRAK AFFILIACJI]"
+    end
+  end
+
+  def article_pages
+    if !self.pages.blank?
+      self.pages
+    else
+      "[BRAK STRON]"
+    end
+  end
+
+  def link
+    if !self.external_link.blank?
+      self.external_link
+    else
+      "[BRAK LINKU DO ŚCIÁGNIĘCIA ARTYKUŁU]"
+    end
+  end
+
+  def year
+    if !self.issue.year.blank?
+       self.issue.year
+    else 
+       "[BRAK ROKU WYDANIA]"
+    end
+  end
+
   def to_param
     [id, title.parameterize].join("-")
   end

@@ -1,5 +1,7 @@
 class AffiliationsController < ApplicationController
   before_action :admin_required, except: [:institution, :country, :department]
+  before_action -> {set_title "Afilacje"}
+  layout "admin"
 
   def new
     @affiliation = AffiliationComposite.new
