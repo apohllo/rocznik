@@ -1,8 +1,13 @@
 class ArticlesController < ApplicationController
   before_action :admin_required
+  layout "admin"
+  before_action -> {set_title "Artykuły"}
 
   def index
-    @articles = Article.order(:created_at)
+    @query_params = params[:q] || {}
+    @query = Article.ransack(@query_params)
+    @query.sorts = ['created_at'] if @query.sorts.empty?
+    @articles = @query.result.includes(:submission)
   end
 
   def show
@@ -24,6 +29,6 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:issue_id)
+    params.require(:article).permit(:issue_id, :status, :pages, :external_link, :DOI)
   end
 end

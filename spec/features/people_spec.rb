@@ -17,6 +17,14 @@ feature "zarządzanie osobami" do
       expect(page).to have_css("#new_person input[value='Utwórz']")
     end
 
+    scenario "layout dla administratora" do
+      visit "/people"
+      expect(page).not_to have_css("#sidebar")
+
+      visit "/public_issues"
+      expect(page).to have_css("#sidebar")
+    end
+
     scenario "tworzenie nowej osoby" do
       visit '/people/new'
 
@@ -24,7 +32,7 @@ feature "zarządzanie osobami" do
         fill_in "Imię", with: "Andrzej"
         fill_in "Nazwisko", with: "Kapusta"
         fill_in "E-mail", with: "a.kapusta@gmail.com"
-        fill_in "Dyscyplina", with: "filozofia"
+        check "filozofia"
         fill_in "Kompetencje", with: "Arystoteles"
         select "mężczyzna", from: "Płeć", visible: false
         check "recenzent"
@@ -36,9 +44,9 @@ feature "zarządzanie osobami" do
       expect(page).to have_content("Kapusta")
       expect(page).to have_content("a.kapusta@gmail.com")
       expect(page).to have_content("Arystoteles")
+      expect(page).to have_content("filozofia")
       expect(page).to have_css("img[src*='person']")
     end
-
 
     scenario "tworzenie nowej osoby z brakującymi elementami" do
       visit '/people/new'
@@ -53,8 +61,8 @@ feature "zarządzanie osobami" do
 
     context "z jedną osobą w bazie danych" do
       before do
-        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com", discipline: "filozofia", sex:
-                       "mężczyzna")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
+                      sex: "mężczyzna")
       end
 
       scenario "wyświetlenie szczegółów osoby" do
@@ -79,9 +87,9 @@ feature "zarządzanie osobami" do
     context "z dwoma osobami w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
-                       discipline: "filozofia", competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"])
+                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"], discipline: ["filozofia"])
         Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com",
-                       discipline: "psychologia", competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor"])
+                       competence: "percepcja dźwięki", sex: "kobieta", roles: ["autor", "redaktor"], discipline: ["etyka"])
       end
 
       scenario "wyszukanie osoby" do
@@ -99,7 +107,84 @@ feature "zarządzanie osobami" do
         click_on("Filtruj")
 
         expect(page).to have_content("Wanda")
-        expect(page).not_to have_content("Andrze")
+        expect(page).not_to have_content("Andrzej")
+      end
+      
+      scenario "filtrowanie osob po roli" do
+        visit "/people"
+        select "filozofia", from: "Dyscypliny"
+        click_on("Filtruj")
+
+        expect(page).to have_content("Andrzej")
+        expect(page).not_to have_content("Wanda")
+      end
+      
+      before do
+          Issue.create!(volume: 3, year: 2020)
+      end
+      
+       xscenario "reset filtrów i formularza" do
+        visit "/people"
+        fill_in "Nazwisko", with: "Kalafior"
+        expect(page).to have_xpath("//input[@value='Kalafior']")
+        click_button 'x'
+        find_field('Nazwisko').value.blank?
+        select "autor", from: "Rola"
+        click_button 'Filtruj'
+        expect(page).to have_content("Wanda")
+        expect(page).not_to have_content("Andrzej")
+        click_button 'x'
+        expect(page).to have_content("Wanda")
+        expect(page).to have_content("Andrzej")
+      end
+      
+      scenario "przy usuwaniu zgłoszenia powinno być pytanie, czy użytkownik chce usunąć dane zgłoszenie" do
+        visit "/people"
+        click_on 'Kalafior'
+        click_on 'Dodaj zgłoszenie'
+        
+        within("#new_submission") do
+          fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
+          fill_in "Title", with: "English title"
+          fill_in "Abstract", with: "abc"
+          fill_in "Key words", with: "def"
+          fill_in "Otrzymano", with: "19/2/2016"
+          select "Andrzej Kapusta", from: "Redaktor"
+        end
+        click_button("Utwórz")
+        
+        visit "/people"
+        click_on 'Kalafior'
+        page.find(".btn-danger").click 
+        expect(page).to have_content("Zapytanie")
+      end
+      
+    end
+    context "określony status i nieokreślony status" do
+      before do
+        Person.create!(name: "Aleksandra", surname: "Hol", email: "alka.hol@onet.com",
+                      sex: "kobieta", roles: ["recenzent"])
+        Person.create!(name: "Anna", surname: "Kawiarka", email: "annakawi@rka.pl",
+                      sex: "kobieta", roles: ["recenzent"], reviewer_status: "Recenzuje w terminie")
+      end
+      
+      scenario "wyświetlenie statusu recenzenta" do
+        visit "/people"
+        click_on 'Hol'
+        expect(page).not_to have_content("Status recenzenta")
+        
+        visit "/people"
+        click_on 'Kawiarka'
+        expect(page).to have_content("Status recenzenta")    
+      end
+
+      scenario "zmiana statusu recenzenta" do
+        visit "/people"
+        click_on 'Hol'
+        click_on 'Edytuj'
+        select "Recenzuje po terminie", from: "Status recenzenta"
+        click_on 'Zapisz'
+        expect(page).to have_content("Recenzuje po terminie")
       end
     end
   end

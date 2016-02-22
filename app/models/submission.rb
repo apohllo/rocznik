@@ -16,6 +16,11 @@ class Submission < ActiveRecord::Base
   validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
+
+  accepts_nested_attributes_for :article_revisions
+
+  scope :accepted, -> { where(status: "przyjęty") }
+  
   has_one :article
   belongs_to :person
   belongs_to :issue
@@ -23,6 +28,14 @@ class Submission < ActiveRecord::Base
   scope :accepted, -> { where(status: "przyjęty") }
 
   MAX_LENGTH = 80
+
+  def authors
+    self.authorships.map(&:person)
+  end
+
+  def authors_inline
+    self.authors.empty? ? "[AUTOR NIEZNANY]" :  self.authors.map(&:short_name).join(', ')
+  end
 
   def title(cut=true)
     if !self.polish_title.blank?
@@ -33,7 +46,11 @@ class Submission < ActiveRecord::Base
       "[BRAK TYTUŁU]"
     end
   end
-
+ 
+  def finalized_reviews
+    self.article_revision.flat_map(&:finalized_reviews)
+  end
+  
   def abstract
     if !self.english_abstract.blank?
       self.english_abstract
@@ -101,7 +118,7 @@ class Submission < ActiveRecord::Base
   def last_revision
     self.article_revisions.order(:created_at).last
   end
-  
+
   def last_review
     if self.last_revision
       self.last_revision.reviews.order(:deadline).last
@@ -109,7 +126,7 @@ class Submission < ActiveRecord::Base
       nil
     end
   end
-  
+
   def last_deadline
     if self.last_review
       self.last_review.deadline_date
@@ -117,7 +134,15 @@ class Submission < ActiveRecord::Base
       "[BRAK DEADLINE'u]"
     end
   end
-  
+
+  def deadline_missed?
+    self.reviews.any?{|r| r.deadline_missed? }
+  end
+
+  def polish_language?
+    self.language == POLISH
+  end
+
   private
   def cut_text(text,cut)
     if text.size > MAX_LENGTH && cut
@@ -126,5 +151,4 @@ class Submission < ActiveRecord::Base
       text
     end
   end
-
 end

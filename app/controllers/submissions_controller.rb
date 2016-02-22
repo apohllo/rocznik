@@ -2,6 +2,8 @@
 
 class SubmissionsController < ApplicationController
   before_action :admin_required
+  layout "admin"
+  before_action -> {set_title "Zgłoszone artykuły"}
 
   def index
     @query_params = params[:q] || {}
