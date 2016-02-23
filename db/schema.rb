@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218003614) do
+ActiveRecord::Schema.define(version: 20160223153523) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,13 +31,13 @@ ActiveRecord::Schema.define(version: 20160218003614) do
 
   create_table "article_revisions", force: :cascade do |t|
     t.integer  "submission_id"
-    t.integer  "version",       default: 0
+    t.integer  "version",       default: 1
     t.date     "received"
     t.integer  "pages"
     t.integer  "pictures",      default: 0
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "code"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "code",          default: "tekst_"
     t.string   "article"
     t.string   "accepted"
     t.text     "comment"
@@ -63,8 +64,9 @@ ActiveRecord::Schema.define(version: 20160218003614) do
     t.integer  "submission_id"
     t.boolean  "corresponding", default: true
     t.integer  "position",      default: 0
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "signed",        default: false
   end
 
   add_index "authorships", ["person_id", "submission_id"], name: "index_authorships_on_person_id_and_submission_id", unique: true, using: :btree
@@ -127,7 +129,6 @@ ActiveRecord::Schema.define(version: 20160218003614) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.text     "roles",           default: [], null: false, array: true
-    t.string   "photo"
     t.string   "sex"
     t.string   "photo"
     t.text     "competence"
@@ -339,7 +340,6 @@ ActiveRecord::Schema.define(version: 20160218003614) do
     t.datetime "updated_at",                       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
-    t.boolean  "signed",           default: false
   end
 
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
