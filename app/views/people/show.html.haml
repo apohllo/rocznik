@@ -69,7 +69,7 @@
   - # wyswietlenie gratulacji w widoku  
   - if (@person.congratulations==true) && (@person.roles.include?("recenzent"))
     <br> <br>
-    %p.jumbotron <span class="glyphicon glyphicon-star"> </span> #{@salutation} <span class="glyphicon glyphicon-star"></span>
+    %p.jumbotron <span class="glyphicon glyphicon-star"> </span> Gratulujemy i bardzo dziękujemy! <span class="glyphicon glyphicon-star"></span>
   - if @person.roles.include?("recenzent") 
     %h3 Przypisane recenzje
     %table.table.table-hover.table-admin

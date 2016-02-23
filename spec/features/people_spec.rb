@@ -67,7 +67,6 @@ feature "zarządzanie osobami" do
 
       scenario "wyświetlenie szczegółów osoby" do
         visit "/people"
-        save_and_open_page
         click_link("Kapusta")
         expect(page).to have_css("h3", text: "Andrzej Kapusta")
         expect(page).to have_css("dd", text: "mężczyzna")
