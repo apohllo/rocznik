@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20160218003614) do
     t.text     "roles",           default: [], null: false, array: true
     t.string   "photo"
     t.string   "sex"
+    t.string   "photo"
     t.text     "competence"
     t.text     "discipline",      default: [], null: false, array: true
     t.string   "reviewer_status"
