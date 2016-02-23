@@ -11,6 +11,7 @@
       %li &nbsp;
       - if user?
         %li= link_to "Wyloguj", destroy_user_session_path, method: :delete
+        %li= link_to "Profil użytkownika", profile_path
       - else
         %li= link_to "Zaloguj", new_user_session_path
       - if admin?
