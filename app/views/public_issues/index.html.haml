@@ -12,13 +12,6 @@
               %span= image_tag('read.png')
           %div Liczba artykułów: #{issue.articles.count}
 
-:css
-  .panel-primary{
-    cursor: pointer;
-  }
-  .panel-primary:hover .panel-heading{
-    opacity: 0.8;
-  }
 :javascript
   $('.panel-primary').click(function(){
     var ref = $(this).find('a').data('refer');
