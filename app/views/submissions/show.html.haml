@@ -130,4 +130,26 @@
             = icon_to 'fa-pencil-square-o', edit_review_path(review), title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
   = link_to "Dodaj recenzenta", new_review_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
-         
+  %h3 Historia zmian
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Wersja
+        %th Autor zmiany
+        %th Data zmiany
+        %th Status
+    %tbody
+      - if defined?(@submission.versions.last)
+        - @submission.versions.each do |version|
+          %tr
+            %td= version.index+1
+            %td= !version.whodunnit.nil? ? version.whodunnit : ""
+            %td= version.created_at
+            - submission_version = version.reify(dup: true)
+            - if !submission_version.nil?
+              %td{class: "#{Submission::STATUS_MAPPING[submission_version.status]}"}= submission_version.status
+        %tr
+          %td Obecna
+          %td= @submission.versions.last.whodunnit
+          %td= @submission.versions.last.created_at
+          %td{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status

@@ -30,6 +30,8 @@ class Submission < ActiveRecord::Base
 
   MAX_LENGTH = 80
 
+  has_paper_trail :on => [:create, :update, :destroy], :only => [:status]
+
   def authors
     self.authorships.map(&:person)
   end

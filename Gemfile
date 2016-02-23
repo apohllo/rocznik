@@ -20,6 +20,7 @@ gem 'ransack'
 gem 'simple_form_ransack'
 gem 'simple_form_autocomplete'
 gem 'postgres_ext'
+gem 'paper_trail'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
