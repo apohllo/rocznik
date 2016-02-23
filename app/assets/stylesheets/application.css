@@ -112,6 +112,7 @@ input[type=file].file.form-control {
 	margin-right:6px;
 	margin-top:2px;
 }
+
 .fb-like, .twitter-like, .sm-buttons{
     padding-top: 5%;
 }
@@ -155,3 +156,17 @@ dd.published {
 .article-queue-id {
     display: none;
 }
+
+.submission_show {
+  clear: both;
+  padding: 20px 0px;
+}
+
+.details {
+ text-align: center;
+}
+
+.submission_show_tables {
+ padding-top: 5%;
+}
+

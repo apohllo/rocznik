@@ -26,6 +26,7 @@
       %dd= @person.reviewer_status
   
   = link_to "Edytuj", edit_person_path(@person), class: %w{btn btn-primary btn-sm}
+  = link_to "Napisz wiadomość", write_email_path(id: @person.id), class: %w{btn btn-primary btn-sm} 
   %h3 Afiliacje
   %table.table.table-hover.table-admin
     %thead
