@@ -27,7 +27,8 @@ feature "zarządzanie profilem użytkownika" do
       fill_in "Imię", with: "Anna"
       fill_in "Nazwisko", with: "Nowicka"
       click_on("Zapisz")
-        
+      visit '/profile'  
+      
       expect(page).not_to have_css(".has-error")
       expect(page).to have_text("Profesor")
   end
@@ -66,7 +67,7 @@ feature "zarządzanie profilem użytkownika" do
       fill_in "Powtórz nowe hasło", with: password_confirmation
       click_on("Zapisz")
     
-      expect(flash[:error]).to be_present
+      expect(page).to have_contet("Niepoprawne hasło")
     end
   end
 end
