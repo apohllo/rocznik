@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     post :ask, on: :member
     post :send_reminder, on: :member
     post :ask_for_review, on: :member
+    get :accepted, on: :member
   end
   resources :public_reviews do
     get :new_reviewer, on: :collection
@@ -38,8 +39,8 @@ Rails.application.routes.draw do
   resources :articles
   resources :public_articles, only: [:show]
 
-    get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
-    post 'mails/send_email', to: 'mails#send_email', as: :send_email
+  get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
+  post 'mails/send_email', to: 'mails#send_email', as: :send_email
 
   devise_for :users
   mount Storytime::Engine => "/"
