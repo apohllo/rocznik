@@ -26,7 +26,8 @@ feature "zarządzanie recenzjami" do
                                         "polski", received: "02-01-2016", english_title: "Big Bum", english_abstract:
                                         "Big Bum abstract", english_keywords: "big, bum")
         article_file = Rails.root.join("spec/features/files/plik.pdf").open
-        ArticleRevision.create!(submission: submission, version: "1", pages: "3", pictures: "0", article: article_file,)
+        ArticleRevision.create!(submission: submission, received: '19-01-2016', 
+                                version: "1", pages: "3", pictures: "0", article: article_file,)
         Authorship.create!(person: author, submission: submission, corresponding: "true", position: "0")
       end
 
