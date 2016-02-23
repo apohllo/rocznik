@@ -112,6 +112,7 @@ input[type=file].file.form-control {
 	margin-right:6px;
 	margin-top:2px;
 }
+
 .fb-like, .twitter-like, .sm-buttons{
     padding-top: 5%;
 }
@@ -153,19 +154,22 @@ dd.published {
 }
 
 .submission_show {
-  clear:both;
-  padding: 20px 0px;
+ clear: both;
+ padding: 20px 0px;
+}
+
+ .details {
+ text-align: center;
+}
+
+.submission_show_tables {
+ padding-top: 5%;
 }
 
 .reviews_details {
  text-align: center;
  padding-top: 20px; 
  padding-bottom: 2%;
-
-}
-
-.submission_show_tables {
- padding-top: 5%;
 }
 
 .views_show {
@@ -175,3 +179,5 @@ dd.published {
 .views-button {
   padding-top: 4%;
 }
+
+
