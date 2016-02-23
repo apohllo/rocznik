@@ -35,7 +35,7 @@ feature 'Emailer' do
     scenario 'sprawdzenie dodania hasła' do
 	clear_emails
 
-	visit '/submission'
+	visit '/submissions'
 	clink_in 'Alicja w krainie czarów'
 	click_in'Dodaj autora'
         select 'Kapusta, Andrzej', from: 'Autor'
