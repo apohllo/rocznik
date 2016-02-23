@@ -42,14 +42,8 @@ Rails.application.routes.draw do
   end
   resources :public_articles, only: [:show]
 
-<<<<<<< HEAD
-
-    get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
-    post 'mails/send_email', to: 'mails#send_email', as: :send_email
-=======
   get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
   post 'mails/send_email', to: 'mails#send_email', as: :send_email
->>>>>>> c08f16295696656c0daec83c7aefa7630e67211e
 
   devise_for :users
   mount Storytime::Engine => "/"

@@ -67,7 +67,7 @@ feature "zarządzanie profilem użytkownika" do
       fill_in "Powtórz nowe hasło", with: password_confirmation
       click_on("Zapisz")
     
-      expect(page).to have_contet("Niepoprawne hasło")
+      expect(page).to have_content("Niepoprawne hasło")
     end
   end
 end
