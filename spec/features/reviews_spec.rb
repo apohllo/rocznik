@@ -40,7 +40,7 @@ feature "recenzowanie" do
         visit '/submissions'
         fill_in "Tytuł", with: "Arystoteles."
         click_on("Filtruj")
-        page.find(".btn-danger").click, match: :first
+        page.find(".btn-danger", :match => :first).click
         
         expect(page).to have_css(".has-error")
       end
