@@ -99,7 +99,8 @@ feature "zarządzanie osobami" do
     context "z dwoma osobami w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
-                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"], discipline: ["filozofia"])
+                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"],
+                       discipline: ["filozofia"])
         Person.create!(name: "Wanda", surname: "Kalafior", email: "w.kalafior@gmail.com",
                        competence: "percepcja dźwięki", sex: "kobieta",
                        roles: ["autor", "redaktor"], discipline: ["etyka"])
@@ -151,7 +152,7 @@ feature "zarządzanie osobami" do
        expect(page).to have_content("Andrzej")
      end
 
-      scenario "przy usuwaniu zgłoszenia powinno być pytanie, czy użytkownik chce usunąć dane zgłoszenie" do
+      scenario "potwierdzenie przy usuwaniu zgłoszenia" do
         visit "/people"
         click_on 'Kalafior'
         click_on 'Dodaj zgłoszenie'
