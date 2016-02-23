@@ -18,23 +18,15 @@ feature "recenzowanie" do
                              "abstract1", english_keywords: "tag1, tag2")
         article_file = Rails.root.join("spec/features/files/plik.pdf").open
         article_revision_1 =
-<<<<<<< HEAD
-          ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", article: article_file, submission: submission_1)
-=======
           ArticleRevision.create!(version:"1.0", received:"18-01-2016",
                                   pages:"5", article: article_file, submission: submission_1)
->>>>>>> b3fe408550be9db8f89e6169af87c7e1125f8356
         submission_2 =
           Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person: person_1,
                              polish_title: "Arystoteles.", english_title: "title2", english_abstract: "abstract2",
                              english_keywords: "tag1, tag2")
         article_revision_2 =
-<<<<<<< HEAD
-          ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", article: article_file, submission: submission_2)
-=======
           ArticleRevision.create!(version:"1.0", received:"18-01-2016",
                                   pages:"5", article: article_file, submission: submission_2)
->>>>>>> b3fe408550be9db8f89e6169af87c7e1125f8356
         Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person:
                        person_1, article_revision: article_revision_1)
         Review.create!(status: "recenzja negatywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
