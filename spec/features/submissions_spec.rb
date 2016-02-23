@@ -141,7 +141,6 @@ feature "zgloszenia" do
           visit "/submissions/"
           click_on("W pustyni i w puszczy")
           click_on("Edytuj")
-
           fill_in "Otrzymano", with: "16/07/2016"
           click_on("Zapisz")
 
@@ -152,9 +151,9 @@ feature "zgloszenia" do
         scenario "sortowanie zgłoszeń względem daty nadesłania" do
           visit "/submissions"
           click_on("Data nadesłania")
-          expect(page).to have_content(/31-12-2016.*01-01-2013/)
+          expect(page).to have_content(/11-01-2016.*19-01-2016/)
           click_on("Data nadesłania")
-          expect(page).to have_content(/01-01-2013.*31-12-2016/)
+          expect(page).to have_content(/19-01-2016.*11-01-2016/)
         end
 
 
