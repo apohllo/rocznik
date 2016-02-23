@@ -7,6 +7,7 @@ artykułu: "<%= @review.title %>"
 Streszczenie <%= @review.abstract %>
 
 Aby zaakceptować recenzję proszę kliknąć link:<%= accepted_review_url(@review) %>
+Aby odrzucić recenzję proszę kliknąć link:<%= rejected_review_url(@review) %>
 
 Z wyrazami szacunku
 redaktor <%= @review.editor %>

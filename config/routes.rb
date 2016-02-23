@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     post :send_reminder, on: :member
     post :ask_for_review, on: :member
     get :accepted, on: :member
+    get :rejected, on: :member
   end
   resources :public_reviews do
     get :new_reviewer, on: :collection
