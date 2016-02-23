@@ -18,10 +18,6 @@ class Review < ActiveRecord::Base
     "#{self.article_revision.title}"
   end 
   
-  def status
-    self.submission.status
-  end
-  
   def abstract
     self.submission.abstract
   end

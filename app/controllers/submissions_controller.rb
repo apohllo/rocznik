@@ -43,15 +43,10 @@ class SubmissionsController < ApplicationController
 
   def update
     @submission = Submission.find(params[:id])
-    status = @submission.status
-    afterStatus = submission_params[:status]
+    old_status = @submission.status
+    new_status = submission_params[:status]
     if @submission.update_attributes(submission_params)
-      if status != afterStatus
-        if afterStatus == 'odrzucony' || afterStatus == 'do poprawy' || afterStatus == 'przyjęty'
-          submission = Submission.find(params[:id])
-          SubmissionMailer.sentMsg(submission).deliver_now
-        end
-      end
+      check_status(old_status,new_status)
       redirect_to @submission
     else
       render :edit
@@ -62,6 +57,15 @@ class SubmissionsController < ApplicationController
     submission = Submission.find(params[:id])
     submission.destroy
     redirect_to submissions_path
+  end
+
+  def check_status(old_status,new_status)
+    if old_status != new_status
+      if new_status == 'odrzucony' || new_status == 'do poprawy' || new_status == 'przyjęty'
+        submission = Submission.find(params[:id])
+        SubmissionMailer.send_decision(submission).deliver_now
+      end
+    end
   end
 
   private

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :public_issues, only: [:index,:show]
   resources :people
   resources :submissions do
-    post :sentMsg, on: :member
+    post :send_decision, on: :member
   end
   resources :public_submissions, only: [:new, :create] do
     get :authors, on: :collection

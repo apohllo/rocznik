@@ -1,6 +1,6 @@
 class SubmissionMailer < ApplicationMailer
-  def sentMsg(submission)
+  def send_decision(submission)
     @submission = submission
-    mail(from: 'asd@w.pl', to:'asdf@w.pl', subject: 'Informacja o zmianie statusu')
+    mail(to: @submission.person.email, subject: 'Decyzja - Rocznik Kognitywistyczny')
   end
 end
