@@ -21,12 +21,18 @@ feature "Zapytanie" do
       click_link 'Alicja w krainie czarów'
       click_link 'Wyślij zapytanie o sporządzenie recenzji'
       open_email('sz4n14@gmail.com')
-      current_email.save_and_open
       expect(current_email).to have_content 'Gąska'
       expect(current_email).to have_content 'Alicja w krainie czarów'
       expect(current_email).to have_content 'Little about that story'
+    end
+    scenario "akceptacja recenzji" do
+      clear_emails
+      visit '/submissions'
+      click_link 'Alicja w krainie czarów'
+      click_link 'Wyślij zapytanie o sporządzenie recenzji'
+      open_email('sz4n14@gmail.com')
       expect(current_email).to have_link 'Akceptuj recenzję'
-      click_on 'Akceptuj recenzję'
+      current_email.click_on 'Akceptuj recenzję'
       expect(page).to have_content 'recenzja przyjęta'
     end
   end
