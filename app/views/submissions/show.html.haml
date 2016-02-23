@@ -1,34 +1,37 @@
 .scroll-panel-header
   = link_to "Zgłoszenia", submissions_path, class: %w{btn btn-default btn-sm pull-right}
   = link_to "Nowe zgłoszenie", new_submission_path, class: %w{btn btn-default btn-sm pull-right}
-  %h3.scroll-panel-title
-    = @submission.title
-.scroll-panel-body
   %dl
-    %dt Status
-    %dd{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
-  %dl
+  .col-md-1
     - if @submission.polish_language?
       = image_tag('pl.png')
     - else
       = image_tag('gb.png')
+  %h3.scroll-panel-title
+    = @submission.title
+.scroll-panel-body
+  .col-sm-offset-2.col-sm-3.details
+    %dt Status
+    %dd{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
   %dl
+  .col-md-3.details
     %dt Redaktor
     %dd
       - if @submission.person
         = link_to @submission.editor, @submission.person
       - else
         = @submission.editor
-  %dl
+  %dl 
+  .col-md-3.details
+    %dt Otrzymano
+    %dd= @submission.received.strftime("%d-%m-%Y")
+  %dl.submission_show
     %dt Numer rocznika
     %dd
       - if @submission.issue
         = link_to @submission.issue_title, @submission.issue
       - else
         = @submission.issue
-  %dl
-    %dt Otrzymano
-    %dd= @submission.received.strftime("%d-%m-%Y")
   %dl
     %dt Streszczenie
     %dd.more= @submission.abstract
@@ -44,6 +47,7 @@
       %dt Finansowanie
       %dd= simple_format(@submission.funding)
   = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}
+  %h3.submission_show_tables
   %h3 Autorzy
   %table.table.table-hover.table-admin
     %thead
@@ -61,6 +65,7 @@
           %td.text-right
             = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")
   = link_to "Dodaj autora", new_authorship_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
+  .submission_show_tables 
   %h3 Wersje
   %table.table.table-hover.table-admin#version
     %thead
@@ -89,6 +94,7 @@
             = edit_button(revision,edit_article_revision_path(revision),"Edytuj komentarz")
             = destroy_button(revision,"Czy na pewno chcesz usunąć tę wersję wraz z recenzjami?")
   = link_to "Dodaj wersję", new_article_revision_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
+  .submission_show_tables 
   %h3 Recenzje
   %table.table.table-hover.table-admin
     %thead
@@ -119,4 +125,26 @@
             = icon_to 'fa-pencil-square-o', edit_review_path(review), title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
   = link_to "Dodaj recenzenta", new_review_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
-         
+  %h3 Historia zmian
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Wersja
+        %th Autor zmiany
+        %th Data zmiany
+        %th Status
+    %tbody
+      - if defined?(@submission.versions.last)
+        - @submission.versions.each do |version|
+          %tr
+            %td= version.index+1
+            %td= !version.whodunnit.nil? ? version.whodunnit : ""
+            %td= version.created_at
+            - submission_version = version.reify(dup: true)
+            - if !submission_version.nil?
+              %td{class: "#{Submission::STATUS_MAPPING[submission_version.status]}"}= submission_version.status
+        %tr
+          %td Obecna
+          %td= @submission.versions.last.whodunnit
+          %td= @submission.versions.last.created_at
+          %td{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
