@@ -112,7 +112,7 @@ feature "zgloszenia" do
           select "polski", from: "Język"
           
           click_on("Filtruj")
-          expect(page).to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/)
+          expect(page).to have_content(/Alicja w krainie czarów.*W pustyni i w puszczy/)
         end
         
         scenario "Filtrowanie po języku" do
@@ -200,9 +200,9 @@ feature "zgloszenia" do
         scenario "sortowanie zgłoszeń względem daty nadesłania" do
           visit "/submissions"
           click_on("Data nadesłania")
-          expect(page).to have_content(/01-01-2015.*01-01-2016/)
+          expect(page).to have_content(/11-01-2016.*19-01-2016/)
           click_on("Data nadesłania")
-          expect(page).to have_content(/01-01-2016.*01-01-2015/)
+          expect(page).to have_content(/19-01-2016.*11-01-2016/)
         end
 
         xscenario "reset filtrów i formularza" do
