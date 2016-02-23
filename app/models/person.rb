@@ -87,7 +87,7 @@ class Person < ActiveRecord::Base
   def reviews_count
     reviews_count = self.reviews.where.not("status ='recenzja odrzucona' or  status ='wysłano zapytanie'").count
   end
-
+#metoda sprawdzajaca, czy wyswietlac gratulacje
 
   def congratulations
     if (self.reviews_count%5==0)&&(self.reviews_count>=5)

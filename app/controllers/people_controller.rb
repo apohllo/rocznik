@@ -39,10 +39,22 @@ class PeopleController < ApplicationController
 
 def show
     @person = Person.find(params[:id])
+    #Wyswietlanie gratulacji, co piata recenzje.
+    if (@person.congratulations) then
+      if(@person.sex == "kobieta") 
+          then @salutation = "Pani #{@person.name} #{@person.surname} przyjęła już #{@person.reviews_count} recenzję. <br>
+          Gratulujemy i bardzo dziękujemy!"
+          elsif (@person.sex == "mężczyzna") 
+          then @salutation = "Pan #{@person.name} #{@person.surname} przyjął już #{@person.reviews_count} recenzję. <br>
+          Gratulujemy i bardzo dziękujemy!"
+
+          else @salutation = "Użytkownik #{@person.name} #{@person.surname} przyjął już #{@person.reviews_count} recenzję.
+          Gratulujemy i bardzo dziękujemy!"
+          end
+      end
     end
 
-
-  private
+private
   def person_params
     params.require(:person).permit(:name,:surname,:degree,:email,:sex,:photo,:competence,:reviewer_status, roles: [], discipline: [])
 

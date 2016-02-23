@@ -199,5 +199,57 @@ feature "zarządzanie osobami" do
         expect(page).to have_content("Recenzuje po terminie")
       end
     end
+
+    context "Z uzytkownikiem, ktory ma pięć recenzji" do
+      include_context "admin login"
+      before do 
+        person_1 = Person.create!(name: "Andrzej", surname: "Ziemniak", email: "a.ziemniak@gmail.com", discipline: "filozofia", competence: "percepcja wzrokowa", sex: "mężczyzna", roles: ["autor"])
+        person_2 = Person.create!(name: "Andrzej", surname: "Marchew", email: "a.marchew@gmail.com", discipline: "filozofia", competence: "percepcja dźwięki", sex: "mężczyzna", roles: ["recenzent"])
+        person_3 = Person.create!(name: "Agata", surname: "Kalarepa", email: "a.kalarepa@gmail.com", discipline: "filozofia", competence: "percepcja dźwięki", sex: "kobieta", roles: ["recenzent"])
+        submission = Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person: person_1, polish_title: "Arystoteles.", english_title: "title2", english_abstract: "abstract2",english_keywords: "tag1, tag2")
+        
+        # Taki ładny kod i działał, nie wiem czemu się kompilator czepia mojego obiektu article_revision[i]
+        # 5.times{
+        #   |i| article_revision[i] = ArticleRevision.create!(version:"#{i+1}.0", received:"#{i+1}-01-2016", pages:"5", submission: submission)
+        # }
+        article_revision_1 = ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: submission)
+        article_revision_2 = ArticleRevision.create!(version:"2.0", received:"19-01-2016", pages:"5", submission: submission)
+        article_revision_3 = ArticleRevision.create!(version:"3.0", received:"20-01-2016", pages:"5", submission: submission)
+        article_revision_4 = ArticleRevision.create!(version:"4.0", received:"21-01-2016", pages:"5", submission: submission)
+        article_revision_5 = ArticleRevision.create!(version:"5.0", received:"22-01-2016", pages:"5", submission: submission)
+        
+        # Taki ładny kod i działał, nie wiem czemu się kompilator czepia mojego obiektu article_revision[j]
+        # 5.times {|j|
+        #  Review.create!(status: "recenzja pozytywna", content: " ", asked: "#{j+1}-02-2016", deadline: "16-01-2017", person:
+        #                person_2, article_revision: article_revision[j])
+        # }
+        
+        Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_2, article_revision: article_revision_3)
+        Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_2, article_revision: article_revision_4)
+        Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_2, article_revision: article_revision_5)
+         Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                       person_2, article_revision: article_revision_2)
+        Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                      person_2, article_revision: article_revision_3)
+        Review.create!(status: "recenzja pozytywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
+                      person_3, article_revision: article_revision_3)
+        
+        end
+
+       scenario "wyświetlenie szczegółów osoby" do
+        visit "/people"
+        click_link("Marchew")
+        expect(page).to have_content("Gratulujemy i bardzo dziękujemy!")
+        expect(page).to have_content("5")
+        end
+
+      scenario "wyświetlenie szczegółów osoby" do
+        visit "/people"
+        click_link("Kalarepa")
+        expect(page).not_to have_content("Gratulujemy i bardzo dziękujemy!")  
+    end
   end
 end
