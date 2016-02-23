@@ -81,14 +81,6 @@ class Submission < ActiveRecord::Base
     end
   end
   
-  def follow_ups
-    if self.follows_up_id
-      self.follows_up_id
-    else
-      "[BRAK]"
-    end
-  end
-  
   def author
     authorship = self.authorships.where(corresponding: true).first
     if authorship

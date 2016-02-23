@@ -29,6 +29,12 @@
   %dl
     %dt Otrzymano
     %dd= @submission.received.strftime("%d-%m-%Y")
+  %dl 
+    %dt Nawiązywanie do
+    %dd
+      - if @submission.follow_up
+        = link_to submission.follow_up.title, submission.follow_up
+
   %dl
     %dt Streszczenie
     %dd.more= @submission.abstract

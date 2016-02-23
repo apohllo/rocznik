@@ -17,7 +17,6 @@
         %th Tytuł
         %th Autor korespondujący
         %th Redaktor
-        %th Nawiązanie do
         %th Data nadesłania
         %th Deadline recenzji
         %th Status
@@ -42,9 +41,6 @@
               = link_to submission.editor, submission.person
             - else
               = submission.editor
-          %td
-            - if submission.follow_up
-              = link_to submission.follow_up.title, submission.follow_up
           %td= submission.received.strftime("%d-%m-%Y")
           %td{class: ("exceeded-deadline" if submission.last_review != nil && submission.deadline_missed?)}= submission.last_deadline
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
