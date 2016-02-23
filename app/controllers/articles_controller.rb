@@ -24,11 +24,11 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     if @article.update_attributes(article_params)
       on_success = true
-      redirect_to @article unless request.format == :json
+      return redirect_to @article unless request.format == :json
     else
-      render :edit unless request.format == :json
+      return render :edit unless request.format == :json
     end
-    render :json => { ok: on_success } if request.format == :json
+    render :json => { ok: on_success }
   end
 
   private
