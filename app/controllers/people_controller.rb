@@ -39,6 +39,7 @@ class PeopleController < ApplicationController
 
 def show
     @person = Person.find(params[:id])
+<<<<<<< HEAD
     #Wyswietlanie gratulacji, co piata recenzje.
     if (@person.congratulations) then
       if(@person.sex == "kobieta") 
@@ -54,9 +55,11 @@ def show
       end
     end
 
-private
-  def person_params
-    params.require(:person).permit(:name,:surname,:degree,:email,:sex,:photo,:competence,:reviewer_status, roles: [], discipline: [])
+  end
 
+  private
+  def person_params
+    params.require(:person).permit(:name,:surname,:degree,:email,:sex,:photo,
+                                   :competence,:reviewer_status, roles: [], discipline: [])
   end
 end
