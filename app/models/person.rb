@@ -59,10 +59,11 @@ class Person < ActiveRecord::Base
     "#{self.degree} #{self.name} #{self.surname}"
   end
 
+
   def full_name_without_degree
     "#{self.name} #{self.surname}"
   end
-
+  
   def reverse_full_name
     "#{self.surname}, #{self.name}, #{self.degree}"
   end
@@ -83,8 +84,23 @@ class Person < ActiveRecord::Base
   end
 
 
+  def reviews_count
+    reviews_count = self.reviews.where.not("status ='recenzja odrzucona' or  status ='wysłano zapytanie'").count
+  end
+
+
+  def congratulations
+    if (self.reviews_count%5==0)&&(self.reviews_count>=5)
+      then true
+      else false
+    end
+    
+  end
+
+
   def reviewer?
     self.roles.include?("recenzent")
   end
   
+
 end
