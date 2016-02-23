@@ -21,21 +21,14 @@ class ArticlesController < ApplicationController
   def update
     on_success = false
 
-    if request.format == :json
-      @issue = Issue.where("volume = ?", params[:issue_volume]).find_by(year: params[:issue_year])
-      @article = Article.find_by(submission_id: params[:submission_id])
-      if @article.update_article_position(params[:article_position].eql?("article-up") ? "article-up" : "")
-        on_success = true
-      end
+    @article = Article.find(params[:id])
+    if @article.update_attributes(article_params)
+      on_success = true
+      redirect_to @article unless request.format == :json
     else
-      @article = Article.find(params[:id])
-      if @article.update_attributes(article_params)
-        return redirect_to @article
-      else
-        return render :edit
-      end
+      render :edit unless request.format == :json
     end
-    render :json => { ok: on_success }
+    render :json => { ok: on_success } if request.format == :json
   end
 
   private

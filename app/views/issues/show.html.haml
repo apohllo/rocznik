@@ -46,7 +46,8 @@
             %td
               %i{class: "fa fa-chevron-up btn", id: "article-up"}
               %i{class: "fa fa-chevron-down btn", id: "article-down"}
-              %i{class: "article-queue-id"}= article.submission_id
+              %i{class: "article-queue-id article-id"}= article.id
+              %i{class: "article-queue-id issue-position"}= article.issue_position
             %td= article.submission.title
             %td= article.authors_inline
             %td= article.status

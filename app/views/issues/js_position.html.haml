@@ -1,28 +1,28 @@
 :javascript
   $(document).ready(function () {
     $('.fa-chevron-up').click(function () {
-      ajax_on_demand($(this));
+      ajax_on_demand($(this), -1);
     });
 
     $('.fa-chevron-down').click(function () {
-      ajax_on_demand($(this));
+      ajax_on_demand($(this), 1);
     });
   });
 
-  function ajax_on_demand(item) {
+  function ajax_on_demand(item, direction) {
     $.ajax({
       method: 'PATCH',
-      url: get_base_url() + "/articles/position",
+      url: get_base_url() + "/articles/" + parseInt($(item).siblings('.article-id').text()),
       dataType: 'json',
-      data: JSON.stringify({submission_id: parseInt($(item).siblings('.article-queue-id').text()),
-                            article_position: $(item).attr('id'),
-                            issue_volume: parse_issue_volume(),
-                            issue_year:  parse_issue_year()}),
+      data: JSON.stringify({issue_position: parseInt($(item).siblings('.issue-position').text())+direction}),
       headers: {
           "Content-type":"application/json"
       },
       success: function(rails_response) {
-        update_queue($(item), rails_response.ok);
+        if (rails_response.ok) {
+          update_position_values($(item), direction);
+          update_queue($(item), rails_response.ok);
+        }
       },
       error: function() {
         return false;
@@ -30,27 +30,26 @@
     });
   }
 
-  function update_queue(item, rails_response) {
-    if (rails_response) {
-      var article = $(item).parent().parent();
-      var sibling = $(item).attr('id') == "article-up" ? $(item).parent().parent().prev() : $(item).parent().parent().next();
-      $(item).attr('id') == "article-up" ? $(sibling).before(article) : $(sibling).after(article);
+  function update_queue(item) {
+    var article = $(item).parent().parent();
+    var sibling = $(item).attr('id') == "article-up" ? $(item).parent().parent().prev() : $(item).parent().parent().next();
+    $(item).attr('id') == "article-up" ? $(sibling).before(article) : $(sibling).after(article);
+  }
+
+  function update_position_values(item, direction) {
+    var clicked_article = $(item).siblings('.issue-position');
+    var halp = clicked_article.text();
+
+    var parent_sibling = $(item).parent().parent();
+    if (direction >= 1) {
+      var article_position = parent_sibling.next().children().children('.issue-position');
+      clicked_article.text(article_position.text());
+      article_position.text(halp);
+    } else {
+      article_position = parent_sibling.prev().children().children('.issue-position');
+      clicked_article.text(article_position.text());
+      article_position.text(halp);
     }
-  }
-
-  function parse_issue_volume() {
-    var volume = parse_issue_url();
-    return volume[0].toString();
-  }
-
-  function parse_issue_year() {
-    var year = parse_issue_url();
-    return year[year.length-1].toString();
-  }
-
-  function parse_issue_url() {
-    var url = $(location).attr('href').split('/');
-    return url[url.length-1].split('-');
   }
 
   function get_base_url() {
