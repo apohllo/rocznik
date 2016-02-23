@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
       redirect_to new_user_session_path
     end
   end
-
+  
   def user?
     !current_user.nil?
   end
@@ -24,5 +24,16 @@ class ApplicationController < ActionController::Base
 
   def request_uri
     self.request.url
+  end
+
+  def user_for_paper_trail
+    current_user.email unless !user?
+  end
+  
+  def user_required
+    unless user?
+      flash[:error] = 'Akcja wymaga uprawnień tego użytkownika'
+      redirect_to new_user_session_path
+    end
   end
 end
