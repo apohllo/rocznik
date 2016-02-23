@@ -29,7 +29,7 @@ class AuthorshipsController < ApplicationController
      user = User.find_by_email(params[:authorship.person.email]).nil? 
 	if user = 0
 	user = User.new(email: @email, password: @password, password_confirmation: @password)
-	User_mailer.registration_user(@submission).deliver_now
+	User_mailer.add(@email, @password).deliver_now
       end
   end
 
