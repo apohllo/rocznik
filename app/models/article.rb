@@ -120,7 +120,7 @@ class Article < ActiveRecord::Base
   def create_position_order
     taken_position = map_position
     if taken_position.length > 1
-      taken_position = (1..taken_position.length+5).to_a - taken_position
+      taken_position = (1..taken_position.length+1).to_a - taken_position
       self.update_column(:issue_position, taken_position[0])
     end
   end
