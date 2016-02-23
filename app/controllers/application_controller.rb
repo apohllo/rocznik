@@ -2,7 +2,9 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  include ApplicationHelper
   helper_method :user?, :admin?, :request_uri
+  before_action -> {set_title}
 
   protected
   def admin_required
@@ -22,5 +24,9 @@ class ApplicationController < ActionController::Base
 
   def request_uri
     self.request.url
+  end
+
+  def user_for_paper_trail
+    current_user.email unless !user?
   end
 end

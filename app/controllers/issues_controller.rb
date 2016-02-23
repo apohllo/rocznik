@@ -1,5 +1,7 @@
 class IssuesController < ApplicationController
   before_action :admin_required
+  layout "admin"
+  before_action -> {set_title "Numery rocznika"}
 
   def index
     @query_params = params[:q] || {}

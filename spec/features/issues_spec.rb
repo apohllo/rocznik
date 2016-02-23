@@ -149,7 +149,9 @@ feature "zarządzanie numerami" do
           before do
             Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                            "mężczyzna", roles: ['redaktor', 'recenzent'])
-            revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1)
+            article_file = Rails.root.join("spec/features/files/plik.pdf").open
+            revision = ArticleRevision.create!(submission: Submission.first,
+                                               pages: 1, pictures: 1, version: 1, article: article_file)
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
                            status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
           end
@@ -195,7 +197,7 @@ feature "zarządzanie numerami" do
               Issue.first.update_attributes(published: true)
             end
             scenario "Pojawienie się numeru na liście wydanych numerów" do
-              visit "/submissions"
+              visit "/public_issues"
               expect(page).to have_css("li a",text: "3/2020")
             end
             scenario "Wyświetl wydany numer jako niezalogowany użytkownik" do

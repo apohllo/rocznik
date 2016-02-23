@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212141645) do
+ActiveRecord::Schema.define(version: 20160218003614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 20160212141645) do
 
   create_table "article_revisions", force: :cascade do |t|
     t.integer  "submission_id"
-    t.integer  "version",       default: 1
+    t.integer  "version",       default: 0
     t.date     "received"
     t.integer  "pages"
     t.integer  "pictures",      default: 0
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.string   "code",          default: "tekst_"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "code"
     t.string   "article"
     t.string   "accepted"
     t.text     "comment"
@@ -120,18 +120,19 @@ ActiveRecord::Schema.define(version: 20160212141645) do
   end
 
   create_table "people", force: :cascade do |t|
-    t.string   "name",                    null: false
-    t.string   "surname",                 null: false
-    t.string   "email",                   null: false
+    t.string   "name",                         null: false
+    t.string   "surname",                      null: false
+    t.string   "email",                        null: false
     t.string   "degree"
     t.string   "orcid"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.text     "roles",      default: [], null: false, array: true
-    t.string   "sex"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.text     "roles",           default: [], null: false, array: true
     t.string   "photo"
+    t.string   "sex"
     t.text     "competence"
-    t.text     "discipline", default: [], null: false, array: true
+    t.text     "discipline",      default: [], null: false, array: true
+    t.string   "reviewer_status"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
@@ -360,6 +361,17 @@ ActiveRecord::Schema.define(version: 20160212141645) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   add_foreign_key "affiliations", "departments"
   add_foreign_key "affiliations", "people"

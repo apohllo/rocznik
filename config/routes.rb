@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   resources :public_issues, only: [:index,:show]
   resources :people
   resources :submissions
+  resources :public_submissions, only: [:new, :create] do
+    get :authors, on: :collection
+    post :add_author, on: :collection
+    post :cancel
+  end
   resources :affiliations, only: [:new, :create, :destroy] do
     get :institutions, on: :collection
     get :countries, on: :collection
@@ -21,11 +26,20 @@ Rails.application.routes.draw do
   resources :reviews do
     post :ask, on: :member
     post :send_reminder, on: :member
+    post :ask_for_review, on: :member
+  end
+  resources :public_reviews do
+    get :new_reviewer, on: :collection
+    post :create_reviewer, on: :collection
+    get :finish, on: :collection
   end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
   resources :articles
   resources :public_articles, only: [:show]
+
+  get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
+  post 'mails/send_email', to: 'mails#send_email', as: :send_email
 
   devise_for :users
   mount Storytime::Engine => "/"

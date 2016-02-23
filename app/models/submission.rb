@@ -16,6 +16,11 @@ class Submission < ActiveRecord::Base
   validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
+
+  accepts_nested_attributes_for :article_revisions
+
+  scope :accepted, -> { where(status: "przyjęty") }
+
   has_one :article
   belongs_to :person
   belongs_to :issue
@@ -23,6 +28,8 @@ class Submission < ActiveRecord::Base
   scope :accepted, -> { where(status: "przyjęty") }
 
   MAX_LENGTH = 80
+
+  has_paper_trail on: [:create, :update, :destroy], only: [:status]
 
   def authors
     self.authorships.map(&:person)
@@ -134,6 +141,22 @@ class Submission < ActiveRecord::Base
     self.language == POLISH
   end
 
+  def latest_modifier
+    if self.versions.last
+      self.versions.last.whodunnit
+    else
+      "[AUTOR MODYFIKACJI NIEZNANY]"
+    end
+  end
+
+  def latest_modification_time
+    if self.versions.last
+      self.versions.last.created_at
+    else
+      "[DATA MODYFIKACJI NIEZNANA]"
+    end
+  end
+
   private
   def cut_text(text,cut)
     if text.size > MAX_LENGTH && cut
@@ -142,5 +165,4 @@ class Submission < ActiveRecord::Base
       text
     end
   end
-
 end

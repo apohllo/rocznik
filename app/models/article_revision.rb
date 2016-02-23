@@ -3,11 +3,10 @@ class ArticleRevision < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   mount_uploader :article, ArticleUploader
 
-  validates :submission_id, presence: true
   validates :pages, presence: true, numericality: true
   validates :pictures, presence: true, numericality: true
   validates :version, presence: true, numericality: true
-  
+  validates :article, presence: true
   scope :latest, -> { order("created_at desc").first }
 
   def title

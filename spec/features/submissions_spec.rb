@@ -44,6 +44,7 @@ feature "zgloszenia" do
         expect(page).to have_content("Testowy tytuł zgłoszenia")
       end
 
+
       context "2 zgłoszenia w bazie danych" do
         before do
           Submission.create!(person: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów",
@@ -52,6 +53,17 @@ feature "zgloszenia" do
           Submission.create!(person: Person.first, status: "do poprawy", polish_title: "W pustyni i w puszczy",
                              english_title: "Desert and something", english_abstract: "Super lecture", english_keywords:
                              "desert", received: "11-01-2016", language: "polski", issue: Issue.last)
+          Submission.create!(person: Person.first, status: "nadesłany", polish_title: "Zupa",
+                             english_title: "Soup", english_abstract: "Soup is good", english_keywords:
+                             "soup", received: "11-01-2016", language: "polski", issue: Issue.last)
+        end
+
+        scenario "Sprawdzenie linku do numeru" do
+          visit "/submissions"
+          click_on("Alicja w krainie czarów")
+          click_on("3/2020")
+
+          expect(page).to have_content("Numer 3/2020")
         end
 
         scenario "Filtrowanie zgłoszeń po statusie" do
@@ -94,23 +106,56 @@ feature "zgloszenia" do
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
 
+        scenario "Filtrowanie po języku" do
+          visit "/submissions"
+
+          select "polski", from: "Język"
+
+          click_on("Filtruj")
+          expect(page).to have_content(/Alicja w krainie czarów.*W pustyni i w puszczy/)
+        end
+
+        scenario "Filtrowanie po języku" do
+          visit "/submissions"
+
+          select "angielski", from: "Język"
+
+          click_on("Filtruj")
+          expect(page).not_to have_content(/Alicja w krainie czarów.*W pustyni i w puszczy/)
+        end
+
         scenario "Wyświetlanie braku dealine'u" do
           visit '/submissions'
 
           expect(page).to have_content("[BRAK DEADLINE'u]")
         end
 
+        scenario "Wyświetlanie przypisanego numeru" do
+          visit '/submissions'
+          click_link('3/2020', match: :first)
+          expect(page).to have_content('Numer 3/2020')
+          expect(page).to have_content("Alicja w krainie czarów")
+        end
+
         scenario "edycja zgloszenia" do
           visit "/submissions/"
           click_on("W pustyni i w puszczy")
           click_on("Edytuj")
-
           fill_in "Otrzymano", with: "16/07/2016"
           click_on("Zapisz")
 
           expect(page).not_to have_css(".has-error")
           expect(page).to have_content("16-07-2016")
         end
+
+        scenario "sortowanie zgłoszeń względem daty nadesłania" do
+          visit "/submissions"
+          click_on("Data nadesłania")
+          expect(page).to have_content(/11-01-2016.*19-01-2016/)
+          click_on("Data nadesłania")
+          expect(page).to have_content(/19-01-2016.*11-01-2016/)
+        end
+
 
         context "Z recenzją" do
           before do
@@ -138,7 +183,6 @@ feature "zgloszenia" do
             expect(current_email).to have_content 'Z poważaniem,'
             expect(current_email).to have_content 'Kapusta'
             expect(current_email).to have_content 'remind_icon.png'
-            current_email.save_and_open
           end
         end
       end
@@ -177,6 +221,52 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           expect(page).to have_content("W pustyni i w puszczy")
         end
+      end
+
+      context "historia zgloszen" do
+        before do
+          person = Person.create!(name: "Andrzej", surname: "Sałata", email:
+                                                     "a.salata@gmail.com", sex: "mężczyzna", roles: ['autor'])
+          issue = Issue.create!(volume: 12, year: 2020)
+          Submission.create!(person: person, status: "u redaktora", polish_title: "Alicja w krainie czarów",
+                             english_title: "Alice in Wonderland", english_abstract: "Little about that story",
+                             english_keywords: "alice", received: "19-01-2016", language: "polski", issue: issue)
+        end
+
+
+        scenario "wyswietlenie historii po utworzeniu zgloszenia" do
+          visit '/submissions'
+
+          expect(page).to have_content("Alicja w krainie czarów")
+
+          click_on("Alicja w krainie czarów")
+
+          expect(page).to have_content("1")
+          expect(page).to have_content("Obecna")
+          expect(page).to have_content("u redaktora")
+        end
+
+        scenario "wyswietlenie nowej pozycji w historii, po zmianie statusu zgloszenia" do
+          visit '/submissions'
+          expect(page).to have_content("Alicja w krainie czarów")
+          click_on("Alicja w krainie czarów")
+
+          click_on("Edytuj")
+          select('przyjęty', from: 'submission_status')
+          click_on("Zapisz")
+
+          visit '/submissions'
+          expect(page).to have_content("Alicja w krainie czarów")
+          click_on("Alicja w krainie czarów")
+
+          expect(page).to have_content("Alicja w krainie czarów")
+          expect(page).to have_content("1")
+          expect(page).to have_content("2")
+          expect(page).to have_content("Obecna")
+          expect(page).to have_content("u redaktora")
+          expect(page).to have_content("przyjęty")
+        end
+
       end
     end
   end
