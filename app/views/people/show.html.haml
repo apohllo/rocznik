@@ -5,21 +5,23 @@
     = @person.full_name
 .scroll-panel-body
   = image_tag(@person.photo, alt:"#{@person.full_name} - zdjęcie")
-  %dl
-    %dt E-mail
-    %dd= @person.email
-  %dl
-    %dt Płeć
-    %dd= @person.sex
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Płeć
+        %th E-mail
+        %th Role
+    %tbody
+      %tr
+        %td= @person.sex
+        %td= @person.email
+        %td= @person.roles.join
   %dl
     %dt Dyscypliny
     %dd= @person.discipline.join(", ")
   %dl
     %dt Kompetencje
     %dd= @person.competence
-  %dl
-    %dt Role w systemie
-    %dd= @person.roles.join
   %dl
     - if @person.reviewer?  && !@person.reviewer_status.blank?
       %dt Status recenzenta
