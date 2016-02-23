@@ -1,9 +1,11 @@
 %ol
   - if @revision
     - @revision.reviews.each do |review|
-      %li= review.reviewer
+      %li= review.reviewer, review.status
 
 = simple_form_for @person, url: create_reviewer_public_reviews_path do |f|
+  = label_tag(:status, "Rodzaj propozycji")
+  = select_tag(:status, options_for_select(["proponowany recenzent", "proponowany recenzent"], ["niechciany recenzent", "niechciany recenzent"]))
   = label_tag(:revision_id, "Artykuł (wersja)")
   = select_tag(:revision_id, options_from_collection_for_select(ArticleRevision.order('received desc').limit(20), :id, :title))
   = f.input :name, label: "Imię"
@@ -13,5 +15,5 @@
   = f.hidden_field :roles, value: "recenzent", label: "Role", name: "person[roles][]"
  
   = f.submit 'Dodaj propozycję', class: %w{btn btn-primary btn-outline}
-  = button_to 'Zakończ dodawanie recenzentów', finish_public_reviews_path, method: :get
+  = button_to 'Zakończ dodawanie recenzentów', class: %w{btn btn-default}, finish_public_reviews_path, method: :get
 
