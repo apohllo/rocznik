@@ -38,7 +38,7 @@ feature 'Emailer' do
 	visit '/submission'
 	clink_in 'Alicja w krainie czarów'
 	click_in'Dodaj autora'
-        select 'Kapusta, Andrzej', from 'Autor'
+        select 'Kapusta, Andrzej', from: 'Autor'
 	click_in'Dodaj'
 	open_email('a.kapusa@gmail.com')
 	expect(current_email).to have_content 'hasło'
