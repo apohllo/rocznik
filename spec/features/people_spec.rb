@@ -200,6 +200,14 @@ feature "zarządzanie osobami" do
         click_on 'Zapisz'
         expect(page).to have_content("Recenzuje po terminie")
       end
+      
+      xscenario "sprawdzanie przekierowania do wyszukiwarki Google" do
+        visit "/people"
+        click_on 'Hol'
+        click_link 'Google'
+        
+        expect(page).to have_current_path('google.pl')
+      end
     end
 
     context "Z uzytkownikiem, ktory ma pięć recenzji" do
