@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     get :show_reviews, on: :member
   end
   resources :public_issues, only: [:index,:show]
-  resources :people
+  resources :people do
+    get :search, on: :member
+  end
   resources :submissions
   resources :public_submissions, only: [:new, :create] do
     get :authors, on: :collection
