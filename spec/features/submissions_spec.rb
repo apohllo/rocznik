@@ -161,8 +161,9 @@ feature "zgloszenia" do
           before do
             revision =
               ArticleRevision.create!(submission: Submission.first,
-                                      article: File.new(Rails.root + 'app/assets/images/remind_icon.png'), pages: 1,
-                                      pictures: 1, version: 1)
+                                      article: File.new(Rails.root + 'app/assets/images/remind_icon.png'), received: '19-01-2016',
+                                       pages: 1, pictures: 1, version: 1)
+                                      
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
                            status: "recenzja pozytywna", asked: '1/01/2016')
           end
