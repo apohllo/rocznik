@@ -83,9 +83,9 @@ class Article < ActiveRecord::Base
 
   def year
     if !self.issue.year.blank?
-       self.issue.year
+      self.issue.year
     else 
-       "[BRAK ROKU WYDANIA]"
+      "[BRAK ROKU WYDANIA]"
     end
   end
 

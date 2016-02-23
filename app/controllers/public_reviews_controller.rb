@@ -15,11 +15,12 @@ class PublicReviewsController < ApplicationController
       end
     end
     @revision = ArticleRevision.find(params[:revision_id])
-    review = Review.create!(person: @person, article_revision: @revision, asked: Time.now, status: "proponowany recenzent")
+    Review.create!(person: @person, article_revision: @revision,
+                   asked: Time.now, status: "proponowany recenzent")
     @person = Person.new
     flash[:success] = 'Pozycja została dodana pomyślnie.'
     render :new_reviewer
-  end 
+  end
 
   def finish
     flash[:success] = 'Dziękujemy za zgłoszenie'
