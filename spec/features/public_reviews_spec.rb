@@ -16,7 +16,7 @@ feature "Formularz dodania proponowanych recenzentów" do
       visit '/public_reviews/new_reviewer'
 
       within("#new_person") do
-        select "Dlaczego solipsyzm?", from: "article_revision"
+        select "Dlaczego solipsyzm?", from: "Artykuł (wersja)"
         fill_in "Imię", with: "Anna"
         fill_in "Nazwisko", with: "Genialna"
         fill_in "E-mail", with: "a.genialna@gmail.com"
@@ -25,8 +25,8 @@ feature "Formularz dodania proponowanych recenzentów" do
       click_button 'Dodaj propozycję'
 
       expect(page).not_to have_css(".has-error")
-      expect(page).to have_content("Andrzej")
-      expect(page).to have_content("Kapusta")
+      expect(page).to have_content("Anna")
+      expect(page).to have_content("Genialna")
 
       click_button 'Zakończ dodawanie recenzentów'
       expect(page).to have_content("Dziękujemy za podanie propozycji recenzentów.")
