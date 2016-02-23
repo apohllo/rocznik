@@ -105,23 +105,23 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
-        
+
         scenario "Filtrowanie po języku" do
           visit "/submissions"
-          
+
           select "polski", from: "Język"
-          
+
           click_on("Filtruj")
           expect(page).to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/)
         end
-        
+
         scenario "Filtrowanie po języku" do
           visit "/submissions"
-          
+
           select "angielski", from: "Język"
-        
+
           click_on("Filtruj")
-          expect(page).not_to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/) 
+          expect(page).not_to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/)
         end
 
         scenario "Wyświetlanie braku dealine'u" do
@@ -243,9 +243,9 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           click_on("Alicja w krainie czarów")
 
-          click_on ("Edytuj")
-          select('przyjęty', :from => 'submission_status')
-          click_on ("Zapisz")
+          click_on("Edytuj")
+          select('przyjęty', from: 'submission_status')
+          click_on("Zapisz")
 
           visit '/submissions'
           expect(page).to have_content("Alicja w krainie czarów")
