@@ -29,8 +29,8 @@ class PublicRevisionsController < ApplicationController
   end
 
   private
-    def article_revision_params
+  def article_revision_params
     params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article,:comment,:accepted)
-  end
+end
 
 end
