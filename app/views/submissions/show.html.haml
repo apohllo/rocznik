@@ -55,6 +55,7 @@
         %th Korespondujący
         %th Liczba porządkowa
         %th Podpisana umowa
+        %th Zmiana 'signed'
         %th
     %tbody
       - @submission.authorships.each do |authorship|
@@ -63,6 +64,7 @@
           %td= authorship.corresponding? ? raw("&#10004;") : ""
           %td= authorship.position
           %td{style: "text-align:center;width:30px;"}= authorship.signed? ? image_tag("/assets/check.png", size: "22x22", alt: "check") : image_tag("/assets/x.png", size: "15x15", alt: "x")
+          %th= link_to "asd", sign_authorship_path(authorship)
           %td.text-right
             = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")
   = link_to "Dodaj autora", new_authorship_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}

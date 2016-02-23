@@ -31,6 +31,12 @@ class AuthorshipsController < ApplicationController
     redirect_to authorship.submission
   end
 
+  def sign
+    authorship = Authorship.find(params[:id])
+    authorship.update_attributes(signed: true)
+    redirect_to authorship.submission
+  end
+
   private
   def authorship_params
     params.require(:authorship).permit(:person_id,:corresponding,:position)
