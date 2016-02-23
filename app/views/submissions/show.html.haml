@@ -21,7 +21,7 @@
         = link_to @submission.editor, @submission.person
       - else
         = @submission.editor
-  %dl 
+  %dl
   .col-md-3.details
     %dt Otrzymano
     %dd= @submission.received.strftime("%d-%m-%Y")
@@ -47,8 +47,7 @@
       %dt Finansowanie
       %dd= simple_format(@submission.funding)
   = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}
-  %h3.submission_show_tables
-  %h3 Autorzy
+  %h3.submission_show_tables Autorzy
   %table.table.table-hover.table-admin
     %thead
       %tr
@@ -65,8 +64,7 @@
           %td.text-right
             = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")
   = link_to "Dodaj autora", new_authorship_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
-  .submission_show_tables 
-  %h3 Wersje
+  %h3.submission_show_tables Wersje
   %table.table.table-hover.table-admin#version
     %thead
       %tr
@@ -94,8 +92,7 @@
             = edit_button(revision,edit_article_revision_path(revision),"Edytuj komentarz")
             = destroy_button(revision,"Czy na pewno chcesz usunąć tę wersję wraz z recenzjami?")
   = link_to "Dodaj wersję", new_article_revision_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
-  .submission_show_tables 
-  %h3 Recenzje
+  %h3.submission_show_tables Recenzje
   %table.table.table-hover.table-admin
     %thead
       %tr
@@ -103,7 +100,6 @@
         %th Recenzent
         %th Zapytanie
         %th Dealine
-        %th Wiadomość
         %th Status
         %th
     %tbody
@@ -119,10 +115,33 @@
             - if flash[:notice]
               .flash-confirmation= flash[:notice]
           %td.text-right
+            = icon_to 'fa-check-circle', accepted_review_path(review), title: "Akceptacja recenzji"
             = icon_to 'fa-paper-plane', ask_for_review_review_path(review), method: :post, title: "Wyślij zapytanie o sporządzenie recenzji"
             = icon_to 'fa-send-o', ask_review_path(review), method: :post, title: "Wyślij zapytanie o recenzję"
             = icon_to 'fa-comment-o', review_path(review), title: "Wyświetl recenzję"
             = icon_to 'fa-pencil-square-o', edit_review_path(review), title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
   = link_to "Dodaj recenzenta", new_review_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
-         
+  %h3 Historia zmian
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Wersja
+        %th Autor zmiany
+        %th Data zmiany
+        %th Status
+    %tbody
+      - if defined?(@submission.versions.last)
+        - @submission.versions.each do |version|
+          %tr
+            %td= version.index+1
+            %td= !version.whodunnit.nil? ? version.whodunnit : ""
+            %td= version.created_at
+            - submission_version = version.reify(dup: true)
+            - if !submission_version.nil?
+              %td{class: "#{Submission::STATUS_MAPPING[submission_version.status]}"}= submission_version.status
+        %tr
+          %td Obecna
+          %td= @submission.latest_modifier
+          %td= @submission.latest_modification_time
+          %td{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
