@@ -105,23 +105,23 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           expect(page).not_to have_content("W pustyni i w puszczy")
         end
-        
+
         scenario "Filtrowanie po języku" do
           visit "/submissions"
-          
+
           select "polski", from: "Język"
-          
+
           click_on("Filtruj")
-          expect(page).to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/)
+          expect(page).to have_content(/Alicja w krainie czarów.*W pustyni i w puszczy/)
         end
-        
+
         scenario "Filtrowanie po języku" do
           visit "/submissions"
-          
+
           select "angielski", from: "Język"
-        
+
           click_on("Filtruj")
-          expect(page).not_to have_content(/W pustyni i w puszczy.*Alicja w krainie czarów/) 
+          expect(page).not_to have_content(/Alicja w krainie czarów.*W pustyni i w puszczy/)
         end
 
         scenario "Wyświetlanie braku dealine'u" do
@@ -141,7 +141,6 @@ feature "zgloszenia" do
           visit "/submissions/"
           click_on("W pustyni i w puszczy")
           click_on("Edytuj")
-
           fill_in "Otrzymano", with: "16/07/2016"
           click_on("Zapisz")
 
@@ -149,12 +148,22 @@ feature "zgloszenia" do
           expect(page).to have_content("16-07-2016")
         end
 
+        scenario "sortowanie zgłoszeń względem daty nadesłania" do
+          visit "/submissions"
+          click_on("Data nadesłania")
+          expect(page).to have_content(/11-01-2016.*19-01-2016/)
+          click_on("Data nadesłania")
+          expect(page).to have_content(/19-01-2016.*11-01-2016/)
+        end
+
+
         context "Z recenzją" do
           before do
             revision =
               ArticleRevision.create!(submission: Submission.first,
-                                      article: File.new(Rails.root + 'app/assets/images/remind_icon.png'), pages: 1,
-                                      pictures: 1, version: 1)
+                                      article: File.new(Rails.root + 'app/assets/images/remind_icon.png'), received: '19-01-2016',
+                                       pages: 1, pictures: 1, version: 1)
+                                      
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
                            status: "recenzja pozytywna", asked: '1/01/2016')
           end
@@ -243,9 +252,9 @@ feature "zgloszenia" do
           expect(page).to have_content("Alicja w krainie czarów")
           click_on("Alicja w krainie czarów")
 
-          click_on ("Edytuj")
-          select('przyjęty', :from => 'submission_status')
-          click_on ("Zapisz")
+          click_on("Edytuj")
+          select('przyjęty', from: 'submission_status')
+          click_on("Zapisz")
 
           visit '/submissions'
           expect(page).to have_content("Alicja w krainie czarów")
