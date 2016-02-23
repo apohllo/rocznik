@@ -199,7 +199,7 @@ feature "zarządzanie osobami" do
         expect(page).to have_content("Recenzuje po terminie")
       end
       
-      scenario "sprawdzanie przekierowania do wyszukiwarki Google" do
+      xscenario "sprawdzanie przekierowania do wyszukiwarki Google" do
         visit "/people"
         click_on 'Hol'
         click_link 'Google'
