@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218003614) do
+ActiveRecord::Schema.define(version: 20160223125636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,13 +31,13 @@ ActiveRecord::Schema.define(version: 20160218003614) do
 
   create_table "article_revisions", force: :cascade do |t|
     t.integer  "submission_id"
-    t.integer  "version",       default: 0
+    t.integer  "version",       default: 1
     t.date     "received"
     t.integer  "pages"
     t.integer  "pictures",      default: 0
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "code"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "code",          default: "tekst_"
     t.string   "article"
     t.string   "accepted"
     t.text     "comment"
@@ -128,8 +128,8 @@ ActiveRecord::Schema.define(version: 20160218003614) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.text     "roles",           default: [], null: false, array: true
-    t.string   "photo"
     t.string   "sex"
+    t.string   "photo"
     t.text     "competence"
     t.text     "discipline",      default: [], null: false, array: true
     t.string   "reviewer_status"
@@ -339,11 +339,10 @@ ActiveRecord::Schema.define(version: 20160218003614) do
     t.datetime "updated_at",                       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
-    t.boolean  "signed",           default: false
-    t.integer  "follows_up_id"
+    t.integer  "follow_up_id"
   end
 
-  add_index "submissions", ["follows_up_id"], name: "index_submissions_on_follows_up_id", using: :btree
+  add_index "submissions", ["follow_up_id"], name: "index_submissions_on_follow_up", using: :btree
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
 
