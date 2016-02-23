@@ -19,7 +19,10 @@
     %dd= @person.competence
   %dl
     %dt Role w systemie
-    %dd= @person.roles.join
+    %dd= @person.roles.join(", ")
+  %dl
+    %dt Więcej informacji
+    %dd= link_to "Google", search_person_path(@person), target: "_blank", class: %w{btn btn-primary btn-sm}
   %dl
     - if @person.reviewer?  && !@person.reviewer_status.blank?
       %dt Status recenzenta
