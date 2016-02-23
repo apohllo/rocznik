@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     get :show_reviews, on: :member
   end
   resources :public_issues, only: [:index,:show]
-  resources :people
+  resources :people do
+    get :search, on: :member
+  end
   resources :submissions
   resources :public_submissions, only: [:new, :create] do
     get :authors, on: :collection
@@ -38,6 +40,10 @@ Rails.application.routes.draw do
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
   resources :articles
+  resource :profile, only: [:show, :edit, :update] do
+    get :edit_password
+    patch :update_password
+  end
   resources :public_articles, only: [:show]
 
   get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
