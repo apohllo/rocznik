@@ -18,13 +18,12 @@ class AuthorshipsController < ApplicationController
     submission = Submission.find(params[:submission_id])
     @authorship = Authorship.new(authorship_params)
     @authorship.submission = submission
-    @email = params[:authorship.person.email]
-    @password = create_password
 	if @authorship.save
-          user = User.find_by_email(params:[authorship.person.email]).nil?
-          if user = 0
-             user = User.new(email: @email, password: @password, password_confirmation: @password)
-             UserMailer.add(@email, @password).deliver_now
+          password = create_password
+          email = @authorship.person.email
+          if User.find_by_email(email).nil?
+             User.create(email: email, password: password, password_confirmation: password)
+             UserMailer.add(email, password).deliver_now
           end     
 	  redirect_to submission
 	else

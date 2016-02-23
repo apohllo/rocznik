@@ -7,7 +7,7 @@ feature 'Emailer' do
 
     background do
       Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
-                     "mężczyzna", roles: ['redaktor', 'recenzent'])
+                     "mężczyzna", roles: ['redaktor', 'recenzent','autor'])
       Person.create!(name: "Adam", surname: "Kapusta", discipline: ["filozofia"], email: "adam.kapusa@gmail.com", sex:
                      "mężczyzna", roles: ['redaktor', 'recenzent'])
       Issue.create!(volume: 31, year: 2021)
@@ -33,13 +33,15 @@ feature 'Emailer' do
     end
   end
     scenario 'sprawdzenie dodania hasła' do
-	clear emails
+	clear_emails
 
 	visit '/submission'
-	clink_in 'Nowe zgłoszenie'
-	click_in'Wyslij zgłoszenie'
-	
-	open_email('adam.kapusta@gmail.com')
-	expect(curent_email).to have_content 'hasło: <%=@authorship.person.password%>'
+	clink_in 'Alicja w krainie czarów'
+	click_in'Dodaj autora''
+        select 'Kapusta, Andrzej', from 'autor', from 'Rola'
+	click_in'Dodaj'
+	open_email('a.kapusa@gmail.com')
+	expect(current_email).to have_content 'hasło:'
+	expect(current_email).to have_content 'a.kapusa'
   end
 end

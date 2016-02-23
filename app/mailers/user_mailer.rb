@@ -1,8 +1,8 @@
 class UserMailer < ApplicationMailer
   def add(email, password)
     @password = password
-    mail(from: @submission.corresponding_author.email,
- to: @submission.person.email, subject: 'Konto utworzone.')
+    @email = email
+    mail(to: @email, subject: 'Konto utworzone.')
   end
   def send_email(email)
     @body = email.body
