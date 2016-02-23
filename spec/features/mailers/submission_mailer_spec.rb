@@ -15,7 +15,6 @@ feature "Wysłanie maila informującego o zmianie recenzji" do
                          polish_title: "Polski tytuł",
                          english_title: "English title",
                          english_abstract: "Abstract", english_keywords: "title")
-      article_file = Rails.root.join("spec/features/files/plik.pdf").open
     end
 
     scenario "sprawdzenie wysłania statusu odrzuconego w treści maila" do
