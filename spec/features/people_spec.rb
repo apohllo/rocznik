@@ -67,6 +67,7 @@ feature "zarządzanie osobami" do
 
       scenario "wyświetlenie szczegółów osoby" do
         visit "/people"
+        save_and_open_page
         click_link("Kapusta")
         expect(page).to have_css("h3", text: "Andrzej Kapusta")
         expect(page).to have_css("dd", text: "mężczyzna")
@@ -201,7 +202,7 @@ feature "zarządzanie osobami" do
     end
 
     context "Z uzytkownikiem, ktory ma pięć recenzji" do
-      include_context "admin login"
+      
       before do 
         person_1 = Person.create!(name: "Andrzej", surname: "Ziemniak", email: "a.ziemniak@gmail.com", discipline: "filozofia", competence: "percepcja wzrokowa", sex: "mężczyzna", roles: ["autor"])
         person_2 = Person.create!(name: "Andrzej", surname: "Marchew", email: "a.marchew@gmail.com", discipline: "filozofia", competence: "percepcja dźwięki", sex: "mężczyzna", roles: ["recenzent"])
@@ -212,11 +213,12 @@ feature "zarządzanie osobami" do
         # 5.times{
         #   |i| article_revision[i] = ArticleRevision.create!(version:"#{i+1}.0", received:"#{i+1}-01-2016", pages:"5", submission: submission)
         # }
-        article_revision_1 = ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: submission)
-        article_revision_2 = ArticleRevision.create!(version:"2.0", received:"19-01-2016", pages:"5", submission: submission)
-        article_revision_3 = ArticleRevision.create!(version:"3.0", received:"20-01-2016", pages:"5", submission: submission)
-        article_revision_4 = ArticleRevision.create!(version:"4.0", received:"21-01-2016", pages:"5", submission: submission)
-        article_revision_5 = ArticleRevision.create!(version:"5.0", received:"22-01-2016", pages:"5", submission: submission)
+        article_file = Rails.root.join("spec/features/files/plik.pdf").open
+        article_revision_1 = ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: submission, article: article_file)
+        article_revision_2 = ArticleRevision.create!(version:"2.0", received:"19-01-2016", pages:"5", submission: submission, article: article_file)
+        article_revision_3 = ArticleRevision.create!(version:"3.0", received:"20-01-2016", pages:"5", submission: submission, article: article_file)
+        article_revision_4 = ArticleRevision.create!(version:"4.0", received:"21-01-2016", pages:"5", submission: submission, article: article_file)
+        article_revision_5 = ArticleRevision.create!(version:"5.0", received:"22-01-2016", pages:"5", submission: submission, article: article_file)
         
         # Taki ładny kod i działał, nie wiem czemu się kompilator czepia mojego obiektu article_revision[j]
         # 5.times {|j|
@@ -250,6 +252,8 @@ feature "zarządzanie osobami" do
         visit "/people"
         click_link("Kalarepa")
         expect(page).not_to have_content("Gratulujemy i bardzo dziękujemy!")  
+      end
     end
   end
 end
+

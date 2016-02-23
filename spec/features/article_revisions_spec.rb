@@ -11,9 +11,9 @@ feature "wersje" do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                    "mężczyzna", roles: ['redaktor', 'recenzent'])
         Issue.create!(volume: 3, year: 2020)
-        Submission.create!(person_id: Person.first, status: "nadesłany", polish_title: "Alicja w krainie czarów",
+        Submission.create!(person_id: Person.first, status: "nadesłany", polish_title: "Alicja w krainie czarów", received: '19-01-2016',
                            english_title: "Alice in Wonderland", english_abstract: "Little about that story",
-                           english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.first)
+                           english_keywords: "alice", language: "polski", issue: Issue.first)
       end
 
       scenario "Dodawanie nowej wersji" do
@@ -55,9 +55,10 @@ feature "wersje" do
         before do
           article_file = Rails.root.join("spec/features/files/plik.pdf").open
           ArticleRevision.create!(submission: Submission.first,
-
-                                  pages: 1, pictures: 1, version: 1, article: article_file,
-                                  comment: "Brakuje przecinka na 1 stronie w wierszu 30", accepted: '0')
+                                  pages: 1, pictures: 1, version: 1, article: article_file, 
+                                  received: "21-06-2016",
+                                  comment: "Brakuje przecinka na 1 stronie w wierszu 30",
+                                  accepted: '0')
         end
 
         scenario "Przyciski akcji dla wersji" do
@@ -87,36 +88,6 @@ feature "wersje" do
 
           expect(page).to have_content("Przecinka brakuje jednak w 31 wierszu")
           page.has_checked_field?("Zatwierdź")
-        end
-
-        scenario "Dodawanie nowej wersji bez podania daty otrzymania" do
-          visit '/submissions/'
-          click_on("Alicja w krainie czarów")
-
-          click_on("Dodaj wersję")
-
-          fill_in "Otrzymano", with: ''
-          fill_in "Liczba stron", with: '1'
-          fill_in "Liczba ilustracji", with: '1'
-          attach_file("Artykuł", 'spec/features/files/plik.pdf')
-          click_button 'Dodaj'
-
-          expect(page).to have_content("nie może być puste")
-        end
-
-        scenario "Dodawanie nowej wersji z wypelnieniem wszystkich pol" do
-          visit '/submissions/'
-          click_on("Alicja w krainie czarów")
-
-          click_on("Dodaj wersję")
-
-          fill_in "Otrzymano", with: '01-04-2016'
-          fill_in "Liczba stron", with: '1'
-          fill_in "Liczba ilustracji", with: '1'
-          attach_file("Artykuł", 'spec/features/files/plik.pdf')
-          click_button 'Dodaj'
-
-          expect(page).not_to have_content("nie może być puste")
         end
       end
     end
