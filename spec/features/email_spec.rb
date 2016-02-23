@@ -30,4 +30,14 @@ feature 'Emailer' do
       expect(current_email).to have_content 'Szanowna Pani/ Szanowny Panie'
     end
   end
+    scenario 'sprawdzenie dodania hasła' do
+	clear emails
+
+	visit '/submission'
+	clink_in 'Nowe zgłoszenie'
+	click_in'Wyslij zgłoszenie'
+	
+	open_email('adam.kapusta@gmail.com')
+	expect(curent_email).to have_content 'hasło: <%=@authorship.person.password%>'
+  end
 end
