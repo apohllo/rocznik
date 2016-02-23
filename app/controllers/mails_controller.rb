@@ -2,7 +2,7 @@ class MailsController < ApplicationController
   before_action :admin_required
 
   def write_email
-    @simplemail = SimpleMail.new 
+    @simplemail = SimpleMail.new
     @simplemail.sender = current_user.email
     @simplemail.addressee = Person.find(params[:id]).email
   end
@@ -10,7 +10,7 @@ class MailsController < ApplicationController
   def send_email
     @simplemail = SimpleMail.new(mail_params)
     if @simplemail.valid?
-      UserMailer.send_email(@simplemail).deliver
+      UserMailer.send_email(@simplemail).deliver_now
       redirect_to people_path
     else
       render :write_email
