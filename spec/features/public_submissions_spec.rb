@@ -27,15 +27,15 @@ feature "publiczne dodawanie zgloszenia" do
     visit '/public_submissions/new/'
 
     within("#new_submission") do
-      fill_in "Tytuł", with: submission_data[:title]
-      fill_in "Title", with: submission_data[:english_title]
-      fill_in "Abstract", with: submission_data[:abstract]
-      fill_in "Key words", with: submission_data[:keywords]
-      select "polski", from: submission_data[:language]
-      fill_in "Finansowanie", with: submission_data[:funding]
-      fill_in "Liczba stron", with: submission_data[:pages]
-      fill_in "Liczba ilustracji", with: submission_data[:pictures]
-      attach_file("Artykuł", submission_data[:file])
+       fill_in "Tytuł", with: submission_data[:title]
+       fill_in "Title", with: submission_data[:english_title]
+       fill_in "Abstract", with: submission_data[:abstract]
+       fill_in "Key words", with: submission_data[:keywords]
+       select "polski", from: submission_data[:language]
+       fill_in "Finansowanie", with: submission_data[:funding]
+       fill_in "Liczba stron", with: submission_data[:pages]
+       fill_in "Liczba ilustracji", with: submission_data[:pictures]
+       attach_file("Artykuł", submission_data[:file])
      end
 
     click_button("Dalej")
@@ -70,15 +70,15 @@ feature "publiczne dodawanie zgloszenia" do
     visit '/public_submissions/new/'
 
     within("#new_submission") do
-      fill_in "Tytuł", with: submission_data[:title]
-      fill_in "Title", with: submission_data[:english_title]
-      fill_in "Abstract", with: submission_data[:abstract]
-      fill_in "Key words", with: submission_data[:keywords]
-      select "polski", from: submission_data[:language]
-      fill_in "Finansowanie", with: submission_data[:funding]
-      fill_in "Liczba stron", with: submission_data[:pages]
-      fill_in "Liczba ilustracji", with: submission_data[:pictures]
-      attach_file("Artykuł", submission_data[:file])
+       fill_in "Tytuł", with: submission_data[:title]
+       fill_in "Title", with: submission_data[:english_title]
+       fill_in "Abstract", with: submission_data[:abstract]
+       fill_in "Key words", with: submission_data[:keywords]
+       select "polski", from: submission_data[:language]
+       fill_in "Finansowanie", with: submission_data[:funding]
+       fill_in "Liczba stron", with: submission_data[:pages]
+       fill_in "Liczba ilustracji", with: submission_data[:pictures]
+       attach_file("Artykuł", submission_data[:file])
      end
 
     click_button("Dalej")
