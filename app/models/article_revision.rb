@@ -42,4 +42,11 @@ class ArticleRevision < ActiveRecord::Base
     self.submission.person
   end
   
+  def editor_email
+    editor = self.submission.person.where(email:true)
+    if editor
+      editor.email
+    else
+      nil
+    end
 end
