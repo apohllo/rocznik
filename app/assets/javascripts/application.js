@@ -20,3 +20,19 @@
 function reload() {
     window.location.href =  window.location.href.split("?")[0]
 }
+
+$(function() {
+  var header = $('#stickedHeader'),
+  headerPositionTop = header.position().top;
+  $(window).scroll(function() {
+    if (parseInt($(window).scrollTop()) > headerPositionTop) {
+      if (header.hasClass('static')) {
+        header.removeClass('static').addClass('fixed');
+      }
+    } else {
+      if (header.hasClass('fixed')) {
+        header.removeClass('fixed').addClass('static');
+      }
+    }
+  });
+});

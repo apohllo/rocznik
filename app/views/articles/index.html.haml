@@ -9,7 +9,7 @@
 .scroll-panel-body
   %table.table.table-hover.table-admin
     %thead
-      %tr
+      %tr#stickedHeader.static
         %th Numer
         %th 
           = sort_link(@query, :submission_polish_title, [:submission_polish_title, :submission_english_title], "Tytuł")

@@ -153,6 +153,18 @@ dd.published {
   display: none;
 }
 
+.fixed{
+  position: fixed;
+  top: 50px;
+  background: white;
+  width: 100%;
+  display: table;
+}
+
+.static{
+  position: static;
+}
+
 .submission_show {
   clear: both;
   padding: 20px 0px;
@@ -165,4 +177,3 @@ dd.published {
 .submission_show_tables {
  padding-top: 5%;
 }
-
