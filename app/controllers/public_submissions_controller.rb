@@ -44,6 +44,7 @@ class PublicSubmissionsController < ApplicationController
 
   def cancel
     @submission = Submission.find(params[:public_submission_id])
+    submission.article_revisions.each{|rev| rev.destroy }
     submission.destroy
     render :submission_cancelled
   end 
