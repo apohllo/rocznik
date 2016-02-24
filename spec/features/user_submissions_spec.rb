@@ -12,13 +12,13 @@ feature "zgloszenia" do
     end
     
     scenario "wyświetlanie zgłoszeń dla autora korespondującego" do
-      visit '/submissions'
+      visit '/user_submissions'
         
       expect(page).to have_text("Zgłoszone artykuły")
     end
     
     scenario "wyświetlanie szczegółów zgłoszenia" do
-        visit '/submissions'
+        visit '/user_submissions'
         click_on("Alicja w krainie czarów")
         
         expect(page).to have_content("Little about that story")
