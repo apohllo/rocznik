@@ -19,13 +19,17 @@
     %dd= @person.competence
   %dl
     %dt Role w systemie
-    %dd= @person.roles.join
+    %dd= @person.roles.join(", ")
+  %dl
+    %dt Więcej informacji
+    %dd= link_to "Google", search_person_path(@person), target: "_blank", class: %w{btn btn-primary btn-sm}
   %dl
     - if @person.reviewer?  && !@person.reviewer_status.blank?
       %dt Status recenzenta
       %dd= @person.reviewer_status
   
   = link_to "Edytuj", edit_person_path(@person), class: %w{btn btn-primary btn-sm}
+  = link_to "Napisz wiadomość", write_email_path(id: @person.id), class: %w{btn btn-primary btn-sm} 
   %h3 Afiliacje
   %table.table.table-hover.table-admin
     %thead
@@ -55,7 +59,7 @@
           %th Tytuł
           %th Data nadesłania
           %th Status
-          %th
+          %th 
       %tbody
         - @person.authorships.each do |authorship|
           %tr
@@ -65,7 +69,11 @@
             %td.text-right
               = destroy_button(authorship, "Czy na pewno chcesz usunąć to zgłoszenie?")
     = link_to "Dodaj zgłoszenie", new_submission_path(author_id: @person.id), class: %w{btn btn-default btn-sm}
-  - if @person.roles.include?("recenzent")
+  - # wyswietlenie gratulacji w widoku  
+  - if (@person.congratulations==true) && (@person.roles.include?("recenzent"))
+    <br> <br>
+    %p.jumbotron <span class="glyphicon glyphicon-star"> </span> Gratulujemy i bardzo dziękujemy! <span class="glyphicon glyphicon-star"></span>
+  - if @person.roles.include?("recenzent") 
     %h3 Przypisane recenzje
     %table.table.table-hover.table-admin
       %thead
@@ -73,8 +81,9 @@
           %th Tytuł
           %th Data pytania
           %th Status
-          %th
+          %th 
       %tbody
+        
         - @person.reviews.each do |review|
           %tr
             %td= link_to review.title, review
