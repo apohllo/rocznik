@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class Submission < ActiveRecord::Base
+
   STATUS_MAPPING = {
     "nadesłany" => :sent, "u redaktora" => :editor, "w recenzji" => :review,
     "przyjęty" => :positive, "odrzucony" => :negative, "do poprawy" => :correction
@@ -22,6 +23,7 @@ class Submission < ActiveRecord::Base
   scope :accepted, -> { where(status: "przyjęty") }
 
   has_one :article
+  belongs_to :follow_up, inverse_of: :follow_ups, class_name: "Article"
   belongs_to :person
   belongs_to :issue
 
@@ -81,7 +83,7 @@ class Submission < ActiveRecord::Base
       "[BRAK NUMERU]"
     end
   end
-
+  
   def author
     authorship = self.authorships.where(corresponding: true).first
     if authorship

@@ -90,3 +90,8 @@ RSpec.shared_context "user login" do
     click_button 'Zaloguj się'
   end
 end
+
+def default_file
+  File.new(Rails.root.join('spec/features/files/plik.pdf'))
+end
+

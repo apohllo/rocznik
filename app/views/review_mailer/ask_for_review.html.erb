@@ -8,6 +8,9 @@
 <p>Aby zaakceptować recenzję proszę kliknąć poniższy link:</p>
   <%= link_to 'Akceptuj recenzję', accepted_review_url(@review) %>
 
+<p>Aby odrzucić recenzję proszę kliknąć poniższy link:</p>
+<%= link_to 'Odrzuć recenzję', rejected_review_url(@review) %>
+
 <p> Z wyrazami szacunku
   redaktor <%= @review.editor %>
 </p>

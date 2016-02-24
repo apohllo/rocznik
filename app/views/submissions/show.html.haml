@@ -33,6 +33,11 @@
       - else
         = @submission.issue
   %dl
+    %dt Nawiązywanie do
+    %dd
+      - if @submission.follow_up
+        = link_to @submission.follow_up.title, @submission.follow_up
+  %dl
     %dt Streszczenie
     %dd.more= @submission.abstract
   %dl
@@ -54,6 +59,8 @@
         %th Nazwisko
         %th Korespondujący
         %th Liczba porządkowa
+        %th Podpisana umowa
+        %th Zmiana 'signed'
         %th
     %tbody
       - @submission.authorships.each do |authorship|
@@ -61,6 +68,8 @@
           %td= link_to authorship.author, authorship.person
           %td= authorship.corresponding? ? raw("&#10004;") : ""
           %td= authorship.position
+          %td= authorship.signed? ? icon('check') : icon('times')
+          %th= authorship.signed? ? "" : (link_to "podpisz", sign_authorship_path(authorship), method: :post)
           %td.text-right
             = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")
   = link_to "Dodaj autora", new_authorship_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
@@ -111,11 +120,9 @@
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
           %td{style: "text-align:center;"}= link_to image_tag("/assets/remind_icon.png", size: "32x32"), send_reminder_review_path(review), class: "reminder", method: :post
-          .flash
-            - if flash[:notice]
-              .flash-confirmation= flash[:notice]
           %td.text-right
             = icon_to 'fa-check-circle', accepted_review_path(review), title: "Akceptacja recenzji"
+            = icon_to 'fa-times-circle', rejected_review_path(review), title: "Odrzucenie recenzji"
             = icon_to 'fa-paper-plane', ask_for_review_review_path(review), method: :post, title: "Wyślij zapytanie o sporządzenie recenzji"
             = icon_to 'fa-send-o', ask_review_path(review), method: :post, title: "Wyślij zapytanie o recenzję"
             = icon_to 'fa-comment-o', review_path(review), title: "Wyświetl recenzję"
