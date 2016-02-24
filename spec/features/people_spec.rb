@@ -48,6 +48,24 @@ feature "zarządzanie osobami" do
       expect(page).to have_css("img[src*='person']")
     end
 
+    scenario "Tworzenie osoby z podaniem niepoprawnego stopnia naukowego" do
+      visit '/people/new'
+
+      within("#new_person") do
+        fill_in "Stopień", with: "profesor"
+        fill_in "Imię", with: "Adam"
+        fill_in "Nazwisko", with: "Kowalski"
+        fill_in "E-mail", with: "a.kowalski@gmail.com"
+        check "filozofia"
+        fill_in "Kompetencje", with: "Arystoteles"
+        select "mężczyzna", from: "Płeć", visible: false
+        check "recenzent"
+      end
+      click_button 'Utwórz'
+      
+      expect(page).to have_content("dopuszczalne: lic., inż., mgr, dr, prof.")
+    end
+    
     scenario "tworzenie nowej osoby z brakującymi elementami" do
       visit '/people/new'
 
