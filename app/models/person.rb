@@ -18,7 +18,7 @@ class Person < ActiveRecord::Base
     "Nie chce recenzować" => :willnotreview,
     "Chce rezencować" => :willreview
   }
-  
+
   DISCIPLINE_MAPPING = {
     "filozofia" => "F",
     "psychologia" => "P",
@@ -59,6 +59,7 @@ class Person < ActiveRecord::Base
     "#{self.degree} #{self.name} #{self.surname}"
   end
 
+
   def full_name_without_degree
     "#{self.name} #{self.surname}"
   end
@@ -83,8 +84,15 @@ class Person < ActiveRecord::Base
   end
 
 
+  def reviews_count
+    self.reviews.where.not("status ='recenzja odrzucona' or  status ='wysłano zapytanie'").count
+  end
+
+  def congratulations
+    self.reviews_count%5 == 0 && self.reviews_count >= 5
+  end
+
   def reviewer?
     self.roles.include?("recenzent")
   end
-  
 end
