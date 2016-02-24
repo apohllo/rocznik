@@ -42,10 +42,10 @@ class SubmissionsController < ApplicationController
 
   def update
     @submission = Submission.find(params[:id])
-    prevStatus = @submission.status
+    prev_status = @submission.status
 
     if @submission.update_attributes(submission_params)
-      if @submission.status == 'przyjęty' and @submission.status != prevStatus
+      if @submission.status == 'przyjęty' and @submission.status != prev_status
         person = @submission.person
         SubmissionMailer.contract(person).deliver_now
         redirect_to @submission, flash: {notice: "Umowa została wysłana"}
@@ -61,8 +61,6 @@ class SubmissionsController < ApplicationController
     submission.destroy
     redirect_to submissions_path
   end
-
-
 
   private
   def submission_params
