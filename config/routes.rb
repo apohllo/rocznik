@@ -26,7 +26,9 @@ Rails.application.routes.draw do
     get :countries, on: :collection
     get :departments, on: :collection
   end
-  resources :authorships, only: [:new, :create, :destroy]
+  resources :authorships, only: [:new, :create, :destroy] do
+    post :sign, on: :member
+  end
   resources :reviews do
     post :ask, on: :member
     post :send_reminder, on: :member

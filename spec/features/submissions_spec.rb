@@ -19,6 +19,50 @@ feature "zgloszenia" do
       expect(page).to have_css(".form-group")
     end
 
+    context "Sprawdzenie podpisania umowy" do 
+      before do 
+        Issue.create!(volume: 500, year: 2500)
+        Submission.create!(status:'przyjęty', language:"polski", issue:
+                           Issue.last, polish_title: "brak podpisu",
+                           english_title: "unsigned", english_abstract:
+                           "english", english_keywords: "sign,
+                             test", received: "2015-02-17")
+        Submission.create!(status:'przyjęty', language:"polski", issue:
+                           Issue.last, polish_title: "obecnosc podpisu",
+                           english_title: "signed", english_abstract:
+                           "english", english_keywords: "sign,
+                             test", received: "2015-02-17")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
+                       "mężczyzna", roles: ['autor', 'redaktor'], discipline:["psychologia"])
+        Authorship.create!(person: Person.last, submission: Submission.first,
+                            corresponding: false, position: 1)
+        Authorship.create!(person: Person.last, submission: Submission.last,
+                            corresponding: false, position: 1, signed: true)
+      end
+
+      scenario "podpisana umowa" do
+        visit '/submissions'
+        click_link 'obecnosc podpisu'
+
+        expect(page).to have_css("i[class*='fa fa-check']")
+      end
+
+      scenario "niepodpisana umowa" do
+        visit '/submissions'
+        click_link 'brak podpisu'
+
+        expect(page).to have_css("i[class*='fa fa-times']")
+      end
+
+      scenario "podpisanie umowy" do
+        visit '/submissions'
+        click_link 'brak podpisu'
+        click_link 'podpisz'
+
+        expect(page).to have_css("i[class*='fa fa-check']")
+      end
+    end
+
 	context "nawiązanie do innego arytułu" do
       before do
         Person.create!(name: "Maciej", surname: "Fasola", email: "olafasola@gmail.com", sex:
