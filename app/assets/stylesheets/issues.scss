@@ -1,3 +1,10 @@
 // Place all the styles related to the issues controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.panel-primary{
+  cursor: pointer;
+}
+.panel-primary:hover .panel-heading{
+  opacity: 0.8;
+}
