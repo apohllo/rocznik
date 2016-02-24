@@ -27,9 +27,9 @@ class SubmissionsController < ApplicationController
     @submission = Submission.new(submission_params)
     @author_id = params[:author_id]
     if @submission.save
-      if @author_id
+	if @author_id
         authorship = Authorship.new(person_id: @author_id,submission: @submission)
-        authorship.save
+        authorship.save	
       end
       redirect_to @submission
     else
