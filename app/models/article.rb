@@ -11,6 +11,8 @@ class Article < ActiveRecord::Base
   before_save :update_position, if: :issue_position_changed?, ignore: :create
   belongs_to :issue
   belongs_to :submission
+  has_many :follow_ups, class_name: "Submission"
+
 
   def authors
     self.submission.authorships.map(&:person)
@@ -29,6 +31,14 @@ class Article < ActiveRecord::Base
   end
 
   def title
+    if self.submission
+      self.submission.title(false)
+    else
+      "[BRAK TYTUŁU]"
+    end
+  end
+  
+  def title_original
     if self.submission
       self.submission.title(false)
     else
