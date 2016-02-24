@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   resources :people do
     get :search, on: :member
   end
-  resources :submissions
+  resources :submissions do
+    post :send_decision, on: :member
+  end
   resources :public_submissions, only: [:new, :create] do
     get :authors, on: :collection
     post :add_author, on: :collection
@@ -24,12 +26,15 @@ Rails.application.routes.draw do
     get :countries, on: :collection
     get :departments, on: :collection
   end
-  resources :authorships, only: [:new, :create, :destroy]
+  resources :authorships, only: [:new, :create, :destroy] do
+    post :sign, on: :member
+  end
   resources :reviews do
     post :ask, on: :member
     post :send_reminder, on: :member
     post :ask_for_review, on: :member
     get :accepted, on: :member
+    get :rejected, on: :member
   end
   resources :public_reviews do
     get :new_reviewer, on: :collection
