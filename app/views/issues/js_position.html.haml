@@ -1,11 +1,15 @@
 :javascript
   $(document).ready(function () {
     $('.fa-chevron-up').click(function () {
-      ajax_on_demand($(this), -1);
+      if (check_prev_sibling_exist($(this))) {
+        ajax_on_demand($(this), -1);        
+      }
     });
 
     $('.fa-chevron-down').click(function () {
-      ajax_on_demand($(this), 1);
+      if (check_next_sibling_exist($(this))) {
+        ajax_on_demand($(this), 1);
+      }
     });
   });
 
@@ -20,8 +24,7 @@
       },
       success: function(rails_response) {
         if (rails_response.ok) {
-          update_position_values($(item), direction);
-          update_queue($(item), rails_response.ok);
+          update_queue($(item), direction);
         }
       },
       error: function() {
@@ -30,26 +33,46 @@
     });
   }
 
-  function update_queue(item) {
-    var article = $(item).parent().parent();
-    var sibling = $(item).attr('id') == "article-up" ? $(item).parent().parent().prev() : $(item).parent().parent().next();
-    $(item).attr('id') == "article-up" ? $(sibling).before(article) : $(sibling).after(article);
+  function update_queue(item, direction) {
+    update_position_values(item, direction);
+    update_position_queue(item, direction);
   }
 
   function update_position_values(item, direction) {
     var clicked_article = $(item).siblings('.issue-position');
-    var halp = clicked_article.text();
+    var clicked_art_value = clicked_article.text();
+    var sibling = get_row_sibling(item, direction)
 
-    var parent_sibling = $(item).parent().parent();
-    if (direction >= 1) {
-      var article_position = parent_sibling.next().children().children('.issue-position');
-      clicked_article.text(article_position.text());
-      article_position.text(halp);
-    } else {
-      article_position = parent_sibling.prev().children().children('.issue-position');
-      clicked_article.text(article_position.text());
-      article_position.text(halp);
+    if (sibling) {
+      var other_article = $(sibling).children().children('.issue-position');
+      clicked_article.text(other_article.text());
+      other_article.text(clicked_art_value);
     }
+  }
+
+  function update_position_queue(item, direction) {
+    var article = get_row(item);
+    var sibling = get_row_sibling(item, direction)
+    direction >= 1 ? $(sibling).after(article) : $(sibling).before(article);
+  }
+
+  function get_row_sibling(item, direction) {
+    if (direction >= 1) {
+      return get_row(item).next();
+    }
+    return get_row(item).prev();
+  }
+
+  function get_row(item) {
+    return $(item).parent().parent();
+  }
+
+  function check_prev_sibling_exist(item) {
+    return get_row(item).prev().is("tr") ? true : false;
+  }
+
+  function check_next_sibling_exist(item) {
+    return get_row(item).next().is("tr") ? true : false;
   }
 
   function get_base_url() {
