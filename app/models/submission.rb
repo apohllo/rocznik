@@ -76,6 +76,15 @@ class Submission < ActiveRecord::Base
     end
   end
 
+  def corresponding_author_mail
+    authorship = self.authorships.where(corresponding: true).first
+    if authorship
+      authorship.mail
+    else
+      nil
+    end
+  end
+
   def issue_title
     if self.issue
       issue.title
