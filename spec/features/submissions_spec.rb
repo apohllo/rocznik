@@ -44,14 +44,22 @@ feature "zgloszenia" do
         visit '/submissions'
         click_link 'obecnosc podpisu'
 
-        expect(page).to have_css("img[src*='check.png']")
+        expect(page).to have_css("i[class*='fa fa-check']")
       end
 
       scenario "niepodpisana umowa" do
         visit '/submissions'
         click_link 'brak podpisu'
 
-        expect(page).to have_css("img[src*='x.png']")
+        expect(page).to have_css("i[class*='fa fa-times']")
+      end
+
+      scenario "podpisanie umowy" do
+        visit '/submissions'
+        click_link 'brak podpisu'
+        click_link 'podpisz'
+
+        expect(page).to have_css("i[class*='fa fa-check']")
       end
     end
 
