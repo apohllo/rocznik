@@ -125,6 +125,7 @@
               .flash-confirmation= flash[:notice]
           %td.text-right
             = icon_to 'fa-check-circle', accepted_review_path(review), title: "Akceptacja recenzji"
+            = icon_to 'fa-times-circle', rejected_review_path(review), title: "Odrzucenie recenzji"
             = icon_to 'fa-paper-plane', ask_for_review_review_path(review), method: :post, title: "Wyślij zapytanie o sporządzenie recenzji"
             = icon_to 'fa-send-o', ask_review_path(review), method: :post, title: "Wyślij zapytanie o recenzję"
             = icon_to 'fa-comment-o', review_path(review), title: "Wyświetl recenzję"
