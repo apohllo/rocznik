@@ -11,9 +11,9 @@ feature "wersje" do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                    "mężczyzna", roles: ['redaktor', 'recenzent'])
         Issue.create!(volume: 3, year: 2020)
-        Submission.create!(person_id: Person.first, status: "nadesłany", polish_title: "Alicja w krainie czarów",
+        Submission.create!(person_id: Person.first, status: "nadesłany", polish_title: "Alicja w krainie czarów", received: '19-01-2016',
                            english_title: "Alice in Wonderland", english_abstract: "Little about that story",
-                           english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.first)
+                           english_keywords: "alice", language: "polski", issue: Issue.first)
       end
 
       scenario "Dodawanie nowej wersji" do
@@ -35,10 +35,28 @@ feature "wersje" do
         end
       end
 
+      scenario "Dodawanie nowej wersji bez pliku" do
+        visit '/submissions/'
+        click_on("Alicja w krainie czarów")
+
+        click_on("Dodaj wersję")
+
+        fill_in "Otrzymano", with: "16/07/2016"
+        fill_in "Liczba stron", with: '1'
+        fill_in "Liczba ilustracji", with: '1'
+        click_button 'Dodaj'
+
+        within("#new_article_revision") do
+          expect(page).to have_css('.has-error')
+        end
+      end
+
       context "wersja w bazie" do
         before do
+          article_file = Rails.root.join("spec/features/files/plik.pdf").open
           ArticleRevision.create!(submission: Submission.first,
-                                  pages: 1, pictures: 1, version: 1,
+                                  pages: 1, pictures: 1, version: 1, article: article_file, 
+                                  received: "21-06-2016",
                                   comment: "Brakuje przecinka na 1 stronie w wierszu 30",
                                   accepted: '0')
         end
