@@ -60,7 +60,7 @@ class SubmissionsController < ApplicationController
   def submission_params
     params.require(:submission).permit(:issue_id,:status,:language,:received,:funding,
                                        :remarks,:polish_title,:english_title,:english_abstract,
-                                       :english_keywords,:person_id)
+                                       :english_keywords,:person_id,:follow_up_id)
   end
 
 end

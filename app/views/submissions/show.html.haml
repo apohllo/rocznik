@@ -32,6 +32,11 @@
         = link_to @submission.issue_title, @submission.issue
       - else
         = @submission.issue
+  %dl 
+    %dt Nawiązywanie do
+    %dd
+      - if @submission.follow_up
+        = link_to @submission.follow_up.title, @submission.follow_up
   %dl
     %dt Streszczenie
     %dd.more= @submission.abstract
