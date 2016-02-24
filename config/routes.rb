@@ -10,8 +10,12 @@ Rails.application.routes.draw do
     get :show_reviews, on: :member
   end
   resources :public_issues, only: [:index,:show]
-  resources :people
-  resources :submissions
+  resources :people do
+    get :search, on: :member
+  end
+  resources :submissions do
+    post :send_decision, on: :member
+  end
   resources :public_submissions, only: [:new, :create] do
     get :authors, on: :collection
     post :add_author, on: :collection
@@ -22,7 +26,9 @@ Rails.application.routes.draw do
     get :countries, on: :collection
     get :departments, on: :collection
   end
-  resources :authorships, only: [:new, :create, :destroy]
+  resources :authorships, only: [:new, :create, :destroy] do
+    post :sign, on: :member
+  end
   resources :reviews do
     post :ask, on: :member
     post :send_reminder, on: :member
@@ -37,6 +43,10 @@ Rails.application.routes.draw do
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
   resources :articles
+  resource :profile, only: [:show, :edit, :update] do
+    get :edit_password
+    patch :update_password
+  end
   resources :public_articles, only: [:show]
 
   get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email

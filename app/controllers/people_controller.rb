@@ -1,5 +1,6 @@
 class PeopleController < ApplicationController
   before_action :admin_required
+
   layout "admin"
   before_action -> {set_title "Osoby"}
 
@@ -38,6 +39,12 @@ class PeopleController < ApplicationController
 
   def show
     @person = Person.find(params[:id])
+  end
+
+  def search
+    @person = Person.find(params[:id])
+    @link = "https://www.google.pl/search?q=#{@person[:name]}+#{@person[:surname]}"
+    redirect_to @link
   end
 
   private
