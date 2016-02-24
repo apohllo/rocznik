@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   resources :people do
     get :search, on: :member
   end
-  resources :submissions
+  resources :submissions do
+    post :send_decision, on: :member
+  end
   resources :public_submissions, only: [:new, :create] do
     get :authors, on: :collection
     post :add_author, on: :collection
