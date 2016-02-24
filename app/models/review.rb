@@ -17,8 +17,8 @@ class Review < ActiveRecord::Base
 
   def title
     "#{self.article_revision.title}"
-  end
-
+  end 
+  
   def abstract
     self.submission.abstract
   end
