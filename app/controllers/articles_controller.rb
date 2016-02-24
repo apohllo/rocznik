@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
   
   def generate_certificate
     @article = Article.find(params[:id])
-    pdf=@article.generate_certificate
+    pdf=Certificate.new.generate_certificate(@article)
    
     send_data pdf.render, filename: 'certificate.pdf', type: "application/pdf"
       
