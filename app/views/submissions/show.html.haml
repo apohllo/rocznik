@@ -59,6 +59,8 @@
         %th Nazwisko
         %th Korespondujący
         %th Liczba porządkowa
+        %th Podpisana umowa
+        %th Zmiana 'signed'
         %th
     %tbody
       - @submission.authorships.each do |authorship|
@@ -66,6 +68,8 @@
           %td= link_to authorship.author, authorship.person
           %td= authorship.corresponding? ? raw("&#10004;") : ""
           %td= authorship.position
+          %td= authorship.signed? ? icon('check') : icon('times')
+          %th= authorship.signed? ? "" : (link_to "podpisz", sign_authorship_path(authorship), method: :post)
           %td.text-right
             = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")
   = link_to "Dodaj autora", new_authorship_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}

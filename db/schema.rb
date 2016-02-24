@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20160223153523) do
     t.integer  "position",      default: 0
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.boolean  "signed",        default: false
   end
 
   add_index "authorships", ["person_id", "submission_id"], name: "index_authorships_on_person_id_and_submission_id", unique: true, using: :btree
