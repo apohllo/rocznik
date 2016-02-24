@@ -36,7 +36,7 @@ feature 'Emailer' do
 	clear_emails
 
 	visit '/submissions'
-	clink_on 'Alicja w krainie czarów'
+	click_on 'Alicja w krainie czarów'
 	click_on'Dodaj autora'
         select 'Kapusta, Andrzej', from: 'Autor'
 	click_on'Dodaj'
