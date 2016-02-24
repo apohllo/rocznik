@@ -76,10 +76,10 @@ class Submission < ActiveRecord::Base
     end
   end
 
-  def corresponding_author_mail
+  def corresponding_author_email
     authorship = self.authorships.where(corresponding: true).first
     if authorship
-      authorship.mail
+      authorship.email
     else
       nil
     end
