@@ -31,7 +31,6 @@ feature 'Emailer' do
     scenario 'sprawdzanie treści wiadomości' do
       expect(current_email).to have_content 'Szanowna Pani/ Szanowny Panie'
     end
-  end
     scenario 'sprawdzenie dodania hasła' do
 	clear_emails
 
@@ -43,5 +42,6 @@ feature 'Emailer' do
 	open_email('a.kapusa@gmail.com')
 	expect(current_email).to have_content 'hasło'
 	expect(current_email).to have_content 'a.kapusa'
+    end
   end
 end
