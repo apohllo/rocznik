@@ -5,6 +5,6 @@
   = f.input :file, label „File”, hint "Plik z nową wersją"
   = f.input :pages, label „Number of pages”, hint „Ilość stron”
   = f.input :pictures, label „Number of pictures”, hint „Ilość obrazków”
-  = f.input :received, label: "Otrzymano", class: %w{datepicker form-control}, as: :string, input_html: { value: l(f.object.received, format: "%d-%m-%Y"), type:"date" } 
+  = f.input :received, label: "Received", class: %w{datepicker form-control}, as: :string, input_html: { value: l(f.object.received, format: "%d-%m-%Y"), type:"date" } 
   - label = @revision.new_record? ? "Utwórz" : "Zapisz" 
   = f.submit label, class: %w{btn btn-primary btn-outline}
