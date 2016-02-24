@@ -59,6 +59,12 @@ class SubmissionsController < ApplicationController
     redirect_to submissions_path
   end
 
+  private
+  def submission_params
+    params.require(:submission).permit(:issue_id,:status,:language,:received,:funding,
+                                       :remarks,:polish_title,:english_title,:english_abstract,
+                                       :english_keywords,:person_id)
+  end
   def check_status(old_status,new_status)
     if old_status != new_status
       if new_status == 'odrzucony' || new_status == 'do poprawy' || new_status == 'przyjęty'
@@ -67,12 +73,4 @@ class SubmissionsController < ApplicationController
       end
     end
   end
-
-  private
-  def submission_params
-    params.require(:submission).permit(:issue_id,:status,:language,:received,:funding,
-                                       :remarks,:polish_title,:english_title,:english_abstract,
-                                       :english_keywords,:person_id)
-  end
-
 end
