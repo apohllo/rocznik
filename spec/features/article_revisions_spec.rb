@@ -12,8 +12,8 @@ feature "wersje" do
                    "mężczyzna", roles: ['redaktor', 'recenzent'])
         Issue.create!(volume: 3, year: 2020)
         Submission.create!(person_id: Person.first, status: "nadesłany", polish_title: "Alicja w krainie czarów",
-                           english_title: "Alice in Wonderland", english_abstract: "Little about that story",
-                           english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.first)
+                           received: '19-01-2016', english_title: "Alice in Wonderland", english_abstract: "Little about
+                           that story", english_keywords: "alice", language: "polski", issue: Issue.first)
       end
 
       scenario "Dodawanie nowej wersji" do
@@ -56,6 +56,7 @@ feature "wersje" do
           article_file = Rails.root.join("spec/features/files/plik.pdf").open
           ArticleRevision.create!(submission: Submission.first,
                                   pages: 1, pictures: 1, version: 1, article: article_file,
+                                  received: "21-06-2016",
                                   comment: "Brakuje przecinka na 1 stronie w wierszu 30",
                                   accepted: '0')
         end

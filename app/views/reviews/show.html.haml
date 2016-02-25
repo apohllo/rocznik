@@ -2,26 +2,34 @@
   = link_to "Recenzje", reviews_path, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title
     = @review.title
-.scroll-panel-body
+  .scroll-panel-body
   %dl
-    %dt Zgłoszenie
-    %dd= link_to @review.submission.title, @review.submission
+  .col-sm-offset-1.col-sm-3.reviews_details
+    %b Status
+    %p.review{class: "#{Review::STATUS_MAPPING[@review.status]}"}= @review.status
   %dl
-    %dt Status
-    %dd{class: "#{Review::STATUS_MAPPING[@review.status]}"}= @review.status
+  .col-md-3.reviews_details
+    %b Recenzent
+    %p= link_to @review.person.full_name, @review.person
   %dl
-    %dt Recenzent
-    %dd= link_to @review.person.full_name, @review.person
+  .col-md-3.reviews_details
+    %b Wysłano zapytanie
+    %p= @review.asked_date
   %dl
-    %dt Wysłano zapytanie
-    %dd= @review.asked_date
+  .col-md-2.reviews_details
+    %b Deadline
+    %p= @review.deadline_date
   %dl
-    %dt Deadline
-    %dd= @review.deadline_date
+  .views_show
+    %b Zgłoszenie
+    %p= link_to @review.submission.title, @review.submission
   %dl
-    %dt Treść recenzji
-    %dd= simple_format(@review.content)
+  .views_show
+    %b Treść recenzji
+    %p= simple_format(@review.content)
   %dl
-    %dt Uwagi
-    %dd= @review.remarks
+  .views_show
+    %b Uwagi
+    %p= @review.remarks
+  .views-button
   = link_to "Edytuj", edit_review_path(@review), class: %w{btn btn-primary btn-sm}
