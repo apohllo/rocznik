@@ -1,9 +1,13 @@
 class SubmissionMailer < ApplicationMailer
 
-  def contract(user)
-    @user = user
-    attachments["plik.pdf"] = File.read("#{Rails.root}/public/plik.pdf")
-    mail(to: @user.email, subject: 'Umowa wydawnicza')
+  def send_contract(submission)
+    @submission = submission
+    attachments["Umowa-wydawnicza.pdf"] = File.read("#{Rails.root}/public/plik.pdf")
+    mail(to: @submission.person.email, subject: 'Umowa wydawnicza')
   end
 
+  def send_decision(submission)
+    @submission = submission
+    mail(to: @submission.person.email, subject: 'Decyzja - Rocznik Kognitywistyczny')
+  end
 end
