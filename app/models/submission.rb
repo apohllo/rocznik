@@ -143,6 +143,10 @@ class Submission < ActiveRecord::Base
     self.language == POLISH
   end
 
+  def english_language
+    self.language == ENGLISH
+  end
+
   def latest_modifier
     if self.versions.last
       self.versions.last.whodunnit
