@@ -34,7 +34,7 @@ class ArticleRevision < ActiveRecord::Base
     if self.received
       self.received.strftime("%d-%m-%Y")
     else
-     "[DATA NIEZNANA]"
+      "[DATA NIEZNANA]"
     end
   end
   
