@@ -43,7 +43,7 @@ td.asked, td.editor, dd.asked, dd.editor {
   background-color: #ffff00;
 }
 
-td.accepted, td.review, dd.accepted, dd.review {
+td.accepted, td.review, dd.accepted, p.review {
   background-color: #94c5f4;
 }
 
@@ -112,6 +112,7 @@ input[type=file].file.form-control {
 	margin-right:6px;
 	margin-top:2px;
 }
+
 .fb-like, .twitter-like, .sm-buttons{
     padding-top: 5%;
 }
@@ -151,3 +152,32 @@ dd.published {
 .morecontent span {
   display: none;
 }
+
+.submission_show {
+ clear: both;
+ padding: 20px 0px;
+}
+
+.details {
+ text-align: center;
+}
+
+.submission_show_tables {
+ padding-top: 5%;
+}
+
+.reviews_details {
+ text-align: center;
+ padding-top: 20px; 
+ padding-bottom: 2%;
+}
+
+.views_show {
+ clear: both;
+}
+
+.views-button {
+  padding-top: 4%;
+}
+
+
