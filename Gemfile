@@ -20,6 +20,7 @@ gem 'ransack'
 gem 'simple_form_ransack'
 gem 'simple_form_autocomplete'
 gem 'postgres_ext'
+gem 'prawn', '~> 2.0', '>= 2.0'
 gem 'paper_trail'
 gem 'twitter-bootstrap-rails'
 
