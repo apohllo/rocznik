@@ -1,0 +1,22 @@
+.scroll-panel-header
+  %h3.scroll-panel-title
+    = @person.full_name
+.scroll-panel-body
+  = image_tag(@person.photo, alt:"#{@person.full_name} - zdjęcie")
+  %dl
+    %dt E-mail
+    %dd= @person.email
+  %dl
+    %dt Płeć
+    %dd= @person.sex
+  %dl
+    %dt Dyscypliny
+    %dd= @person.discipline.join (", ")
+  %dl
+    %dt Kompetencje
+    %dd= @person.competence
+  %dl
+    %dt Role w systemie
+    %dd= @person.roles.join(", ")
+  = link_to "Edytuj swoje dane", edit_profile_path, class: %w{btn btn-primary btn-sm}
+  = link_to "Edytuj hasło", edit_password_profile_path, class: %w{btn btn-primary btn-sm}
