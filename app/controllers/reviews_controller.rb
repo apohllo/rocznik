@@ -8,7 +8,7 @@ class ReviewsController < ApplicationController
     @query_params = params[:q] || {}
     @query = Review.ransack(@query_params)
     @query.sorts = ['deadline asc'] if @query.sorts.empty?
-    @reviews = @query.result(distinct: true)
+    @reviews = @query.result(distinct: true).page(params[:page]).per(20)
   end
 
   def show
