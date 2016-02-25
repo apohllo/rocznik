@@ -6,9 +6,8 @@
       %nav.navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
         = render file: "shared/topnav"
       .flash
-        - if flash[:error]
-          .flash-error= flash[:error]
+        = render file: "shared/flash"
       .container.middle-row
-        .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"} 
+        .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"}
           .col-md-12.col-sm-8.main
             = yield
