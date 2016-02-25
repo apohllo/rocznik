@@ -16,7 +16,7 @@ class PublicReviewsController < ApplicationController
     end
     @revision = ArticleRevision.find(params[:revision_id])
     Review.create!(person: @person, article_revision: @revision,
-                   asked: Time.now, status: "proponowany recenzent")
+                   asked: Time.now, status:params[:status])
     @person = Person.new
     flash[:success] = 'Pozycja została dodana pomyślnie.'
     render :new_reviewer
