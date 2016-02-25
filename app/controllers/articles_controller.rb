@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :admin_required
   layout "admin"
+
   before_action -> {set_title "Artykuły"}
 
   def index
@@ -29,6 +30,14 @@ class ArticlesController < ApplicationController
       return render :edit unless request.format == :json
     end
     render :json => { ok: on_success }
+  end
+  
+  def generate_certificate
+    @article = Article.find(params[:id])
+    pdf=Certificate.new.generate_certificate(@article)
+   
+    send_data pdf.render, filename: 'certificate.pdf', type: "application/pdf"
+      
   end
 
   private
