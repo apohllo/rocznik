@@ -26,6 +26,14 @@ class PublicReviewsController < ApplicationController
     flash[:success] = 'Dziękujemy za zgłoszenie'
   end
 
+def download
+  @article = Article.find(params[:id])
+  pdf=PdfVersion.new.generate_pdf_version(@article)
+  send_data pdf.render, filename: 'article.pdf', type: "application/pdf"
+
+  review_date = 
+end
+
   private
   def person_params
     params.require(:person).permit(:name,:surname,:email,:sex,roles: [])

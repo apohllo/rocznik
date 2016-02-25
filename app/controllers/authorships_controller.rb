@@ -23,7 +23,7 @@ class AuthorshipsController < ApplicationController
           email = @authorship.person.email
           if User.find_by_email(email).nil?
              User.create(email: email, password: password, password_confirmation: password)
-             UserMailer.add(email, password).deliver_now
+             UserMailer.add(email, password)
           end     
 	  redirect_to submission
 	else
