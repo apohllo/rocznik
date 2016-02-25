@@ -8,6 +8,8 @@ class Article < ActiveRecord::Base
   validates :status, presence: true, inclusion: STATUS_MAPPING.keys
   belongs_to :issue
   belongs_to :submission
+  has_many :follow_ups, class_name: "Submission"
+
 
   def authors
     self.submission.authorships.map(&:person)
@@ -26,6 +28,14 @@ class Article < ActiveRecord::Base
   end
 
   def title
+    if self.submission
+      self.submission.title(false)
+    else
+      "[BRAK TYTUŁU]"
+    end
+  end
+  
+  def title_original
     if self.submission
       self.submission.title(false)
     else
@@ -83,9 +93,9 @@ class Article < ActiveRecord::Base
 
   def year
     if !self.issue.year.blank?
-       self.issue.year
+      self.issue.year
     else 
-       "[BRAK ROKU WYDANIA]"
+      "[BRAK ROKU WYDANIA]"
     end
   end
 

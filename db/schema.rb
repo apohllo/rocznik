@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212141645) do
+ActiveRecord::Schema.define(version: 20160223153523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,8 +64,9 @@ ActiveRecord::Schema.define(version: 20160212141645) do
     t.integer  "submission_id"
     t.boolean  "corresponding", default: true
     t.integer  "position",      default: 0
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "signed",        default: false
   end
 
   add_index "authorships", ["person_id", "submission_id"], name: "index_authorships_on_person_id_and_submission_id", unique: true, using: :btree
@@ -335,12 +336,14 @@ ActiveRecord::Schema.define(version: 20160212141645) do
     t.text     "funding"
     t.date     "received"
     t.string   "language"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
+    t.integer  "follow_up_id"
   end
 
+  add_index "submissions", ["follow_up_id"], name: "index_submissions_on_follow_up", using: :btree
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
 
@@ -361,6 +364,17 @@ ActiveRecord::Schema.define(version: 20160212141645) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   add_foreign_key "affiliations", "departments"
   add_foreign_key "affiliations", "people"
