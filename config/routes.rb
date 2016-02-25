@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
   resources :articles
+  resources :articles
+    get :generate_pdf_version, on: :member
   resource :profile, only: [:show, :edit, :update] do
     get :edit_password
     patch :update_password
