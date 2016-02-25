@@ -19,16 +19,20 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    on_success = false
+
     @article = Article.find(params[:id])
     if @article.update_attributes(article_params)
-      redirect_to @article
+      on_success = true
+      return redirect_to @article unless request.format == :json
     else
-      render :edit
+      return render :edit unless request.format == :json
     end
+    render :json => { ok: on_success }
   end
 
   private
   def article_params
-    params.require(:article).permit(:issue_id, :status, :pages, :external_link, :DOI)
+    params.require(:article).permit(:issue_id, :status, :pages, :external_link, :DOI, :issue_position)
   end
 end
