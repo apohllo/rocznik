@@ -63,6 +63,7 @@ feature "zarządzanie osobami" do
       end
       click_button 'Utwórz'
       
+      expect(page).to have_css('.has-error')
       expect(page).to have_content("dopuszczalne: lic., inż., mgr, dr, prof.")
     end
     
