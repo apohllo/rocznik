@@ -17,7 +17,8 @@
         %th Tytuł
         %th Autor korespondujący
         %th Redaktor
-        %th Data nadesłania
+        %th
+          = sort_link(@query, :received, "Data nadesłania")
         %th Deadline recenzji
         %th Status
         %th
@@ -35,6 +36,7 @@
               = link_to submission.corresponding_author, submission.author
             - else
               = submission.corresponding_author
+
           %td
             - if submission.person
               = link_to submission.editor, submission.person
