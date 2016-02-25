@@ -28,8 +28,7 @@ class PublicReviewsController < ApplicationController
 
 def download
   @article = Article.find(params[:id])
-  pdf=PdfVersion.new.generate_pdf_version(@article)
-  send_data pdf.render, filename: 'article.pdf', type: "application/pdf"
+  send_data("#{RAILS_ROOT)/views/submission/show.html.haml", :filename => "#{article.title}.pdf", :type => "application/pdf")
 
   review_date = 
 end
