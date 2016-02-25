@@ -46,10 +46,9 @@ class SubmissionsController < ApplicationController
     prev_status = @submission.status
 
     if @submission.update_attributes(submission_params)
-      if @submission.status == 'przyjęty' and @submission.status != prev_status
+      if (@submission.status == 'przyjęty') && (prev_status != 'przyjęty')
         person = @submission.person
         SubmissionMailer.contract(person).deliver_now
-        redirect_to @submission, flash: {notice: "Umowa została wysłana"}
       end
       redirect_to @submission
     else
