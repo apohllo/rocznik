@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160226111840) do
+ActiveRecord::Schema.define(version: 20160226115828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20160226111840) do
     t.datetime "updated_at",                     null: false
     t.boolean  "signed",         default: false
     t.integer  "author_role_id"
+    t.text     "author_role"
   end
 
   add_index "authorships", ["author_role_id"], name: "index_authorships_on_author_role_id", using: :btree

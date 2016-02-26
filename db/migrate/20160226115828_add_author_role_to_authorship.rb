@@ -1,6 +1,6 @@
 class AddAuthorRoleToAuthorship < ActiveRecord::Migration
   def change
-    add_reference :authorships, :author_role, index: true
+    add_column :authorships, :author_role, :text
   end
 end
 
