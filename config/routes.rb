@@ -51,15 +51,13 @@ Rails.application.routes.draw do
     patch :update_password
   end
   resources :public_articles, only: [:show]
+ 
+  get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
+  post 'mails/send_email', to: 'mails#send_email', as: :send_email
 
-<<<<<<< HEAD
   resources :users, only: [:new, :create] do
     get :new_person, on: :collection
     post :create_person, on: :collection
-    get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
-    post 'mails/send_email', to: 'mails#send_email', as: :send_email  
-    get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
-    post 'mails/send_email', to: 'mails#send_email', as: :send_email
   end
   devise_for :users
   mount Storytime::Engine => "/"

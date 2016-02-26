@@ -7,11 +7,6 @@
         = render file: "shared/topnav"
       .flash
 
-        - if flash[:error]
-          .flash-error= flash[:error]
-        - if flash[:notice]
-          .flash-notice= flash[:notice]
-
         = render file: "shared/flash"
 
       .container.middle-row
