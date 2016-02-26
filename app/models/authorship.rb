@@ -1,8 +1,13 @@
 class Authorship < ActiveRecord::Base
-  validates :person, presence: true
-
+  validates :person, presence: true, uniqueness: { scope: :submission_id }
+  validates :author_role, presence: true
+  
   belongs_to :person
+  accepts_nested_attributes_for :person
+
   belongs_to :submission
+
+
 
   def author
     if person
@@ -11,7 +16,15 @@ class Authorship < ActiveRecord::Base
       "[BRAK AUTORA]"
     end
   end
-
+  
+  def mail
+    if person
+      self.person.mail
+    else
+      "[BRAK ADRESU E-MAIL]"
+    end
+  end
+  
   def title
     self.submission.title
   end

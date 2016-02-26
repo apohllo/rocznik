@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218145417) do
+ActiveRecord::Schema.define(version: 20160226111840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,9 @@ ActiveRecord::Schema.define(version: 20160218145417) do
     t.integer  "submission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "pages"
+    t.string   "external_link"
+    t.integer  "issue_position", default: 1
   end
 
   add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
@@ -60,12 +63,15 @@ ActiveRecord::Schema.define(version: 20160218145417) do
   create_table "authorships", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "submission_id"
-    t.boolean  "corresponding", default: true
-    t.integer  "position",      default: 0
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.boolean  "corresponding",  default: true
+    t.integer  "position",       default: 0
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "signed",         default: false
+    t.integer  "author_role_id"
   end
 
+  add_index "authorships", ["author_role_id"], name: "index_authorships_on_author_role_id", using: :btree
   add_index "authorships", ["person_id", "submission_id"], name: "index_authorships_on_person_id_and_submission_id", unique: true, using: :btree
   add_index "authorships", ["person_id"], name: "index_authorships_on_person_id", using: :btree
   add_index "authorships", ["submission_id"], name: "index_authorships_on_submission_id", using: :btree
@@ -338,8 +344,10 @@ ActiveRecord::Schema.define(version: 20160218145417) do
     t.integer  "person_id"
     t.integer  "issue_id"
     t.string   "author_role"
+    t.integer  "follow_up_id"
   end
 
+  add_index "submissions", ["follow_up_id"], name: "index_submissions_on_follow_up_id", using: :btree
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
 
@@ -360,6 +368,17 @@ ActiveRecord::Schema.define(version: 20160218145417) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   add_foreign_key "affiliations", "departments"
   add_foreign_key "affiliations", "people"

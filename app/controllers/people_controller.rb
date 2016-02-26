@@ -1,6 +1,9 @@
 class PeopleController < ApplicationController
   before_action :admin_required
 
+  layout "admin"
+  before_action -> {set_title "Osoby"}
+
   def index
     @query_params = params[:q] || {}
     @query = Person.ransack(@query_params)
@@ -38,8 +41,15 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
   end
 
+  def search
+    @person = Person.find(params[:id])
+    @link = "https://www.google.pl/search?q=#{@person[:name]}+#{@person[:surname]}"
+    redirect_to @link
+  end
+
   private
   def person_params
-    params.require(:person).permit(:name,:surname,:degree,:email,:sex,:discipline,:photo,:competence,roles: [])
+    params.require(:person).permit(:name,:surname,:degree,:email,:sex,:photo,
+                                   :competence,:reviewer_status, roles: [], discipline: [])
   end
 end
