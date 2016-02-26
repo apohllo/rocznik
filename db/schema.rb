@@ -352,6 +352,20 @@ ActiveRecord::Schema.define(version: 20160226115828) do
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
 
+  create_table "user_infos", force: :cascade do |t|
+    t.string   "name"
+    t.string   "surname"
+    t.string   "email"
+    t.string   "password"
+    t.string   "password_confirmation"
+    t.string   "sex"
+    t.string   "academic_degree"
+    t.string   "knowledge"
+    t.string   "status"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
