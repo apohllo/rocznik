@@ -32,16 +32,16 @@ feature 'Emailer' do
       expect(current_email).to have_content 'Szanowna Pani/ Szanowny Panie'
     end
     scenario 'sprawdzenie dodania hasła' do
-	clear_emails
+      clear_emails
 
-	visit '/submissions'
-	click_on 'Alicja w krainie czarów'
-	click_on'Dodaj autora'
-        select 'Kapusta, Andrzej', from: 'Autor'
-	click_on'Dodaj'
-	open_email('a.kapusa@gmail.com')
-	expect(current_email).to have_content 'hasło'
-	expect(current_email).to have_content 'a.kapusa'
+      visit '/submissions'
+      click_on 'Alicja w krainie czarów'
+      click_on'Dodaj autora'
+      select 'Kapusta, Andrzej', from: 'Autor'
+      click_on'Dodaj'
+      open_email('a.kapusa@gmail.com')
+      expect(current_email).to have_content 'hasło'
+      expect(current_email).to have_content 'a.kapusa'
     end
   end
 end
