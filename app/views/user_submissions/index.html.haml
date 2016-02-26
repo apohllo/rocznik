@@ -20,4 +20,4 @@
             - else
               = submission.editor
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
-          %td= submission.reviewers.count
+          %td= submission.reviews.count
