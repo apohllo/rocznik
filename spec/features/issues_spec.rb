@@ -177,7 +177,7 @@ feature "zarządzanie numerami" do
             Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                            "mężczyzna", roles: ['redaktor', 'recenzent'])
             article_file = Rails.root.join("spec/features/files/plik.pdf").open
-            revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1, article: article_file)
+            revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1, article: article_file, received: "18-01-2016")
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
                            status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
           end
