@@ -45,7 +45,7 @@ feature "recenzowanie" do
         click_on("Filtruj")
         page.find(".btn-danger", :match => :first).click
         
-        expect(page).to have_css(".has-error")
+        expect(page).to have_content("nie usunięto zgłoszenia")
       end
 
       scenario "edytowanie recenzji" do
