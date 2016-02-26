@@ -22,11 +22,6 @@ body, .page-container, .middle-row, .main {
   height: 100%;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-}
-
 .scroll-panel-header {
   border-bottom: 1px solid #F1F1F1;
   height: 65px;
