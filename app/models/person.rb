@@ -41,6 +41,8 @@ class Person < ActiveRecord::Base
   validates :sex, presence: true, inclusion: SEX_MAPPING.keys
   validates :reviewer_status, allow_blank: true, inclusion: REVIEWER_MAP.keys
   validate :roles_inclusion
+  validates :degree, format: {with: /(lic\.|inż\.|((mgr\s?(inż\.)?)|((prof\.\s?)?(dr\s?)(hab\.\s?)?(inż\.)?)))/,
+    		message: "dopuszczalne: lic., inż., mgr, dr, prof."}, allow_blank: true
 
 
   has_many :affiliations, dependent: :destroy
