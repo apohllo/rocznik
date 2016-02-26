@@ -185,14 +185,14 @@ feature "zarządzanie numerami" do
           scenario "wyświetlenie linku do listy recenzentów" do
             visit "/issues"
 
-            click_link "4"
+            click_link "3"
             expect(page).to have_link("Pokaż recenzentów")
           end
 
           scenario "wyświetlenie listy recenzentów" do
             visit "/issues"
 
-            click_link "4"
+            click_link "3"
             click_link "Pokaż recenzentów"
             expect(page).to have_content("Andrzej Kapusta")
           end
