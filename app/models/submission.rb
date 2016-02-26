@@ -29,6 +29,8 @@ class Submission < ActiveRecord::Base
 
   scope :accepted, -> { where(status: "przyjęty") }
 
+  scope :english, -> { where(language == ENGLISH) }
+
   MAX_LENGTH = 80
 
   has_paper_trail on: [:create, :update, :destroy], only: [:status]
@@ -141,10 +143,6 @@ class Submission < ActiveRecord::Base
 
   def polish_language?
     self.language == POLISH
-  end
-
-  def english_language
-    self.language == ENGLISH
   end
 
   def latest_modifier
