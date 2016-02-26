@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20160223153523) do
     t.datetime "updated_at"
     t.string   "pages"
     t.string   "external_link"
+    t.integer  "issue_position", default: 1
   end
 
   add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
@@ -336,14 +337,14 @@ ActiveRecord::Schema.define(version: 20160223153523) do
     t.text     "funding"
     t.date     "received"
     t.string   "language"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
     t.integer  "follow_up_id"
   end
 
-  add_index "submissions", ["follow_up_id"], name: "index_submissions_on_follow_up", using: :btree
+  add_index "submissions", ["follow_up_id"], name: "index_submissions_on_follow_up_id", using: :btree
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
 
