@@ -189,7 +189,7 @@ feature "zarządzanie numerami" do
             expect(page).to have_link("Pokaż recenzentów")
           end
 
-          scenario "wyświetlenie listy recenzentów" do
+          scenario "wyświetlenie linku listy recenzentów" do
             visit "/issues"
 
             click_link "3"
