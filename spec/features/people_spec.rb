@@ -173,7 +173,7 @@ feature "zarządzanie osobami" do
         expect(page).to have_content("Zapytanie")
       end
       
-      scenario "potwierdzenie przy usuwaniu artykułu" do
+      scenario "potwierdzenie przy usuwaniu artykulu" do
         visit "/people"
         click_on 'Kalafior'
         click_on 'Dodaj zgłoszenie'
