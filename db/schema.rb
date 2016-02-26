@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20160223153523) do
     t.datetime "updated_at"
     t.string   "pages"
     t.string   "external_link"
+    t.integer  "issue_position", default: 1
   end
 
   add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
