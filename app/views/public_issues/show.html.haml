@@ -5,7 +5,7 @@
 .scroll-panel-body
   %h3 Artykuły
   %ul
-    - @issue.articles.each do |article|
+    - @issue.articles.order(:issue_position).each do |article|
       %li
         = article.authors_inline + "." 
         %i= link_to article.title, public_article_path(article)
