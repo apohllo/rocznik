@@ -92,6 +92,25 @@ feature "Artykuły" do
         expect(page).to have_content("korekta autorska")
       end
 
+      scenario "Zmiana pozycji artykułu'" do
+        visit '/articles'
+        click_on 'Wiemy wszystko'
+        click_on 'Edytuj'
+        select "2", from: "Indeks w numerze rocznika"
+
+        expect(page).not_to have_css('.has-error')
+
+        visit '/issues/2-2002'
+
+      end
+
+      scenario "Zmiana pozycji artykułu w issue" do
+        visit '/issues/2-2002'
+
+        expect(page).not_to have_css('.has-error')
+        expect(page).to have_content("Publikowane artykuły")
+      end
+
       scenario "filtrowanie artykułów po statusie" do
         visit "/articles"
         select "po recenzji", from: "Status"
