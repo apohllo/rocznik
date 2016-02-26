@@ -73,7 +73,11 @@ class SubmissionsController < ApplicationController
         SubmissionMailer.send_decision(submission).deliver_now
       end
       if new_status == 'przyjęty'
-        SubmissionMailer.send_contract(submission).deliver_now
+        authors = Submission.find(params[:id]).authors
+        authors.each do |author|
+          SubmissionMailer.send_contract(author).deliver_now
+        end
+        SubmissionMailer.send_contract(submission.person).deliver_now
       end
     end
   end
