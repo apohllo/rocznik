@@ -152,3 +152,20 @@
           %td= @submission.latest_modifier
           %td= @submission.latest_modification_time
           %td{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
+  %h3 Widomości związane ze zgłoszeniem:
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Nadawca
+        %th Data
+        %th Tytuł
+        %th Treść
+    %tbody
+      - if defined?(@submission.mails.last)
+        - @submission.mails.each do |mail|
+          %tr
+            %td= mail.sender
+            %td= mail.date
+            %td= mail.subject
+            %td= mail.body
+
