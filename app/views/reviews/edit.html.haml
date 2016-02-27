@@ -9,5 +9,5 @@
     = @review.title
     = @review.reviewer
     = render partial: "new_fields", locals: {f: f}
-    = f.input :content, label: "Treść recenzji"
+    = f.textarea :content, label: "Treść recenzji"
     = f.submit "Zapisz", class: %w{btn btn-primary btn-outline}
