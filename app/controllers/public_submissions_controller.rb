@@ -36,6 +36,7 @@ class PublicSubmissionsController < ApplicationController
         render_add_author
       else
         render :submission_confirmation, locals: { submission: submission.reload }
+        notify_editors
       end
     else
       render_add_author
@@ -84,5 +85,11 @@ class PublicSubmissionsController < ApplicationController
   def render_add_author
     render :add_author, locals: { authorship: authorship,
                                   submission: submission }
+  end
+
+  def notify_editors
+    unless Person.editors.count.zero?
+      EditorMailer.submission_notification(submission).deliver_later
+    end
   end
 end

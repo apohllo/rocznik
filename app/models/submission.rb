@@ -15,8 +15,6 @@ class Submission < ActiveRecord::Base
   validates :english_abstract, presence: true
   validates :english_keywords, presence: true
 
-  after_create :notify_editors
-
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
 
@@ -152,9 +150,4 @@ class Submission < ActiveRecord::Base
     end
   end
 
-  def notify_editors
-    unless Person.editors.count.zero?
-      EditorMailer.submission_notification(self).deliver_later
-    end
-  end
 end
