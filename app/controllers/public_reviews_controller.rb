@@ -52,6 +52,7 @@ class PublicReviewsController < ApplicationController
       article_revision = ArticleRevision.find(review_params[:article_revision_id])
       @public_review.article_revision = article_revision
       if @public_review.save
+        AddedReviewMailer.public_review_notification(@public_review).deliver_later
         render :saving_info
       else
         render :new

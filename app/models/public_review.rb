@@ -13,8 +13,6 @@ class Review < ActiveRecord::Base
   validates :status, presence: true
   validates :asked, presence: true
 
-  after_create :notify_reviewers
-
   def title
     "#{self.article_revision.title}"
   end
@@ -35,8 +33,8 @@ class Review < ActiveRecord::Base
     "TODO"
   end
 
-  def notity_reviewers
-    unless Person.reviewers.count.zero?
+  def notity_editors
+    unless Person.editors.count.zero?
       EditorMailer.public_review_notification(self).deliver_later
     end
   end
