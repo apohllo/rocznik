@@ -7,7 +7,7 @@ feature 'Emailer' do
 
     background do
       Person.create!(name: "Andrzej", surname: "Kapusta", discipline: ["filozofia"], email: "a.kapusa@gmail.com", sex:
-                     "mężczyzna", roles: ['redaktor', 'recenzent'])
+                     "mężczyzna", roles: ['redaktor', 'recenzent','autor'])
       Person.create!(name: "Adam", surname: "Kapusta", discipline: ["filozofia"], email: "adam.kapusa@gmail.com", sex:
                      "mężczyzna", roles: ['redaktor', 'recenzent'])
       Issue.create!(volume: 31, year: 2021)
@@ -15,7 +15,8 @@ feature 'Emailer' do
                          english_title: "Alice in Wonderland", english_abstract: "Little about that story",
                          english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.first)
       article_file = Rails.root.join("spec/features/files/plik.pdf").open
-      ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", article: article_file, submission: Submission.first)
+      ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5",
+                              article: article_file, submission: Submission.first)
       Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person:
                      Person.last, article_revision: ArticleRevision.first)
 
@@ -29,6 +30,18 @@ feature 'Emailer' do
 
     scenario 'sprawdzanie treści wiadomości' do
       expect(current_email).to have_content 'Szanowna Pani/ Szanowny Panie'
+    end
+    scenario 'sprawdzenie dodania hasła' do
+      clear_emails
+
+      visit '/submissions'
+      click_on 'Alicja w krainie czarów'
+      click_on'Dodaj autora'
+      select 'Kapusta, Andrzej', from: 'Autor'
+      click_on'Dodaj'
+      open_email('a.kapusa@gmail.com')
+      expect(current_email).to have_content 'hasło'
+      expect(current_email).to have_content 'a.kapusa'
     end
   end
 end
