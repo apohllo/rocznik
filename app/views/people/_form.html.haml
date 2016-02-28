@@ -1,9 +1,9 @@
 = simple_form_for @person do |f|
-  = f.input :degree, label: "Stopień"
-  = f.input :name, label: "Imię"
-  = f.input :surname, label: "Nazwisko"
-  = f.input :email, label: "E-mail"
-  = f.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
+  = f.input.col-sm-3 :degree, label: "Stopień"
+  = f.input.col-sm-3 :name, label: "Imię"
+  = f.input.col-sm-3 :surname, label: "Nazwisko"
+  = f.input.col-sm-3 :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
+  = f.input :email, labe: "E-mail"
   .disciplines
     %strong Dyscypliny
     = f.collection_check_boxes :discipline, Person::DISCIPLINE_MAPPING.keys, :to_s, :to_s, include_blank: false, item_wrapper_class: 'checkbox_container'
