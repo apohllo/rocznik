@@ -30,7 +30,7 @@ class PublicRevisionsController < ApplicationController
 
   private
   def article_revision_params
-    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article,:comment,:accepted)
+    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article,:comment,:accepted,:person_id,:status,:asked,:deadline,:remarks, :content, :general,:scope,:meritum,:language,:intelligibility,:literature,:novelty,:content,:article_revision_id)
 end
 
 end

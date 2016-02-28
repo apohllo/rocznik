@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     get :new_reviewer, on: :collection
     post :create_reviewer, on: :collection
     get :finish, on: :collection
+   
   end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
