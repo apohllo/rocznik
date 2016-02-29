@@ -35,3 +35,5 @@
       - else
         [Brak numeru DOI]
   = link_to "Edytuj", edit_article_path(@article), class: %w{btn btn-primary btn-sm}
+  - if not @article.authors.empty? 
+    = link_to "Pobierz zaświadczenie o publikacji", generate_certificate_article_path(@article), class: %w{btn btn-primary btn-sm}

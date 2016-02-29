@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require turbolinks
+//= require jquery.turbolinks
+//= require twitter/bootstrap/alert
 //= require_tree .
 //= require simple_form_autocomplete
 
