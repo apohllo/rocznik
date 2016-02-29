@@ -62,6 +62,14 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def show_comments 
+    if self.submission
+      self.submission.comments
+    else
+      "[ZAAKCEPTOWANO BEZ ZMIAN]"
+    end
+  end
+
   def keywords
     if self.submission
       self.submission.english_keywords
