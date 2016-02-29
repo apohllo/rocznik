@@ -44,6 +44,7 @@ feature "zarządzanie recenzjami" do
         click_button 'Dodaj'
 
         expect(page).to have_css(".has-error")
+        expect(page).to have_content("Piotr Zujotu ma taką samą afiliację jak jeden z autorów.")
       end
 
       scenario "Dodawanie recenzenta o innej afiliacji niż autor" do

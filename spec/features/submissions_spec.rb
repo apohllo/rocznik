@@ -195,6 +195,7 @@ feature "zgloszenia" do
           click_button("Dodaj")
 
           expect(page).to have_css(".has-error")
+          expect(page).to have_content("nie może być puste")
         end
 
         xscenario "reset filtrów i formularza" do
