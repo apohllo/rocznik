@@ -157,15 +157,19 @@
     %thead
       %tr
         %th Nadawca
+        %th Odbiorca
         %th Data
         %th Tytuł
         %th Treść
     %tbody
-      - if defined?(@submission.mails.last)
-        - @submission.mails.each do |mail|
+      -  # Jeśli maile sa przypisane do zgłoszeń
+      - if defined?(@submission.SubmissionMail.last)
+        - @submission.SubmissionMail.each do |mail|
           %tr
             %td= mail.sender
+            %td= mail.addresse
             %td= mail.date
             %td= mail.subject
             %td= mail.body
+
 
