@@ -119,6 +119,15 @@ feature "Artykuły" do
         expect(page).to have_content("Wiemy wszystko")
         expect(page).not_to have_content("Jerzozwież")
       end
+      
+      scenario "filtrowanie artykułów po tytule" do
+        visit "/articles"
+        fill_in "Tytuł", with: "Wiemy wszystko"
+        click_on("Filtruj")
+
+        expect(page).to have_content("Wiemy wszystko")
+        expect(page).not_to have_content("Jerzozwież")
+      end
 
       scenario "sortowanie artykułu wzgledem tytułu" do
         visit "/articles"
