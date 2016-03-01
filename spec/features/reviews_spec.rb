@@ -130,7 +130,7 @@ feature "recenzowanie" do
         click_on("Filtruj")
         
         expect(page).to have_content("Dlaczego solipsyzm?")
-        expect(page).not_to have_content("Świat jako wola i przedstawienie")
+        expect(page).not_to have_content("Arystoteles")
       end  
 
       xscenario "reset filtrów" do
