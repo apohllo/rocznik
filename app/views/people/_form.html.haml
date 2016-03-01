@@ -6,7 +6,7 @@
   = f.input :email, labe: "E-mail"
   .roles
     %strong Role
-    =f.collection_check_boxex :roles, Person::ROLE_MAP.keys, :to_s, :to_s, include_blank: false, item_wrapper_class: 'checkbox_container'
+    = f.collection_check_boxes :roles, Person::ROLE_MAP.keys, :to_s, :to_s, include_blank: false, item_wrapper_class: 'checkbox_container'
   .disciplines
     %strong Dyscypliny
     = f.collection_check_boxes :discipline, Person::DISCIPLINE_MAPPING.keys, :to_s, :to_s, include_blank: false, item_wrapper_class: 'checkbox_container'
