@@ -6,24 +6,27 @@ feature "recenzowanie" do
 
     context "recenzja w bazie" do
       before do
-        person_1 = Person.create!(name:"Andrzej", surname:"Kapusta", discipline:"filozofia", sex: "mężczyzna", email:
+        person_1 = Person.create!(name:"Andrzej", surname:"Kapusta", sex: "mężczyzna", email:
                                   "a.kapusta@gmail.com", roles: ['redaktor'])
-        Person.create!(name:"Anna", surname:"Genialna", discipline:"filozofia", email: "a.genialna@gmail.com", sex:
+        Person.create!(name:"Anna", surname:"Genialna", email: "a.genialna@gmail.com", sex:
                        "kobieta",roles: ['recenzent'])
-        Person.create!(name:"Wojciech", surname:"Nowak", discipline:"fizyka", email: "w.nowak@gmail.com", sex:
-                       "mężczyzna",roles: ['recenzent'])
-        submission_1 =
-          Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person: person_1,
-                             polish_title: "Dlaczego solipsyzm?", english_title: "title1", english_abstract:
-                             "abstract1", english_keywords: "tag1, tag2")
+        Person.create!(name:"Wojciech", surname:"Nowak", email: "w.nowak@gmail.com", sex: "mężczyzna",
+                       roles: ['recenzent'])
+
+        submission_1 = Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person:
+                                          person_1, polish_title: "Dlaczego solipsyzm?", english_title: "title1",
+                                          english_abstract: "abstract1", english_keywords: "tag1, tag2")
+        article_file = Rails.root.join("spec/features/files/plik.pdf").open
         article_revision_1 =
-          ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: submission_1)
+          ArticleRevision.create!(version:"1.0", received:"18-01-2016",
+                                  pages:"5", article: article_file, submission: submission_1)
         submission_2 =
           Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person: person_1,
                              polish_title: "Arystoteles.", english_title: "title2", english_abstract: "abstract2",
                              english_keywords: "tag1, tag2")
         article_revision_2 =
-          ArticleRevision.create!(version:"1.0", received:"18-01-2016", pages:"5", submission: submission_2)
+          ArticleRevision.create!(version:"1.0", received:"18-01-2016",
+                                  pages:"5", article: article_file, submission: submission_2)
         Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person:
                        person_1, article_revision: article_revision_1)
         Review.create!(status: "recenzja negatywna", content: " ", asked: "20-02-2016", deadline: "16-01-2017", person:
@@ -93,7 +96,7 @@ feature "recenzowanie" do
           expect(page).to have_css(".exceeded-deadline")
         end
       end
-            
+
       scenario "Brak zaznaczenia przekroczonego deadline'u w liscie zgloszen" do
         Timecop.freeze(Date.parse("15-01-2016")) do
           visit '/submissions'
@@ -110,7 +113,6 @@ feature "recenzowanie" do
         end
       end
 
-
       scenario "filtrowanie recenzji po statusie" do
         visit "/reviews"
 
@@ -119,6 +121,28 @@ feature "recenzowanie" do
 
         expect(page).to have_content("16-01-2017")
         expect(page).not_to have_content("20-01-2016")
+      end
+      
+      scenario "filtrowanie recenzji po tytule" do
+        visit "/reviews"
+        
+        fill_in "Tytuł", with: "Dlaczego solipsyzm?"
+        click_on("Filtruj")
+        
+        expect(page).to have_content("Dlaczego solipsyzm?")
+        expect(page).not_to have_content("Arystoteles")
+      end  
+
+      xscenario "reset filtrów" do
+        visit "/reviews"
+        expect(page).to have_content("16-01-2017")
+        expect(page).to have_content("20-01-2016")
+        select "recenzja negatywna", from: "Status"
+        click_button 'Filtruj'
+        expect(page).not_to have_content("20-01-2016")
+        click_button 'x'
+        expect(page).to have_content("16-01-2017")
+        expect(page).to have_content("20-01-2016")
       end
 
       scenario "sortowanie recenzji wzgledem deadlinu" do
@@ -131,10 +155,23 @@ feature "recenzowanie" do
         click_on "Deadline"
         expect(page).to have_content(/20-01-2016.*16-01-2017/)
       end
-      
+
       scenario "wyświetlanie liczby przypisanych recenzentów" do
         visit "/submissions"
         expect(page).to have_content("1")
+      end
+
+      scenario "sprawdzanie dostepnosci odnosnika do edycji recenzji w widoku zgloszenia" do
+        visit "/reviews"
+        expect(page). to have_css('a[title="Edytuj recenzję"]')
+      end
+
+      scenario "sprawdzanie dostepnosci odnosnika do wyswietlania i edycji recenzji w pojedynczym zgloszeniu" do
+        visit "/submissions"
+        click_on "Dlaczego solipsyzm?"
+
+        expect(page).to have_css('a[title="Wyświetl recenzję"]')
+        expect(page).to have_css('a[title="Edytuj recenzję"]')
       end
     end
   end

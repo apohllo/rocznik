@@ -1,16 +1,20 @@
 .scroll-panel-header
   = link_to "Zgłoszenia", submissions_path, class: %w{btn btn-default btn-sm pull-right}
   = link_to "Nowe zgłoszenie", new_submission_path, class: %w{btn btn-default btn-sm pull-right}
+  %dl
+  .col-md-1
+    - if @submission.polish_language?
+      = image_tag('pl.png')
+    - else
+      = image_tag('gb.png')
   %h3.scroll-panel-title
     = @submission.title
 .scroll-panel-body
-  %dl
+  .col-sm-offset-2.col-sm-3.details
     %dt Status
     %dd{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
   %dl
-    %dt Język
-    %dd= @submission.language
-  %dl
+  .col-md-3.details
     %dt Redaktor
     %dd
       - if @submission.person
@@ -18,8 +22,21 @@
       - else
         = @submission.editor
   %dl
+  .col-md-3.details
     %dt Otrzymano
     %dd= @submission.received.strftime("%d-%m-%Y")
+  %dl.submission_show
+    %dt Numer rocznika
+    %dd
+      - if @submission.issue
+        = link_to @submission.issue_title, @submission.issue
+      - else
+        = @submission.issue
+  %dl
+    %dt Nawiązywanie do
+    %dd
+      - if @submission.follow_up
+        = link_to @submission.follow_up.title, @submission.follow_up
   %dl
     %dt Streszczenie
     %dd.more= @submission.abstract
@@ -34,14 +51,16 @@
     %dl
       %dt Finansowanie
       %dd= simple_format(@submission.funding)
-  = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}
-  %h3 Autorzy
+  = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}, id: %w{edit-submission}
+  %h3.submission_show_tables Autorzy
   %table.table.table-hover.table-admin
     %thead
       %tr
         %th Nazwisko
         %th Korespondujący
         %th Liczba porządkowa
+        %th Podpisana umowa
+        %th Zmiana 'signed'
         %th
     %tbody
       - @submission.authorships.each do |authorship|
@@ -49,11 +68,13 @@
           %td= link_to authorship.author, authorship.person
           %td= authorship.corresponding? ? raw("&#10004;") : ""
           %td= authorship.position
+          %td= authorship.signed? ? icon('check') : icon('times')
+          %th= authorship.signed? ? "" : (link_to "podpisz", sign_authorship_path(authorship), method: :post)
           %td.text-right
             = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")
   = link_to "Dodaj autora", new_authorship_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
-  %h3 Wersje
-  %table.table.table-hover.table-admin
+  %h3.submission_show_tables Wersje
+  %table.table.table-hover.table-admin#version
     %thead
       %tr
         %th Numer
@@ -75,9 +96,12 @@
           %td= revision.pages
           %td= revision.pictures
           %td.text-right
+            - sign = revision.accepted? ? raw("&#10004;") : raw("&#10007;")
+            = link_to sign, article_revision_path(revision), class: %w{btn btn-outline btn-default}, title: "Zobacz komentarz"
+            = edit_button(revision,edit_article_revision_path(revision),"Edytuj komentarz")
             = destroy_button(revision,"Czy na pewno chcesz usunąć tę wersję wraz z recenzjami?")
   = link_to "Dodaj wersję", new_article_revision_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
-  %h3 Recenzje
+  %h3.submission_show_tables Recenzje
   %table.table.table-hover.table-admin
     %thead
       %tr
@@ -94,7 +118,37 @@
           %td= link_to review.reviewer, review.person
           %td= review.asked_date
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
-          %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= link_to review.status, edit_review_path(review)
+          %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
+          %td{style: "text-align:center;"}= link_to image_tag("/assets/remind_icon.png", size: "32x32"), send_reminder_review_path(review), class: "reminder", method: :post
           %td.text-right
+            = icon_to 'fa-check-circle', accepted_review_path(review), title: "Akceptacja recenzji"
+            = icon_to 'fa-times-circle', rejected_review_path(review), title: "Odrzucenie recenzji"
+            = icon_to 'fa-paper-plane', ask_for_review_review_path(review), method: :post, title: "Wyślij zapytanie o sporządzenie recenzji"
+            = icon_to 'fa-send-o', ask_review_path(review), method: :post, title: "Wyślij zapytanie o recenzję"
+            = icon_to 'fa-comment-o', review_path(review), title: "Wyświetl recenzję"
+            = icon_to 'fa-pencil-square-o', edit_review_path(review), title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
   = link_to "Dodaj recenzenta", new_review_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}
+  %h3 Historia zmian
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Wersja
+        %th Autor zmiany
+        %th Data zmiany
+        %th Status
+    %tbody
+      - if defined?(@submission.versions.last)
+        - @submission.versions.each do |version|
+          %tr
+            %td= version.index+1
+            %td= !version.whodunnit.nil? ? version.whodunnit : ""
+            %td= version.created_at
+            - submission_version = version.reify(dup: true)
+            - if !submission_version.nil?
+              %td{class: "#{Submission::STATUS_MAPPING[submission_version.status]}"}= submission_version.status
+        %tr
+          %td Obecna
+          %td= @submission.latest_modifier
+          %td= @submission.latest_modification_time
+          %td{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status

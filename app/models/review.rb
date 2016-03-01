@@ -3,7 +3,8 @@ class Review < ActiveRecord::Base
     "wysłane zapytanie" => :asked, "recenzja przyjęta" => :accepted, "recenzja odrzucona" => :rejected,
     "recenzja pozytywna" => :positive, "recenzja negatywna" => :negative, "niewielkie poprawki" => :minor_review,
     "istotne poprawki" => :major_review,
-    "przedłużony termin" => :extension, "blacklista" => :blacklist
+    "przedłużony termin" => :extension, "blacklista" => :blacklist, "proponowany recenzent" => :reviewer_proposal,
+    "niechciany recenzent" => :reviewer_rejected
   }
   belongs_to :person
   belongs_to :article_revision
@@ -18,6 +19,22 @@ class Review < ActiveRecord::Base
   
   def title
     "#{self.article_revision.title}"
+  end 
+  
+  def abstract
+    self.submission.abstract
+  end
+
+  def editor
+    self.submission.editor
+  end
+
+  def text
+    if self.content.blank?
+      "[BRAK TREŚCI]"
+    else
+      self.content
+    end
   end
 
   def reviewer
