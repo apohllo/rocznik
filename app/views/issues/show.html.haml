@@ -30,7 +30,7 @@
           %td= submission.received.strftime("%d-%m-%Y")
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
           %td.text-right
-            = destroy_button(submission)
+            = destroy_button(submission, "Czy na pewno chcesz usunąć to zgłoszenie?")
   -if @issue.prepared?
     %h3 Publikowane artykuły
     %table.table.table-hover.table-admin
