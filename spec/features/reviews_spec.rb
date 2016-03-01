@@ -131,6 +131,11 @@ feature "recenzowanie" do
         click_on "Deadline"
         expect(page).to have_content(/20-01-2016.*16-01-2017/)
       end
+      
+      scenario "wyświetlanie liczby przypisanych recenzentów" do
+        visit "/submissions"
+        expect(page).to have_content("1")
+      end
     end
   end
 end
