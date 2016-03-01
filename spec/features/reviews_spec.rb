@@ -10,12 +10,12 @@ feature "recenzowanie" do
                                   "a.kapusta@gmail.com", roles: ['redaktor'])
         Person.create!(name:"Anna", surname:"Genialna", email: "a.genialna@gmail.com", sex:
                        "kobieta",roles: ['recenzent'])
-        Person.create!(name:"Wojciech", surname:"Nowak", email: "w.nowak@gmail.com", sex:
-                       "mężczyzna",roles: ['recenzent'])
-        submission_1 =
-          Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person: person_1,
-                             polish_title: "Dlaczego solipsyzm?", english_title: "title1", english_abstract:
-                             "abstract1", english_keywords: "tag1, tag2")
+        Person.create!(name:"Wojciech", surname:"Nowak", email: "w.nowak@gmail.com", sex: "mężczyzna",
+                       roles: ['recenzent'])
+
+        submission_1 = Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person:
+                                          person_1, polish_title: "Dlaczego solipsyzm?", english_title: "title1",
+                                          english_abstract: "abstract1", english_keywords: "tag1, tag2")
         article_file = Rails.root.join("spec/features/files/plik.pdf").open
         article_revision_1 =
           ArticleRevision.create!(version:"1.0", received:"18-01-2016",
@@ -122,6 +122,16 @@ feature "recenzowanie" do
         expect(page).to have_content("16-01-2017")
         expect(page).not_to have_content("20-01-2016")
       end
+      
+      scenario "filtrowanie recenzji po tytule" do
+        visit "/reviews"
+        
+        fill_in "Tytuł", with: "Dlaczego solipsyzm?"
+        click_on("Filtruj")
+        
+        expect(page).to have_content("Dlaczego solipsyzm?")
+        expect(page).not_to have_content("Arystoteles")
+      end  
 
       xscenario "reset filtrów" do
         visit "/reviews"

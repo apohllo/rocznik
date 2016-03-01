@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     patch :prepare, on: :member
     patch :publish, on: :member
     get :show_reviews, on: :member
+    get :show_reviewers, on: :member
   end
   resources :public_issues, only: [:index,:show]
   resources :people do
@@ -43,7 +44,9 @@ Rails.application.routes.draw do
   end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
-  resources :articles
+  resources :articles do
+    get :generate_certificate, on: :member
+  end  
   resource :profile, only: [:show, :edit, :update] do
     get :edit_password
     patch :update_password

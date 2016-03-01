@@ -65,11 +65,19 @@ class SubmissionsController < ApplicationController
                                        :remarks,:polish_title,:english_title,:english_abstract,
                                        :english_keywords,:person_id,:follow_up_id)
   end
+
   def check_status(old_status,new_status)
     if old_status != new_status
       if new_status == 'odrzucony' || new_status == 'do poprawy' || new_status == 'przyjęty'
         submission = Submission.find(params[:id])
         SubmissionMailer.send_decision(submission).deliver_now
+      end
+      if new_status == 'przyjęty'
+        authors = Submission.find(params[:id]).authors
+        authors.each do |author|
+          SubmissionMailer.send_contract(author).deliver_now
+        end
+        SubmissionMailer.send_contract(submission.person).deliver_now
       end
     end
   end

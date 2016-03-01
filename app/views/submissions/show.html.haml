@@ -32,7 +32,7 @@
         = link_to @submission.issue_title, @submission.issue
       - else
         = @submission.issue
-  %dl 
+  %dl
     %dt Nawiązywanie do
     %dd
       - if @submission.follow_up
@@ -51,7 +51,7 @@
     %dl
       %dt Finansowanie
       %dd= simple_format(@submission.funding)
-  = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}
+  = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}, id: %w{edit-submission}
   %h3.submission_show_tables Autorzy
   %table.table.table-hover.table-admin
     %thead
@@ -120,9 +120,6 @@
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
           %td{style: "text-align:center;"}= link_to image_tag("/assets/remind_icon.png", size: "32x32"), send_reminder_review_path(review), class: "reminder", method: :post
-          .flash
-            - if flash[:notice]
-              .flash-confirmation= flash[:notice]
           %td.text-right
             = icon_to 'fa-check-circle', accepted_review_path(review), title: "Akceptacja recenzji"
             = icon_to 'fa-times-circle', rejected_review_path(review), title: "Odrzucenie recenzji"
