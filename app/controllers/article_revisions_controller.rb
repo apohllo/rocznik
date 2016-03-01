@@ -26,8 +26,16 @@ class ArticleRevisionsController < ApplicationController
     end
   end
 
+  def index
+    id = params[:issue_id]
+    @issue_id = id
+    @article_revisions = ArticleRevision.joins(:submission).where(submissions: { issue_id: id })
+  end
+
   def update
+    submission = Submission.find(params[:submission_id])
     @article_revision = ArticleRevision.find(params[:id])
+    @article_revision.submission = submission
     if @article_revision.update_attributes(article_revision_params)
       redirect_to @article_revision.submission
     else
@@ -36,11 +44,18 @@ class ArticleRevisionsController < ApplicationController
   end
 
   def edit
-    @article_revision = ArticleRevision.find(params[:id])
+    submission = Submission.find(params[:submission_id])
+      if submission.status == 'nadesłany'
+        @article_revision = ArticleRevision.find(params[:id])
+      else
+        redirect_to submission
+      end
   end
 
   def show
+    submission = Submission.find(params[:submission_id])
     @article_revision = ArticleRevision.find(params[:id])
+    @article_revision.submission = submission
   end
 
   def destroy

@@ -1,0 +1,17 @@
+.scroll-panel-header
+   %h3.scroll-panel-title Komentarze do numeru
+.scroll-panel-body
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Numer
+        %th Artykuł
+        %th Wersja
+        %th Komentarz
+    %tbody
+      - @article_revisions.each do |revision|
+        %tr
+          %td= @issue_id
+          %td= revision.submission.title
+          %td= revision.version
+          %td= revision.comment

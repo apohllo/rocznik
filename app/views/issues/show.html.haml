@@ -17,6 +17,7 @@
 .scroll-panel-body
 
   %h3 Zgłoszone artykuły
+  = link_to "Komentarze do numeru", article_revisions_path(issue_id: @issue.id), class: %w{btn btn-default btn-sm pull-right}
   %table.table.table-hover.table-admin
     %thead
       %tr
