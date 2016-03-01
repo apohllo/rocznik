@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature "Nowy formularz rejestracji pozwalający na podanie danych osobowych" do
 
-  scenario "Tworzenie nowego użytkownika" do
+  scenario "Tworzenie nowego użytkownika z danymi osobowymi" do
     visit '/users/sign_up'
 
     within("#new_user") do
@@ -13,11 +13,6 @@ feature "Nowy formularz rejestracji pozwalający na podanie danych osobowych" do
     click_button 'Zarejestruj się'
 
       expect(page).to have_content 'Podaj dane'
-  end
- 
-
-  scenario "Dodanie danych osobowych" do
-    visit '/users/new_person'
 
     within("#new_person") do
       fill_in "Imię", with: "Andrzej"
@@ -25,5 +20,6 @@ feature "Nowy formularz rejestracji pozwalający na podanie danych osobowych" do
 	  select "mężczyzna", from: "Płeć", visible: false
     end
     click_button 'Zarejestruj się'
+    expect(page).not_to have_css('.has-error')
   end
 end
