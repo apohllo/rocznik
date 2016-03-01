@@ -122,6 +122,16 @@ feature "recenzowanie" do
         expect(page).to have_content("16-01-2017")
         expect(page).not_to have_content("20-01-2016")
       end
+      
+      scenario "filtrowanie recenzji po tytule" do
+        visit "/reviews"
+        
+        fill_in "Tytuł", with: "Dlaczego solipsyzm?"
+        click_on("Filtruj")
+        
+        expect(page).to have_content("Dlaczego solipsyzm?")
+        expect(page).not_to have_content("Arystoteles")
+      end  
 
       xscenario "reset filtrów" do
         visit "/reviews"
@@ -144,6 +154,11 @@ feature "recenzowanie" do
 
         click_on "Deadline"
         expect(page).to have_content(/20-01-2016.*16-01-2017/)
+      end
+
+      scenario "wyświetlanie liczby przypisanych recenzentów" do
+        visit "/submissions"
+        expect(page).to have_content("1")
       end
 
       scenario "sprawdzanie dostepnosci odnosnika do edycji recenzji w widoku zgloszenia" do
