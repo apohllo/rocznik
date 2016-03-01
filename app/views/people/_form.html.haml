@@ -1,8 +1,8 @@
 = simple_form_for @person do |f|
-  = col-sm-3= f.input :degree, label: "Stopień"
-  = col-sm-3= f.input :name, label: "Imię"
-  = col-sm-3= f.input :surname, label: "Nazwisko"
-  = col-sm-3= f.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
+  = .col-sm-3= f.input :degree, label: "Stopień"
+  = .col-sm-3= f.input :name, label: "Imię"
+  = .col-sm-3= f.input :surname, label: "Nazwisko"
+  = .col-sm-3= f.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
   = f.input :email, labe: "E-mail"
   .roles
     %strong Role
