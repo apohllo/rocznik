@@ -156,6 +156,11 @@ feature "recenzowanie" do
         expect(page).to have_content(/20-01-2016.*16-01-2017/)
       end
 
+      scenario "wyświetlanie liczby przypisanych recenzentów" do
+        visit "/submissions"
+        expect(page).to have_content("1")
+      end
+
       scenario "sprawdzanie dostepnosci odnosnika do edycji recenzji w widoku zgloszenia" do
         visit "/reviews"
         expect(page). to have_css('a[title="Edytuj recenzję"]')
