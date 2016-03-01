@@ -18,15 +18,19 @@
     %b Role w systemie
     %p= @person.roles.join(", ")
   %dl
+  .views_show
     %b Płeć
     %p= @person.sex
   %dl
+  .views_show
     %b Kompetencje
     %p= @person.competence
   %dl
+  .views_show
     %b Więcej informacji
     %p= link_to "Google", search_person_path(@person), target: "_blank", class: %w{btn btn-primary btn-sm}
   %dl
+  .views_show
     - if @person.reviewer?  && !@person.reviewer_status.blank?
       %b Status recenzenta
       %p= @person.reviewer_status
