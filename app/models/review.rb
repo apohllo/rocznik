@@ -3,7 +3,8 @@ class Review < ActiveRecord::Base
     "wysłane zapytanie" => :asked, "recenzja przyjęta" => :accepted, "recenzja odrzucona" => :rejected,
     "recenzja pozytywna" => :positive, "recenzja negatywna" => :negative, "niewielkie poprawki" => :minor_review,
     "istotne poprawki" => :major_review,
-    "przedłużony termin" => :extension, "blacklista" => :blacklist, "proponowany recenzent" => :reviewer_proposal
+    "przedłużony termin" => :extension, "blacklista" => :blacklist, "proponowany recenzent" => :reviewer_proposal,
+    "niechciany recenzent" => :reviewer_rejected
   }
   belongs_to :person
   belongs_to :article_revision
@@ -13,7 +14,9 @@ class Review < ActiveRecord::Base
   validates :article_revision_id, presence: true
   validates :asked, presence: true
   validate :authors_reviewer_shared_institutions
-
+  
+  scope :in_progress, -> { where("status = 'wysłane zapytanie' or status = 'pozytywny' or status = 'negatywny' or status = 'do poprawy' or status = 'przedłużony termin'") }
+  
   def title
     "#{self.article_revision.title}"
   end 
