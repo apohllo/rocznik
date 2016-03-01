@@ -1,17 +1,17 @@
 = simple_form_for @person do |f|
-  = f.input.col-sm-3 :degree, label: "Stopień"
-  = f.input.col-sm-3 :name, label: "Imię"
-  = f.input.col-sm-3 :surname, label: "Nazwisko"
-  = f.input.col-sm-3 :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
+  = col-sm-3= f.input :degree, label: "Stopień"
+  = col-sm-3= f.input :name, label: "Imię"
+  = col-sm-3= f.input :surname, label: "Nazwisko"
+  = col-sm-3= f.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
   = f.input :email, labe: "E-mail"
+  .roles
+    %strong Role
+    =f.collection_check_boxex :roles, Person::ROLE_MAP.keys, :to_s, :to_s, include_blank: false, item_wrapper_class: 'checkbox_container'
   .disciplines
     %strong Dyscypliny
     = f.collection_check_boxes :discipline, Person::DISCIPLINE_MAPPING.keys, :to_s, :to_s, include_blank: false, item_wrapper_class: 'checkbox_container'
   = f.input :competence, label: "Kompetencje"
   = f.input :photo, label: "Zdjęcie"
-  .roles
-    %strong Role
-    = f.collection_check_boxes :roles, Person::ROLE_MAP.keys, :to_s, :to_s, include_blank: false, item_wrapper_class: 'checkbox_container'
     - if @person.reviewer? && !@person.new_record?
       = f.input :reviewer_status, collection: Person::REVIEWER_MAP.keys, label: "Status recenzenta"
   - label = @person.new_record? ? "Utwórz" : "Zapisz"
