@@ -7,6 +7,7 @@
   = simple_form_for @article do |f|
     = f.association :issue, label: "Numer", collection: Issue.latest.all, include_blank: false, label_method: :title
     = f.input :status, collection: Article::STATUS_MAPPING.keys
+    = f.input :issue_position, label: "Indeks w numerze rocznika", collection: ((1..@article.issue.articles.map(&:issue_position).length)), default: 1
     = f.input :pages, label:"Strony"
     = f.input :external_link, label:"Link do ściągnięcia artykuła"
     = f.input :DOI, label: "Numer DOI"
