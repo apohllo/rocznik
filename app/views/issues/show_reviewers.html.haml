@@ -6,7 +6,7 @@
 .scroll-panel-body
   - @issue.submissions.each do |submission|
     .scroll-panel_body
-      - submission.reviews.group_by(&:person).each do |reviewer,reviews|
-        %h3
-          = reviewer.full_name
-        
+      - submission.reviews.each do |review|
+        Recenzent: 
+        = link_to review.reviewer, review.person
+        %br
