@@ -8,7 +8,7 @@ class UserSubmissionsController < ApplicationController
   end
 
   def show
-    @submission = current_person.authorships.map(&:submission)
+    @submission = current_person.authorships.where(id: params[:id]).first
     if @submission.nil?
       redirect_to user_submissions_path
     end
