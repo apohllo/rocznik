@@ -28,7 +28,9 @@ class SubmissionsController < ApplicationController
     @author_id = params[:author_id]
     if @submission.save
       if @author_id
-	if Author.find_by_email(email).nil?
+	 authorship = Authorship.new(person_id: @author_id,submission: @submission)
+-        authorship.save
+	 if Author.find_by_email(email).nil?
           SubmissionMailer.confirmation(submission).deliver_now
       end     
       redirect_to submission
