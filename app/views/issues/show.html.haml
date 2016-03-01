@@ -1,3 +1,4 @@
+= render file: "issues/js_position"
 .scroll-panel-header
   -unless @issue.published?
     - if @issue.prepared?
@@ -13,8 +14,8 @@
   = link_to "Edytuj", edit_issue_path(@issue), class: %w{btn btn-primary btn-sm}
   = link_to "Pokaż recenzje", show_reviews_issue_path(@issue), class: %w{btn btn-default btn-sm}
   = link_to "Pokaż recenzentów", show_reviewers_issue_path(@issue), class: %w{btn btn-default btn-sm}
-
 .scroll-panel-body
+
   %h3 Zgłoszone artykuły
   %table.table.table-hover.table-admin
     %thead
@@ -35,12 +36,18 @@
     %table.table.table-hover.table-admin
       %thead
         %tr
+          %th Kolejność
           %th Tytuł
           %th Autorzy
           %th Status
       %tbody
-        - @issue.articles.each do |article|
+        - @issue.articles.order(:issue_position).each do |article|
           %tr
+            %td
+              %i{class: "fa fa-chevron-up btn", id: "article-up"}
+              %i{class: "fa fa-chevron-down btn", id: "article-down"}
+              %i{class: "article-queue-id article-id"}= article.id
+              %i{class: "article-queue-id issue-position"}= article.issue_position
             %td= article.submission.title
             %td= article.authors_inline
             %td= article.status
