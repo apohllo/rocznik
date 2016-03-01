@@ -5,6 +5,7 @@ class PublicRevisionsController < ApplicationController
     @revision = ArticleRevision.new
     @revision.submission = Submission.find(params[:submission_id])
     @revision.code = 'tekst_'
+    @revision.version = @revision.submission.article_revisions.count + 1
     @revision.received = @revision.submission.received
     @revision.received = Time.now
     end
