@@ -39,7 +39,7 @@ feature "recenzowanie" do
         expect(page).to have_css(".btn", text:"Edytuj")
       end
       
-      scenario "testowanie usuwania artykułu z recenzją" do
+      xscenario "testowanie usuwania artykułu z recenzją" do
         visit '/submissions'
         fill_in "Tytuł", with: "Arystoteles."
         click_on("Filtruj")
