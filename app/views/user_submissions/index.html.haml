@@ -1,0 +1,21 @@
+.scroll-panel-header
+  %h3.scroll-panel-title Zgłoszone artykuły
+.scroll-panel-body
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Numer
+        %th Tytuł
+        %th Redaktor
+        %th Status
+    %tbody
+      - @submissions.each do |submission|
+        %tr.table-row-link
+          %td= submission.issue_title
+          %td= link_to submission.title, user_submission_path(submission)
+          %td
+            - if submission.person
+              = link_to submission.editor, submission.person
+            - else
+              = submission.editor
+          %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
