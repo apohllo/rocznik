@@ -75,6 +75,23 @@ RSpec.shared_context "admin login" do
   end
 end
 
+RSpec.shared_context "user login" do
+  before do
+    email = "user@localhost.com"
+    password = "password"
+
+    User.create(email: email, password: password, admin: false)
+
+    visit '/users/sign_in'
+    within("#new_user") do
+      fill_in 'Adres e-mail', with: email
+      fill_in 'Hasło', with: password
+    end
+    click_button 'Zaloguj się'
+  end
+end
+
 def default_file
   File.new(Rails.root.join('spec/features/files/plik.pdf'))
 end
+
