@@ -1,0 +1,80 @@
+:javascript
+  $(document).ready(function () {
+    $('.fa-chevron-up').click(function () {
+      if (check_prev_sibling_exist($(this))) {
+        ajax_on_demand($(this), -1);        
+      }
+    });
+
+    $('.fa-chevron-down').click(function () {
+      if (check_next_sibling_exist($(this))) {
+        ajax_on_demand($(this), 1);
+      }
+    });
+  });
+
+  function ajax_on_demand(item, direction) {
+    $.ajax({
+      method: 'PATCH',
+      url: get_base_url() + "/articles/" + parseInt($(item).siblings('.article-id').text()),
+      dataType: 'json',
+      data: JSON.stringify({issue_position: parseInt($(item).siblings('.issue-position').text())+direction}),
+      headers: {
+          "Content-type":"application/json"
+      },
+      success: function(rails_response) {
+        if (rails_response.ok) {
+          update_queue($(item), direction);
+        }
+      },
+      error: function() {
+        return false;
+      }
+    });
+  }
+
+  function update_queue(item, direction) {
+    update_position_values(item, direction);
+    update_position_queue(item, direction);
+  }
+
+  function update_position_values(item, direction) {
+    var clicked_article = $(item).siblings('.issue-position');
+    var clicked_art_value = clicked_article.text();
+    var sibling = get_row_sibling(item, direction)
+
+    if (sibling) {
+      var other_article = $(sibling).children().children('.issue-position');
+      clicked_article.text(other_article.text());
+      other_article.text(clicked_art_value);
+    }
+  }
+
+  function update_position_queue(item, direction) {
+    var article = get_row(item);
+    var sibling = get_row_sibling(item, direction)
+    direction >= 1 ? $(sibling).after(article) : $(sibling).before(article);
+  }
+
+  function get_row_sibling(item, direction) {
+    if (direction >= 1) {
+      return get_row(item).next();
+    }
+    return get_row(item).prev();
+  }
+
+  function get_row(item) {
+    return $(item).parent().parent();
+  }
+
+  function check_prev_sibling_exist(item) {
+    return get_row(item).prev().is("tr") ? true : false;
+  }
+
+  function check_next_sibling_exist(item) {
+    return get_row(item).next().is("tr") ? true : false;
+  }
+
+  function get_base_url() {
+    return location.origin;
+  }

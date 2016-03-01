@@ -23,14 +23,14 @@ feature "zarządzanie profilem użytkownika" do
   scenario "edytowanie profilu użytkownika" do
     visit '/profile'
     click_on("Edytuj swoje dane")
-    fill_in "Stopień", with: "Profesor"
+    fill_in "Stopień", with: "prof. dr hab."
     fill_in "Imię", with: "Anna"
     fill_in "Nazwisko", with: "Nowicka"
     click_on("Zapisz")
     visit '/profile'  
       
     expect(page).not_to have_css(".has-error")
-    expect(page).to have_text("Profesor")
+    expect(page).to have_text("prof. dr hab.")
   end
     
   let(:new_password)          { "passwd1234" }

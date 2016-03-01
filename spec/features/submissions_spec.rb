@@ -279,6 +279,19 @@ feature "zgloszenia" do
           expect(page).to have_css(".has-error")
         end
 
+        scenario "wysłanie maila z umową" do
+          visit '/submissions'
+          clear_emails
+          click_on("Bukiet kotów")
+          page.find("#edit-submission").click
+          select('przyjęty', from: 'submission_status')
+          click_on("Zapisz")
+          open_email('a.kapusa@gmail.com')
+          expect(current_email).to have_content 'Z poważaniem,'
+          expect(current_email).to have_content 'Kapusta'
+          expect(current_email.attachments.first.filename).to eq 'Umowa-wydawnicza.pdf'
+        end
+
         xscenario "reset filtrów i formularza" do
           visit "/submissions"
           fill_in "Tytuł", with: "Ten nudny"
