@@ -77,6 +77,15 @@ class Submission < ActiveRecord::Base
     end
   end
 
+  def corresponding_author_surname
+    authorship = self.authorships.where(corresponding: true).first
+    if authorship
+      authorship.surname
+    else
+      "[BRAK AUTORA]"
+    end
+  end
+
   def corresponding_author_email
     authorship = self.authorships.where(corresponding: true).first
     if authorship
