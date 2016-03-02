@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     post :add_author, on: :collection
     post :cancel
   end
+  resources :user_submissions, only: [:index, :show]
   resources :affiliations, only: [:new, :create, :destroy] do
     get :institutions, on: :collection
     get :countries, on: :collection
