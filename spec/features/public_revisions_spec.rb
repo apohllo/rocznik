@@ -19,8 +19,8 @@ feature "publiczne dodawanie nowej wersji" do
  	fill_in "Otrzymano", with: "16/07/2016"
         fill_in "Liczba stron", with: '3'
         fill_in "Liczba ilustracji", with: '5'
-        attach_file("Artykuł", 'spec/features/files/plik.pdf')
-        click_button 'Dodaj'
+        attach_file("Plik", 'spec/features/files/plik.pdf')
+        click_button 'Zapisz'
 
         within("#version") do
           expect(page).to have_content("plik.pdf")
@@ -38,7 +38,7 @@ feature "publiczne dodawanie nowej wersji" do
 	fill_in "Otrzymano", with: "16/07/2016"
         fill_in "Liczba stron", with: '3'
         fill_in "Liczba ilustracji", with: '5'
-        click_button 'Dodaj'
+        click_button 'Zapisz'
 
         within("#new_article_revision") do
 	  expect(page).to have_content("1-03-2016")
