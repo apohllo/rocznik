@@ -11,7 +11,7 @@ feature "publiczne dodawanie nowej wersji" do
       end
 
       scenario "Dodawanie nowej wersji" do
-        visit '/submissions/'
+        visit '/submissions'
         click_on("Ulisses")
 
         click_on("Dodaj wersję")
@@ -30,7 +30,7 @@ feature "publiczne dodawanie nowej wersji" do
       end
 
       scenario "Dodawanie nowej wersji bez pliku" do
-        visit '/submissions/'
+        visit '/submissions'
 
         click_on("Ulisses")
         click_on("Dodaj wersję")
