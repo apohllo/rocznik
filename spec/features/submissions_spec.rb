@@ -277,6 +277,7 @@ feature "zgloszenia" do
           click_button("Dodaj")
 
           expect(page).to have_css(".has-error")
+          expect(page).to have_content("nie może być puste")
         end
 
         scenario "wysłanie maila z umową" do

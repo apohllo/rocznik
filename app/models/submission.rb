@@ -16,7 +16,7 @@ class Submission < ActiveRecord::Base
   validates :english_abstract, presence: true
   validates :english_keywords, presence: true
   has_many :authorships, dependent: :destroy
-  has_many :article_revisions, dependent: :destroy
+  has_many :article_revisions, dependent: :restrict_with_error
 
   accepts_nested_attributes_for :article_revisions
 
