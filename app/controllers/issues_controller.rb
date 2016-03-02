@@ -1,6 +1,7 @@
 class IssuesController < ApplicationController
   before_action :admin_required
   layout "admin"
+  before_action -> {set_title "Numery rocznika"}
 
   def index
     @query_params = params[:q] || {}
@@ -61,6 +62,10 @@ class IssuesController < ApplicationController
   
     
   def show_reviews
+    @issue = Issue.find_by_volume(params[:id])
+  end
+
+  def show_reviewers
     @issue = Issue.find_by_volume(params[:id])
   end
 

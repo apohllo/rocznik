@@ -1,4 +1,4 @@
- class SubmissionMailer < ApplicationMailer
+class SubmissionMailer < ApplicationMailer
 
   def send_contract(person)
     @person = person

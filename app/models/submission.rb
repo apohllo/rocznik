@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class Submission < ActiveRecord::Base
+
   STATUS_MAPPING = {
     "nadesłany" => :sent, "u redaktora" => :editor, "w recenzji" => :review,
     "przyjęty" => :positive, "odrzucony" => :negative, "do poprawy" => :correction
@@ -16,19 +17,22 @@ class Submission < ActiveRecord::Base
   validates :english_keywords, presence: true
 
   has_many :authorships, dependent: :destroy
-  has_many :article_revisions, dependent: :destroy
+  has_many :article_revisions, dependent: :restrict_with_error
 
   accepts_nested_attributes_for :article_revisions
 
   scope :accepted, -> { where(status: "przyjęty") }
-  
+
   has_one :article
+  belongs_to :follow_up, inverse_of: :follow_ups, class_name: "Article"
   belongs_to :person
   belongs_to :issue
 
   scope :accepted, -> { where(status: "przyjęty") }
 
   MAX_LENGTH = 80
+
+  has_paper_trail on: [:create, :update, :destroy], only: [:status]
 
   def authors
     self.authorships.map(&:person)
@@ -80,7 +84,7 @@ class Submission < ActiveRecord::Base
       "[BRAK NUMERU]"
     end
   end
-
+  
   def author
     authorship = self.authorships.where(corresponding: true).first
     if authorship
@@ -138,6 +142,22 @@ class Submission < ActiveRecord::Base
 
   def polish_language?
     self.language == POLISH
+  end
+
+  def latest_modifier
+    if self.versions.last
+      self.versions.last.whodunnit
+    else
+      "[AUTOR MODYFIKACJI NIEZNANY]"
+    end
+  end
+
+  def latest_modification_time
+    if self.versions.last
+      self.versions.last.created_at
+    else
+      "[DATA MODYFIKACJI NIEZNANA]"
+    end
   end
 
   private

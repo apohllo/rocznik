@@ -17,9 +17,11 @@
         %th Tytuł
         %th Autor korespondujący
         %th Redaktor
-        %th Data nadesłania
+        %th
+          = sort_link(@query, :received, "Data nadesłania")
         %th Deadline recenzji
         %th Status
+        %th Przypisani
         %th
     %tbody
       - @submissions.each do |submission|
@@ -35,6 +37,7 @@
               = link_to submission.corresponding_author, submission.author
             - else
               = submission.corresponding_author
+
           %td
             - if submission.person
               = link_to submission.editor, submission.person
@@ -43,5 +46,10 @@
           %td= submission.received.strftime("%d-%m-%Y")
           %td{class: ("exceeded-deadline" if submission.last_review != nil && submission.deadline_missed?)}= submission.last_deadline
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
+          %td
+            -if submission.last_review != nil 
+              = submission.last_revision.reviews.in_progress.count
+            -else
+              = "0"
           %td.text-right
             = destroy_button(submission,"Czy na pewno chcesz usunąć to zgłoszenie")

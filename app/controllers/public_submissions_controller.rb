@@ -2,6 +2,7 @@
 
 class PublicSubmissionsController < ApplicationController
   attr_reader :submission, :authorship
+  before_action -> {set_title "Zgłoszenia"}
 
   def new
     @submission = Submission.new
@@ -45,7 +46,9 @@ class PublicSubmissionsController < ApplicationController
 
   def cancel
     @submission = Submission.find(params[:public_submission_id])
+    submission.article_revisions.each{|rev| rev.destroy }
     submission.destroy
+    submission.reload
     render :submission_cancelled
   end 
   
