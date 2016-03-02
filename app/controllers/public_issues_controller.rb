@@ -9,7 +9,7 @@ class PublicIssuesController < ApplicationController
     @issue = Issue.find_by_volume(params[:id])
   end
 
-  def show_reviewers
+  def reviewers
     @issue = Issue.find_by_volume(params[:id])
   end
 end
