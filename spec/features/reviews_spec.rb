@@ -38,6 +38,15 @@ feature "recenzowanie" do
         click_on('Dlaczego solipsyzm?, v. 1')
         expect(page).to have_css(".btn", text:"Edytuj")
       end
+      
+      xscenario "testowanie usuwania artykułu z recenzją" do
+        visit '/submissions'
+        fill_in "Tytuł", with: "Arystoteles."
+        click_on("Filtruj")
+        page.find(".btn-danger", :match => :first).click
+        
+        expect(page).to have_content("nie usunięto zgłoszenia")
+      end
 
       scenario "edytowanie recenzji" do
         visit '/reviews'

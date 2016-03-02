@@ -56,6 +56,7 @@ class SubmissionsController < ApplicationController
   def destroy
     submission = Submission.find(params[:id])
     submission.destroy
+    flash[:error] = 'nie usunięto zgłoszenia' if !submission.destroyed?
     redirect_to submissions_path
   end
 
