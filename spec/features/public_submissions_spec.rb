@@ -66,7 +66,7 @@ feature "publiczne dodawanie zgloszenia" do
     expect(page).to have_content(submission_data[:pictures])
   end
 
-  scenario "Anulowanie zgłoszenia" do
+  xscenario "Anulowanie zgłoszenia" do
     visit '/public_submissions/new/'
 
     within("#new_submission") do
