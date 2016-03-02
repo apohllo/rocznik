@@ -1,6 +1,6 @@
 .scroll-panel-header
   = link_to "Zgłoszenia", submissions_path, class: %w{btn btn-default btn-sm pull-right}
-  = link_to "Rewizje", public_revision_path, class: %w{btn btn-default btn-sm pull-right}
+  = link_to "Nowe zgłoszenie", new_submission_path, class: %w{btn btn-default btn-sm pull-right}
   %dl
   .col-md-1
     - if @submission.polish_language?
