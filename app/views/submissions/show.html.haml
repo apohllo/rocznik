@@ -52,7 +52,7 @@
       %dt Finansowanie
       %dd= simple_format(@submission.funding)
   = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}, id: %w{edit-submission}
-  = link_to "Dodaj nową wersję", public_revision_path(@submission), class: %w{btn btn-primary btn-sm}, id: %w{edit-submission}
+  = link_to "Dodaj nową wersję", new_public_revision_path(@submission), class: %w{btn btn-primary btn-sm}, id: %w{edit-submission}
   %h3.submission_show_tables Autorzy
   %table.table.table-hover.table-admin
     %thead
