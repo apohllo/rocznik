@@ -23,6 +23,7 @@ gem 'postgres_ext'
 gem 'prawn', '~> 2.0', '>= 2.0'
 gem 'paper_trail'
 gem 'twitter-bootstrap-rails'
+gem 'impressionist'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
