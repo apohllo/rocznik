@@ -12,9 +12,9 @@ feature "publiczne dodawanie nowej wersji" do
 
       scenario "Dodawanie nowej wersji" do
         visit '/submissions'
-        click_on("Ulisses")
+        click_link("Ulisses")
 
-        click_on("Dodaj wersję")
+        click_link("Dodaj wersję")
 
  	fill_in "Otrzymano", with: "16/07/2016"
         fill_in "Liczba stron", with: '3'
@@ -32,8 +32,8 @@ feature "publiczne dodawanie nowej wersji" do
       scenario "Dodawanie nowej wersji bez pliku" do
         visit '/submissions'
 
-        click_on("Ulisses")
-        click_on("Dodaj wersję")
+        click_link("Ulisses")
+        click_link("Dodaj wersję")
 
 	fill_in "Otrzymano", with: "16/07/2016"
         fill_in "Liczba stron", with: '3'
