@@ -212,7 +212,58 @@ feature "zarządzanie osobami" do
         page.find(".btn-danger").click
         expect(page).to have_content("Zapytanie")
       end
+      
+      scenario "potwierdzenie przy usuwaniu recenzji" do
+        visit "/people"
+        click_on 'Kalafior'
+        click_on 'Dodaj zgłoszenie'
+
+        within("#new_submission") do
+          fill_in "Tytuł", with: "Mądry artykuł"
+          fill_in "Title", with: "English title"
+          fill_in "Abstract", with: "abc"
+          fill_in "Key words", with: "def"
+          fill_in "Otrzymano", with: "19/2/2016"
+          select "Andrzej Kapusta", from: "Redaktor"
+        end
+        click_button("Utwórz")      
+        
+        visit "/submissions/"
+		click_on ("Mądry artykuł")
+		click_on 'Dodaj wersję'
+		
+        fill_in "Otrzymano", with: "19/02/2016"
+        fill_in "Liczba stron", with: '2'
+        fill_in "Liczba ilustracji", with: '1'
+        attach_file("Artykuł", 'spec/features/files/plik.pdf')
+        click_button 'Dodaj'
+
+        within("#version") do
+          expect(page).to have_content("plik.pdf")
+          expect(page).to have_content("19-02-2016")
+          expect(page).to have_css("a[title='Edytuj komentarz']")
+        end
+		
+		visit "/people"
+		click_on 'Kalafior'
+		click_on 'Dodaj recenzję'		
+        
+        within("#new_review") do
+          select "Kalafior, Wanda", from: "Recenzent"
+          select "wysłane zapytanie", from: "Status"
+          fill_in "Zapytanie wysłano", with: "20/02/2016"
+          fill_in "Deadline", with: "05/03/2016"
+          fill_in "Uwagi", with: "Naucz się pisać!"
+        end
+        click_button 'Dodaj'
+        
+        visit "/people"
+        click_on 'Kalafior'
+        page.find(".btn-danger").click
+        expect(page).to have_content("Zapytanie")
+      end
     end
+    
     context "określony status i nieokreślony status" do
       before do
         Person.create!(name: "Aleksandra", surname: "Hol", email: "alka.hol@onet.com",
