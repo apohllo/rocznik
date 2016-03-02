@@ -105,34 +105,6 @@ feature "zarządzanie osobami" do
                        competence: "percepcja dźwięki", sex: "kobieta",
                        roles: ["autor", "redaktor", "recenzent"], discipline: ["etyka"])
       end
-      
-      context "recenzja w bazie" do
-      before do
-        person_1 = Person.create!(name:"Andrzej", surname:"Marny", sex: "mężczyzna", email:
-                                  "marnosc@gmail.com", roles: ['redaktor'])
-        Person.create!(name:"Alicja", surname:"Kawa", email: "a.kawa@gmail.com", sex:
-                       "kobieta",roles: ['recenzent'])
-        submission_1 =
-          Submission.create!(language: "polski", received: "12-02-2016", status: "nadesłany", person: person_1,
-                             polish_title: "Co z nami będzie?", english_title: "We will die.", english_abstract:
-                             "abstract1", english_keywords: "tag1, tag2")
-        article_file = Rails.root.join("spec/features/files/die.pdf").open
-        article_revision_1 =
-          ArticleRevision.create!(version:"1.0", received:"12-02-2016",
-                                  pages:"3", article: article_file, submission: submission_1)
-        submission_2 =
-          Submission.create!(language: "polski", received: "18-01-2016", status: "nadesłany", person: person_1,
-                             polish_title: "Życie", english_title: "Life", english_abstract: "abstract2",
-                             english_keywords: "tag1, tag2")
-        article_revision_2 =
-          ArticleRevision.create!(version:"1.0", received:"18-01-2016",
-                                  pages:"5", article: article_file, submission: submission_2)
-        Review.create!(status: "wysłane zapytanie", content: " ", asked: "12-02-2016", deadline: "15-02-2016", person:
-                       person_1, article_revision: article_revision_1)
-        Review.create!(status: "recenzja negatywna", content: " ", asked: "20-02-2016", deadline: "23-02-2017", person:
-                       person_1, article_revision: article_revision_2)
-      end
-      end
 
       scenario "wyszukanie osoby" do
         visit "/people"
@@ -221,27 +193,6 @@ feature "zarządzanie osobami" do
         page.find(".btn-danger").click
         expect(page).to have_content("Zapytanie")
       end
-
-      scenario "potwierdzenie przy usuwaniu recenzji" do
-        visit "/people"
-        click_on 'Kalafior'
-        click_on 'Dodaj recenzję'
-
-        within("#new_submission") do
-          select "Co z nami będzie?", from: "Artykuł"        
-          select "Andrzej Kapusta", from: "Recenzent"
-          select "Status", from: "wysłane zapytanie"
-          fill_in "Zapytanie wysłano", with: "19/2/2016"
-        end
-        click_button("Utwórz")
-
-        visit "/people"
-        click_on 'Kalafior'
-        page.find(".btn-danger").click
-        expect(page).to have_content("Zapytanie")
-      end
-
-
     end
     context "określony status i nieokreślony status" do
       before do
