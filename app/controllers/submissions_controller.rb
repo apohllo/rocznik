@@ -31,12 +31,11 @@ class SubmissionsController < ApplicationController
 	 authorship = Authorship.new(person_id: @author_id,submission: @submission)
 -        authorship.save
 	 if Person.find_by_email(email).nil?
-          SubmissionMailer.confirmation(submission).deliver_now
-      end     
-      redirect_to submission
-	else
+          SubmissionMailer.confirmation(submission).deliver_now    
+          redirect_to submission
+	 else
 	  render :new
-	end
+	 end
       end
       redirect_to @submission
     else
