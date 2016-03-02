@@ -19,6 +19,80 @@ feature "zgloszenia" do
       expect(page).to have_css(".form-group")
     end
 
+    context "Sprawdzenie podpisania umowy" do
+      before do
+        Issue.create!(volume: 500, year: 2500)
+        Submission.create!(status:'przyjęty', language:"polski", issue:
+                           Issue.last, polish_title: "brak podpisu",
+                           english_title: "unsigned", english_abstract:
+                           "english", english_keywords: "sign,
+                             test", received: "2015-02-17")
+        Submission.create!(status:'przyjęty', language:"polski", issue:
+                           Issue.last, polish_title: "obecnosc podpisu",
+                           english_title: "signed", english_abstract:
+                           "english", english_keywords: "sign,
+                             test", received: "2015-02-17")
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
+                       "mężczyzna", roles: ['autor', 'redaktor'], discipline:["psychologia"])
+        Authorship.create!(person: Person.last, submission: Submission.first,
+                            corresponding: false, position: 1)
+        Authorship.create!(person: Person.last, submission: Submission.last,
+                            corresponding: false, position: 1, signed: true)
+      end
+
+      scenario "podpisana umowa" do
+        visit '/submissions'
+        click_link 'obecnosc podpisu'
+
+        expect(page).to have_css("i[class*='fa fa-check']")
+      end
+
+      scenario "niepodpisana umowa" do
+        visit '/submissions'
+        click_link 'brak podpisu'
+
+        expect(page).to have_css("i[class*='fa fa-times']")
+      end
+
+      scenario "podpisanie umowy" do
+        visit '/submissions'
+        click_link 'brak podpisu'
+        click_link 'podpisz'
+
+        expect(page).to have_css("i[class*='fa fa-check']")
+      end
+    end
+
+	   context "nawiązanie do innego arytułu" do
+         before do
+           Person.create!(name: "Maciej", surname: "Fasola", email: "olafasola@gmail.com", sex:
+                          "mężczyzna", roles: ['redaktor', 'recenzent'], discipline:["psychologia"])
+           Issue.create!(volume: 12, year: 2021)
+           Submission.create!(person: Person.last, status: "przyjęty", polish_title: "Alicja w krainie czarów",
+                              english_title: "Alice in Wonderland", english_abstract: "Little about that story",
+                              english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.last)
+           Article.create!(status: "po recenzji", DOI: "40000", issue: Issue.last, submission: Submission.last)
+         end
+
+         scenario "tworzenie nowego zgloszenia z nawiązaniem" do
+           visit '/submissions/new/'
+           within("#new_submission") do
+             fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
+             fill_in "Title", with: "English title"
+             fill_in "Abstract", with: "absbabsba"
+             fill_in "Key words", with: "englsh key words"
+             select "Maciej Fasola", from: "Redaktor"
+             select "nadesłany", from: "Status"
+             select "12/2021", from: "Numer"
+             select "Alicja w krainie czarów", from: "Nawiązanie do"
+           end
+           click_button("Utwórz")
+
+           expect(page).not_to have_css(".has-error")
+           expect(page).to have_content("Alicja w krainie czarów")
+         end
+       end
+
     context "redaktor w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
@@ -160,10 +234,9 @@ feature "zgloszenia" do
         context "Z recenzją" do
           before do
             revision =
-              ArticleRevision.create!(submission: Submission.first,
-                                      article: File.new(Rails.root + 'app/assets/images/remind_icon.png'), received: '19-01-2016',
-                                       pages: 1, pictures: 1, version: 1)
-                                      
+              ArticleRevision.create!(submission: Submission.first, article: default_file, received: '19-01-2016',
+                                      pages: 1, pictures: 1, version: 1)
+
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
                            status: "recenzja pozytywna", asked: '1/01/2016')
           end
@@ -179,11 +252,11 @@ feature "zgloszenia" do
             clear_emails
             click_on("Alicja w krainie czarów")
             page.find(".reminder").click
-            expect(page).to have_css(".flash-confirmation")
+            expect(page).to have_content("Przypomnienie zostało wysłane")
             open_email('a.kapusa@gmail.com')
             expect(current_email).to have_content 'Z poważaniem,'
             expect(current_email).to have_content 'Kapusta'
-            expect(current_email).to have_content 'remind_icon.png'
+            expect(current_email).to have_content 'plik.pdf'
           end
         end
       end
@@ -204,6 +277,19 @@ feature "zgloszenia" do
           click_button("Dodaj")
 
           expect(page).to have_css(".has-error")
+        end
+
+        scenario "wysłanie maila z umową" do
+          visit '/submissions'
+          clear_emails
+          click_on("Bukiet kotów")
+          page.find("#edit-submission").click
+          select('przyjęty', from: 'submission_status')
+          click_on("Zapisz")
+          open_email('a.kapusa@gmail.com')
+          expect(current_email).to have_content 'Z poważaniem,'
+          expect(current_email).to have_content 'Kapusta'
+          expect(current_email.attachments.first.filename).to eq 'Umowa-wydawnicza.pdf'
         end
 
         xscenario "reset filtrów i formularza" do
