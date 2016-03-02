@@ -246,6 +246,7 @@ feature "zarządzanie numerami" do
         click_button 'Utwórz'
 
         expect(page).to have_css(".has-error")
+        expect(page).to have_content("musi być większe od 2000")
       end
 
       scenario "Sprawdzenie, czy da sie utworzyc rocznik z nieunikalnym numerem" do
@@ -266,6 +267,7 @@ feature "zarządzanie numerami" do
         click_button "Utwórz"
 
         expect(page).to have_css(".has-error")
+        expect(page).to have_content("zostało już zajęte")
       end
 
       scenario "Sprawdzenie czy da sie utworzyć rocznik z numeru mniejszego niż 1" do
@@ -278,6 +280,7 @@ feature "zarządzanie numerami" do
         click_button 'Utwórz'
 
         expect(page).to have_css(".has-error")
+        expect(page).to have_content("musi być większe od 0")
       end
 
     end
