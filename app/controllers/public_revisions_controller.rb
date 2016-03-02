@@ -8,7 +8,6 @@ class PublicRevisionsController < ApplicationController
     @revision.version = @revision.submission.article_revisions.count + 1
     @revision.received = @revision.submission.received
     @revision.received = Time.now
-    end
   end
 
   def create
