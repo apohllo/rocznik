@@ -14,18 +14,18 @@ feature "publiczne dodawanie nowej wersji" do
         visit '/submissions'
         click_link("Ulisses")
 
-        click_link("Dodaj wersję")
+        click_link("Dodaj nową wersję")
 
- 	fill_in "Otrzymano", with: "16/07/2016"
+ 	    fill_in "Otrzymano", with: "16/07/2016"
         fill_in "Liczba stron", with: '3'
         fill_in "Liczba ilustracji", with: '5'
         attach_file("Plik", 'spec/features/files/plik.pdf')
         click_button 'Zapisz'
 
         within("#version") do
-          expect(page).to have_content("plik.pdf")
-	  expect(page).to have_content("1-03-2016")
-          expect(page).to have_css("a[title='Edytuj komentarz']")
+        expect(page).to have_content("plik.pdf")
+	    expect(page).to have_content("1-03-2016")
+        expect(page).to have_css("a[title='Edytuj komentarz']")
         end
       end
 
@@ -35,14 +35,14 @@ feature "publiczne dodawanie nowej wersji" do
         click_link("Ulisses")
         click_link("Dodaj wersję")
 
-	fill_in "Otrzymano", with: "16/07/2016"
+	    fill_in "Otrzymano", with: "16/07/2016"
         fill_in "Liczba stron", with: '3'
         fill_in "Liczba ilustracji", with: '5'
         click_button 'Zapisz'
 
         within("#new_article_revision") do
-	  expect(page).to have_content("1-03-2016")
-          expect(page).to have_css('.has-error')
+	    expect(page).to have_content("1-03-2016")
+        expect(page).to have_css('.has-error')
         end
       end
 
