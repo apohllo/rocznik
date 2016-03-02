@@ -110,7 +110,7 @@ feature "zarządzanie numerami" do
 		visit '/issues'
 		click_link "3"
 		page.find(".btn-danger").click
-      expect(page).to have_content("Język")
+      expect(page).to have_content("Zapytanie")
       end
 
       scenario "dodawanie zgłoszenia z istniejącym numerem i sprawdzenie zgłoszenia w numerze" do
