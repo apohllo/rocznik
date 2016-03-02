@@ -3,7 +3,7 @@
   .col-sm-3= f.input :name, label: "Imię"
   .col-sm-3= f.input :surname, label: "Nazwisko"
   .col-sm-3= f.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
-  = f.input :email, labe: "E-mail"
+  = f.input :email, label: "E-mail"
   .roles
     %strong Role
     = f.collection_check_boxes :roles, Person::ROLE_MAP.keys, :to_s, :to_s, include_blank: false, item_wrapper_class: 'checkbox_container'
