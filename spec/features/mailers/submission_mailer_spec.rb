@@ -1,6 +1,31 @@
 require "rails_helper"
 require "capybara/email/rspec"
 
+feature "Wysłanie maila potwierdzającego przyjęcie zgłoszenia" do
+
+  context "zgłoszenie w bazie" do
+    include_context "admin login"
+
+    background do
+      Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['autor'])
+      Submission.create!(person: Person.first, status: "nadesłany", polish_title: "Artykuł o kotach", english_title: "Story about cats", english_abstract: "Cats are so amazing", english_keywords: "cats", received: "02-03-2016", language: "polski")
+    end
+
+    scenario "sprawdzenie wysłania maila potwierdzającego przyjęcie zgłoszonego tekstu" do
+     clear_emails
+     visit '/submissions'
+     click_link 'Polski tytuł'
+     click_link 'Edytuj'
+     select "nadesłany", from: "Status"
+     click_on 'Zapisz'
+     open_email('a.kapusa@gmail.com')
+     expect(current_email).to have_content 'zostało przyjęte do systemu'
+    end
+  end
+end
+
+
+
 feature "Wysłanie maila informującego o zmianie recenzji" do
 
   context "po zalogowaniu" do

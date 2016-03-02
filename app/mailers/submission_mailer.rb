@@ -1,9 +1,8 @@
 class SubmissionMailer < ApplicationMailer
-<<<<<<< HEAD
   def confirmation(submission)
     @submission = submission
     mail(to: @submission.corresponding_author_email, subject: 'Przyjęcie zgłoszenia')
-=======
+  end	
 
   def send_contract(person)
     @person = person
@@ -14,6 +13,5 @@ class SubmissionMailer < ApplicationMailer
   def send_decision(submission)
     @submission = submission
     mail(to: @submission.person.email, subject: 'Decyzja - Rocznik Kognitywistyczny')
->>>>>>> aa2ec8207599e29d586040a0b17baa8326d2a3f3
   end
 end
