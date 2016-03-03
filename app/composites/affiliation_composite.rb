@@ -2,6 +2,18 @@ class AffiliationComposite
   include ActiveModel::Model
   attr_accessor :country, :institution, :department, :year_from, :year_to, :person, :person_id
 
+  def country_label=(value)
+    @country = value
+  end
+
+  def institution_label=(value)
+    @institution = value
+  end
+
+  def department_label=(value)
+    @department = value
+  end
+
   def person_name
     @person.full_name
   end
