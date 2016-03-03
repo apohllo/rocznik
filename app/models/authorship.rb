@@ -24,7 +24,7 @@ class Authorship < ActiveRecord::Base
     end
   end
   
-  def role
+  def author_role
     if !self.role.blank?
       self.role
     else

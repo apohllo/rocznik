@@ -49,6 +49,7 @@ feature "publiczne dodawanie zgloszenia" do
       fill_in "E-mail", with: "a@aa.com"
       select "mężczyzna", from: "Płeć"
       fill_in "Dyscyplina", with: "nauka"
+      fill_in "Rola", with: "autor"
     end
 
     click_button("Zapisz")
@@ -64,6 +65,7 @@ feature "publiczne dodawanie zgloszenia" do
     expect(page).to have_content(submission_data[:funding])
     expect(page).to have_content(submission_data[:pages])
     expect(page).to have_content(submission_data[:pictures])
+    expect(page).to have_content(submission_data[:role])
   end
 
   xscenario "Anulowanie zgłoszenia" do

@@ -70,7 +70,7 @@
           %td= authorship.corresponding? ? raw("&#10004;") : ""
           %td= authorship.position
           %td= authorship.signed? ? icon('check') : icon('times')
-          %td= authorship.role
+          %td= authorship.author_role
           %th= authorship.signed? ? "" : (link_to "podpisz", sign_authorship_path(authorship), method: :post)
           %td.text-right
             = destroy_button(authorship,"Czy na pewno chcesz usunąć tego autora?")

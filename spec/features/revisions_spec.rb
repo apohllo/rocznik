@@ -28,7 +28,7 @@ feature "zarządzanie recenzjami" do
         article_file = Rails.root.join("spec/features/files/plik.pdf").open
         ArticleRevision.create!(submission: submission, received: '19-01-2016', 
                                 version: "1", pages: "3", pictures: "0", article: article_file,)
-        Authorship.create!(person: author, submission: submission, corresponding: "true", position: "0")
+        Authorship.create!(person: author, submission: submission, corresponding: "true", role: "autor", position: "0")
       end
 
       scenario "Dodawanie recenzenta o takiej samej afiliacji jak autor" do

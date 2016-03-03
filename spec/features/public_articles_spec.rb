@@ -10,7 +10,7 @@ feature "Sprawdzanie opublikowanych artykulów" do
                                      english_abstract: 'Tak po prostu', english_keywords: 'knowledge',
                                      issue: issue_1, person:person1, language: 'polski', received: '28-01-2016',
                                      status: 'przyjęty')
-    Authorship.create!(person:person1, submission: submission1)
+    Authorship.create!(person:person1, submission: submission1, role: "autor")
     Article.create!(submission: submission1, issue: issue_1, status: 'opublikowany', DOI: 40000,
                     external_link:'http://bulka', pages:'300')
   end
