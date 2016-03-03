@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223153523) do
+ActiveRecord::Schema.define(version: 20160303104730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,15 @@ ActiveRecord::Schema.define(version: 20160223153523) do
     t.datetime "updated_at",                 null: false
     t.boolean  "prepared",   default: false
     t.boolean  "published",  default: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "sender"
+    t.string   "addressee"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "people", force: :cascade do |t|
@@ -347,20 +356,6 @@ ActiveRecord::Schema.define(version: 20160223153523) do
   add_index "submissions", ["follow_up_id"], name: "index_submissions_on_follow_up_id", using: :btree
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
-
-  create_table "user_infos", force: :cascade do |t|
-    t.string   "name"
-    t.string   "surname"
-    t.string   "email"
-    t.string   "password"
-    t.string   "password_confirmation"
-    t.string   "sex"
-    t.string   "academic_degree"
-    t.string   "knowledge"
-    t.string   "status"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
