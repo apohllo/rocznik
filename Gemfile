@@ -18,7 +18,8 @@ gem 'devise'
 gem 'devise-i18n-views'
 gem 'ransack'
 gem 'simple_form_ransack'
-gem 'simple_form_autocomplete'
+gem 'simple_form_autocomplete', git: "https://github.com/apohllo/simple_form_autocomplete.git", 
+  branch: "create-new-values-in-autocomplete"
 gem 'postgres_ext'
 gem 'prawn', '~> 2.0', '>= 2.0'
 gem 'paper_trail'

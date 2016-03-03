@@ -177,7 +177,9 @@ feature "zarządzanie numerami" do
             Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                            "mężczyzna", roles: ['redaktor', 'recenzent'])
             article_file = Rails.root.join("spec/features/files/plik.pdf").open
-            revision = ArticleRevision.create!(submission: Submission.first, pages: 1, pictures: 1, version: 1, received: "18-01-2016", article: article_file)
+            revision = ArticleRevision.create!(submission: Submission.first, pages: 1,
+                                               pictures: 1, version: 1, received: "18-01-2016",
+                                               article: article_file)
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
                            status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
           end
@@ -246,6 +248,7 @@ feature "zarządzanie numerami" do
         click_button 'Utwórz'
 
         expect(page).to have_css(".has-error")
+        expect(page).to have_content("musi być większe od 2000")
       end
 
       scenario "Sprawdzenie, czy da sie utworzyc rocznik z nieunikalnym numerem" do
@@ -266,6 +269,7 @@ feature "zarządzanie numerami" do
         click_button "Utwórz"
 
         expect(page).to have_css(".has-error")
+        expect(page).to have_content("zostało już zajęte")
       end
 
       scenario "Sprawdzenie czy da sie utworzyć rocznik z numeru mniejszego niż 1" do
@@ -278,6 +282,7 @@ feature "zarządzanie numerami" do
         click_button 'Utwórz'
 
         expect(page).to have_css(".has-error")
+        expect(page).to have_content("musi być większe od 0")
       end
 
     end
