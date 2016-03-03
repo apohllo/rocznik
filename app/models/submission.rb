@@ -80,7 +80,7 @@ class Submission < ActiveRecord::Base
   def corresponding_author_surname
     authorship = self.authorships.where(corresponding: true).first
     if authorship
-      authorship.surname
+      authorship.person.surname
     else
       "[BRAK AUTORA]"
     end
@@ -89,7 +89,7 @@ class Submission < ActiveRecord::Base
   def corresponding_author_email
     authorship = self.authorships.where(corresponding: true).first
     if authorship
-      authorship.email
+      authorship.person.email
     else
       nil
     end
