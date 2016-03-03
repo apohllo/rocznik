@@ -136,6 +136,15 @@ class Submission < ActiveRecord::Base
     end
   end
 
+   def show_comments
+    if self.last_revision
+      self.last_revision.comments
+    else
+      "[ZAAKCEPTOWANO BEZ ZMIAN]"
+    end
+  end
+
+
   def deadline_missed?
     self.reviews.any?{|r| r.deadline_missed? }
   end
