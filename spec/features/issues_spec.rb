@@ -43,6 +43,65 @@ feature "zarządzanie numerami" do
       expect(page).to have_content(2017)
     end
 
+    context "liczba i udział procentowy recenzentów z uczelni" do
+      before do
+        Country.create!(name: 'Polska')
+        Country.create!(name: 'USA')
+        Institution.create!(name: "Uniwersytet Jagielloński", country: Country.first)
+        Institution.create!(name: "MIT", country: Country.last)
+        Department.create!(name: "WZiKS", institution: Institution.first)
+        Department.create!(name: "Department of Psychology", institution: Institution.last)
+        person0 = Person.create!(name: 'Adam', surname: 'Kapusta', email: 'a@k.com',
+                        sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
+        person1 = Person.create!(name: 'Andrzej', surname: 'Nowak', email: 'as@n.com',
+                        sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
+        person2 = Person.create!(name: 'Adam', surname: 'Kowalski', email: 'a@nd.com',
+                        sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
+        person3 = Person.create!(name: 'Andrzej', surname: 'Wójcik', email: 'adf@n.com',
+                        sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
+        person4 = Person.create!(name: 'Andrzej', surname: 'Kiepski', email: 'aasd@n.com',
+                        sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
+        Affiliation.create!(person: person1, department: Department.first, year_from: '2000', year_to: '2015')
+        Affiliation.create!(person: person2, department: Department.first, year_from: '2000', year_to: '2015')
+        Affiliation.create!(person: person3, department: Department.first, year_from: '2000', year_to: '2015')
+        Affiliation.create!(person: person4, department: Department.last, year_from: '2000', year_to: '2015')
+        Issue.create!(volume: 69, year: 2070)
+        Issue.create!(volume: 70, year: 2071)
+        Submission.create!(language: "polski", received: "03-03-2016", status: "przyjęty", person: Person.first,
+                               polish_title: "Arystoteles.", english_title: "title2", english_abstract: "abstract2",
+                               english_keywords: "tag1, tag2", issue: Issue.first)
+        article_file = Rails.root.join("spec/features/files/plik.pdf").open
+        ArticleRevision.create!(version:"1.0", received:"03-03-2016", pages:"5", code: "tekst_",
+                                article: article_file, submission: Submission.first)
+        Review.create!(article_revision: ArticleRevision.last, deadline: '29/03/2016', person: person1,
+                        status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
+        Review.create!(article_revision: ArticleRevision.last, deadline: '30/03/2016', person: person2,
+                        status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
+        Review.create!(article_revision: ArticleRevision.last, deadline: '31/03/2016', person: person3,
+                        status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
+        Review.create!(article_revision: ArticleRevision.last, deadline: '01/04/2016', person: person4,
+                        status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
+      end
+
+      scenario "75% UJotu" do
+        visit '/issues'
+        click_on('69')
+        click_on('Pokaż recenzentów')
+
+        expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 3 ( 75 %)")
+        expect(page).to have_content("Recenzenci z innych uczelni: 1 ( 25 %)")
+      end
+
+      scenario "Brak recenzentów" do
+        visit '/issues'
+        click_on('70')
+        click_on('Pokaż recenzentów')
+
+        expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 0 ( 0 %)")
+        expect(page).to have_content("Recenzenci z innych uczelni: 0 ( 0 %)")
+      end
+    end
+
     context "proba test" do
       before do
         Issue.create!(volume: 98, year: 2098)
