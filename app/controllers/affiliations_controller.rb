@@ -37,6 +37,7 @@ class AffiliationsController < ApplicationController
 
   private
   def affiliation_params
-    params.require(:affiliation_composite).permit(:year_from,:year_to,:institution,:department,:country,:person_id)
+    params.require(:affiliation_composite).permit(:year_from,:year_to,:institution,:department,:country,
+                                                  :person_id,:institution_label,:department_label,:country_label)
   end
 end
