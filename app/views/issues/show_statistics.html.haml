@@ -12,8 +12,7 @@
           %th Liczba artykułów
           %th Udział procentowy %
       %tbody
-        - issues.each do |issue|
-          %tr
-            %td= issue.submissions.english.count
-            %td= issue.submissions.count
-            %td= issue.submissions.english.count / issue.submissions.count * 100
+        %tr
+          %td= @issue.submissions.english.count
+          %td= @issue.submissions.count
+          %td= puts "%.1f" % ( @issue.submissions.english.count / @issue.submissions.count .to_f * 100 )

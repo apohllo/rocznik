@@ -29,7 +29,7 @@ class Submission < ActiveRecord::Base
 
   scope :accepted, -> { where(status: "przyjęty") }
 
-  scope :english, -> { where(language == ENGLISH) }
+  scope :english, -> { where(language: ENGLISH) }
 
   MAX_LENGTH = 80
 

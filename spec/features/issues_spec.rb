@@ -175,11 +175,11 @@ feature "zarządzanie numerami" do
 
         context "statystyki liczby opublikowanych artykułów" do
           before do
-					  Submission.create!(status:'przyjęty', language:"angielski", issue:
-						                   Issue.first, polish_title: "Statystyki artykułów",
-						                   english_title: "Article's statistics", english_abstract:
-						                   "statistics", english_keywords: "statistics, articles", received: "2015-02-17")
-					end
+            Submission.create!(status:'przyjęty', language:"angielski", issue:
+                               Issue.first, polish_title: "Statystyki artykułów",
+                               english_title: "Article's statistics", english_abstract:
+                               "statistics", english_keywords: "statistics, articles", received: "2015-02-17")
+          end
 
           scenario "dostępność przeglądu statystyk" do
             visit "/issues"
@@ -195,6 +195,13 @@ feature "zarządzanie numerami" do
             expect(page).to have_content("Liczba artykułów w j.ang.")
             expect(page).to have_content("Liczba artykułów")
             expect(page).to have_content("Udział procentowy %")
+          end
+
+          scenario "prawidłowe wykonanie obliczeń" do
+            visit "/issues/1-2007"
+
+            click_link "Statystyki"
+            expect(page).to have_content("16.7")
           end
         end
 
