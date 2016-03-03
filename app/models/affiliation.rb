@@ -1,5 +1,5 @@
 class Affiliation < ActiveRecord::Base
-  validates :person_id, presence: true
+  validates :person_id, presence: true, uniqueness: {scope: :department}
   validates :department_id, presence: true
 
   belongs_to :person
