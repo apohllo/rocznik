@@ -12,6 +12,7 @@ class Article < ActiveRecord::Base
   belongs_to :issue
   belongs_to :submission
   has_many :follow_ups, class_name: "Submission"
+  is_impressionable
 
 
   def authors
@@ -37,7 +38,7 @@ class Article < ActiveRecord::Base
       "[BRAK TYTUŁU]"
     end
   end
-  
+
   def title_original
     if self.submission
       self.submission.title(false)
@@ -97,7 +98,7 @@ class Article < ActiveRecord::Base
   def year
     if !self.issue.year.blank?
       self.issue.year
-    else 
+    else
       "[BRAK ROKU WYDANIA]"
     end
   end
