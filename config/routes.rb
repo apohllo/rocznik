@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   resources :reviews do
     post :ask, on: :member
     post :send_reminder, on: :member
+    post :send_status, on: :member
     post :ask_for_review, on: :member
     get :accepted, on: :member
     get :rejected, on: :member
