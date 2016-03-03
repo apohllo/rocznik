@@ -157,7 +157,7 @@ feature "Artykuły" do
         click_on 'Wiemy wszystko'
         expect(page).to have_content("Liczba wyświetleń artykułu: 1")
       end
-      
+
     end
   end
 end
