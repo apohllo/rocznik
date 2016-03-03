@@ -11,6 +11,16 @@
         = link_to review.reviewer, review.person
         %br
   %p{style: "margin-top: 20px;"}
-    Recenzenci z Uniwersytetu Jagiellońskiego: #{@count_uj} (#{@count_uj*100/(@count_uj+@count_other)}%)
+    Recenzenci z Uniwersytetu Jagiellońskiego: #{@count_uj} (
+    - if @count_uj > 0 || @count_other > 0
+      #{@count_uj*100/(@count_uj+@count_other)}
+    - else
+      0 
+    \%)
     %br
-    Recenzenci z innych uczelni: #{@count_other} (#{@count_other*100/(@count_uj+@count_other)}%)
+    Recenzenci z innych uczelni: #{@count_other} (
+    - if @count_uj > 0 || @count_other > 0
+      #{@count_other*100/(@count_uj+@count_other)}
+    - else
+      0 
+    \%)
