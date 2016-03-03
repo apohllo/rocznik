@@ -50,6 +50,7 @@ feature "Powiadamianie o nowym zgłoszeniu artykułu" do
       fill_in "E-mail", with: "a@aa.com"
       select "mężczyzna", from: "Płeć"
       fill_in "Dyscyplina", with: "nauka"
+      fill_in "Rola" with: "autor"
     end
 
     click_button("Zapisz")

@@ -10,4 +10,5 @@
     = f.association :person, label: "Autor", label_method: :reverse_full_name, include_blank: false, collection: Person.authors.order([:surname,:name]).all
     = f.input :corresponding, label: "Korespondujący?"
     = f.input :position, label: "Liczba porządkowa"
+    = f.input :role, label: "Rola autora"
     = f.submit "Dodaj", class: %w{btn btn-primary btn-outline}
