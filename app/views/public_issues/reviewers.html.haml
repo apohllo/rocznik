@@ -1,0 +1,12 @@
+.scroll-panel-header
+  = link_to "Wróć do numeru", public_issue_path, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title
+    Recenzenci numeru
+    = @issue.title
+    %p{style:"font-style: italic; font-size: 13px;"} Ostatnia aktualizacja: #{@issue.updated_at.strftime('%d.%m.%Y')}
+.scroll-panel-body
+  - @issue.submissions.each do |submission|
+    .scroll-panel_body
+      %ul
+      - submission.reviews.sort_by {|obj| obj.person.surname }.uniq.each do |review|
+        %li= review.reviewer
