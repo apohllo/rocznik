@@ -8,8 +8,11 @@ Rails.application.routes.draw do
     patch :prepare, on: :member
     patch :publish, on: :member
     get :show_reviews, on: :member
+    get :show_reviewers, on: :member
   end
-  resources :public_issues, only: [:index,:show]
+  resources :public_issues, only: [:index,:show] do
+    get :reviewers, on: :member
+  end
   resources :people do
     get :search, on: :member
   end
@@ -21,6 +24,7 @@ Rails.application.routes.draw do
     post :add_author, on: :collection
     post :cancel
   end
+  resources :user_submissions, only: [:index, :show]
   resources :affiliations, only: [:new, :create, :destroy] do
     get :institutions, on: :collection
     get :countries, on: :collection
@@ -43,16 +47,22 @@ Rails.application.routes.draw do
   end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions
-  resources :articles
+  resources :articles do
+    get :generate_certificate, on: :member
+  end  
   resource :profile, only: [:show, :edit, :update] do
     get :edit_password
     patch :update_password
   end
   resources :public_articles, only: [:show]
-
+ 
   get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
   post 'mails/send_email', to: 'mails#send_email', as: :send_email
 
+  resources :users, only: [:new, :create] do
+    get :new_person, on: :collection
+    post :create_person, on: :collection
+  end
   devise_for :users
   mount Storytime::Engine => "/"
   root to: "blog_posts#index"
