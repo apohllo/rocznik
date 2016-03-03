@@ -70,7 +70,7 @@ feature "recenzowanie" do
         visit '/submissions'
         fill_in "Tytuł", with: "Arystoteles."
         click_on("Filtruj")
-        page.find(".btn-danger", :match => :first).click
+        page.find(".btn-danger", match: :first).click
         
         expect(page).to have_content("nie usunięto zgłoszenia")
       end

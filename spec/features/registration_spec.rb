@@ -12,12 +12,12 @@ feature "Nowy formularz rejestracji pozwalający na podanie danych osobowych" do
     end
     click_button 'Zarejestruj się'
 
-      expect(page).to have_content 'Podaj dane'
+    expect(page).to have_content 'Podaj dane'
 
     within("#new_person") do
       fill_in "Imię", with: "Andrzej"
       fill_in "Nazwisko", with: "Kapusta"
-	  select "mężczyzna", from: "Płeć", visible: false
+	     select "mężczyzna", from: "Płeć", visible: false
     end
     click_button 'Zarejestruj się'
     expect(page).not_to have_css('.has-error')
