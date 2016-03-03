@@ -15,10 +15,12 @@ class Submission < ActiveRecord::Base
   validates :english_title, presence: true
   validates :english_abstract, presence: true
   validates :english_keywords, presence: true
+
   has_many :authorships, dependent: :destroy
-  has_many :article_revisions, dependent: :destroy
   #zgłoszenie ma wiele powiązanych ze sobą wiadomości
   has_many :messages, dependent: :destroy
+  has_many :article_revisions, dependent: :restrict_with_error
+
 
   accepts_nested_attributes_for :article_revisions
 
@@ -162,6 +164,7 @@ class Submission < ActiveRecord::Base
   end
 
   private
+
   def cut_text(text,cut)
     if text.size > MAX_LENGTH && cut
       text[0...MAX_LENGTH] + "..."
@@ -169,4 +172,5 @@ class Submission < ActiveRecord::Base
       text
     end
   end
+
 end
