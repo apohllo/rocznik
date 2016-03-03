@@ -17,17 +17,34 @@ feature "Dodawanie Afiliacji" do
         click_on("Kapusta")
         click_on("Dodaj afiliację")
 
-		within("#new_affiliation_composite") do
-	        fill_in "Państwo", with: "Polska"
-	        fill_in "Instytucja", with: "Uniwersytet Jagielloński"
-	        fill_in "Wydział/Instytut", with: "WZKiS"
+		    within("#new_affiliation_composite") do
+	        fill_in "affiliation_composite_country_autocomplete", with: "Polska"
+	        fill_in "affiliation_composite_institution_autocomplete", with: "Uniwersytet Jagielloński"
+	        fill_in "affiliation_composite_department_autocomplete", with: "WZKiS"
 	        fill_in "Rok od", with: "2014"
-	        fill_in "Rok_do", with: "2016"
+	        fill_in "Rok do", with: "2016"
 	    end
         click_button 'Dodaj'
 
         expect(page).to have_content("Uniwersytet Jagielloński")
       end
+
+      scenario "Sprawdzenie nie dodania afiliacji" do
+        visit '/people/'
+        click_on("Kapusta")
+        click_on("Dodaj afiliację")
+
+        within("#new_affiliation_composite") do
+          fill_in "affiliation_composite_country_autocomplete", with: "Polska"
+          fill_in "affiliation_composite_institution_autocomplete", with: "Uniwersytet Jagielloński"
+          fill_in "Rok od", with: "2014"
+          fill_in "Rok do", with: "2016"
+      end
+        click_button 'Dodaj'
+
+        expect(page).not_to have_content("Uniwersytet Jagielloński")
+      end
+      
     end
   end
 end
