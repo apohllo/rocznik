@@ -36,4 +36,12 @@ class ApplicationController < ActionController::Base
       redirect_to new_user_session_path
     end
   end
+  
+  private
+  def current_person
+    raise "User missing" unless current_user
+    person = Person.find_by_email(current_user.email)
+    raise "Person missing" unless person
+    person
+  end
 end
