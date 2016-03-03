@@ -191,6 +191,48 @@ feature "zarządzanie osobami" do
         page.find(".btn-danger").click
         expect(page).to have_content("Zapytanie")
       end
+      
+      scenario "potwierdzenie przy usuwaniu artykulu" do
+        visit "/people"
+        click_on 'Kalafior'
+        click_on 'Dodaj zgłoszenie'
+
+        within("#new_submission") do
+          fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
+          fill_in "Title", with: "English title"
+          fill_in "Abstract", with: "abc"
+          fill_in "Key words", with: "def"
+          fill_in "Otrzymano", with: "19/2/2016"
+          select "Andrzej Kapusta", from: "Redaktor"
+        end
+        click_button("Utwórz")
+
+        visit "/people"
+        click_on 'Kalafior'
+        page.find(".btn-danger").click
+        expect(page).to have_content("Zapytanie")
+      end
+
+      scenario "potwierdzenie przy usuwaniu redagowanego artykulu" do
+        visit "/people"
+        click_on 'Kalafior'
+        click_on 'Dodaj zgłoszenie'
+
+        within("#new_submission") do
+          fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
+          fill_in "Title", with: "English title"
+          fill_in "Abstract", with: "ah"
+          fill_in "Key words", with: "def"
+          fill_in "Otrzymano", with: "12/1/2016"
+          select "Andrzej Kapusta", from: "Redaktor"
+        end
+        click_button("Utwórz")
+
+        visit "/people"
+        click_on 'Kalafior'
+        page.find(".btn-danger").click
+        expect(page).to have_content("Zapytanie")
+      end
 
     end
     context "określony status i nieokreślony status" do
