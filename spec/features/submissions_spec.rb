@@ -61,8 +61,18 @@ feature "zgloszenia" do
 
         expect(page).to have_css("i[class*='fa fa-check']")
       end
+      
+      scenario "wyświetlanie roli autora" do
+        visit '/submissions/'
+        click_link 'brak podpisu'
+        expect(page).to have_content("Autorzy")
+        click_link 'Dodaj autora'
+        select Person.first from: "Autor"
+        fill_in "Rola", with: "Autor na sto pro"
+        click_button 'Dodaj'
+        expect(page).to have_content("Autor na sto pro")
     end
-
+  end
 	   context "nawiązanie do innego arytułu" do
          before do
            Person.create!(name: "Maciej", surname: "Fasola", email: "olafasola@gmail.com", sex:
