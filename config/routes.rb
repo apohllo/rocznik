@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   resources :articles do
     get :generate_certificate, on: :member
   end  
+  resources :public_revisions, only: [:new, :create]
   resource :profile, only: [:show, :edit, :update] do
     get :edit_password
     patch :update_password
