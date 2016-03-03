@@ -2,6 +2,7 @@
   %li{:class => active?("")}
     = link_to "Strona główna", "/"
   %li= link_to "Zgłoś artykuł", new_public_submission_path
+  %li= link_to "Dodaj recenzję", new_public_review_path 
   %li{:class => active?(public_issues_path)}= link_to "Numery", public_issues_path
   - Issue.published.each do |issue|
     %li{:class => active?(public_issue_path(issue))}= link_to issue.title, public_issue_path(issue)

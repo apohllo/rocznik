@@ -1,0 +1,16 @@
+- if @public_review.article_revision
+  .form-group.string
+    = label_tag :version, "Artykuł (wersja)", class: %w{string control-label}
+    .string=  @public_review.article_revision.title
+- else
+  = f.association :article_revision, label: "Artykuł (wersja)", collection: ArticleRevision.order('received desc'), include_blank: false, label_method: :title
+- if @public_review.person
+  .form-group.string
+    = label_tag :person, "Recenzent", class: %w{string control-label}
+    .string=  @public_review.reviewer
+- else
+  = f.association :person, label: "Recenzent", label_method: :reverse_full_name, include_blank: false, collection: Person.reviewers.order([:surname,:name]).all
+= f.input :asked, label: "Zapytanie wysłano", as: :string, input_html: { value: l(f.object.asked, format: "%d-%m-%Y") }
+= f.input :deadline, label: "Deadline", as: :string, input_html: { value: l(f.object.deadline, format: "%d-%m-%Y") }
+= f.input :remarks, label: "Uwagi"
+= f.input :content, label: "Treść recenzji"
