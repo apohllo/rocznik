@@ -18,7 +18,7 @@ class Submission < ActiveRecord::Base
   has_many :authorships, dependent: :destroy
   has_many :article_revisions, dependent: :destroy
   #zgłoszenie ma wiele powiązanych ze sobą wiadomości
-  has_many :submission_mails, dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   accepts_nested_attributes_for :article_revisions
 

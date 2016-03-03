@@ -163,8 +163,8 @@
         %th Treść
     %tbody
       -  # Jeśli maile sa przypisane do zgłoszeń
-      - if defined?(@submission.SubmissionMail.last)
-        - @submission.SubmissionMail.each do |mail|
+      - if defined?(@submission.messages.last)
+        - @submission.messages.each do |mail|
           %tr
             %td= mail.sender
             %td= mail.addresse
