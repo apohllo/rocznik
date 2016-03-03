@@ -6,16 +6,14 @@
       %nav.navbar.navbar-default.navbar-fixed-top{:role => "navigation"}
         = render file: "shared/topnav"
       .flash
-
         = render file: "shared/flash"
-
       .container.middle-row
         .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"}
           #sidebar.col-sm-4.col-md-3.sidebar-offcanvas{:role => "navigation"}
             = render file: "shared/sidenav"
           .col-md-9.col-sm-8.main
             = yield
-        %footer
+        %footer.navbar.navbar-default.navbar-fixed-bottom
           %p
             %a{:href => "http://validator.w3.org/check?uri=http%3A%2F%2Frocznik.kognitywistyka.eu%2F"}
               Walidator HTML5

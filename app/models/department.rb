@@ -20,7 +20,7 @@ class Department < ActiveRecord::Base
   def self.register!(name,institution,country)
     institution = Institution.register!(institution,country)
     department = institution.departments.where(name: name).first
-    department = Department.create!(name: @department, institution: institution) if department.nil?
+    department = Department.create!(name: name, institution: institution) if department.nil?
     department
   end
 

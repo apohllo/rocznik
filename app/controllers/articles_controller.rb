@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
     else
       return render :edit unless request.format == :json
     end
-    render :json => { ok: on_success }
+    render json: { ok: on_success }
   end
   
   def generate_certificate
