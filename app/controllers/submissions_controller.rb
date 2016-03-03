@@ -28,7 +28,7 @@ class SubmissionsController < ApplicationController
     @author_id = params[:author_id]
     if @submission.save
       if @author_id
-	 submission = Submission.new(submission: @submission)
+	 submission = Submission.new(@submission)
 -        submission.save
 	 if @submission.corresponding_author_email
           SubmissionMailer.confirmation(submission).deliver_now    
