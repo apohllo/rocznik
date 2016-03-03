@@ -1,6 +1,6 @@
 .container
   .navbar-header
-    %button{ :type => "button", :class => "navbar-toggle", :"data-toggle" => "collapse", :"data-target" => ".navbar-collapse" }
+    %button.navbar-toggle{ :type => "button", "data-toggle" => "collapse", "data-target" => ".navbar-collapse" }
       %span.sr-only Przełącz nawigację
       %span.icon-bar
       %span.icon-bar
@@ -11,8 +11,6 @@
       %li &nbsp;
       - if user?
         %li= link_to "Wyloguj", destroy_user_session_path, method: :delete
-        %li= link_to "Profil użytkownika", profile_path
-        %li= link_to "Twoje artykuły", user_submissions_path
       - else
         %li= link_to "Zaloguj", new_user_session_path
       - if admin?

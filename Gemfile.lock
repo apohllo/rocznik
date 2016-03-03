@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/apohllo/simple_form_autocomplete.git
+  revision: f6f4de9fdef5e7c2ae1c727debddc66adab927c6
+  branch: create-new-values-in-autocomplete
+  specs:
+    simple_form_autocomplete (1.1.0)
+      activesupport
+      simple_form
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -388,9 +397,6 @@ GEM
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
-    simple_form_autocomplete (1.1.0)
-      activesupport
-      simple_form
     simple_form_ransack (0.0.13)
       rails (>= 4.0.0)
     spring (1.6.3)
@@ -494,7 +500,7 @@ DEPENDENCIES
   rubocop
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
-  simple_form_autocomplete
+  simple_form_autocomplete!
   simple_form_ransack
   spring
   storytime (~> 2.0.0)
@@ -503,3 +509,6 @@ DEPENDENCIES
   twitter-bootstrap-rails
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.11.2
