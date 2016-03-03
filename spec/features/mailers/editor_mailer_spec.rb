@@ -19,25 +19,27 @@ feature "Powiadamianie o nowym zgłoszeniu artykułu" do
   end
 
   background do
-    Person.create!(name: "Joanna", surname: "Gąska", email: email1, sex: "kobieta", roles: ['redaktor','recenzent'], discipline: ["psychologia"])
-    Person.create!(name: "Joanna", surname: "Gąska", email: email2, sex: "kobieta", roles: ['redaktor','recenzent'], discipline: ["psychologia"])
+    Person.create!(name: "Joanna", surname: "Gąska", email: email1,
+                   sex: "kobieta", roles: ['redaktor','recenzent'], discipline: ["psychologia"])
+    Person.create!(name: "Joanna", surname: "Gąska", email: email2,
+                   sex: "kobieta", roles: ['redaktor','recenzent'], discipline: ["psychologia"])
   end
 
   scenario "zapytanie o sporządzenie recenzji" do
     clear_emails
-    
+
     visit '/public_submissions/new/'
 
     within("#new_submission") do
-      fill_in "Tytuł", with: submission_data[:title]
-      fill_in "Title", with: submission_data[:english_title]
-      fill_in "Abstract", with: submission_data[:abstract]
-      fill_in "Key words", with: submission_data[:keywords]
-      select "polski", from: submission_data[:language]
-      fill_in "Finansowanie", with: submission_data[:funding]
-      fill_in "Liczba stron", with: submission_data[:pages]
-      fill_in "Liczba ilustracji", with: submission_data[:pictures]
-      attach_file("Artykuł", submission_data[:file])
+       fill_in "Tytuł", with: submission_data[:title]
+       fill_in "Title", with: submission_data[:english_title]
+       fill_in "Abstract", with: submission_data[:abstract]
+       fill_in "Key words", with: submission_data[:keywords]
+       select "polski", from: submission_data[:language]
+       fill_in "Finansowanie", with: submission_data[:funding]
+       fill_in "Liczba stron", with: submission_data[:pages]
+       fill_in "Liczba ilustracji", with: submission_data[:pictures]
+       attach_file("Artykuł", submission_data[:file])
      end
 
     click_button("Dalej")
