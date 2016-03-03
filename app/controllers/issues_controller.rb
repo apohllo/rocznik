@@ -58,6 +58,7 @@ class IssuesController < ApplicationController
 
   def show
     @issue = Issue.find_by_volume(params[:id])
+    @article_revisions = ArticleRevision.joins(:submission).where(submissions: { issue: id })
   end
   
     
