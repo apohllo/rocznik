@@ -9,7 +9,7 @@ class AffiliationsController < ApplicationController
   end
 
   def create
-    @affiliation = AffiliationComposite.new(params[:affiliation_composite])
+    @affiliation = AffiliationComposite.new(affiliation_params)
     if @affiliation.save
       redirect_to @affiliation.person
     else
@@ -37,6 +37,7 @@ class AffiliationsController < ApplicationController
 
   private
   def affiliation_params
-    params.require(:affiliation).permit(:year_from,:year_to)
+    params.require(:affiliation_composite).permit(:year_from,:year_to,:institution,:department,:country,
+                                                  :person_id,:institution_label,:department_label,:country_label)
   end
 end
