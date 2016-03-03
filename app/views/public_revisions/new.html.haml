@@ -1,0 +1,10 @@
+=simple_form_for @revision do |f| 
+  - if @submission_id 
+    = hidden_field_tag :submission_id, @submission_id 
+  = f.input :status, collection: Submission::STATUS_MAPPING.
+  = f.input :file, label: "Plik", hint: "new"
+  = f.input :pages, label: "Ilość stron", hint: "Ilość stron"
+  = f.input :pictures, label: "Ilość obrazków", hint: "Ilość obrazków"
+  = f.input :received, label: "Otrzymano", class: %w{datepicker form-control}, as: :string, input_html: { value: l(f.object.received, format: "%d-%m-%Y"), type:"date" } 
+  - label = @revision.new_record? ? "Utwórz" : "Zapisz" 
+  = f.submit label, class: %w{btn btn-primary btn-outline}
