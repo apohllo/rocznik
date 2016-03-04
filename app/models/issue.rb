@@ -95,30 +95,28 @@ class Issue < ActiveRecord::Base
   end
 
   def count_foreign_authors
-    @count_foreign_authors = 0
+    count_foreign_authors = 0
     self.submissions.each do |submission|
       submission.authors.each do |author|
         author.affiliations.each do |affiliation|
           if affiliation.department.country != "Polska"
-            @count_foreign_authors += 1
+            count_foreign_authors += 1
           end
         end
       end
     end
-    return @count_foreign_authors
+    return count_foreign_authors
   end
 
   def count_authors
-    @count_authors = 0
+    count_authors = 0
     self.submissions.each do |submission|
       submission.authors.each do |author|
         author.affiliations.each do |affiliation|
-          if affiliation.department.country != "null"
-            @count_authors += 1
-          end
+            count_authors += 1
         end
       end
     end
-    return @count_authors
+    return count_authors
   end
 end
