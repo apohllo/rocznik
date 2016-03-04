@@ -57,12 +57,11 @@ feature "Zapytanie" do
     end
     scenario "sprawdzenie wysłania mejla do redaktora po zmianie statusu recenzji" do
       clear_emails
-      visit '/reviews'
-      click_on 'Edytuj recenzję'
-      select "recenzja odrzucona", from: "Status"
-      click_on 'Zapisz'
+      visit '/submissions'
+      click_on 'Alicja w krainie czarów'
+      click_on 'Akceptacja recenzji'
       open_email('sz4n14@gmail.com')
-      expect(page).to have_content 'recenzja odrzucona'
+      expect(current_email).to have_content 'recenzja przyjęta'
     end
   end
 end
