@@ -1,48 +1,32 @@
 .scroll-panel-header
-  = link_to "Lista artykułów", articles_path, class: %w{btn btn-default btn-sm pull-right}
+  = link_to "Artykuły", articles_path, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title
     = @article.title
 .scroll-panel-body
-  .row
-    .col-md-2
-      %dt Numer
-      %dd= @article.issue_title
-    .col-md-6
-      %dt Status
-      %dd{class: "#{Article::STATUS_MAPPING[@article.status]}"}= @article.status
-    .col-md-3
-      %dt Pobierz PDF
-      %dd= @article.link
-  .row
-    %dl
-    .col-md-3
-      %dt Streszczenie
-      %dd= @article.abstract
-    .col-md-3 
-      %dt Slowa kluczowe
-      %dd= @article.keywords
-    .col-md-3
-      %dt Lista artykułów
-      %dd= @article.article_pages
-  .row
-    %dl
-    .col-md-2
-    .col-md-6
-    .col-xs-6.col-md-4
-      %dt Autorzy
-      %dd= @article.authors_inline
-  .row
-    %dl
-    .col-md-2
-    .col-md-6
-    .col-xs-6.col-md-3
-      %dt Kontakt z autorami
-      %dd= @article.authors_mail
-  .row  
-    %dl
-    .col-md-2
-    .col-md-6
-    .col-xs-6.col-md-3
-      %dt Affiliacje
-      %dd= @article.affiliations
-  
+  %dl
+    %dt Autorzy
+    %dd= @article.authors_inline
+  %dl
+    %dt Kontakt z autorami
+    %dd= @article.authors_mail
+  %dl
+    %dt Affiliacje
+    %dd= @article.affiliations
+  %dl
+    %dt Numer
+    %dd= @article.issue_title
+  %dl
+    %dt Streszczenie
+    %dd= @article.abstract
+  %dl
+    %dt Slowa kluczowe
+    %dd= @article.keywords
+  %dl
+    %dt Strony
+    %dd= @article.article_pages
+  %dl
+    %dt Link do ściągnięcia artykułu
+    %dd= @article.link
+  %dl
+    %dt Status
+    %dd{class: "#{Article::STATUS_MAPPING[@article.status]}"}= @article.status
