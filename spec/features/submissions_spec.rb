@@ -263,8 +263,8 @@ feature "zgloszenia" do
 
       context "brak autora w bazie danych" do
         before do
-          person = Person.create!(name: "Andrzej", surname: "Kapusta", email:
-                                  "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
+          person = Person.create!(name: "Andrzej", surname: "Ogórek", email:
+                                  "a.ogorek@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
           Submission.create!(status: "nadesłany", language: "polski", person: person, received: "20-01-2016",
                              polish_title: "Bukiet kotów", english_title: "cats", english_abstract: "Sth about cats",
                              english_keywords: "cats cat")
@@ -277,6 +277,7 @@ feature "zgloszenia" do
           click_button("Dodaj")
 
           expect(page).to have_css(".has-error")
+          expect(page).to have_content("nie może być puste")
         end
 
         scenario "wysłanie maila z umową" do
@@ -286,9 +287,9 @@ feature "zgloszenia" do
           page.find("#edit-submission").click
           select('przyjęty', from: 'submission_status')
           click_on("Zapisz")
-          open_email('a.kapusa@gmail.com')
+          open_email('a.ogorek@gmail.com')
           expect(current_email).to have_content 'Z poważaniem,'
-          expect(current_email).to have_content 'Kapusta'
+          expect(current_email).to have_content 'Ogórek'
           expect(current_email.attachments.first.filename).to eq 'Umowa-wydawnicza.pdf'
         end
 
