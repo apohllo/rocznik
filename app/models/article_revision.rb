@@ -49,7 +49,7 @@ class ArticleRevision < ActiveRecord::Base
     else
       nil
     end
-   end
+  end
   
   def editor_email
     editor = self.submission.person
@@ -58,5 +58,5 @@ class ArticleRevision < ActiveRecord::Base
     else
       nil
     end
-   end
+  end
 end
