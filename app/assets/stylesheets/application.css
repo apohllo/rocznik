@@ -153,10 +153,6 @@ dd.published {
   display: none;
 }
 
-.article-queue-id {
-    display: none;
-}
-
 .submission_show {
  clear: both;
  padding: 20px 0px;

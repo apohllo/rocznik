@@ -3,6 +3,7 @@
   %h3.scroll-panel-title= "Osoby zarejestrowane w systemie"
   
 .scroll-panel-body
+  = paginate @people
   = simple_search_form_for @query do |f|
     = f.input :surname_start, label: "Nazwisko"
     = f.input :competence_cont, label: "Kompetencje"

@@ -9,6 +9,14 @@ feature "zarządzanie osobami" do
 
   context "po zalogowaniu" do
     include_context "admin login"
+    
+    scenario "paginacja osob" do
+      visit "/people"
+      expect(page).to have_link("2")
+      
+      click_on "2"
+      expect(page).to have_content("student")
+    end
 
     scenario "link do nowej osoby" do
       visit '/people'
