@@ -55,7 +55,7 @@ class Issue < ActiveRecord::Base
     self.submissions.each do |submission|
       submission.reviews.each do |review|
         review.person.affiliations.each do |affiliation|
-          if affiliation.department.institution.name == "Uniwersytet Jagielloński"
+          if affiliation.institution == "Uniwersytet Jagielloński"
             @count_uj += 1
           end
         end
@@ -69,7 +69,7 @@ class Issue < ActiveRecord::Base
     self.submissions.each do |submission|
       submission.reviews.each do |review|
         review.person.affiliations.each do |affiliation|
-          if affiliation.department.institution.name != "Uniwersytet Jagielloński"
+          if affiliation.institution != "Uniwersytet Jagielloński"
             @count_other += 1
           end
         end

@@ -73,6 +73,10 @@ class IssuesController < ApplicationController
     @issue = Issue.find_by_volume(params[:id])
   end
 
+    def count_countries
+    @issue = Issue.find_by_volume(params[:id])
+  end
+
   private
 
   def issue_params

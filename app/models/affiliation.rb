@@ -24,6 +24,10 @@ class Affiliation < ActiveRecord::Base
     self.department.country
   end
 
+  def country_name
+    self.department.country.name
+  end
+
   def institution
     self.department.institution_name
   end
