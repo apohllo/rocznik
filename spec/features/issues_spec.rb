@@ -259,6 +259,41 @@ feature "zarządzanie numerami" do
           end
         end
 
+        context "statystyki liczby opublikowanych artykułów" do
+          before do
+            Submission.create!(status:'przyjęty', language:"angielski", issue:
+                               Issue.first, polish_title: "Statystyki artykułów",
+                               english_title: "Article's statistics", english_abstract:
+                               "statistics", english_keywords: "statistics, articles", received: "2015-02-17")
+          end
+
+          scenario "dostępność przeglądu statystyk" do
+            visit "/issues"
+            click_link "3"
+            expect(page).to have_link("Statystyki")
+          end
+
+          scenario "wyświetlenie poszczególnych kategorii" do
+            visit "/issues"
+            click_link "3"
+            click_link "Przygotuj do wydania"
+            click_button "Przygotuj numer do wydania"
+            click_link "Statystyki"
+            expect(page).to have_content("Liczba artykułów w j.ang.")
+            expect(page).to have_content("Liczba artykułów")
+            expect(page).to have_content("Udział procentowy %")
+          end
+
+          scenario "prawidłowe wykonanie obliczeń" do
+            visit "/issues"
+            click_link "3"
+            click_link "Przygotuj do wydania"
+            click_button "Przygotuj numer do wydania"
+            click_link "Statystyki"
+            expect(page).to have_content("50.0")
+          end
+        end
+
         context "przygotowany do wydania" do
           before do
             Issue.first.update_attributes(prepared: true)
