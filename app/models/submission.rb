@@ -15,8 +15,12 @@ class Submission < ActiveRecord::Base
   validates :english_title, presence: true
   validates :english_abstract, presence: true
   validates :english_keywords, presence: true
+
   has_many :authorships, dependent: :destroy
-  has_many :article_revisions, dependent: :destroy
+  #zgłoszenie ma wiele powiązanych ze sobą wiadomości
+  has_many :messages, dependent: :destroy
+  has_many :article_revisions, dependent: :restrict_with_error
+
 
   accepts_nested_attributes_for :article_revisions
 
@@ -28,6 +32,8 @@ class Submission < ActiveRecord::Base
   belongs_to :issue
 
   scope :accepted, -> { where(status: "przyjęty") }
+
+  scope :english, -> { where(language: ENGLISH) }
 
   MAX_LENGTH = 80
 
@@ -73,6 +79,24 @@ class Submission < ActiveRecord::Base
       authorship.author
     else
       "[BRAK AUTORA]"
+    end
+  end
+
+  def corresponding_author_surname
+    authorship = self.authorships.where(corresponding: true).first
+    if authorship
+      authorship.person.surname
+    else
+      "[BRAK AUTORA]"
+    end
+  end
+
+  def corresponding_author_email
+    authorship = self.authorships.where(corresponding: true).first
+    if authorship
+      authorship.person.email
+    else
+      nil
     end
   end
 
@@ -160,6 +184,7 @@ class Submission < ActiveRecord::Base
   end
 
   private
+
   def cut_text(text,cut)
     if text.size > MAX_LENGTH && cut
       text[0...MAX_LENGTH] + "..."
@@ -167,4 +192,5 @@ class Submission < ActiveRecord::Base
       text
     end
   end
+
 end

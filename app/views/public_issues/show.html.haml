@@ -2,10 +2,11 @@
   %h3.scroll-panel-title
     Numer
     = @issue.title
+    = link_to "Recenzenci", reviewers_public_issue_path(@issue), class: %w{btn btn-default btn-sm}
 .scroll-panel-body
   %h3 Artykuły
   %ul
-    - @issue.articles.each do |article|
+    - @issue.articles.order(:issue_position).each do |article|
       %li
         = article.authors_inline + "." 
         %i= link_to article.title, public_article_path(article)

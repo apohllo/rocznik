@@ -51,7 +51,8 @@
     %dl
       %dt Finansowanie
       %dd= simple_format(@submission.funding)
-  = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}
+  = link_to "Edytuj", edit_submission_path(@submission), class: %w{btn btn-primary btn-sm}, id: %w{edit-submission}
+
   %h3.submission_show_tables Autorzy
   %table.table.table-hover.table-admin
     %thead
@@ -152,3 +153,22 @@
           %td= @submission.latest_modifier
           %td= @submission.latest_modification_time
           %td{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
+  %h3 Widomości związane ze zgłoszeniem:
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Nadawca
+        %th Odbiorca
+        %th Tytuł
+        %th Treść
+    %tbody
+      -  # Jeśli maile sa przypisane do zgłoszeń
+      - if defined?(@submission.messages.last)
+        - @submission.messages.each do |mail|
+          %tr
+            %td= mail.sender
+            %td= mail.addresse
+            %td= mail.subject
+            %td= mail.body
+
+

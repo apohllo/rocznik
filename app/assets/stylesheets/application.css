@@ -15,6 +15,7 @@
  */
 .middle-row {
   margin-top: 60px;
+  margin-bottom: 60px;
 }
 
 body, .page-container, .middle-row, .main {
@@ -38,12 +39,11 @@ h3.scroll-panel-title {
   padding-left: 20px;
   padding-bottom: 20px;
 }
-
 td.asked, td.editor, dd.asked, dd.editor {
   background-color: #ffff00;
 }
 
-td.accepted, td.review, dd.accepted, dd.review {
+td.accepted, td.review, dd.accepted, p.review {
   background-color: #94c5f4;
 }
 
@@ -154,8 +154,8 @@ dd.published {
 }
 
 .submission_show {
-  clear: both;
-  padding: 20px 0px;
+ clear: both;
+ padding: 20px 0px;
 }
 
 .details {
@@ -166,3 +166,22 @@ dd.published {
  padding-top: 5%;
 }
 
+.reviews_details {
+ text-align: center;
+ padding-top: 20px; 
+ padding-bottom: 2%;
+}
+
+.views_show {
+ clear: both;
+}
+
+.views-button {
+  padding-top: 4%;
+}
+
+.people_details {
+ text-align: center;
+ padding-top: 20px;
+ padding-bottom: 10px;
+}

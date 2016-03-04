@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223153523) do
+ActiveRecord::Schema.define(version: 20160303214900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20160223153523) do
     t.datetime "updated_at"
     t.string   "pages"
     t.string   "external_link"
+    t.integer  "issue_position", default: 1
   end
 
   add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
@@ -101,6 +102,31 @@ ActiveRecord::Schema.define(version: 20160223153523) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "impressions", force: :cascade do |t|
+    t.string   "impressionable_type"
+    t.integer  "impressionable_id"
+    t.integer  "user_id"
+    t.string   "controller_name"
+    t.string   "action_name"
+    t.string   "view_name"
+    t.string   "request_hash"
+    t.string   "ip_address"
+    t.string   "session_hash"
+    t.text     "message"
+    t.text     "referrer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "impressions", ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index", using: :btree
+  add_index "impressions", ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index", using: :btree
+  add_index "impressions", ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index", using: :btree
+  add_index "impressions", ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index", using: :btree
+  add_index "impressions", ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index", using: :btree
+  add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index", using: :btree
+  add_index "impressions", ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index", using: :btree
+  add_index "impressions", ["user_id"], name: "index_impressions_on_user_id", using: :btree
+
   create_table "institutions", force: :cascade do |t|
     t.string   "name"
     t.integer  "country_id"
@@ -119,6 +145,18 @@ ActiveRecord::Schema.define(version: 20160223153523) do
     t.boolean  "prepared",   default: false
     t.boolean  "published",  default: false
   end
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "sender"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "submission_id"
+    t.string   "addresse"
+  end
+
+  add_index "messages", ["submission_id"], name: "index_messages_on_submission_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "name",                         null: false
@@ -336,14 +374,14 @@ ActiveRecord::Schema.define(version: 20160223153523) do
     t.text     "funding"
     t.date     "received"
     t.string   "language"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
     t.integer  "follow_up_id"
   end
 
-  add_index "submissions", ["follow_up_id"], name: "index_submissions_on_follow_up", using: :btree
+  add_index "submissions", ["follow_up_id"], name: "index_submissions_on_follow_up_id", using: :btree
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
 
@@ -385,6 +423,7 @@ ActiveRecord::Schema.define(version: 20160223153523) do
   add_foreign_key "authorships", "submissions"
   add_foreign_key "departments", "institutions"
   add_foreign_key "institutions", "countries"
+  add_foreign_key "messages", "submissions"
   add_foreign_key "reviews", "article_revisions"
   add_foreign_key "reviews", "people"
   add_foreign_key "submissions", "issues"

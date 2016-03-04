@@ -1,0 +1,47 @@
+.scroll-panel-header
+  %h3.scroll-panel-title
+    = @submission.title
+.scroll-panel-body
+  %dl
+    %dt Dodaj nową wersję
+    %dd    
+      = link_to "Dodaj nową wersję", new_public_revision_path(submission_id: @submission.id), class: %w{btn btn-primary btn-sm}, id: %w{edit-submission}
+  %dl
+    %dt Status
+    %dd{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
+  %dl
+    - if @submission.polish_language?
+      = image_tag('pl.png')
+    - else
+      = image_tag('gb.png')
+  %dl
+    %dt Redaktor
+    %dd
+      - if @submission.person
+        = link_to @submission.editor, @submission.person
+      - else
+        = @submission.editor
+  %dl
+    %dt Numer rocznika
+    %dd
+      - if @submission.issue
+        = link_to @submission.issue_title, @submission.issue
+      - else
+        = @submission.issue
+  %dl
+    %dt Otrzymano
+    %dd= @submission.received.strftime("%d-%m-%Y")
+  %dl
+    %dt Streszczenie
+    %dd.more= @submission.abstract
+  %dl
+    %dt Słowa kluczowe
+    %dd= @submission.keywords
+  - if @submission.remarks
+    %dl
+      %dt Uwagi
+      %dd= simple_format(@submission.remarks)
+  - if @submission.funding
+    %dl
+      %dt Finansowanie
+      %dd= simple_format(@submission.funding)

@@ -1,6 +1,6 @@
 class ArticleRevision < ActiveRecord::Base
   belongs_to :submission
-  has_many :reviews, dependent: :destroy
+  has_many :reviews, dependent: :restrict_with_error
   mount_uploader :article, ArticleUploader
 
   validates :pages, presence: true, numericality: true
@@ -42,4 +42,21 @@ class ArticleRevision < ActiveRecord::Base
     self.submission.person
   end
   
+  def editor_surname
+  editor = self.submission.person
+    if editor
+      editor.surname
+    else
+      nil
+    end
+  end
+  
+  def editor_email
+    editor = self.submission.person
+    if editor
+      editor.email
+    else
+      nil
+    end
+  end
 end

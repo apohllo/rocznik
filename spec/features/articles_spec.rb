@@ -92,9 +92,37 @@ feature "Artykuły" do
         expect(page).to have_content("korekta autorska")
       end
 
+      scenario "Zmiana pozycji artykułu'" do
+        visit '/articles'
+        click_on 'Wiemy wszystko'
+        click_on 'Edytuj'
+        select "2", from: "Indeks w numerze rocznika"
+
+        expect(page).not_to have_css('.has-error')
+
+        visit '/issues/2-2002'
+
+      end
+
+      scenario "Zmiana pozycji artykułu w issue" do
+        visit '/issues/2-2002'
+
+        expect(page).not_to have_css('.has-error')
+        expect(page).to have_content("Publikowane artykuły")
+      end
+
       scenario "filtrowanie artykułów po statusie" do
         visit "/articles"
         select "po recenzji", from: "Status"
+        click_on("Filtruj")
+
+        expect(page).to have_content("Wiemy wszystko")
+        expect(page).not_to have_content("Jerzozwież")
+      end
+
+      scenario "filtrowanie artykułów po tytule" do
+        visit "/articles"
+        fill_in "Tytuł", with: "Wiemy wszystko"
         click_on("Filtruj")
 
         expect(page).to have_content("Wiemy wszystko")
@@ -110,18 +138,26 @@ feature "Artykuły" do
         click_on("Tytuł")
         expect(page).to have_content(/Wiemy wszystko.*Jerzozwież/)
       end
-      
+
       scenario "filtrowanie artykułów po redaktorze" do
         visit "/articles"
-        
+
         select "Adam Kapusta", from: "Redaktor"
-        
+
         click_on("Filtruj")
         expect(page).to have_content(/Wiemy wszystko.*Jerzozwież/)
-        
+
         click_on("Filtruj")
         expect(page).not_to have_content(/Jerzozwież.*Wiemy wszystko/)
       end
+
+      scenario "Licznik wyświetleń artykułu" do
+        visit "/articles"
+
+        click_on 'Wiemy wszystko'
+        expect(page).to have_content("Liczba wyświetleń artykułu: 1")
+      end
+
     end
   end
 end
