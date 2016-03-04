@@ -13,11 +13,10 @@ feature "Wysłanie maila potwierdzającego przyjęcie zgłoszenia" do
 
     scenario "sprawdzenie wysłania maila potwierdzającego przyjęcie zgłoszonego tekstu" do
      clear_emails
-     visit '/submissions'
-     click_link 'Polski tytuł'
-     click_link 'Edytuj'
-     select "nadesłany", from: "Status"
-     click_on 'Zapisz'
+     visit '/people'
+     select "Kapusta", from "Nazwisko"
+     click_link 'Dodaj zgłoszenie'
+     click_on 'Utwórz'
      open_email('a.kapusa@gmail.com')
      expect(current_email).to have_content 'zostało przyjęte do systemu'
     end
