@@ -355,6 +355,17 @@ feature "zgloszenia" do
           expect(page).to have_content("przyjęty")
         end
 
+        scenario "wyswietlenie informacji o wyslaniu wiadomosci." do
+          visit '/submissions'
+          click_on("Alicja w krainie czarów")
+          click_on("Edytuj")
+          select('przyjęty', from: 'submission_status')
+          click_on("Zapisz")
+          
+          expect(page).to have_content("Decyzja - Rocznik Kognitywistyczny")
+         
+        end
+
       end
     end
   end
