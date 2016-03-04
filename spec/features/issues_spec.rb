@@ -100,6 +100,24 @@ feature "zarządzanie numerami" do
         expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 0 (0%)")
         expect(page).to have_content("Recenzenci z innych uczelni: 0 (0%)")
       end
+
+      scenario "75% Polaków" do
+        visit '/issues'
+        click_on('69')
+        click_on('Statystyki państw')
+
+        expect(page).to have_content("Recenzenci z Polski: 3 (75%)")
+        expect(page).to have_content("Recenzenci z innych państw: 1 (25%)")
+      end
+
+      scenario "Brak afiliacji" do
+        visit '/issues'
+        click_on('70')
+        click_on('Statystyki państw')
+
+        expect(page).to have_content("Recenzenci z Polski: 0 (0%)")
+        expect(page).to have_content("Recenzenci z innych państw: 0 (0%)")
+      end
     end
 
     context "proba test" do
@@ -143,7 +161,7 @@ feature "zarządzanie numerami" do
 
     context "z jednym numerem w bazie danych" do
       before do
-        Issue.create!(volume: 3, year: 2020)
+        Issue.create!(volume: 3, year: 2020)       
       end
 
       scenario "wyświetlenie szczegółów numeru" do
@@ -189,6 +207,13 @@ feature "zarządzanie numerami" do
                              english_title: "Accepted title", english_abstract:
                              "Short abstract", english_keywords: "brain,
                              language", received: "2016-01-17")
+        end
+        
+        xscenario "potwierdzenie usunięcia zgłoszenia w widoku numeru" do
+          visit '/issues/'
+          click_on '3'
+		  page.find(".btn-danger").click
+          expect(page).to have_content("Zapytanie")
         end
 
         scenario "Przygotowanie numeru do wydania" do

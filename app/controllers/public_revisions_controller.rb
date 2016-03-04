@@ -4,21 +4,16 @@ class PublicRevisionsController < ApplicationController
   def new
     @revision = ArticleRevision.new
     @revision.submission = Submission.find(params[:submission_id])
-    @revision.code = 'tekst_'
-    @revision.version = @revision.submission.article_revisions.count + 1
-    if @revision.version == 1
-      @revision.received = @revision.submission.received
-    else
-      @revision.received = Time.now
-    end
   end
 
   def create
-    submission = Submission.find(params[:submission_id])
     @revision = ArticleRevision.new(article_revision_params)
-    @revision.submission = submission
+    @revision.code = 'tekst_'
+    submission = Submission.find(article_revision_params[:submission_id])
+    @revision.version = submission.article_revisions.count + 1
+    @revision.received = Time.now
     if @revision.save
-      redirect_to submission
+      redirect_to user_submission_path(submission)
     else
       render :new
     end
@@ -30,7 +25,7 @@ class PublicRevisionsController < ApplicationController
 
   private
   def article_revision_params
-    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article,:comment,:accepted)
+    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article,:comment,:accepted,:submission_id)
 end
 
 end

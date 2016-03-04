@@ -51,31 +51,31 @@ class Issue < ActiveRecord::Base
   end
 
   def count_uj_submissions
-    @count_uj = 0
+    count_uj = 0
     self.submissions.each do |submission|
       submission.reviews.each do |review|
         review.person.affiliations.each do |affiliation|
-          if affiliation.department.institution.name == "Uniwersytet Jagielloński"
-            @count_uj += 1
+          if affiliation.institution == "Uniwersytet Jagielloński"
+            count_uj += 1
           end
         end
       end
     end
-    return @count_uj
+    return count_uj
   end
 
   def count_other_submissions
-    @count_other = 0
+    count_other = 0
     self.submissions.each do |submission|
       submission.reviews.each do |review|
         review.person.affiliations.each do |affiliation|
-          if affiliation.department.institution.name != "Uniwersytet Jagielloński"
-            @count_other += 1
+          if affiliation.institution != "Uniwersytet Jagielloński"
+            count_other += 1
           end
         end
       end
     end
-    return @count_other
+    return count_other
   end
 
   def count_uj_percentage
@@ -93,7 +93,7 @@ class Issue < ActiveRecord::Base
       "0"
     end
   end
-
+  
   def count_foreign_authors
     count_foreign_authors = 0
     self.submissions.each do |submission|
@@ -108,6 +108,20 @@ class Issue < ActiveRecord::Base
     return count_foreign_authors
   end
 
+  def count_polish
+    count_pl = 0
+    self.submissions.each do |submission|
+      submission.reviews.each do |review|
+        review.person.affiliations.each do |affiliation|
+          if affiliation.country_name == "Polska"
+            count_pl += 1
+          end
+        end
+      end
+    end
+    return count_pl
+  end
+
   def count_authors
     count_authors = 0
     self.submissions.each do |submission|
@@ -118,5 +132,38 @@ class Issue < ActiveRecord::Base
       end
     end
     return count_authors
+=======
+    return count_pl
+  end
+
+  def count_foreign
+    count_other = 0
+    self.submissions.each do |submission|
+      submission.reviews.each do |review|
+        review.person.affiliations.each do |affiliation|
+          if affiliation.country_name != "Polska"
+            count_other += 1
+          end
+        end
+      end
+    end
+    return count_other
+  end
+
+  def count_pl_percentage
+    if count_polish > 0 or count_foreign > 0
+      count_polish*100/(count_polish + count_foreign)
+    else
+      "0"
+    end
+  end
+
+  def count_foreign_percentage
+    if count_polish > 0 or count_foreign > 0
+      count_foreign*100/(count_polish + count_foreign)
+    else
+      "0"
+    end
+>>>>>>> b5f0b19bc259fd88e0a2b12d9a8227999b68af6b
   end
 end

@@ -1,0 +1,8 @@
+.scroll-panel-body
+  = simple_form_for @revision, url: public_revisions_path do |f| 
+    = f.input :submission_id, as: :hidden 
+    = f.input :article, label: "Plik", hint: "new"
+    = f.input :pages, label: "Ilość stron", hint: "Ilość stron"
+    = f.input :pictures, label: "Ilość ilustracji", hint: "Ilość ilustracji" 
+    = f.submit "Wyślij", class: %w{btn btn-primary btn-outline}
+
