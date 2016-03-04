@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160302164859) do
+ActiveRecord::Schema.define(version: 20160303214900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,18 @@ ActiveRecord::Schema.define(version: 20160302164859) do
     t.boolean  "prepared",   default: false
     t.boolean  "published",  default: false
   end
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "sender"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "submission_id"
+    t.string   "addresse"
+  end
+
+  add_index "messages", ["submission_id"], name: "index_messages_on_submission_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "name",                         null: false
@@ -411,6 +423,7 @@ ActiveRecord::Schema.define(version: 20160302164859) do
   add_foreign_key "authorships", "submissions"
   add_foreign_key "departments", "institutions"
   add_foreign_key "institutions", "countries"
+  add_foreign_key "messages", "submissions"
   add_foreign_key "reviews", "article_revisions"
   add_foreign_key "reviews", "people"
   add_foreign_key "submissions", "issues"
