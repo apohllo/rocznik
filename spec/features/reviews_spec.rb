@@ -1,6 +1,33 @@
 require 'rails_helper'
 
 feature "recenzowanie" do
+  context "bez logowania" do
+    before do
+      Person.create!(name: 'Adam', surname: 'Kapusta', email: 'a@k.com',
+                      sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
+      Person.create!(name: 'Andrzej', surname: 'Nowak', email: 'a@n.com',
+                      sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
+      Issue.create!(volume: 69, year: 2070, prepared: true, published: true)
+      Issue.create!(volume: 70, year: 2071, prepared: true, published: true)
+      Submission.create!(language: "polski", received: "03-03-2016", status: "przyjęty", person: Person.first,
+                             polish_title: "Arystoteles.", english_title: "title2", english_abstract: "abstract2",
+                             english_keywords: "tag1, tag2", issue: Issue.first)
+      article_file = Rails.root.join("spec/features/files/plik.pdf").open
+      ArticleRevision.create!(version:"1.0", received:"03-03-2016", pages:"5", code: "tekst_",
+                              article: article_file, submission: Submission.first)
+      Review.create!(article_revision: ArticleRevision.last, deadline: '28/03/2016', person: Person.last,
+                      status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
+    end
+
+    scenario "wyswietlanie recenzentów" do
+      visit '/'
+      click_on('69/2070')
+      click_on('Recenzenci')
+
+      expect(page).to have_content("Andrzej Nowak")
+    end
+  end
+
   context "po zalogowaniu" do
     include_context "admin login"
 
@@ -37,6 +64,15 @@ feature "recenzowanie" do
         visit '/reviews'
         click_on('Dlaczego solipsyzm?, v. 1')
         expect(page).to have_css(".btn", text:"Edytuj")
+      end
+      
+      xscenario "testowanie usuwania artykułu z recenzją" do
+        visit '/submissions'
+        fill_in "Tytuł", with: "Arystoteles."
+        click_on("Filtruj")
+        page.find(".btn-danger", match: :first).click
+        
+        expect(page).to have_content("nie usunięto zgłoszenia")
       end
 
       scenario "edytowanie recenzji" do
@@ -122,6 +158,16 @@ feature "recenzowanie" do
         expect(page).to have_content("16-01-2017")
         expect(page).not_to have_content("20-01-2016")
       end
+      
+      scenario "filtrowanie recenzji po tytule" do
+        visit "/reviews"
+        
+        fill_in "Tytuł", with: "Dlaczego solipsyzm?"
+        click_on("Filtruj")
+        
+        expect(page).to have_content("Dlaczego solipsyzm?")
+        expect(page).not_to have_content("Arystoteles")
+      end  
 
       xscenario "reset filtrów" do
         visit "/reviews"
@@ -146,6 +192,11 @@ feature "recenzowanie" do
         expect(page).to have_content(/20-01-2016.*16-01-2017/)
       end
 
+      scenario "wyświetlanie liczby przypisanych recenzentów" do
+        visit "/submissions"
+        expect(page).to have_content("1")
+      end
+
       scenario "sprawdzanie dostepnosci odnosnika do edycji recenzji w widoku zgloszenia" do
         visit "/reviews"
         expect(page). to have_css('a[title="Edytuj recenzję"]')
@@ -166,11 +217,11 @@ feature "recenzowanie" do
           Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person: person_1, article_revision: article_revision_1)
           index += 1
         end
-        
+
         scenario "wiecej niz 20 recenzji" do
           visit "/reviews"
           expect(page).to have_link('2')
-          
+
           click_on "2"
           expect(page).to have_link("18-01-2016")
         end
@@ -178,3 +229,6 @@ feature "recenzowanie" do
     end
   end
 end
+        
+        
+        
