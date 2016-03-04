@@ -36,7 +36,7 @@ class ArticleRevisionsController < ApplicationController
   end
 
   def edit
-    @article_revision = ArticleRevision.find(params[:id])
+        @article_revision = ArticleRevision.find(params[:id])
   end
 
   def show

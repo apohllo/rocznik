@@ -280,6 +280,14 @@ feature "zgloszenia" do
           expect(page).to have_content("nie może być puste")
         end
 
+
+        scenario "sortowanie zgłoszeń względem daty nadesłania" do
+          visit "/submissions"
+          click_on("Data nadesłania")
+          expect(page).to have_content(/11-01-2016.*19-01-2016/)
+          click_on("Data nadesłania")
+          expect(page).to have_content(/19-01-2016.*11-01-2016/)
+
         scenario "wysłanie maila z umową" do
           visit '/submissions'
           clear_emails
