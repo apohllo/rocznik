@@ -86,19 +86,19 @@ feature "zarządzanie numerami" do
       scenario "75% UJotu" do
         visit '/issues'
         click_on('69')
-        click_on('Pokaż recenzentów')
+        click_on('Statystyki uczelni')
 
-        expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 3 ( 75 %)")
-        expect(page).to have_content("Recenzenci z innych uczelni: 1 ( 25 %)")
+        expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 3 (75%)")
+        expect(page).to have_content("Recenzenci z innych uczelni: 1 (25%)")
       end
 
       scenario "Brak recenzentów" do
         visit '/issues'
         click_on('70')
-        click_on('Pokaż recenzentów')
+        click_on('Statystyki uczelni')
 
-        expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 0 ( 0 %)")
-        expect(page).to have_content("Recenzenci z innych uczelni: 0 ( 0 %)")
+        expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 0 (0%)")
+        expect(page).to have_content("Recenzenci z innych uczelni: 0 (0%)")
       end
     end
 

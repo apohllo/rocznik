@@ -80,7 +80,7 @@ class Issue < ActiveRecord::Base
 
   def count_uj_percentage
     if count_uj_submissions > 0 or count_other_submissions > 0
-      count_uj_submissions/(count_uj_submissions + count_other_submissions)*100
+      count_uj_submissions*100/(count_uj_submissions + count_other_submissions)
     else
       "0"
     end
@@ -88,7 +88,7 @@ class Issue < ActiveRecord::Base
 
   def count_other_percentage
     if count_uj_submissions > 0 or count_other_submissions > 0
-      count_other_submissions/(count_uj_submissions + count_other_submissions)*100
+      count_other_submissions*100/(count_uj_submissions + count_other_submissions)
     else
       "0"
     end
