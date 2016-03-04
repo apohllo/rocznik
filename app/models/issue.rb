@@ -93,7 +93,7 @@ class Issue < ActiveRecord::Base
       "0"
     end
   end
-  
+
   def count_foreign_authors
     count_foreign_authors = 0
     self.submissions.each do |submission|
@@ -132,8 +132,6 @@ class Issue < ActiveRecord::Base
       end
     end
     return count_authors
-=======
-    return count_pl
   end
 
   def count_foreign
@@ -164,6 +162,5 @@ class Issue < ActiveRecord::Base
     else
       "0"
     end
->>>>>>> b5f0b19bc259fd88e0a2b12d9a8227999b68af6b
   end
 end
