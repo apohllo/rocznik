@@ -34,6 +34,8 @@ feature "zgloszenia" do
                              test", received: "2015-02-17")
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                        "mężczyzna", roles: ['autor', 'redaktor'], discipline:["psychologia"])
+        Person.create!(name: "Damian", surname: "Papryka", email: "d.papryka@gmail.com", sex:
+                       "mężczyzna", roles: ['autor', 'redaktor'], discipline:["psychologia"])
         Authorship.create!(person: Person.last, submission: Submission.first,
                             corresponding: false, position: 1, role: "autor")
         Authorship.create!(person: Person.last, submission: Submission.last,
@@ -67,7 +69,7 @@ feature "zgloszenia" do
         click_link 'brak podpisu'
         expect(page).to have_content("Autorzy")
         click_link 'Dodaj autora'
-        select Person.first from: "Autor"
+        select "Papryka, Damian", from: "Autor"
         fill_in "Rola", with: "Autor na sto pro"
         click_button 'Dodaj'
         expect(page).to have_content("Autor na sto pro")
