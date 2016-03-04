@@ -23,7 +23,8 @@ feature "Wysłanie maila potwierdzającego przyjęcie zgłoszenia" do
      fill_in "Abstract", with: "Cats are so amazing"
      fill_in "Key words", with: "cats"
      click_on 'Utwórz'
-     open_email('user@localhost.com')
+     expect(page).not_to have_css(".has-error")
+     open_email('a.kapusa@gmail.com')
      expect(current_email).to have_content 'zostało przyjęte do systemu'
     end
   end
