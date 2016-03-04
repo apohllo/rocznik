@@ -1,4 +1,4 @@
-=simple_form_for @revision do |f| 
+=simple_form_for @revision, url: new_public_revision_path do |f| 
   - if @submission_id 
     = hidden_field_tag :submission_id, @submission_id 
   = f.input :status, collection: Submission::STATUS_MAPPING.

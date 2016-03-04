@@ -5,7 +5,7 @@
   %dl
     %dt Dodaj nową wersję
     %dd    
-       = link_to "Dodaj nową wersję", new_public_revision_path(submission_id: @submission.id), class: %w{btn btn-primary btn-sm}, id: %w{edit-submission}
+      = link_to "Dodaj nową wersję", new_public_revision_path(submission_id: @submission.id), class: %w{btn btn-primary btn-sm}, id: %w{edit-submission}
   %dl
     %dt Status
     %dd{class: "#{Submission::STATUS_MAPPING[@submission.status]}"}= @submission.status
