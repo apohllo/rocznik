@@ -361,10 +361,13 @@ feature "zarządzanie numerami" do
           end
 
           scenario "właściwe wyniki" do
-            visit '/issues'
-            click_on('69')
-            click_on('Statystyki')
+            visit "/issues"
+            click_on "69"
+            click_link "Przygotuj do wydania"
+            click_button "Przygotuj numer do wydania"
+            click_link "Statystyki"
 
+            save_and_open_page
             expect(page).to have_content("1")
             expect(page).to have_content("4")
             expect(page).to have_content("25.0")

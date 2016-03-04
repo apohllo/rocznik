@@ -26,4 +26,4 @@
         %tr
           %td= @issue.count_foreign_authors
           %td= @issue.count_authors
-          %td= "%.1f" % ( @issue.count_foreign_authors / @issue.count_authors .to_f * 100 )
+          %td= @issue.count_percentage

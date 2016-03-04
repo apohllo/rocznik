@@ -134,6 +134,14 @@ class Issue < ActiveRecord::Base
     return count_authors
   end
 
+  def count_percentage
+    if count_authors > 0
+      "%.1f" % ( count_foreign_authors / count_authors .to_f * 100 )
+    else
+      "0"
+    end
+  end
+
   def count_foreign
     count_other = 0
     self.submissions.each do |submission|
