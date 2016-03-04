@@ -5,8 +5,8 @@
     = @issue.title
 .scroll-panel-body
   %p{style: "margin-top: 20px;"}
-    Recenzenci z Uniwersytetu Jagiellońskiego: #{@issue.count_uj_submissions}
-    (#{@issue.count_uj_percentage}%)
+    Recenzenci z Polski: #{@issue.count_polish}
+    (#{@issue.count_pl_percentage}%)
     %br
-    Recenzenci z innych uczelni: #{@issue.count_other_submissions}
-    (#{@issue.count_other_percentage}%)
+    Recenzenci z innych państw: #{@issue.count_foreign}
+    (#{@issue.count_foreign_percentage}%)
