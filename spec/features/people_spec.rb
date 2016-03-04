@@ -12,7 +12,7 @@ feature "zarządzanie osobami" do
     
     scenario "paginacja osob" do
       visit "/people"
-      expect(page).to have_link("2")
+      expect(page).to have_link('2')
       
       click_on "2"
       expect(page).to have_content("student")
