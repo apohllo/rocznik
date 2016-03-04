@@ -107,7 +107,7 @@ feature "zarządzanie numerami" do
                                         english_abstract: 'Tak po prostu', english_keywords: 'knowledge',
                                         issue: Issue.first, language: 'polski', received: '28-01-2016',
                                         status: 'przyjęty')      
-		visit '/issues/3'
+		visit '/issues/'
 		page.find(".btn-danger").click
       expect(page).to have_content("Zapytanie")
       end
