@@ -49,4 +49,5 @@ class ArticleRevision < ActiveRecord::Base
     else
       nil
     end
+   end
 end
