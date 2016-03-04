@@ -1,4 +1,8 @@
 class SubmissionMailer < ApplicationMailer
+  def confirmation(submission)
+    @submission = submission
+    mail(to: @submission.corresponding_author_email, subject: 'Przyjęcie zgłoszenia')
+  end	
 
   def send_contract(submission)
     @submission = submission
