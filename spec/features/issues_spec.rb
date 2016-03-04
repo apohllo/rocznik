@@ -161,7 +161,7 @@ feature "zarządzanie numerami" do
 
     context "z jednym numerem w bazie danych" do
       before do
-        Issue.create!(volume: 3, year: 2020)
+        Issue.create!(volume: 3, year: 2020)       
       end
 
       scenario "wyświetlenie szczegółów numeru" do
@@ -207,6 +207,13 @@ feature "zarządzanie numerami" do
                              english_title: "Accepted title", english_abstract:
                              "Short abstract", english_keywords: "brain,
                              language", received: "2016-01-17")
+        end
+        
+        xscenario "potwierdzenie usunięcia zgłoszenia w widoku numeru" do
+          visit '/issues/'
+          click_on '3'
+		  page.find(".btn-danger").click
+          expect(page).to have_content("Zapytanie")
         end
 
         scenario "Przygotowanie numeru do wydania" do
