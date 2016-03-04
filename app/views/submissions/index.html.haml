@@ -21,6 +21,7 @@
           = sort_link(@query, :received, "Data nadesłania")
         %th Deadline recenzji
         %th Status
+        %th Przypisani
         %th
     %tbody
       - @submissions.each do |submission|
@@ -45,5 +46,6 @@
           %td= submission.received.strftime("%d-%m-%Y")
           %td{class: ("exceeded-deadline" if submission.last_review != nil && submission.deadline_missed?)}= submission.last_deadline
           %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
+          %td= submission.last_revision.reviews.in_progress.count
           %td.text-right
             = destroy_button(submission,"Czy na pewno chcesz usunąć to zgłoszenie")
