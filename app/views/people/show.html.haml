@@ -6,27 +6,34 @@
 .scroll-panel-body
   = image_tag(@person.photo, alt:"#{@person.full_name} - zdjęcie")
   %dl
-    %dt E-mail
-    %dd= @person.email
+  .col-md-4.people_details
+    %b E-mail
+    %p= @person.email
   %dl
-    %dt Płeć
-    %dd= @person.sex
+  .col-md-4.people_details
+    %b Dyscypliny
+    %p= @person.discipline.join(", ")
   %dl
-    %dt Dyscypliny
-    %dd= @person.discipline.join(", ")
+  .col-md-4.people_details
+    %b Role w systemie
+    %p= @person.roles.join(", ")
   %dl
-    %dt Kompetencje
-    %dd= @person.competence
+  .views_show
+    %b Płeć
+    %p= @person.sex
   %dl
-    %dt Role w systemie
-    %dd= @person.roles.join(", ")
+  .views_show
+    %b Kompetencje
+    %p= @person.competence
   %dl
-    %dt Więcej informacji
-    %dd= link_to "Google", search_person_path(@person), target: "_blank", class: %w{btn btn-primary btn-sm}
+  .views_show
+    %b Więcej informacji
+    %p= link_to "Google", search_person_path(@person), target: "_blank", class: %w{btn btn-primary btn-sm}
   %dl
+  .views_show
     - if @person.reviewer?  && !@person.reviewer_status.blank?
-      %dt Status recenzenta
-      %dd= @person.reviewer_status
+      %b Status recenzenta
+      %p= @person.reviewer_status
   
   = link_to "Edytuj", edit_person_path(@person), class: %w{btn btn-primary btn-sm}
   = link_to "Napisz wiadomość", write_email_path(id: @person.id), class: %w{btn btn-primary btn-sm} 
