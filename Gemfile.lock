@@ -236,7 +236,11 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
+    httpclient (2.7.1)
     i18n (0.7.0)
+    impressionist (1.5.1)
+      httpclient (~> 2.2)
+      nokogiri (~> 1.5)
     inflecto (0.0.2)
     iniparse (1.4.2)
     ipaddress (0.8.3)
@@ -480,6 +484,7 @@ DEPENDENCIES
   devise
   devise-i18n-views
   haml
+  impressionist
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
