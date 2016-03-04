@@ -183,14 +183,15 @@ feature "zarządzanie numerami" do
 
           scenario "dostępność przeglądu statystyk" do
             visit "/issues"
-
             click_link "3"
             expect(page).to have_link("Statystyki")
           end
 
           scenario "wyświetlenie poszczególnych kategorii" do
-            visit "/issues/1-2007"
-
+            visit "/issues"
+            click_link "3"
+            click_link "Przygotuj do wydania"
+            click_button "Przygotuj numer do wydania"
             click_link "Statystyki"
             expect(page).to have_content("Liczba artykułów w j.ang.")
             expect(page).to have_content("Liczba artykułów")
@@ -198,10 +199,12 @@ feature "zarządzanie numerami" do
           end
 
           scenario "prawidłowe wykonanie obliczeń" do
-            visit "/issues/1-2007"
-
+            visit "/issues"
+            click_link "3"
+            click_link "Przygotuj do wydania"
+            click_button "Przygotuj numer do wydania"
             click_link "Statystyki"
-            expect(page).to have_content("16.7")
+            expect(page).to have_content("50.0")
           end
         end
 

@@ -15,4 +15,4 @@
         %tr
           %td= @issue.submissions.english.count
           %td= @issue.submissions.count
-          %td= puts "%.1f" % ( @issue.submissions.english.count / @issue.submissions.count .to_f * 100 )
+          %td= "%.1f" % ( @issue.submissions.english.count / @issue.submissions.count .to_f * 100 )
