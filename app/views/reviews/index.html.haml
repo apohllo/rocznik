@@ -7,6 +7,7 @@
     = f.submit "Filtruj", class: %w{btn btn-default btn-sm}
     = reset_filters(f)
 .scroll-panel-body
+  = paginate @reviews
   %table.table.table-hover.table-admin
     %thead
       %tr
@@ -31,3 +32,4 @@
           %td.text-right
             = link_to "", edit_review_path(review), class: %i{fa fa-pencil}, title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
+

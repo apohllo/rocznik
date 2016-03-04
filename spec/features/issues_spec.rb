@@ -100,6 +100,24 @@ feature "zarządzanie numerami" do
         expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 0 (0%)")
         expect(page).to have_content("Recenzenci z innych uczelni: 0 (0%)")
       end
+
+      scenario "75% Polaków" do
+        visit '/issues'
+        click_on('69')
+        click_on('Statystyki państw')
+
+        expect(page).to have_content("Recenzenci z Polski: 3 (75%)")
+        expect(page).to have_content("Recenzenci z innych państw: 1 (25%)")
+      end
+
+      scenario "Brak afiliacji" do
+        visit '/issues'
+        click_on('70')
+        click_on('Statystyki państw')
+
+        expect(page).to have_content("Recenzenci z Polski: 0 (0%)")
+        expect(page).to have_content("Recenzenci z innych państw: 0 (0%)")
+      end
     end
 
     context "proba test" do
@@ -143,7 +161,7 @@ feature "zarządzanie numerami" do
 
     context "z jednym numerem w bazie danych" do
       before do
-        Issue.create!(volume: 3, year: 2020)
+        Issue.create!(volume: 3, year: 2020)       
       end
 
       scenario "wyświetlenie szczegółów numeru" do
@@ -189,6 +207,13 @@ feature "zarządzanie numerami" do
                              english_title: "Accepted title", english_abstract:
                              "Short abstract", english_keywords: "brain,
                              language", received: "2016-01-17")
+        end
+        
+        xscenario "potwierdzenie usunięcia zgłoszenia w widoku numeru" do
+          visit '/issues/'
+          click_on '3'
+		  page.find(".btn-danger").click
+          expect(page).to have_content("Zapytanie")
         end
 
         scenario "Przygotowanie numeru do wydania" do
@@ -291,6 +316,72 @@ feature "zarządzanie numerami" do
             click_button "Przygotuj numer do wydania"
             click_link "Statystyki"
             expect(page).to have_content("50.0")
+          end
+        end
+
+        context "liczba i udział procentowy autorów zagranicznych" do
+          before do
+            Country.create!(name: 'Polska')
+            Country.create!(name: 'USA')
+            Institution.create!(name: "Uniwersytet Jagielloński", country: Country.first)
+            Institution.create!(name: "MIT", country: Country.last)
+            Department.create!(name: "WZiKS", institution: Institution.first)
+            Department.create!(name: "Department of Psychology", institution: Institution.last)
+            person0 = Person.create!(name: 'Piotr', surname: 'Nieudolny', email: 'nieudolny@k.com',
+                                     sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
+            person1 = Person.create!(name: 'Jacek', surname: 'Zdolny', email: 'zdolny@n.com',
+                                     sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
+            person2 = Person.create!(name: 'Jakub', surname: 'Nieznany', email: 'nieznany@nd.com',
+                                     sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
+            person3 = Person.create!(name: 'Tymoteusz', surname: 'Znany', email: 'znany@n.com',
+                                     sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
+            person4 = Person.create!(name: 'Florian', surname: 'Zaspany', email: 'zaspany@n.com',
+                                     sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
+            Affiliation.create!(person: person1, department: Department.first, year_from: '2000', year_to: '2015')
+            Affiliation.create!(person: person2, department: Department.first, year_from: '2000', year_to: '2015')
+            Affiliation.create!(person: person3, department: Department.first, year_from: '2000', year_to: '2015')
+            Affiliation.create!(person: person4, department: Department.last, year_from: '2000', year_to: '2015')
+            Issue.create!(volume: 70, year: 2071)
+            Submission.create!(language: "polski", received: "03-03-2016", status: "przyjęty", person: Person.first,
+                               polish_title: "Arystoteles.", english_title: "title2", english_abstract: "abstract2",
+                               english_keywords: "tag1, tag2", issue: Issue.first)
+            Authorship.create!(person: person1, submission: Submission.first, position: 1, corresponding: true)
+            Authorship.create!(person: person2, submission: Submission.first, position: 2, corresponding: false)
+            Authorship.create!(person: person3, submission: Submission.first, position: 3, corresponding: false)
+            Authorship.create!(person: person4, submission: Submission.first, position: 4, corresponding: false)
+          end
+
+          scenario "wyświetlenie statystyk" do
+            visit "/issues"
+            click_link "3"
+            click_link "Przygotuj do wydania"
+            click_button "Przygotuj numer do wydania"
+            click_link "Statystyki"
+
+            expect(page).to have_content("Liczba autorów z afiliacją zagraniczną")
+            expect(page).to have_content("Liczba autorów")
+            expect(page).to have_content("Udział procentowy %")
+          end
+
+          scenario "właściwe wyniki" do
+            visit "/issues"
+            click_on "3"
+            click_link "Przygotuj do wydania"
+            click_button "Przygotuj numer do wydania"
+            click_link "Statystyki"
+
+            save_and_open_page
+            expect(page).to have_content("1")
+            expect(page).to have_content("4")
+            expect(page).to have_content("25.0")
+          end
+
+          scenario "Brak autorów" do
+            visit '/issues'
+            click_on('70')
+            click_on('Statystyki')
+
+            expect(page).to have_content("0")
           end
         end
 
