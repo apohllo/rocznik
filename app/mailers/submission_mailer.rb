@@ -5,7 +5,7 @@ class SubmissionMailer < ApplicationMailer
     @person = @submission.person
     @params = {:addresse => @person.email, 
     		  :subject => 'Umowa wydawnicza', 
-    		  :submission_id=> @submission}
+    		  :submissions =>  @submission}
     attachments["Umowa-wydawnicza.pdf"] = File.read("#{Rails.root}/public/plik.pdf")
     mail(to: @params[:addresse], subject: @params[:subject])
     @message = Message.new(@params)
@@ -16,7 +16,7 @@ class SubmissionMailer < ApplicationMailer
     @submission = submission
     @params = {:addresse => @submission.person.email, 
     		  :subject => 'Decyzja - Rocznik Kognitywistyczny', 
-    		  :submission_id => @submission}
+    		  :submissions => @submission}
     mail(to: @params[:addresse], subject: @params[:subject])
     @message = Message.new(@params)
     @message.save()
