@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     patch :prepare, on: :member
     patch :publish, on: :member
     get :show_reviews, on: :member
+    get :show_statistics, on: :member
     get :show_reviewers, on: :member
   end
   resources :public_issues, only: [:index,:show] do
