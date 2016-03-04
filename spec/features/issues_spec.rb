@@ -100,6 +100,24 @@ feature "zarządzanie numerami" do
         expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 0 (0%)")
         expect(page).to have_content("Recenzenci z innych uczelni: 0 (0%)")
       end
+
+      scenario "75% Polaków" do
+        visit '/issues'
+        click_on('69')
+        click_on('Statystyki państw')
+
+        expect(page).to have_content("Recenzenci z Polski: 3 (75%)")
+        expect(page).to have_content("Recenzenci z innych państw: 1 (25%)")
+      end
+
+      scenario "Brak afiliacji" do
+        visit '/issues'
+        click_on('70')
+        click_on('Statystyki państw')
+
+        expect(page).to have_content("Recenzenci z Polski: 0 (0%)")
+        expect(page).to have_content("Recenzenci z innych państw: 0 (0%)")
+      end
     end
 
     context "proba test" do
