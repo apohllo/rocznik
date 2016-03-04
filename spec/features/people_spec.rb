@@ -62,11 +62,11 @@ feature "zarządzanie osobami" do
         check "recenzent"
       end
       click_button 'Utwórz'
-      
+
       expect(page).to have_css('.has-error')
       expect(page).to have_content("dopuszczalne: lic., inż., mgr, dr, prof.")
     end
-    
+
     scenario "tworzenie nowej osoby z brakującymi elementami" do
       visit '/people/new'
 
@@ -88,7 +88,7 @@ feature "zarządzanie osobami" do
         visit "/people"
         click_link("Kapusta")
         expect(page).to have_css("h3", text: "Andrzej Kapusta")
-        expect(page).to have_css("dd", text: "mężczyzna")
+        expect(page).to have_content("mężczyzna")
       end
 
       scenario "dodanie zdjęcia" do
@@ -114,7 +114,7 @@ feature "zarządzanie osobami" do
         expect(current_email).to have_content 'Szanowny Panie, wysyłam swojego pierwszego maila. Z poważaniem, A.D.'
       end
     end
-
+    
     context "z dwoma osobami w bazie danych" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
@@ -192,7 +192,7 @@ feature "zarządzanie osobami" do
         expect(page).to have_content("Zapytanie")
       end
       
-      scenario "potwierdzenie przy usuwaniu artykułu" do
+      scenario "potwierdzenie przy usuwaniu artykulu" do
         visit "/people"
         click_on 'Kalafior'
         click_on 'Dodaj zgłoszenie'
@@ -212,14 +212,47 @@ feature "zarządzanie osobami" do
         page.find(".btn-danger").click
         expect(page).to have_content("Zapytanie")
       end
-      
-      scenario "potwierdzenie przy usuwaniu recenzji" do
+              
+      scenario "potwierdzenie przy usuwaniu redagowanego artykulu" do
         visit "/people"
         click_on 'Kalafior'
         click_on 'Dodaj zgłoszenie'
 
         within("#new_submission") do
-          fill_in "Tytuł", with: "Mądry artykuł"
+          fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
+          fill_in "Title", with: "English title"
+          fill_in "Abstract", with: "ah"
+          fill_in "Key words", with: "def"
+          fill_in "Otrzymano", with: "12/1/2016"
+          select "Andrzej Kapusta", from: "Redaktor"
+        end
+        click_button("Utwórz")
+
+        visit "/people"
+        click_on 'Kalafior'
+        page.find(".btn-danger").click
+        expect(page).to have_content("Zapytanie")
+      end
+
+    end
+    
+     context "z dwoma osobami w bazie danych przy usunięciu recenzji (bez drugiego artykułu, bo konflikt)" do
+      before do
+        Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
+                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"],
+                       discipline: ["filozofia"])
+        Person.create!(name: "Krystyna", surname: "Pawłowicz", email: "w.kalafior@gmail.com",
+                       competence: "percepcja dźwięki", sex: "kobieta",
+                       roles: ["autor", "redaktor", "recenzent"], discipline: ["etyka"])
+      end
+      
+        scenario "potwierdzenie przy usuwaniu recenzji" do
+        visit "/people"
+        click_on 'Pawłowicz'
+        click_on 'Dodaj zgłoszenie'
+
+        within("#new_submission") do
+          fill_in "Tytuł", with: "Głupi artykuł"
           fill_in "Title", with: "English title"
           fill_in "Abstract", with: "abc"
           fill_in "Key words", with: "def"
@@ -229,7 +262,7 @@ feature "zarządzanie osobami" do
         click_button("Utwórz")      
         
         visit "/submissions/"
-		click_on ("Mądry artykuł")
+		click_on ("Głupi artykuł")
 		click_on 'Dodaj wersję'
 		
         fill_in "Otrzymano", with: "19/02/2016"
@@ -245,24 +278,25 @@ feature "zarządzanie osobami" do
         end
 		
 		visit "/people"
-		click_on 'Kalafior'
+		click_on 'Pawłowicz'
 		click_on 'Dodaj recenzję'		
         
         within("#new_review") do
-          select "Kalafior, Wanda", from: "Recenzent"
+          select "Głupi artykuł, v. 1", from: "Artykuł (wersja)"
+          select "Pawłowicz, Krystyna", from: "Recenzent"
           select "wysłane zapytanie", from: "Status"
           fill_in "Zapytanie wysłano", with: "20/02/2016"
           fill_in "Deadline", with: "05/03/2016"
           fill_in "Uwagi", with: "Naucz się pisać!"
         end
         click_button 'Dodaj'
-        
         visit "/people"
-        click_on 'Kalafior'
+        click_on 'Pawłowicz'
         page.find(".btn-danger").click
         expect(page).to have_content("Zapytanie")
       end
-    end
+     end  
+          
     
     context "określony status i nieokreślony status" do
       before do
@@ -354,7 +388,38 @@ feature "zarządzanie osobami" do
         click_link("Kalarepa")
         expect(page).not_to have_content("Gratulujemy i bardzo dziękujemy!")
       end
+
+      scenario "Sprawdzenie, czy da się utworzyć osobę z nieunikalnym adresem e-mail" do
+        visit '/people/new'
+
+        within("#new_person") do
+          fill_in "Imię", with: "Anna"
+          fill_in "Nazwisko", with: "Kowalska"
+          fill_in "E-mail", with: "a.kowalska@gmail.com"
+          check "filozofia"
+          fill_in "Kompetencje", with: "Nietzsche"
+          select "kobieta", from: "Płeć", visible: false
+          check "recenzent"
+        end
+        click_button 'Utwórz'
+        expect(page).not_to have_css(".has-error")
+
+        visit '/people/new'
+        within("#new_person") do
+          fill_in "Imię", with: "Aleksandra"
+          fill_in "Nazwisko", with: "Kowalska"
+          fill_in "E-mail", with: "a.kowalska@gmail.com"
+          check "filozofia"
+          fill_in "Kompetencje", with: "Foucault"
+          select "kobieta", from: "Płeć", visible: false
+          check "recenzent"
+        end
+        click_button 'Utwórz'
+        expect(page).to have_css(".has-error")
+
+      end
+
+
     end
   end
 end
-
