@@ -15,10 +15,13 @@ class Review < ActiveRecord::Base
   validates :asked, presence: true
   validate :authors_reviewer_shared_institutions
 
+  scope :in_progress, -> { where("status = 'wysłane zapytanie' or status = 'pozytywny' " +
+    "or status = 'negatywny' or status = 'do poprawy' or status = 'przedłużony termin'") }
+
   def title
     "#{self.article_revision.title}"
-  end 
-  
+  end
+
   def abstract
     self.submission.abstract
   end

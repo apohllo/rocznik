@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery.turbolinks
-//= require twitter/bootstrap/alert
+//= require twitter/bootstrap
 //= require_tree .
 //= require simple_form_autocomplete
 
