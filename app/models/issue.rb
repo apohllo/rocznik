@@ -95,17 +95,17 @@ class Issue < ActiveRecord::Base
   end
 
   def count_foreign_authors
-    count_foreign_authors = 0
+    count = 0
     self.submissions.each do |submission|
       submission.authors.each do |author|
         author.affiliations.each do |affiliation|
           if affiliation.department.country != "Polska"
-            count_foreign_authors += 1
+            count += 1
           end
         end
       end
     end
-    return count_foreign_authors
+    return count
   end
 
   def count_polish
@@ -123,15 +123,15 @@ class Issue < ActiveRecord::Base
   end
 
   def count_authors
-    count_authors = 0
+    total = 0
     self.submissions.each do |submission|
       submission.authors.each do |author|
         author.affiliations.each do |affiliation|
-            count_authors += 1
+          total += 1
         end
       end
     end
-    return count_authors
+    return total
   end
 
   def count_percentage

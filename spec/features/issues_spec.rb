@@ -341,11 +341,14 @@ feature "zarządzanie numerami" do
             Affiliation.create!(person: person2, department: Department.first, year_from: '2000', year_to: '2015')
             Affiliation.create!(person: person3, department: Department.first, year_from: '2000', year_to: '2015')
             Affiliation.create!(person: person4, department: Department.last, year_from: '2000', year_to: '2015')
-            Issue.create!(volume: 69, year: 2070)
             Issue.create!(volume: 70, year: 2071)
             Submission.create!(language: "polski", received: "03-03-2016", status: "przyjęty", person: Person.first,
                                polish_title: "Arystoteles.", english_title: "title2", english_abstract: "abstract2",
                                english_keywords: "tag1, tag2", issue: Issue.first)
+            Authorship.create!(person: person1, submission: Submission.first, position: 1, corresponding: true)
+            Authorship.create!(person: person2, submission: Submission.first, position: 2, corresponding: false)
+            Authorship.create!(person: person3, submission: Submission.first, position: 3, corresponding: false)
+            Authorship.create!(person: person4, submission: Submission.first, position: 4, corresponding: false)
           end
 
           scenario "wyświetlenie statystyk" do
@@ -362,7 +365,7 @@ feature "zarządzanie numerami" do
 
           scenario "właściwe wyniki" do
             visit "/issues"
-            click_on "69"
+            click_on "3"
             click_link "Przygotuj do wydania"
             click_button "Przygotuj numer do wydania"
             click_link "Statystyki"
