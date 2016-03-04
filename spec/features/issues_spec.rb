@@ -102,26 +102,6 @@ feature "zarządzanie numerami" do
         expect(page).to have_link("Edytuj")
       end
 
-      scenario "potwierdzenie usunięcia zgłoszonego artykułu z widoku numeru" do
-		visit "/submissions/new"
-		
-        within("#new_submission") do
-          select "nadesłany", from: "Status"
-          select "polski", from: "Język"
-          select "3/2020", from: "Numer"
-          fill_in "Otrzymano", with: "12-01-2016"
-          fill_in "Tytuł", with: "Koniec jest bliski"
-          fill_in "Title", with: "TEST"
-          fill_in "Abstract", with: "trial abstract"
-          fill_in "Key words", with: "trial key words"
-        end
-        click_button 'Utwórz'
-
-		visit '/issues/3'
-		page.find(".btn-danger").click
-      expect(page).to have_content("Zapytanie")
-      end
-
       scenario "dodawanie zgłoszenia z istniejącym numerem i sprawdzenie zgłoszenia w numerze" do
         visit '/submissions/new'
 
@@ -150,6 +130,13 @@ feature "zarządzanie numerami" do
                              english_title: "Accepted title", english_abstract:
                              "Short abstract", english_keywords: "brain,
                              language", received: "2016-01-17")
+        end
+        
+        xscenario "potwierdzenie usunięcia zgłoszenia" do
+          visit '/issues/'
+          click_on '3'
+		  page.find(".btn-danger").click
+          expect(page).to have_content("Zapytanie")
         end
 
         scenario "Przygotowanie numeru do wydania" do
