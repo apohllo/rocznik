@@ -191,7 +191,7 @@ feature "zarządzanie numerami" do
                              language", received: "2016-01-17")
         end
         
-        xscenario "potwierdzenie usunięcia zgłoszenia" do
+        xscenario "potwierdzenie usunięcia zgłoszenia w widoku numeru" do
           visit '/issues/'
           click_on '3'
 		  page.find(".btn-danger").click
