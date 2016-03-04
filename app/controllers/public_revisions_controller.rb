@@ -13,6 +13,7 @@ class PublicRevisionsController < ApplicationController
     @revision.version = submission.article_revisions.count + 1
     @revision.received = Time.now
     if @revision.save
+      PublicRevisionMailer.notification(@revision).deliver_now
       redirect_to user_submission_path(submission)
     else
       render :new
