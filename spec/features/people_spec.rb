@@ -236,7 +236,7 @@ feature "zarządzanie osobami" do
 
     end
     
-     context "z dwoma osobami w bazie danych przy usunięciu recenzji (bez drugiego artykułu, bo konflikt)" do
+     context "z dwoma osobami w bazie danych przy usunięciu recenzji (bez drugiego artykułu, konflikt)" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
                        competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"],
