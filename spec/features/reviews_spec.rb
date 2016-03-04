@@ -210,5 +210,22 @@ feature "recenzowanie" do
         expect(page).to have_css('a[title="Edytuj recenzję"]')
       end
     end
+    context "paginacja" do
+      before do
+        index = 0
+        while index < 22
+          Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person: person_1, article_revision: article_revision_1)
+          index += 1
+        end
+
+        scenario "wiecej niz 20 recenzji" do
+          visit "/reviews"
+          expect(page).to have_link('2')
+
+          click_on "2"
+          expect(page).to have_link("18-01-2016")
+        end
+      end
+    end
   end
 end
