@@ -79,7 +79,7 @@ class SubmissionsController < ApplicationController
         authors.each do |author|
           SubmissionMailer.send_contract(author).deliver_now
         end
-        SubmissionMailer.send_contract(submission.person).deliver_now
+        SubmissionMailer.send_contract(submission).deliver_now
       end
     end
   end
