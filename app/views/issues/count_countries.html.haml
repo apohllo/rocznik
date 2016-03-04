@@ -1,0 +1,12 @@
+.scroll-panel-header
+  = link_to "Wróć do numeru", issue_path, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title
+    Statystyki numeru
+    = @issue.title
+.scroll-panel-body
+  %p{style: "margin-top: 20px;"}
+    Recenzenci z Polski: #{@issue.count_polish}
+    (#{@issue.count_pl_percentage}%)
+    %br
+    Recenzenci z innych państw: #{@issue.count_foreign}
+    (#{@issue.count_foreign_percentage}%)
