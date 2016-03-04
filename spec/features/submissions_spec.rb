@@ -34,10 +34,12 @@ feature "zgloszenia" do
                              test", received: "2015-02-17")
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                        "mężczyzna", roles: ['autor', 'redaktor'], discipline:["psychologia"])
+        Person.create!(name: "Damian", surname: "Papryka", email: "d.papryka@gmail.com", sex:
+                       "mężczyzna", roles: ['autor', 'redaktor'], discipline:["psychologia"])
         Authorship.create!(person: Person.last, submission: Submission.first,
-                            corresponding: false, position: 1)
+                            corresponding: false, position: 1, role: "autor")
         Authorship.create!(person: Person.last, submission: Submission.last,
-                            corresponding: false, position: 1, signed: true)
+                            corresponding: false, position: 1, role: "autor", signed: true)
       end
 
       scenario "podpisana umowa" do
@@ -61,8 +63,7 @@ feature "zgloszenia" do
 
         expect(page).to have_css("i[class*='fa fa-check']")
       end
-    end
-
+  end
 	   context "nawiązanie do innego arytułu" do
          before do
            Person.create!(name: "Maciej", surname: "Fasola", email: "olafasola@gmail.com", sex:

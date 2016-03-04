@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160302164859) do
+ActiveRecord::Schema.define(version: 20160303191853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,13 +63,16 @@ ActiveRecord::Schema.define(version: 20160302164859) do
   create_table "authorships", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "submission_id"
-    t.boolean  "corresponding", default: true
-    t.integer  "position",      default: 0
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.boolean  "signed",        default: false
+    t.boolean  "corresponding",  default: true
+    t.integer  "position",       default: 0
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "signed",         default: false
+    t.integer  "author_role_id"
+    t.string   "role"
   end
 
+  add_index "authorships", ["author_role_id"], name: "index_authorships_on_author_role_id", using: :btree
   add_index "authorships", ["person_id", "submission_id"], name: "index_authorships_on_person_id_and_submission_id", unique: true, using: :btree
   add_index "authorships", ["person_id"], name: "index_authorships_on_person_id", using: :btree
   add_index "authorships", ["submission_id"], name: "index_authorships_on_submission_id", using: :btree
@@ -158,8 +161,8 @@ ActiveRecord::Schema.define(version: 20160302164859) do
     t.string   "sex"
     t.string   "photo"
     t.text     "competence"
-    t.text     "discipline",      default: [], null: false, array: true
     t.string   "reviewer_status"
+    t.text     "discipline",      default: [], null: false, array: true
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
@@ -366,6 +369,7 @@ ActiveRecord::Schema.define(version: 20160302164859) do
     t.datetime "updated_at",       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
+    t.string   "author_role"
     t.integer  "follow_up_id"
   end
 

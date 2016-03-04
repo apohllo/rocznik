@@ -13,7 +13,7 @@ feature "zgloszenia" do
       Submission.create!(person: Person.first, status: "odrzucony", polish_title: "Alicja w krainie czarów",
                            english_title: "Alice in Wonderland", english_abstract: "Little about that story",
                            english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.first)
-      Authorship.create!(person: Person.last, submission: Submission.first, corresponding: true, position: 1)
+      Authorship.create!(person: Person.last, submission: Submission.first, corresponding: true, position: 1, role: "autor")
     end
     
     scenario "wyświetlanie zgłoszeń dla autora korespondującego" do

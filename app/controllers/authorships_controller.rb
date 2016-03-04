@@ -45,7 +45,7 @@ class AuthorshipsController < ApplicationController
 
   private
   def authorship_params
-    params.require(:authorship).permit(:person_id,:corresponding,:position)
+    params.require(:authorship).permit(:person_id,:corresponding,:position,:role)
   end
 
   def create_password(len=8) 

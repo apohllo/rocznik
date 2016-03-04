@@ -1,6 +1,5 @@
 class Authorship < ActiveRecord::Base
   validates :person, presence: true, uniqueness: { scope: :submission_id }
-
   belongs_to :person
   accepts_nested_attributes_for :person
 
@@ -24,9 +23,18 @@ class Authorship < ActiveRecord::Base
     end
   end
   
+  def author_role
+    if !self.role.blank?
+      self.role
+    else
+      "[BRAK ZDEFINIOWANEJ ROLI]"
+    end
+  end
+  
   def title
     self.submission.title
   end
+
 
   def date
     self.submission.received
