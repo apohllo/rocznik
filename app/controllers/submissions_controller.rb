@@ -28,8 +28,9 @@ class SubmissionsController < ApplicationController
     @author_id = params[:author_id]
     if @submission.save
       if @author_id
-        authorship = Authorship.new(person_id: @author_id,submission: @submission)
-        authorship.save
+         authorship = Authorship.new(person_id: @author_id,submission: @submission)
+         authorship.save
+	 SubmissionMailer.confirmation(@submission).deliver_now
       end
       redirect_to @submission
     else
@@ -78,7 +79,7 @@ class SubmissionsController < ApplicationController
         authors.each do |author|
           SubmissionMailer.send_contract(author).deliver_now
         end
-        SubmissionMailer.send_contract(submission.person).deliver_now
+        SubmissionMailer.send_contract(submission).deliver_now
       end
     end
   end
