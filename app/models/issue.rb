@@ -94,6 +94,20 @@ class Issue < ActiveRecord::Base
     end
   end
 
+  def count_foreign_authors
+    count = 0
+    self.submissions.each do |submission|
+      submission.authors.each do |author|
+        author.affiliations.each do |affiliation|
+          if affiliation.department.country != "Polska"
+            count += 1
+          end
+        end
+      end
+    end
+    return count
+  end
+
   def count_polish
     count_pl = 0
     self.submissions.each do |submission|
@@ -106,6 +120,26 @@ class Issue < ActiveRecord::Base
       end
     end
     return count_pl
+  end
+
+  def count_authors
+    total = 0
+    self.submissions.each do |submission|
+      submission.authors.each do |author|
+        author.affiliations.each do |affiliation|
+          total += 1
+        end
+      end
+    end
+    return total
+  end
+
+  def count_percentage
+    if count_authors > 0
+      "%.1f" % ( count_foreign_authors / count_authors .to_f * 100 )
+    else
+      "0"
+    end
   end
 
   def count_foreign
