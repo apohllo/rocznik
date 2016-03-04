@@ -8,7 +8,9 @@ feature "Wysłanie maila potwierdzającego przyjęcie zgłoszenia" do
 
     background do
       Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex: "mężczyzna", roles: ['autor'])
-      Submission.create!(person: Person.first, status: "nadesłany", polish_title: "Artykuł o kotach", english_title: "Story about cats", english_abstract: "Cats are so amazing", english_keywords: "cats", received: "02-03-2016", language: "polski")
+      Person.create!(name: "Anna", surname: "Genialna", email: "user@localhost.com", sex:
+                     "kobieta", roles: ['autor'], discipline:["psychologia"])
+      Authorship.create!(person: Person.last, submission: Submission.first, corresponding: true, position: 1)
     end
 
     scenario "sprawdzenie wysłania maila potwierdzającego przyjęcie zgłoszonego tekstu" do
@@ -16,8 +18,12 @@ feature "Wysłanie maila potwierdzającego przyjęcie zgłoszenia" do
      visit '/people'
      click_link "Kapusta"
      click_link 'Dodaj zgłoszenie'
+     fill_in "Tytuł", with: "Artykuł o kotach"
+     fill_in "Title", with: "Story about cats"
+     fill_in "Abstract", with: "Cats are so amazing"
+     fill_in "Key words", with: "cats"
      click_on 'Utwórz'
-     open_email('a.kapusa@gmail.com')
+     open_email('user@localhost.com')
      expect(current_email).to have_content 'zostało przyjęte do systemu'
     end
   end
