@@ -63,3 +63,4 @@ Szkolnictwa Wyższego.
 * Filip Papierzyński (katemplujacy)
 * Aleksandra Filipek (olkaf123)
 * Klaudia Grzegolec (Clodia)
+* Iwona Tryka (ivanesca)
