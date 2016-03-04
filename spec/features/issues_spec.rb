@@ -84,7 +84,7 @@ feature "zarządzanie numerami" do
 
     context "z jednym numerem w bazie danych" do
       before do
-        Issue.create!(volume: 3, year: 2020)
+        Issue.create!(volume: 3, year: 2020)       
       end
 
       scenario "wyświetlenie szczegółów numeru" do
@@ -103,11 +103,21 @@ feature "zarządzanie numerami" do
       end
 
       scenario "potwierdzenie usunięcia zgłoszonego artykułu z widoku numeru" do
-        Submission.create!(polish_title: 'Wiemy wszystko', english_title: 'We know everything',
-                                        english_abstract: 'Tak po prostu', english_keywords: 'knowledge',
-                                        issue: Issue.first, language: 'polski', received: '28-01-2016',
-                                        status: 'przyjęty')      
-		visit '/issues/'
+		visit "/submissions/new"
+		
+        within("#new_submission") do
+          select "nadesłany", from: "Status"
+          select "polski", from: "Język"
+          select "3/2020", from: "Numer"
+          fill_in "Otrzymano", with: "12-01-2016"
+          fill_in "Tytuł", with: "Koniec jest bliski"
+          fill_in "Title", with: "TEST"
+          fill_in "Abstract", with: "trial abstract"
+          fill_in "Key words", with: "trial key words"
+        end
+        click_button 'Utwórz'
+
+		visit '/issues/3'
 		page.find(".btn-danger").click
       expect(page).to have_content("Zapytanie")
       end
