@@ -239,16 +239,16 @@ feature "zarządzanie osobami" do
      context "z dwoma osobami w bazie danych przy usunięciu recenzji (bez drugiego artykułu, konflikt)" do
       before do
         Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusta@gmail.com",
-                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor"],
+                       competence: "Arystoteles", sex: "mężczyzna", roles: ["redaktor", "autor"],
                        discipline: ["filozofia"])
         Person.create!(name: "Krystyna", surname: "Pawłowicz", email: "w.kalafior@gmail.com",
                        competence: "percepcja dźwięki", sex: "kobieta",
-                       roles: ["autor", "redaktor", "recenzent"], discipline: ["etyka"])
+                       roles: ["redaktor", "recenzent"], discipline: ["etyka"])
       end
       
         scenario "potwierdzenie przy usuwaniu recenzji" do
         visit "/people"
-        click_on 'Pawłowicz'
+        click_on 'Kapusta'
         click_on 'Dodaj zgłoszenie'
 
         within("#new_submission") do
@@ -257,7 +257,7 @@ feature "zarządzanie osobami" do
           fill_in "Abstract", with: "abc"
           fill_in "Key words", with: "def"
           fill_in "Otrzymano", with: "19/2/2016"
-          select "Andrzej Kapusta", from: "Redaktor"
+          select "Krystyna Pawłowicz", from: "Redaktor"
         end
         click_button("Utwórz")      
         
@@ -291,7 +291,7 @@ feature "zarządzanie osobami" do
         end
         click_button 'Dodaj'
         visit "/people"
-        click_on 'Pawłowicz'
+        click_on 'Kapusta'
         page.find(".btn-danger").click
         expect(page).to have_content("Zapytanie")
       end
