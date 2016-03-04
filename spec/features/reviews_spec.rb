@@ -161,3 +161,22 @@ feature "recenzowanie" do
     end
   end
 end
+  feature "paginacja" do
+    before do
+      index = 0
+      while index < 22
+        Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person: person_1, article_revision: article_revision_1)
+        index += 1
+      end
+      
+      scenario "sprawdzenie paginacji" do
+        visit "/reviews"
+        expect(page).to have_link('2')
+        
+        click_on "2"
+        expect(page).to have_link("18-01-2016")
+      end
+    end
+        
+        
+        
