@@ -14,7 +14,7 @@ feature "Wysłanie maila potwierdzającego przyjęcie zgłoszenia" do
     scenario "sprawdzenie wysłania maila potwierdzającego przyjęcie zgłoszonego tekstu" do
      clear_emails
      visit '/people'
-     select "Kapusta", from: "Nazwisko"
+     click_link "Kapusta"
      click_link 'Dodaj zgłoszenie'
      click_on 'Utwórz'
      open_email('a.kapusa@gmail.com')
