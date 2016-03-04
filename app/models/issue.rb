@@ -93,4 +93,32 @@ class Issue < ActiveRecord::Base
       "0"
     end
   end
+
+  def count_foreign_authors
+    @count_foreign_authors = 0
+    self.submissions.each do |submission|
+      submission.authors.each do |author|
+        author.affiliations.each do |affiliation|
+          if affiliation.department.country != "Polska"
+            @count_foreign_authors += 1
+          end
+        end
+      end
+    end
+    return @count_foreign_authors
+  end
+
+  def count_authors
+    @count_authors = 0
+    self.submissions.each do |submission|
+      submission.authors.each do |author|
+        author.affiliations.each do |affiliation|
+          if affiliation.department.country != "null"
+            @count_authors += 1
+          end
+        end
+      end
+    end
+    return @count_authors
+  end
 end
