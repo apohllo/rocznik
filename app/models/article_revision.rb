@@ -42,6 +42,15 @@ class ArticleRevision < ActiveRecord::Base
     self.submission.person
   end
   
+  def editor_surname
+  editor = self.submission.person
+    if editor
+      editor.surname
+    else
+      nil
+    end
+   end
+  
   def editor_email
     editor = self.submission.person
     if editor
