@@ -8,8 +8,12 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'capybara/rails'
+require 'capybara/email/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
-
+class ActionDispatch::IntegrationTest
+  Capybara.server_port = 3001
+  Capybara.app_host = 'http://localhost:3001'
+end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -70,3 +74,24 @@ RSpec.shared_context "admin login" do
     click_button 'Zaloguj się'
   end
 end
+
+RSpec.shared_context "user login" do
+  before do
+    email = "user@localhost.com"
+    password = "password"
+
+    User.create(email: email, password: password, admin: false)
+
+    visit '/users/sign_in'
+    within("#new_user") do
+      fill_in 'Adres e-mail', with: email
+      fill_in 'Hasło', with: password
+    end
+    click_button 'Zaloguj się'
+  end
+end
+
+def default_file
+  File.new(Rails.root.join('spec/features/files/plik.pdf'))
+end
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128101602) do
+ActiveRecord::Schema.define(version: 20160302164859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,14 +31,16 @@ ActiveRecord::Schema.define(version: 20160128101602) do
 
   create_table "article_revisions", force: :cascade do |t|
     t.integer  "submission_id"
-    t.integer  "version",       default: 0
+    t.integer  "version",       default: 1
     t.date     "received"
     t.integer  "pages"
     t.integer  "pictures",      default: 0
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "code"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "code",          default: "tekst_"
     t.string   "article"
+    t.string   "accepted"
+    t.text     "comment"
   end
 
   add_index "article_revisions", ["submission_id"], name: "index_article_revisions_on_submission_id", using: :btree
@@ -50,6 +52,9 @@ ActiveRecord::Schema.define(version: 20160128101602) do
     t.integer  "submission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "pages"
+    t.string   "external_link"
+    t.integer  "issue_position", default: 1
   end
 
   add_index "articles", ["issue_id"], name: "index_articles_on_issue_id", using: :btree
@@ -60,8 +65,9 @@ ActiveRecord::Schema.define(version: 20160128101602) do
     t.integer  "submission_id"
     t.boolean  "corresponding", default: true
     t.integer  "position",      default: 0
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.boolean  "signed",        default: false
   end
 
   add_index "authorships", ["person_id", "submission_id"], name: "index_authorships_on_person_id_and_submission_id", unique: true, using: :btree
@@ -96,6 +102,31 @@ ActiveRecord::Schema.define(version: 20160128101602) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "impressions", force: :cascade do |t|
+    t.string   "impressionable_type"
+    t.integer  "impressionable_id"
+    t.integer  "user_id"
+    t.string   "controller_name"
+    t.string   "action_name"
+    t.string   "view_name"
+    t.string   "request_hash"
+    t.string   "ip_address"
+    t.string   "session_hash"
+    t.text     "message"
+    t.text     "referrer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "impressions", ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index", using: :btree
+  add_index "impressions", ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index", using: :btree
+  add_index "impressions", ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index", using: :btree
+  add_index "impressions", ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index", using: :btree
+  add_index "impressions", ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index", using: :btree
+  add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index", using: :btree
+  add_index "impressions", ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index", using: :btree
+  add_index "impressions", ["user_id"], name: "index_impressions_on_user_id", using: :btree
+
   create_table "institutions", force: :cascade do |t|
     t.string   "name"
     t.integer  "country_id"
@@ -116,18 +147,19 @@ ActiveRecord::Schema.define(version: 20160128101602) do
   end
 
   create_table "people", force: :cascade do |t|
-    t.string   "name",                    null: false
-    t.string   "surname",                 null: false
-    t.string   "email",                   null: false
+    t.string   "name",                         null: false
+    t.string   "surname",                      null: false
+    t.string   "email",                        null: false
     t.string   "degree"
-    t.string   "discipline",              null: false
     t.string   "orcid"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.text     "roles",      default: [], null: false, array: true
-    t.string   "photo"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.text     "roles",           default: [], null: false, array: true
     t.string   "sex"
+    t.string   "photo"
     t.text     "competence"
+    t.text     "discipline",      default: [], null: false, array: true
+    t.string   "reviewer_status"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", using: :btree
@@ -334,8 +366,10 @@ ActiveRecord::Schema.define(version: 20160128101602) do
     t.datetime "updated_at",       null: false
     t.integer  "person_id"
     t.integer  "issue_id"
+    t.integer  "follow_up_id"
   end
 
+  add_index "submissions", ["follow_up_id"], name: "index_submissions_on_follow_up_id", using: :btree
   add_index "submissions", ["issue_id"], name: "index_submissions_on_issue_id", using: :btree
   add_index "submissions", ["person_id"], name: "index_submissions_on_person_id", using: :btree
 
@@ -356,6 +390,17 @@ ActiveRecord::Schema.define(version: 20160128101602) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
   add_foreign_key "affiliations", "departments"
   add_foreign_key "affiliations", "people"

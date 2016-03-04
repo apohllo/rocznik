@@ -13,6 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require turbolinks
+//= require jquery.turbolinks
+//= require twitter/bootstrap
 //= require_tree .
 //= require simple_form_autocomplete
+
+function reload() {
+    window.location.href =  window.location.href.split("?")[0]
+}

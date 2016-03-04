@@ -8,12 +8,12 @@ feature "zarządzanie recenzjami" do
     context "Z recenzentem, autorem i tekstem w bazie danych" do
 
       before do
-        author = Person.create!(name: "Dominika", surname: "Zujotu", email: "d@o2.pl", discipline: "informatyka", sex:
+        author = Person.create!(name: "Dominika", surname: "Zujotu", email: "d@o2.pl", sex:
                                 "kobieta", roles: ["autor"])
-        editor = Person.create!(name: "Piotr", surname: "Zujotu", email: "p@o2.pl", discipline: "matematyka", sex:
+        editor = Person.create!(name: "Piotr", surname: "Zujotu", email: "p@o2.pl", sex:
                                 "mężczyzna", roles: ["recenzent", "redaktor"])
-        reviewer = Person.create!(name: "Anna", surname: "Zpolibudy", email: "a@o2.pl", discipline: "polonistyka", sex:
-                                  "kobieta", roles: ["recenzent"])
+        reviewer = Person.create!(name: "Anna", surname: "Zpolibudy", email: "a@o2.pl",
+                                  sex: "kobieta", roles: ["recenzent"])
         country = Country.create!(name: "Polska")
         uj = Institution.create!(name: "Uniwersytet Jagielloński", country: country)
         pw = Institution.create!(name: "Politechnika Wrocławska", country: country)
@@ -25,7 +25,9 @@ feature "zarządzanie recenzjami" do
         submission = Submission.create!(polish_title: "Wielki Bęben", person: editor, status: "nadesłany", language:
                                         "polski", received: "02-01-2016", english_title: "Big Bum", english_abstract:
                                         "Big Bum abstract", english_keywords: "big, bum")
-        ArticleRevision.create!(submission: submission, version: "1", pages: "3", pictures: "0")
+        article_file = Rails.root.join("spec/features/files/plik.pdf").open
+        ArticleRevision.create!(submission: submission, received: '19-01-2016', 
+                                version: "1", pages: "3", pictures: "0", article: article_file,)
         Authorship.create!(person: author, submission: submission, corresponding: "true", position: "0")
       end
 
@@ -44,6 +46,7 @@ feature "zarządzanie recenzjami" do
         click_button 'Dodaj'
 
         expect(page).to have_css(".has-error")
+        expect(page).to have_content("ma taką samą afiliację jak jeden z autorów.")
       end
 
       scenario "Dodawanie recenzenta o innej afiliacji niż autor" do

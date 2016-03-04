@@ -3,7 +3,9 @@
 .scroll-panel-body
   = simple_search_form_for @query do |f|
     = f.input :status_start, collection: Review::STATUS_MAPPING.keys, include_blank: true
+    = f.input :article_revision_submission_polish_title_or_article_revision_submission_english_title_cont, label: "Tytuł"
     = f.submit "Filtruj", class: %w{btn btn-default btn-sm}
+    = reset_filters(f)
 .scroll-panel-body
   %table.table.table-hover.table-admin
     %thead
@@ -17,13 +19,15 @@
         %th
           = sort_link(@query, :status, "Status")
         %th
+        %th
     %tbody
       - @reviews.each do |review|
         %tr.table-row-link
           %td= link_to review.title, review
           %td= link_to review.person.full_name, review.person
-          %td= review.asked.strftime("%d-%m-%Y")
-          %td= review.deadline.strftime("%d-%m-%Y")
+          %td= review.asked_date
+          %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
           %td.text-right
+            = link_to "", edit_review_path(review), class: %i{fa fa-pencil}, title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")

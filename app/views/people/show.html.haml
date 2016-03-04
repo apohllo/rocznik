@@ -6,21 +6,37 @@
 .scroll-panel-body
   = image_tag(@person.photo, alt:"#{@person.full_name} - zdjęcie")
   %dl
-    %dt E-mail
-    %dd= @person.email
+  .col-md-4.people_details
+    %b E-mail
+    %p= @person.email
   %dl
-    %dt Płeć
-    %dd= @person.sex
+  .col-md-4.people_details
+    %b Dyscypliny
+    %p= @person.discipline.join(", ")
   %dl
-    %dt Dyscypliny
-    %dd= @person.discipline
+  .col-md-4.people_details
+    %b Role w systemie
+    %p= @person.roles.join(", ")
   %dl
-    %dt Kompetencje
-    %dd= @person.competence
+  .views_show
+    %b Płeć
+    %p= @person.sex
   %dl
-    %dt Role w systemie
-    %dd= @person.roles.join(", ")
+  .views_show
+    %b Kompetencje
+    %p= @person.competence
+  %dl
+  .views_show
+    %b Więcej informacji
+    %p= link_to "Google", search_person_path(@person), target: "_blank", class: %w{btn btn-primary btn-sm}
+  %dl
+  .views_show
+    - if @person.reviewer?  && !@person.reviewer_status.blank?
+      %b Status recenzenta
+      %p= @person.reviewer_status
+  
   = link_to "Edytuj", edit_person_path(@person), class: %w{btn btn-primary btn-sm}
+  = link_to "Napisz wiadomość", write_email_path(id: @person.id), class: %w{btn btn-primary btn-sm} 
   %h3 Afiliacje
   %table.table.table-hover.table-admin
     %thead
@@ -50,7 +66,7 @@
           %th Tytuł
           %th Data nadesłania
           %th Status
-          %th
+          %th 
       %tbody
         - @person.authorships.each do |authorship|
           %tr
@@ -60,7 +76,11 @@
             %td.text-right
               = destroy_button(authorship)
     = link_to "Dodaj zgłoszenie", new_submission_path(author_id: @person.id), class: %w{btn btn-default btn-sm}
-  - if @person.roles.include?("recenzent")
+  - # wyswietlenie gratulacji w widoku  
+  - if (@person.congratulations==true) && (@person.roles.include?("recenzent"))
+    <br> <br>
+    %p.jumbotron <span class="glyphicon glyphicon-star"> </span> Gratulujemy i bardzo dziękujemy! <span class="glyphicon glyphicon-star"></span>
+  - if @person.roles.include?("recenzent") 
     %h3 Przypisane recenzje
     %table.table.table-hover.table-admin
       %thead
@@ -68,8 +88,9 @@
           %th Tytuł
           %th Data pytania
           %th Status
-          %th
+          %th 
       %tbody
+        
         - @person.reviews.each do |review|
           %tr
             %td= link_to review.title, review
@@ -92,5 +113,5 @@
             %td= link_to submission.title, submission
             %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
             %td.text-right
-              = destroy_button(submission)
+              = destroy_button(submission, "Czy chcesz usunąc ten artykuł?")
     /= link_to "Dodaj", edit_person_path(@person), class: %w{btn btn-default btn-sm}

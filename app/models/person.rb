@@ -11,14 +11,39 @@ class Person < ActiveRecord::Base
     "mężczyzna" => "M"
   }
 
+  REVIEWER_MAP = {
+    "Nowy recenzent" => :new,
+    "Recenzuje w terminie" => :reviewsontime,
+    "Recenzuje po terminie" => :reviewslate,
+    "Nie chce recenzować" => :willnotreview,
+    "Chce rezencować" => :willreview
+  }
+
+  DISCIPLINE_MAPPING = {
+    "filozofia" => "F",
+    "psychologia" => "P",
+    "socjologia" => "S",
+    "lingwistyka" => "L",
+    "kognitywistyka" => "K",
+    "informatyka" => "I",
+    "logika" => "O",
+    "neuropsychologia" => "N",
+    "etyka" => "E",
+    "medycyna" => "M",
+    "psychiatria" => "Y"
+   }
+
   mount_uploader :photo, PhotoUploader
 
   validates :name, presence: true
   validates :surname, presence: true
-  validates :email, presence: true
-  validates :discipline, presence: true
+  validates :email, presence: true, uniqueness: true
   validates :sex, presence: true, inclusion: SEX_MAPPING.keys
+  validates :reviewer_status, allow_blank: true, inclusion: REVIEWER_MAP.keys
   validate :roles_inclusion
+  validates :degree, format: {with: /(lic\.|inż\.|((mgr\s?(inż\.)?)|((prof\.\s?)?(dr\s?)(hab\.\s?)?(inż\.)?)))/,
+    		message: "dopuszczalne: lic., inż., mgr, dr, prof."}, allow_blank: true
+
 
   has_many :affiliations, dependent: :destroy
   has_many :authorships, dependent: :destroy
@@ -34,6 +59,11 @@ class Person < ActiveRecord::Base
 
   def full_name
     "#{self.degree} #{self.name} #{self.surname}"
+  end
+
+
+  def full_name_without_degree
+    "#{self.name} #{self.surname}"
   end
 
   def reverse_full_name
@@ -53,5 +83,18 @@ class Person < ActiveRecord::Base
 
   def current_institutions
     self.affiliations.current.map{|e| e.institution}
+  end
+
+
+  def reviews_count
+    self.reviews.where.not("status ='recenzja odrzucona' or  status ='wysłano zapytanie'").count
+  end
+
+  def congratulations
+    self.reviews_count%5 == 0 && self.reviews_count >= 5
+  end
+
+  def reviewer?
+    self.roles.include?("recenzent")
   end
 end

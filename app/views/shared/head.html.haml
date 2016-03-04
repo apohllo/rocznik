@@ -1,5 +1,12 @@
 %head
-  %title Rocznik Kognitywistyczny
+  - if request.url.include? "/public_articles/"
+    %meta{:name => "citation_title", :content => @article.title}
+    - @article.authors_metadata.each do |author|
+      %meta{:name => "citation_author", :content => author}
+    %meta{:name => "citation_publication_date", :content => @article.year}
+    %meta{:name => "citation_journal_title", :content => "Rocznik Kognitywistyczny"}
+    %meta{:name => "citation_issue", :content => @article.issue_title}
+  %title= @site_title
   %meta{:content => "http://rocznik.kognitywistyka.eu/", :property => "og:url"}/
   %meta{:content => "website", :property => "og:type"}/
   %meta{:content => "Rocznik Kognitywistyczny", :property => "og:title"}/
@@ -17,6 +24,7 @@
   = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
   = stylesheet_link_tag    'storytime/application', media: 'all'
   = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  = javascript_include_tag '//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js'
   = csrf_meta_tags
   /[if lt IE 9]
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
