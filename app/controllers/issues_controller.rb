@@ -67,19 +67,10 @@ class IssuesController < ApplicationController
 
   def show_reviewers
     @issue = Issue.find_by_volume(params[:id])
-    @count_uj = 0
-    @count_other = 0
-    @issue.submissions.each do |submission|
-      submission.reviews.each do |review|
-        review.person.affiliations.each do |affiliation|
-          if affiliation.department.institution.name === "Uniwersytet Jagielloński"
-            @count_uj += 1
-          else
-            @count_other += 1
-          end
-        end
-      end
-    end
+  end
+
+  def count_institutions
+    @issue = Issue.find_by_volume(params[:id])
   end
 
   private

@@ -49,4 +49,48 @@ class Issue < ActiveRecord::Base
   def to_param
     [volume, year].join("-")
   end
+
+  def count_uj_submissions
+    @count_uj = 0
+    self.submissions.each do |submission|
+      submission.reviews.each do |review|
+        review.person.affiliations.each do |affiliation|
+          if affiliation.department.institution.name == "Uniwersytet Jagielloński"
+            @count_uj += 1
+          end
+        end
+      end
+    end
+    return @count_uj
+  end
+
+  def count_other_submissions
+    @count_other = 0
+    self.submissions.each do |submission|
+      submission.reviews.each do |review|
+        review.person.affiliations.each do |affiliation|
+          if affiliation.department.institution.name != "Uniwersytet Jagielloński"
+            @count_other += 1
+          end
+        end
+      end
+    end
+    return @count_other
+  end
+
+  def count_uj_percentage
+    if count_uj_submissions > 0 or count_other_submissions > 0
+      count_uj_submissions/(count_uj_submissions + count_other_submissions)*100
+    else
+      "0"
+    end
+  end
+
+  def count_other_percentage
+    if count_uj_submissions > 0 or count_other_submissions > 0
+      count_other_submissions/(count_uj_submissions + count_other_submissions)*100
+    else
+      "0"
+    end
+  end
 end
