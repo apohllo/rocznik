@@ -50,7 +50,7 @@ Rails.application.routes.draw do
       patch :rejected
     end
   end
-  resources :public_reviews do
+  resources :public_reviews, only: [:edit, :update] do
     member do
       get :accepted_form
       patch :accepted

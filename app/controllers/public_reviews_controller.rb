@@ -40,6 +40,27 @@ class PublicReviewsController < ApplicationController
     end
   end
 
+  def edit
+    @review = Review.find(params[:id])
+    @allowedStatus = {
+      Review::STATUS_MAPPING.key(:positive) => :positive,
+      Review::STATUS_MAPPING.key(:negative) => :negative,
+      Review::STATUS_MAPPING.key(:minor_review) => :minor_review,
+      Review::STATUS_MAPPING.key(:major_review) => :major_review,
+    }
+  end
+
+  def update
+    review = Review.find(params[:id])
+    if params[:email] == review.person.email
+      review.update!(review_params)
+      redirect_to '/'
+    else
+      flash[:error] = 'Podaj prawidłowy adres e-mail związany z tą recenzją!'
+      redirect_to action: "edit", id: params[:id]
+    end
+  end
+
   private
   def check_if_decision_possible
     if @review.asked? || @review.proposal?
@@ -53,6 +74,14 @@ class PublicReviewsController < ApplicationController
         render text: "Niepoprawna operacja", layout: true
       end
     end
+  end
+
+  def person_params
+    params.require(:person).permit(:person_id, :name,:surname,:email,:sex,roles: [])
+  end
+
+  def review_params
+    params.require(:review).permit(:person_id,:status,:asked,:deadline,:remarks,:content,:article_revision_id)
   end
 
 end
