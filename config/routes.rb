@@ -41,6 +41,8 @@ Rails.application.routes.draw do
     get :rejected, on: :member
   end
   resources :public_reviews do
+    get '/edit/:id', to: :edit, on: :collection
+    post :update, on: :collection
     get :new_reviewer, on: :collection
     post :create_reviewer, on: :collection
     get :finish, on: :collection
@@ -49,13 +51,13 @@ Rails.application.routes.draw do
   resources :article_revisions
   resources :articles do
     get :generate_certificate, on: :member
-  end  
+  end
   resource :profile, only: [:show, :edit, :update] do
     get :edit_password
     patch :update_password
   end
   resources :public_articles, only: [:show]
- 
+
   get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
   post 'mails/send_email', to: 'mails#send_email', as: :send_email
 

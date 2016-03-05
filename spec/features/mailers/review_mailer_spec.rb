@@ -19,7 +19,7 @@ feature "Zapytanie" do
       ArticleRevision.create!(version: "1.0", received: "21-01-2016",
                               pages: "10", article: article_file, submission: Submission.first)
       Review.create!(article_revision: ArticleRevision.first,
-                     person: Person.first, status: "wysłane zapytanie",
+                     person: Person.first, status: "recenzja negatywna",
                      asked: '18-02-2016', deadline: '03-04-2016')
     end
 

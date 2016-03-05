@@ -26,8 +26,33 @@ class PublicReviewsController < ApplicationController
     flash[:success] = 'Dziękujemy za zgłoszenie'
   end
 
+  def edit
+    @review = Review.find(params[:id])
+    @allowedStatus = {
+      Review::STATUS_MAPPING.key(:positive) => :positive,
+      Review::STATUS_MAPPING.key(:negative) => :negative,
+      Review::STATUS_MAPPING.key(:minor_review) => :minor_review,
+      Review::STATUS_MAPPING.key(:major_review) => :major_review,
+    }
+  end
+
+  def update
+    review = Review.find(params[:id])
+    if params[:email] == review.person.email
+      review.update!(review_params)
+      redirect_to '/'
+    else
+      flash[:error] = 'Podaj prawidłowy adres e-mail związany z tą recenzją!'
+      redirect_to action: "edit", id: params[:id]
+    end
+  end
+
   private
   def person_params
-    params.require(:person).permit(:name,:surname,:email,:sex,roles: [])
+    params.require(:person).permit(:person_id, :name,:surname,:email,:sex,roles: [])
+  end
+
+  def review_params
+    params.require(:review).permit(:person_id,:status,:asked,:deadline,:remarks,:content,:article_revision_id)
   end
 end
