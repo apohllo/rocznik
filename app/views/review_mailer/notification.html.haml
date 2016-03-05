@@ -1,0 +1,11 @@
+%h3
+  "Szanowna Pani / Szanowny Panie #{@review.article_revision.submission.editor}"
+\
+%p
+  Informujemy, że w systemie pojawiła się nowa recenzja do artykułu:
+  = @review.title
+  Dostępna pod tym linkiem:
+  = link_to @review.title, controller: "reviews", action: "show", id: @review.id
+  \
+  Z poważaniem,
+  = @review.article_revision.editor.name + " " + @review.article_revision.editor.surname

@@ -40,6 +40,7 @@ class PublicReviewsController < ApplicationController
     review = Review.find(params[:id])
     if params[:email] == review.person.email
       review.update!(review_params)
+      ReviewMailer.notification(review).deliver_later
       redirect_to '/'
     else
       flash[:error] = 'Podaj prawidłowy adres e-mail związany z tą recenzją!'
