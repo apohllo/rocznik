@@ -8,7 +8,7 @@ class ReviewsController < ApplicationController
     @query_params = params[:q] || {}
     @query = Review.ransack(@query_params)
     @query.sorts = ['deadline asc'] if @query.sorts.empty?
-    @reviews = @query.result(distinct: true)
+    @reviews = @query.result(distinct: true).page(params[:page]).per(20)
   end
 
   def show
@@ -87,14 +87,17 @@ class ReviewsController < ApplicationController
     review = Review.find(params[:id])
     review.status = 'recenzja przyjęta'
     review.save
+    ReviewMailer.send_status(review).deliver_now
     redirect_to review.submission, flash: {notice: "Dziękujemy"}
+   
   end
 
   def rejected
     review = Review.find(params[:id])
     review.status = 'recenzja odrzucona'
     review.save
-    redirect_to review.submission, flash: {notice: "Recenzja została odrzucona"}
+    ReviewMailer.send_status(review).deliver_now
+    redirect_to review.submission, flash: {notice: "Recenzja została odrzucona"} 
   end
 
   def ask_for_review
