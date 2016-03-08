@@ -26,7 +26,8 @@ class PublicRevisionsController < ApplicationController
 
   private
   def article_revision_params
-    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article,:comment,:accepted,:submission_id)
-end
+    params.require(:article_revision).permit(:code,:version,:received,:pages,:pictures,:article,
+                                             :comment,:accepted,:submission_id)
+  end
 
 end

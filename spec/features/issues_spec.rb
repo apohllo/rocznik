@@ -51,8 +51,8 @@ feature "zarządzanie numerami" do
         Institution.create!(name: "MIT", country: Country.last)
         Department.create!(name: "WZiKS", institution: Institution.first)
         Department.create!(name: "Department of Psychology", institution: Institution.last)
-        person0 = Person.create!(name: 'Adam', surname: 'Kapusta', email: 'a@k.com',
-                        sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
+        Person.create!(name: 'Adam', surname: 'Kapusta', email: 'a@k.com',
+                       sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
         person1 = Person.create!(name: 'Andrzej', surname: 'Nowak', email: 'as@n.com',
                         sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
         person2 = Person.create!(name: 'Adam', surname: 'Kowalski', email: 'a@nd.com',
@@ -161,7 +161,7 @@ feature "zarządzanie numerami" do
 
     context "z jednym numerem w bazie danych" do
       before do
-        Issue.create!(volume: 3, year: 2020)       
+        Issue.create!(volume: 3, year: 2020)
       end
 
       scenario "wyświetlenie szczegółów numeru" do
@@ -208,11 +208,11 @@ feature "zarządzanie numerami" do
                              "Short abstract", english_keywords: "brain,
                              language", received: "2016-01-17")
         end
-        
+
         xscenario "potwierdzenie usunięcia zgłoszenia w widoku numeru" do
           visit '/issues/'
           click_on '3'
-		  page.find(".btn-danger").click
+		        page.find(".btn-danger").click
           expect(page).to have_content("Zapytanie")
         end
 
@@ -327,7 +327,7 @@ feature "zarządzanie numerami" do
             Institution.create!(name: "MIT", country: Country.last)
             Department.create!(name: "WZiKS", institution: Institution.first)
             Department.create!(name: "Department of Psychology", institution: Institution.last)
-            person0 = Person.create!(name: 'Piotr', surname: 'Nieudolny', email: 'nieudolny@k.com',
+            Person.create!(name: 'Piotr', surname: 'Nieudolny', email: 'nieudolny@k.com',
                                      sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
             person1 = Person.create!(name: 'Jacek', surname: 'Zdolny', email: 'zdolny@n.com',
                                      sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
@@ -370,7 +370,6 @@ feature "zarządzanie numerami" do
             click_button "Przygotuj numer do wydania"
             click_link "Statystyki"
 
-            save_and_open_page
             expect(page).to have_content("1")
             expect(page).to have_content("4")
             expect(page).to have_content("25.0")

@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'overcommit'
   gem 'timecop'
+  gem 'poltergeist'
 end
 
 group :development do

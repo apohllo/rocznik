@@ -1,3 +1,3 @@
 class Message < ActiveRecord::Base
-	belongs_to :submission
+	 belongs_to :submission
 end

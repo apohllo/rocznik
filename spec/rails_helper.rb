@@ -7,12 +7,17 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'capybara/rspec'
+require 'capybara/poltergeist'
 require 'capybara/rails'
 require 'capybara/email/rspec'
 # Add additional requires below this line. Rails is not loaded until this point!
 class ActionDispatch::IntegrationTest
   Capybara.server_port = 3001
   Capybara.app_host = 'http://localhost:3001'
+  Capybara.javascript_driver = :poltergeist
+end
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: false)
 end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
