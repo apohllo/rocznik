@@ -16,7 +16,7 @@ feature "publiczne dodawanie zgloszenia" do
   end
 
   scenario "użycie linku w menu bocznym" do
-    visit '/'
+    visit '/public_issues'
     click_on('Zgłoś artykuł')
 
     expect(page).to have_text("Nowe zgłoszenie")

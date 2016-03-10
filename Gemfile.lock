@@ -104,6 +104,8 @@ GEM
     erubis (2.7.0)
     excon (0.45.4)
     execjs (2.6.0)
+    factory_girl (4.4.0)
+      activesupport (>= 3.0.0)
     ffi (1.9.10)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
@@ -492,6 +494,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise
   devise-i18n-views
+  factory_girl
   haml
   impressionist
   jbuilder (~> 2.0)

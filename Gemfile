@@ -43,6 +43,7 @@ group :development, :test do
   gem 'overcommit'
   gem 'timecop'
   gem 'poltergeist'
+  gem 'factory_girl'
 end
 
 group :development do

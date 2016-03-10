@@ -20,7 +20,7 @@ feature "recenzowanie" do
     end
 
     scenario "wyswietlanie recenzentów" do
-      visit '/'
+      visit '/public_issues'
       click_on('69/2070')
       click_on('Recenzenci')
 
