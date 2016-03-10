@@ -120,8 +120,8 @@
           %td= review.asked_date
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
-          %td{style: "text-align:center;"}= link_to image_tag("/assets/remind_icon.png", size: "32x32"), send_reminder_review_path(review), class: "reminder", method: :post
           %td.text-right
+            = icon_to 'fa-hourglass-o', send_reminder_review_path(review), method: :post, title: "Wyślij przypomnienie o upływającym terminie recenzji"
             = icon_to 'fa-check-circle', accepted_review_path(review), title: "Akceptacja recenzji"
             = icon_to 'fa-times-circle', rejected_review_path(review), title: "Odrzucenie recenzji"
             = icon_to 'fa-paper-plane', ask_for_review_review_path(review), method: :post, title: "Wyślij zapytanie o sporządzenie recenzji"

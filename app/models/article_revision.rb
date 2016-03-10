@@ -43,7 +43,7 @@ class ArticleRevision < ActiveRecord::Base
   end
   
   def editor_surname
-  editor = self.submission.person
+    editor = self.submission.person
     if editor
       editor.surname
     else

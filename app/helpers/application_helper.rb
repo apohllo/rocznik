@@ -28,7 +28,8 @@ module ApplicationHelper
   end
 
   def reset_filters(f)
-    f.button :button, 'x', type: 'reset', class: 'btn btn-danger btn-sm', onclick: 'reload(); return false'
+    f.button :button, raw('&#10007;'), type: 'reset', class: 'btn btn-danger btn-sm', onclick: 'reload(); return false',
+      title: "Wyczyść filtry"
   end
 
   def set_title(title = "")

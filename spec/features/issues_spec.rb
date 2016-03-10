@@ -1,35 +1,35 @@
 require 'rails_helper'
 
-feature "zarządzanie numerami" do
-  scenario "zarządzanie numerami bez uprawnień" do
+feature "Zarządzanie numerami" do
+  scenario "-> Zarządzanie numerami bez uprawnień" do
     visit '/issues'
 
     expect(page).to have_content 'Zaloguj się'
   end
 
-  context "po zalogowaniu" do
+  context "-> Po zalogowaniu" do
     include_context "admin login"
 
-    scenario "dostępność numerów w menu" do
+    scenario "-> Dostępność numerów w menu" do
       visit '/people'
 
       expect(page).to have_link("Numery rocznika")
     end
 
-    scenario "wyświetlanie pustej listy numerów" do
+    scenario "-> Wyświetlanie pustej listy numerów" do
       visit '/issues'
 
       expect(page).to have_css("h3", text: "Numery rocznika")
     end
 
-    scenario "link do nowego numeru" do
+    scenario "-> Link do nowego numeru" do
       visit '/issues'
       click_link 'Nowy numer'
 
       expect(page).to have_css("#new_issue input[value='Utwórz']")
     end
 
-    scenario "tworzenie nowego numeru" do
+    scenario "-> Tworzenie nowego numeru" do
       visit '/issues/new'
 
       within("#new_issue") do
@@ -43,7 +43,7 @@ feature "zarządzanie numerami" do
       expect(page).to have_content(2017)
     end
 
-    context "liczba i udział procentowy recenzentów z uczelni" do
+    context "-> Liczba i udział procentowy recenzentów z uczelni" do
       before do
         Country.create!(name: 'Polska')
         Country.create!(name: 'USA')
@@ -51,8 +51,8 @@ feature "zarządzanie numerami" do
         Institution.create!(name: "MIT", country: Country.last)
         Department.create!(name: "WZiKS", institution: Institution.first)
         Department.create!(name: "Department of Psychology", institution: Institution.last)
-        person0 = Person.create!(name: 'Adam', surname: 'Kapusta', email: 'a@k.com',
-                        sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
+        Person.create!(name: 'Adam', surname: 'Kapusta', email: 'a@k.com',
+                       sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
         person1 = Person.create!(name: 'Andrzej', surname: 'Nowak', email: 'as@n.com',
                         sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
         person2 = Person.create!(name: 'Adam', surname: 'Kowalski', email: 'a@nd.com',
@@ -83,7 +83,7 @@ feature "zarządzanie numerami" do
                         status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
       end
 
-      scenario "75% UJotu" do
+      scenario "-> 75% UJotu" do
         visit '/issues'
         click_on('69')
         click_on('Statystyki uczelni')
@@ -92,7 +92,7 @@ feature "zarządzanie numerami" do
         expect(page).to have_content("Recenzenci z innych uczelni: 1 (25%)")
       end
 
-      scenario "Brak recenzentów" do
+      scenario "-> Brak recenzentów" do
         visit '/issues'
         click_on('70')
         click_on('Statystyki uczelni')
@@ -101,7 +101,7 @@ feature "zarządzanie numerami" do
         expect(page).to have_content("Recenzenci z innych uczelni: 0 (0%)")
       end
 
-      scenario "75% Polaków" do
+      scenario "-> 75% Polaków" do
         visit '/issues'
         click_on('69')
         click_on('Statystyki państw')
@@ -110,7 +110,7 @@ feature "zarządzanie numerami" do
         expect(page).to have_content("Recenzenci z innych państw: 1 (25%)")
       end
 
-      scenario "Brak afiliacji" do
+      scenario "-> Brak afiliacji" do
         visit '/issues'
         click_on('70')
         click_on('Statystyki państw')
@@ -120,7 +120,7 @@ feature "zarządzanie numerami" do
       end
     end
 
-    context "proba test" do
+    context "-> Dwa numery i jedno zgłoszenie" do
       before do
         Issue.create!(volume: 98, year: 2098)
         Issue.create!(volume: 99, year: 2099)
@@ -132,26 +132,26 @@ feature "zarządzanie numerami" do
 
       end
 
-      scenario "sprawdzanie niedostepnosci linku" do
+      scenario "-> Sprawdzanie niedostepnosci linku" do
         visit '/issues/98-2098'
 
         expect(page).to have_css(".disabled")
       end
 
-      scenario "sprawdzanie dostepnosci linku" do
+      scenario "-> Sprawdzanie dostepnosci linku" do
         visit '/issues/99-2099'
 
         expect(page).not_to have_css(".disabled")
       end
 
-      scenario "przygotowanie numeru do wydania" do
+      scenario "-> Przygotowanie numeru do wydania" do
         visit '/issues/99-2099'
         click_link "Przygotuj do wydania"
 
         expect(page).to have_content("Przygotuj numer do wydania")
       end
 
-      scenario "wyswietlenie publikowanych artykulow" do
+      scenario "-> Wyswietlenie publikowanych artykulow" do
         visit '/issues/99-2099/prepare_form'
         click_button "Przygotuj numer do wydania"
 
@@ -161,7 +161,7 @@ feature "zarządzanie numerami" do
 
     context "z jednym numerem w bazie danych" do
       before do
-        Issue.create!(volume: 3, year: 2020)       
+        Issue.create!(volume: 3, year: 2020)
       end
 
       scenario "wyświetlenie szczegółów numeru" do
@@ -208,11 +208,11 @@ feature "zarządzanie numerami" do
                              "Short abstract", english_keywords: "brain,
                              language", received: "2016-01-17")
         end
-        
+
         xscenario "potwierdzenie usunięcia zgłoszenia w widoku numeru" do
           visit '/issues/'
           click_on '3'
-		  page.find(".btn-danger").click
+		        page.find(".btn-danger").click
           expect(page).to have_content("Zapytanie")
         end
 
@@ -327,7 +327,7 @@ feature "zarządzanie numerami" do
             Institution.create!(name: "MIT", country: Country.last)
             Department.create!(name: "WZiKS", institution: Institution.first)
             Department.create!(name: "Department of Psychology", institution: Institution.last)
-            person0 = Person.create!(name: 'Piotr', surname: 'Nieudolny', email: 'nieudolny@k.com',
+            Person.create!(name: 'Piotr', surname: 'Nieudolny', email: 'nieudolny@k.com',
                                      sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
             person1 = Person.create!(name: 'Jacek', surname: 'Zdolny', email: 'zdolny@n.com',
                                      sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
@@ -370,7 +370,6 @@ feature "zarządzanie numerami" do
             click_button "Przygotuj numer do wydania"
             click_link "Statystyki"
 
-            save_and_open_page
             expect(page).to have_content("1")
             expect(page).to have_content("4")
             expect(page).to have_content("25.0")
@@ -396,7 +395,7 @@ feature "zarządzanie numerami" do
             expect(page).not_to have_css("li a",text: "3/2020")
           end
 
-          scenario "Wydanie numeru" do
+          scenario "-> Wydanie numeru" do
             visit "/issues"
             click_link "3"
             expect(page).to have_content("Wydaj numer")
@@ -404,18 +403,22 @@ feature "zarządzanie numerami" do
             click_link "Wydaj numer"
             expect(page).to have_content("3/2020 [OPUBLIKOWANY]")
           end
-          context "wydany numer" do
+
+          context "-> Wydany numer" do
             before do
               Issue.first.update_attributes(published: true)
             end
+
             scenario "Pojawienie się numeru na liście wydanych numerów" do
               visit "/public_issues"
               expect(page).to have_css("li a",text: "3/2020")
             end
+
             scenario "Wyświetl wydany numer jako niezalogowany użytkownik" do
               visit "/public_issues"
-
               click_link "Wyloguj"
+
+              visit "/public_issues"
               click_link "3/2020"
               expect(page).to have_content(/\[autor nieznany\].*Zaakceptowany tytuł/)
             end
@@ -423,7 +426,7 @@ feature "zarządzanie numerami" do
         end
       end
 
-      scenario "Sprawdzenie czy nie da sie utworzyć rocznika z roku mniejszego niż 2000" do
+      scenario "-> Sprawdzenie czy nie da sie utworzyć rocznika z roku mniejszego niż 2000" do
         visit '/issues/new'
 
         within("#new_issue") do
@@ -436,7 +439,7 @@ feature "zarządzanie numerami" do
         expect(page).to have_content("musi być większe od 2000")
       end
 
-      scenario "Sprawdzenie, czy da sie utworzyc rocznik z nieunikalnym numerem" do
+      scenario "-> Sprawdzenie, czy da sie utworzyc rocznik z nieunikalnym numerem" do
         visit '/issues/new'
 
         within("#new_issue") do
@@ -457,7 +460,7 @@ feature "zarządzanie numerami" do
         expect(page).to have_content("zostało już zajęte")
       end
 
-      scenario "Sprawdzenie czy da sie utworzyć rocznik z numeru mniejszego niż 1" do
+      scenario "-> Sprawdzenie czy da sie utworzyć rocznik z numeru mniejszego niż 1" do
         visit '/issues/new'
 
         within("#new_issue") do

@@ -20,7 +20,7 @@ feature "recenzowanie" do
     end
 
     scenario "wyswietlanie recenzentów" do
-      visit '/'
+      visit '/public_issues'
       click_on('69/2070')
       click_on('Recenzenci')
 
@@ -65,13 +65,13 @@ feature "recenzowanie" do
         click_on('Dlaczego solipsyzm?, v. 1')
         expect(page).to have_css(".btn", text:"Edytuj")
       end
-      
+
       xscenario "testowanie usuwania artykułu z recenzją" do
         visit '/submissions'
         fill_in "Tytuł", with: "Arystoteles."
         click_on("Filtruj")
         page.find(".btn-danger", match: :first).click
-        
+
         expect(page).to have_content("nie usunięto zgłoszenia")
       end
 
@@ -158,16 +158,16 @@ feature "recenzowanie" do
         expect(page).to have_content("16-01-2017")
         expect(page).not_to have_content("20-01-2016")
       end
-      
+
       scenario "filtrowanie recenzji po tytule" do
         visit "/reviews"
-        
+
         fill_in "Tytuł", with: "Dlaczego solipsyzm?"
         click_on("Filtruj")
-        
+
         expect(page).to have_content("Dlaczego solipsyzm?")
         expect(page).not_to have_content("Arystoteles")
-      end  
+      end
 
       xscenario "reset filtrów" do
         visit "/reviews"
@@ -214,7 +214,8 @@ feature "recenzowanie" do
       before do
         index = 0
         while index < 22
-          Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person: person_1, article_revision: article_revision_1)
+          Review.create!(status: "wysłane zapytanie", content: " ", asked: "18-01-2016", deadline: "20-01-2016", person:
+                         person_1, article_revision: article_revision_1)
           index += 1
         end
 
