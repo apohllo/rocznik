@@ -50,6 +50,10 @@ feature "Sprawdzanie opublikowanych artykulów" do
     expect(page).to have_content("300")
   end
 
+  scenario "-> DOI" do
+    expect(page).to have_content("40000")
+  end
+
   scenario "-> Numer rocznika" do
     expect(page).to have_content("1/2001")
   end
