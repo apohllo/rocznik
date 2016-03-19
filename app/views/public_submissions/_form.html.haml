@@ -1,20 +1,19 @@
 = simple_form_for submission, url: public_submissions_path do |f|
   = f.input :language, label: "Język", collection: %w{polski angielski}, include_blank: false
+  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Polski tytuł artykułu, jeśli artykuł jest w języku polskim."}
+  = f.input :polish_title, label: "Tytuł polski"
+  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Angielski tytuł artykułu."}
+  = f.input :english_title, label: "Tytuł angielski"
+  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Angielskie streszczenie artykułu."}
+  = f.input :english_abstract, label: "Streszczenie (w j. angielskim)"
+  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Angielskie słowa kluczowe."}
+  = f.input :english_keywords, label: "Słowa kluczowe (w j. angielskim)"
   %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Sekcja 'Finansowanie' jest przeznaczona do umieszczenia informacji, kto finansował badania opublikowane w artykule."}
   = f.input :funding, label: "Finansowanie"
-  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Polski tytuł artykułu, jeśli artykuł jest w języku polskim."}
-  = f.input :polish_title, label: "Tytuł"
-  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Angielski tytuł artykułu."}
-  = f.input :english_title, label: "Title"
-  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Angielskie streszczenie artykułu."}
-  = f.input :english_abstract, label: "Abstract"
-  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Angielskie słowa kluczowe."}
-  = f.input :english_keywords, label: "Key words"
   = f.fields_for :article_revisions do |arf|
     = arf.input :pages, label: "Liczba stron"
     = arf.input :pictures, label: "Liczba ilustracji"
     = arf.input :article, label: "Artykuł"
- 
   - label = "Dalej"
-  = f.submit label, class: %w{btn btn-success btn-outline}
-  
+  = f.submit label, class: %w{btn btn-primary}
+
