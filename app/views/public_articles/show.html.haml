@@ -4,14 +4,6 @@
     = @article.title
 .scroll-panel-body
   .row
-    .col-md-3
-      %dt Numer
-      %dd= link_to @article.issue_title, public_issue_path(@article.issue)
-    .col-md-3
-      %dt Strony
-      %dd= @article.article_pages
-    .col-md-4
-  .row
     .col-md-8
       %dt Streszczenie
       %dd= @article.abstract
@@ -24,15 +16,23 @@
           %dd= link_to @article.author_email, "mailto:#{@article.author_email}"
         %dt Affiliacje
         %dd= @article.affiliations.join(", ")
+        %dt Numer
+        %dd= link_to @article.issue_title, public_issue_path(@article.issue)
+        %dt Strony
+        %dd= @article.article_pages
+        %dt DOI
+        %dd
+          - if @article.DOI
+            = link_to @article.DOI, "http://dx.doi.org/"+@article.DOI
+          - else
+            [Brak numeru DOI]
   .row
     %dl
-    .col-md-2
+    .col-md-8
       %dt Slowa kluczowe
       %dd= @article.keywords
-    .col-md-6
-    .col-xs-6.col-md-3
   .row
     .col-xs-6.col-md-4
     .col-md-3
-      /%dt Pobierz PDF
-      /%dd= @article.link
+      - if @article.link
+        = link_to "Pobierz PDF", @article.link, class: %w{btn btn-primary}
