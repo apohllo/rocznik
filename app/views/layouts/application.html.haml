@@ -8,18 +8,11 @@
       .flash
         = render file: "shared/flash"
       .container.middle-row
-        .row.row-offcanvas.row-offcanvas-left{style: "height: 100%"}
+        .row.row-offcanvas.row-offcanvas-left
           #sidebar.col-sm-4.col-md-3.sidebar-offcanvas{:role => "navigation"}
             = render file: "shared/sidenav"
           .col-md-9.col-sm-8.main
             = yield
-        %footer.navbar.navbar-default.navbar-fixed-bottom
-          %p
-            %a{:href => "http://validator.w3.org/check?uri=http%3A%2F%2Frocznik.kognitywistyka.eu%2F"}
-              Walidator HTML5
-            /%a{:href => "http://jigsaw.w3.org/css-validator/validator?uri=http://kognitywistyka.eu/"}
-            /Valid CSS
-            |
-            %a{:href => "http://www.apohllo.pl", :target => "_blank"}
-              Administrator
+      %footer.navbar.navbar-default.navbar-fixed-bottom
+        = render file: "shared/footer"
       = render file: "shared/js_footer"

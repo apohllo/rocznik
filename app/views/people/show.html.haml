@@ -97,7 +97,7 @@
             %td= review.asked.strftime("%d-%m-%Y")
             %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
             %td.text-right
-              = destroy_button(review)
+              = destroy_button(review, "Czy na pewno chcesz usunąć tę recenzję?")
     = link_to "Dodaj recenzję", new_review_path(person_id: @person.id), class: %w{btn btn-default btn-sm}
   - if @person.roles.include?("redaktor")
     %h3 Redagowane artykuły

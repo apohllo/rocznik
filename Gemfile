@@ -42,6 +42,8 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'overcommit'
   gem 'timecop'
+  gem 'poltergeist'
+  gem 'factory_girl'
 end
 
 group :development do

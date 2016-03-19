@@ -251,7 +251,7 @@ feature "zgloszenia" do
             visit '/submissions'
             clear_emails
             click_on("Alicja w krainie czarów")
-            page.find(".reminder").click
+            click_on("Wyślij przypomnienie o upływającym terminie recenzji")
             expect(page).to have_content("Przypomnienie zostało wysłane")
             open_email('a.kapusa@gmail.com')
             expect(current_email).to have_content 'Z poważaniem,'
@@ -353,6 +353,17 @@ feature "zgloszenia" do
           expect(page).to have_content("Obecna")
           expect(page).to have_content("u redaktora")
           expect(page).to have_content("przyjęty")
+        end
+
+        scenario "wyswietlenie informacji o wyslaniu wiadomosci." do
+          visit '/submissions'
+          click_on("Alicja w krainie czarów")
+          click_on("Edytuj")
+          select('przyjęty', from: 'submission_status')
+          click_on("Zapisz")
+
+          expect(page).to have_content("Decyzja - Rocznik Kognitywistyczny")
+
         end
 
       end

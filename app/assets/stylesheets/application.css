@@ -15,6 +15,9 @@
  */
 .middle-row {
   margin-top: 60px;
+}
+
+.middle-row > div {
   margin-bottom: 60px;
 }
 
@@ -153,10 +156,6 @@ dd.published {
   display: none;
 }
 
-.article-queue-id {
-    display: none;
-}
-
 .submission_show {
  clear: both;
  padding: 20px 0px;
@@ -172,7 +171,7 @@ dd.published {
 
 .reviews_details {
  text-align: center;
- padding-top: 20px; 
+ padding-top: 20px;
  padding-bottom: 2%;
 }
 

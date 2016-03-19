@@ -28,3 +28,4 @@ Metrics/LineLength:
     - 'db/schema.rb'
     - 'config/initializers/devise.rb'
     - 'db/migrate/20150423175928_add_title_and_content_index_to_storytime_post.storytime.rb'
+    - 'db/migrate/20160302164859_create_impressions_table.rb'
