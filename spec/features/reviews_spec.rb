@@ -19,7 +19,7 @@ feature "recenzowanie" do
                       status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
     end
 
-    scenario "wyswietlanie recenzentów" do
+    xscenario "wyswietlanie recenzentów" do
       visit '/public_issues'
       click_on('69/2070')
       click_on('Recenzenci')
