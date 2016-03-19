@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get "/404" => "errors#not_found"
   get "/500" => "errors#internal_server_error"
 
+  get "/nowy" => "static#homepage"
+
   resources :issues do
     get :prepare_form, on: :member
     patch :prepare, on: :member
@@ -46,7 +48,7 @@ Rails.application.routes.draw do
   resources :article_revisions
   resources :articles do
     get :generate_certificate, on: :member
-  end  
+  end
   resource :profile, only: [:show, :edit, :update] do
     get :edit_password
     patch :update_password
