@@ -16,15 +16,29 @@ class Article < ActiveRecord::Base
 
 
   def authors
-    self.submission.authorships.map(&:person)
+    self.submission.authorships.map(&:person).compact
+  end
+
+  def corresponding_author
+    authorship = self.submission.authorships.find{|a| a.corresponding }
+    if authorship.nil?
+      authorship = self.submission.authorships.first
+    end
+    if authorship
+      authorship.person
+    end
   end
 
   def authors_inline
     self.authors.empty? ? "[autor nieznany]" : self.authors.map(&:short_name).join(', ')
   end
 
-  def authors_mail
-    self.authors.empty? ? "[brak adresów e-mail]" : self.authors.map(&:email).join(', ')
+  def author_email
+    if self.corresponding_author
+      self.corresponding_author.email
+    else
+      nil
+    end
   end
 
   def authors_metadata
@@ -91,7 +105,7 @@ class Article < ActiveRecord::Base
     if !self.external_link.blank?
       self.external_link
     else
-      "[BRAK LINKU DO ŚCIÁGNIĘCIA ARTYKUŁU]"
+      "[BRAK LINKU DO ŚCIĄGNIĘCIA ARTYKUŁU]"
     end
   end
 

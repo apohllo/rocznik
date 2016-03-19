@@ -15,20 +15,42 @@ feature "Sprawdzanie opublikowanych artykulów" do
                     external_link:'http://bulka', pages:'300')
   end
 
-  scenario "Tresc artykulu" do
+  before do
     visit '/public_issues'
     click_on '1/2001'
     click_on 'Wiemy wszystko'
-
-    expect(page).to have_content("Wiemy wszystko")
-    expect(page).to have_content("A. Kapusta")
-    expect(page).to have_content("a@k.com")
-    expect(page).to have_content("Tak po prostu")
-    expect(page).to have_content("knowledge")
-    expect(page).to have_content("http://bulka")
-    expect(page).to have_content("300")
-    expect(page).to have_content("1/2001")
   end
 
-end
+  scenario "-> Tytuł artykułu" do
+    expect(page).to have_content("Wiemy wszystko")
+  end
 
+  scenario "-> Autor" do
+    expect(page).to have_content("A. Kapusta")
+  end
+
+  scenario "-> E-mail autora korespondującego" do
+    expect(page).to have_content("a@k.com")
+  end
+
+  scenario "-> Streszczenie" do
+    expect(page).to have_content("Tak po prostu")
+  end
+
+
+  scenario "-> Słowa kluczowe" do
+    expect(page).to have_content("knowledge")
+  end
+
+  xscenario "-> Link do pobrania" do
+    expect(page).to have_content("http://bulka")
+  end
+
+  scenario "-> Strony" do
+    expect(page).to have_content("300")
+  end
+
+  scenario "-> Numer rocznika" do
+    expect(page).to have_content("1/2001")
+  end
+end
