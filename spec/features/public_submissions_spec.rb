@@ -27,10 +27,10 @@ feature "publiczne dodawanie zgloszenia" do
     visit '/public_submissions/new/'
 
     within("#new_submission") do
-       fill_in "Tytuł", with: submission_data[:title]
-       fill_in "Title", with: submission_data[:english_title]
-       fill_in "Abstract", with: submission_data[:abstract]
-       fill_in "Key words", with: submission_data[:keywords]
+       fill_in "Tytuł polski", with: submission_data[:title]
+       fill_in "Tytuł angielski", with: submission_data[:english_title]
+       fill_in "Streszczenie (w j. angielskim)", with: submission_data[:abstract]
+       fill_in "Słowa kluczowe (w j. angielskim)", with: submission_data[:keywords]
        select "polski", from: submission_data[:language]
        fill_in "Finansowanie", with: submission_data[:funding]
        fill_in "Liczba stron", with: submission_data[:pages]
