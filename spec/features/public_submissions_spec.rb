@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-feature "publiczne dodawanie zgloszenia" do
+feature "Publiczne dodawanie zgloszenia" do
   let(:submission_data) do
     {
       title: "Testowy tytuł zgłoszenia",
       english_title: "English title",
       abstract:  "absbabsba",
       keywords:  "englsh key words",
-      language:  "Język",
+      language:  "polski",
       funding:  "UE",
       pages:  "11",
       pictures:  "5",
@@ -15,7 +15,7 @@ feature "publiczne dodawanie zgloszenia" do
     }
   end
 
-  scenario "użycie linku w menu bocznym" do
+  scenario "-> Użycie linku w menu bocznym" do
     visit '/public_issues'
     click_on('Zgłoś artykuł')
 
@@ -23,7 +23,7 @@ feature "publiczne dodawanie zgloszenia" do
     expect(page).to have_button("Dalej")
   end
 
-  scenario "tworzenie nowego zgloszenia" do
+  scenario "-> Tworzenie nowego zgloszenia" do
     visit '/public_submissions/new/'
 
     within("#new_submission") do
@@ -31,7 +31,7 @@ feature "publiczne dodawanie zgloszenia" do
        fill_in "Tytuł angielski", with: submission_data[:english_title]
        fill_in "Streszczenie (w j. angielskim)", with: submission_data[:abstract]
        fill_in "Słowa kluczowe (w j. angielskim)", with: submission_data[:keywords]
-       select "polski", from: submission_data[:language]
+       select submission_data[:language], from: "Język"
        fill_in "Finansowanie", with: submission_data[:funding]
        fill_in "Liczba stron", with: submission_data[:pages]
        fill_in "Liczba ilustracji", with: submission_data[:pictures]
@@ -66,7 +66,7 @@ feature "publiczne dodawanie zgloszenia" do
     expect(page).to have_content(submission_data[:pictures])
   end
 
-  xscenario "Anulowanie zgłoszenia" do
+  xscenario "-> Anulowanie zgłoszenia" do
     visit '/public_submissions/new/'
 
     within("#new_submission") do
@@ -74,7 +74,7 @@ feature "publiczne dodawanie zgloszenia" do
        fill_in "Title", with: submission_data[:english_title]
        fill_in "Abstract", with: submission_data[:abstract]
        fill_in "Key words", with: submission_data[:keywords]
-       select "polski", from: submission_data[:language]
+       select submission_data[:language], from: "Język"
        fill_in "Finansowanie", with: submission_data[:funding]
        fill_in "Liczba stron", with: submission_data[:pages]
        fill_in "Liczba ilustracji", with: submission_data[:pictures]
