@@ -107,7 +107,7 @@ class Submission < ActiveRecord::Base
       "[BRAK NUMERU]"
     end
   end
-  
+
   def author
     authorship = self.authorships.where(corresponding: true).first
     if authorship
@@ -156,6 +156,14 @@ class Submission < ActiveRecord::Base
       self.last_review.deadline_date
     else
       "[BRAK DEADLINE'u]"
+    end
+  end
+
+  def last_file_path
+    if self.last_revision
+      self.last_revision.article && self.last_revision.article.path
+    else
+      nil
     end
   end
 

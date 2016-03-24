@@ -1,0 +1,20 @@
+.scroll-panel-header
+  %h3.scroll-panel-title
+    Dziękujemy!
+    %span.small Twoje zgłoszenie zostało wysłane do redakcji Rocznika Kognitywistycznego.
+
+.scroll-panel-body
+  %dl.dl-horizontal
+    %dt Tytuł
+    %dd= @submission.title
+    %dt Język
+    %dd= @submission.language
+    %dt Otrzymano
+    %dd= @submission.received.strftime("%d-%m-%Y")
+    %dt Streszczenie
+    %dd= @submission.abstract
+    %dt Słowa kluczowe
+    %dd= @submission.keywords
+    - if @submission.funding
+      %dt Finansowanie
+      %dd= simple_format(@submission.funding)
