@@ -1,19 +1,17 @@
-= simple_form_for authorship, url: add_author_public_submissions_path do |f|
-  = f.input :submission_id, as: :hidden, input_html: { value: submission.id }
-  = f.input :position, as: :hidden, input_html: { value: authorship.position }
+%h4 Dodaj autora
+= simple_form_for @authorship, url: add_author_public_submissions_path do |f|
+  = f.input :submission_id, as: :hidden
+  = f.input :position, as: :hidden
   = f.input :corresponding, label: "Korespondujący?", as: :boolean,
-                                                      item_wrapper_class: 'checkbox_container'
-
+    item_wrapper_class: 'checkbox_container', hint: "Autor korespondujący jest odpowiedzialny za kontakt z redakcją Rocznika."
   = f.fields_for :person do |af|
     = af.input :name, label: "Imię"
     = af.input :surname, label: "Nazwisko"
     = af.input :email, label: "E-mail"
     = af.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
-    = af.input :discipline, label: "Dyscyplina naukowa"
-
-  %div
-    = check_box_tag 'add_next', 'yes'
-    = label_tag 'add_next', 'Dodaj kolejnego autora'
-
-  - label = "Zapisz"
-  = f.submit label, class: %w{btn btn-success btn-outline}
+  = f.submit "Dodaj autora", class: %w{btn btn-primary}
+  - if @submission.authorships.count > 0
+    = link_to "Dalej", add_reviewer_public_submission_path(@submission), class: %w{btn btn-outline btn-default},
+      method: :post, data: {confirm: "Czy wszyscy autorzy zostali dodani?"}, title: "Przejdź do przedstawienia propozycji recenzentów"
+  = link_to "Rezygnuj", cancel_public_submission_path(@submission),  data: { confirm: "Czy chcesz wycofać zgłoszony artykuł?" },
+    class: %w{btn btn-danger pull-right}, method: :post

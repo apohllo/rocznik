@@ -1,6 +1,19 @@
-%h3 
-  Dodano nowe zgłoszenie
+%h3
+  Zgłoszono nowy artykuł do Rocznika Kognitywistycznego
 
-%p
-  Tytuł artykułu:
-  = @submission.english_title
+%dl
+  %dt Tytuł
+  %dd= @submission.title
+  %dt Autorzy
+  %dd= @submission.authors_inline
+  %dt Język
+  %dd= @submission.language
+  %dt Otrzymano
+  %dd= @submission.received.strftime("%d-%m-%Y")
+  %dt Streszczenie
+  %dd= @submission.abstract
+  %dt Słowa kluczowe
+  %dd= @submission.keywords
+  - if @submission.funding
+    %dt Finansowanie
+    %dd= simple_format(@submission.funding)

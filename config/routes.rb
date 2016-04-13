@@ -23,9 +23,10 @@ Rails.application.routes.draw do
     post :send_decision, on: :member
   end
   resources :public_submissions, only: [:new, :create] do
-    get :authors, on: :collection
     post :add_author, on: :collection
-    post :cancel
+    post :add_reviewer, on: :member
+    post :cancel, on: :member
+    post :finish, on: :member
   end
   resources :user_submissions, only: [:index, :show]
   resources :affiliations, only: [:new, :create, :destroy] do
@@ -53,14 +54,14 @@ Rails.application.routes.draw do
   resources :article_revisions
   resources :articles do
     get :generate_certificate, on: :member
-  end  
+  end
   resources :public_revisions, only: [:new, :create]
   resource :profile, only: [:show, :edit, :update] do
     get :edit_password
     patch :update_password
   end
   resources :public_articles, only: [:show]
- 
+
   get 'mails/write_email/:id', to: 'mails#write_email', as: :write_email
   post 'mails/send_email', to: 'mails#send_email', as: :send_email
 

@@ -1,19 +1,15 @@
-= simple_form_for submission, url: public_submissions_path do |f|
+= simple_form_for @submission, url: public_submissions_path do |f|
   = f.input :language, label: "Język", collection: %w{polski angielski}, include_blank: false
-  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Polski tytuł artykułu, jeśli artykuł jest w języku polskim."}
-  = f.input :polish_title, label: "Tytuł polski"
-  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Angielski tytuł artykułu."}
-  = f.input :english_title, label: "Tytuł angielski"
-  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Angielskie streszczenie artykułu."}
-  = f.input :english_abstract, label: "Streszczenie (w j. angielskim)"
-  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Angielskie słowa kluczowe."}
-  = f.input :english_keywords, label: "Słowa kluczowe (w j. angielskim)"
-  %i.fa.fa-question-circle.helpbox{"data-toggle" => "tooltip", :title => "Sekcja 'Finansowanie' jest przeznaczona do umieszczenia informacji, kto finansował badania opublikowane w artykule."}
-  = f.input :funding, label: "Finansowanie"
+  = f.input :polish_title, label: "Tytuł polski",
+    hint: "Polski tytuł artykułu, jeśli artykuł jest w języku polskim."
+  = f.input :english_title, label: "Tytuł angielski", hint: "Angielski tytuł artykułu."
+  = f.input :english_abstract, label: "Streszczenie", hint: "Angielskie streszczenie artykułu - niezależnie od języka artykułu."
+  = f.input :english_keywords, label: "Słowa kluczowe", hint: "Angielskie słowa kluczowe - niezależnie od języka artykułu."
+  = f.input :funding, label: "Finansowanie", hint: "Sekcja 'Finansowanie' jest przeznaczona do umieszczenia informacji, kto finansował badania opublikowane w artykule. Może być istotna w przypadku finansowania badań ze środków publicznych. Informacja ta zostanie umieszczona w artykule."
   = f.fields_for :article_revisions do |arf|
-    = arf.input :pages, label: "Liczba stron"
-    = arf.input :pictures, label: "Liczba ilustracji"
-    = arf.input :article, label: "Artykuł"
+    = arf.input :pages, label: "Liczba stron", hint: "Liczba stron w dokumencie PDF - pomocna na etapie publikacji artykułu. Zalecana liczba stron: 10 - 20"
+    = arf.input :pictures, label: "Liczba ilustracji", hint: "Liczba ilustracji w dokumencie PDF - pomocna na etapie publikacji artykułu"
+    = arf.input :article, label: "Artykuł", hint: "Dokument w formacie PDF pozbawiony informacji o autorach artykułu."
   - label = "Dalej"
   = f.submit label, class: %w{btn btn-primary}
-
+  = link_to "Anuluj", root_path, class: %w{btn btn-danger pull-right}

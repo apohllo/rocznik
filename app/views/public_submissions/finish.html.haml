@@ -1,0 +1,28 @@
+= render partial: "timeline"
+.scroll-panel-body
+  %dl.dl-horizontal
+    %dt Tytuł
+    %dd= @submission.title
+    %dt Język
+    %dd= @submission.language
+    %dt Otrzymano
+    %dd= @submission.received.strftime("%d-%m-%Y")
+    %dt Streszczenie
+    %dd= @submission.abstract
+    %dt Słowa kluczowe
+    %dd= @submission.keywords
+    - unless @submission.funding.blank?
+      %dt Finansowanie
+      %dd= simple_format(@submission.funding)
+    %dt Autorzy
+    %dd
+      - @submission.authors.each do |author|
+        = author.full_name
+        %br
+    %dt Recenzenci
+    %dd
+      - @submission.last_revision.reviews.each do |review|
+        = review.reviewer + " - " + review.status
+        %br
+%h3
+  Dziękujemy!  Twoje zgłoszenie zostało wysłane do redakcji Rocznika Kognitywistycznego.

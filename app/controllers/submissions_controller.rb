@@ -30,7 +30,6 @@ class SubmissionsController < ApplicationController
       if @author_id
         authorship = Authorship.new(person_id: @author_id,submission: @submission)
         authorship.save
-	       SubmissionMailer.confirmation(@submission).deliver_now
       end
       redirect_to @submission
     else
@@ -72,14 +71,14 @@ class SubmissionsController < ApplicationController
     if old_status != new_status
       if new_status == 'odrzucony' || new_status == 'do poprawy' || new_status == 'przyjęty'
         submission = Submission.find(params[:id])
-        SubmissionMailer.send_decision(submission).deliver_now
+        AuthorMailer.send_decision(submission).deliver_later
       end
       if new_status == 'przyjęty'
         authors = Submission.find(params[:id]).authors
         authors.each do |author|
-          SubmissionMailer.send_contract(author).deliver_now
+          AuthorMailer.send_contract(author).deliver_later
         end
-        SubmissionMailer.send_contract(submission).deliver_now
+        AuthorMailer.send_contract(submission).deliver_later
       end
     end
   end
