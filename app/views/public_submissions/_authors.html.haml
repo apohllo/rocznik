@@ -1,0 +1,15 @@
+%table.table.table-hover.table-admin
+  %thead
+    %tr
+      %th Imię i Nazwisko
+      %th Email
+      %th Korespondujący?
+      %th Liczba porządkowa
+  %tbody
+    - @submission.authorships.each do |authorship|
+      - unless authorship.new_record?
+        %tr
+          %td= authorship.author
+          %td= authorship.email
+          %td= authorship.corresponding? ? raw("&#10004;") : ""
+          %td= authorship.position

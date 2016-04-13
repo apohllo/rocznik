@@ -1,9 +1,10 @@
 # encoding: utf-8
 
 class Submission < ActiveRecord::Base
+  SENT_TITLE = "nadesłany"
 
   STATUS_MAPPING = {
-    "nadesłany" => :sent, "u redaktora" => :editor, "w recenzji" => :review,
+    SENT_TITLE => :sent, "u redaktora" => :editor, "w recenzji" => :review,
     "przyjęty" => :positive, "odrzucony" => :negative, "do poprawy" => :correction
   }
   POLISH = 'polski'
@@ -73,6 +74,10 @@ class Submission < ActiveRecord::Base
     end
   end
 
+  def fresh?
+    self.status == SENT_TITLE
+  end
+
   def corresponding_author
     authorship = self.authorships.where(corresponding: true).first
     if authorship
@@ -107,7 +112,7 @@ class Submission < ActiveRecord::Base
       "[BRAK NUMERU]"
     end
   end
-  
+
   def author
     authorship = self.authorships.where(corresponding: true).first
     if authorship
@@ -156,6 +161,14 @@ class Submission < ActiveRecord::Base
       self.last_review.deadline_date
     else
       "[BRAK DEADLINE'u]"
+    end
+  end
+
+  def last_file_path
+    if self.last_revision
+      self.last_revision.article && self.last_revision.article.path
+    else
+      nil
     end
   end
 
