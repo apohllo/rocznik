@@ -1,9 +1,10 @@
 # encoding: utf-8
 
 class Submission < ActiveRecord::Base
+  SENT_TITLE = "nadesłany"
 
   STATUS_MAPPING = {
-    "nadesłany" => :sent, "u redaktora" => :editor, "w recenzji" => :review,
+    SENT_TITLE => :sent, "u redaktora" => :editor, "w recenzji" => :review,
     "przyjęty" => :positive, "odrzucony" => :negative, "do poprawy" => :correction
   }
   POLISH = 'polski'
@@ -71,6 +72,10 @@ class Submission < ActiveRecord::Base
     else
       "[BRAK SŁÓW KLUCZOWYCH]"
     end
+  end
+
+  def fresh?
+    self.status == SENT_TITLE
   end
 
   def corresponding_author

@@ -10,16 +10,26 @@ class Review < ActiveRecord::Base
   belongs_to :article_revision
 
   validates :status, inclusion: STATUS_MAPPING.keys, presence: true
-  validates :person_id, presence: true
+  validates :person, presence: true, uniqueness: { scope: :article_revision_id }
   validates :article_revision_id, presence: true
-  validates :asked, presence: true
+  validates :remarks, presence: true, if: -> (r) { r.status == 'niechciany recenzent' }
   validate :authors_reviewer_shared_institutions
 
   scope :in_progress, -> { where("status = 'wysłane zapytanie' or status = 'pozytywny' " +
     "or status = 'negatywny' or status = 'do poprawy' or status = 'przedłużony termin'") }
 
+  accepts_nested_attributes_for :person
+
   def title
     "#{self.article_revision.title}"
+  end
+
+  def email
+    if self.person
+      self.person.email
+    else
+      "[BRAK ADRESU RECENZENTA]"
+    end
   end
 
   def abstract
@@ -54,7 +64,7 @@ class Review < ActiveRecord::Base
     if self.asked
       self.asked.strftime("%d-%m-%Y")
     else
-      "[BRAK DATY]"
+      "[BRAK DATY ZAPYTANIA]"
     end
   end
 

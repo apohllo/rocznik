@@ -1,8 +1,4 @@
-.scroll-panel-header
-  %h3.scroll-panel-title
-    Dziękujemy!
-    %span.small Twoje zgłoszenie zostało wysłane do redakcji Rocznika Kognitywistycznego.
-
+= render partial: "timeline"
 .scroll-panel-body
   %dl.dl-horizontal
     %dt Tytuł
@@ -15,6 +11,18 @@
     %dd= @submission.abstract
     %dt Słowa kluczowe
     %dd= @submission.keywords
-    - if @submission.funding
+    - unless @submission.funding.blank?
       %dt Finansowanie
       %dd= simple_format(@submission.funding)
+    %dt Autorzy
+    %dd
+      - @submission.authors.each do |author|
+        = author.full_name
+        %br
+    %dt Recenzenci
+    %dd
+      - @submission.last_revision.reviews.each do |review|
+        = review.reviewer + " - " + review.status
+        %br
+%h3
+  Dziękujemy!  Twoje zgłoszenie zostało wysłane do redakcji Rocznika Kognitywistycznego.

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   end
   resources :public_submissions, only: [:new, :create] do
     post :add_author, on: :collection
+    post :add_reviewer, on: :member
     post :cancel, on: :member
     post :finish, on: :member
   end

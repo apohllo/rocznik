@@ -1,0 +1,9 @@
+.timeline
+  %div{class: (@step == :new ? 'active-entry' : 'entry')}
+    Artykuł
+  %div{class: (@step == :authors ? 'active-entry' : 'entry')}
+    Autorzy
+  %div{class: (@step == :reviewers ? 'active-entry' : 'entry')}
+    Recenzenci
+  %div{class: (@step == :finish ? 'last-active-entry' : 'last-entry')}
+    Podsumowanie

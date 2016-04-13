@@ -1,0 +1,14 @@
+%table.table.table-hover.table-admin
+  %thead
+    %tr
+      %th Imię i Nazwisko
+      %th Email
+      %th Rodzaj propozycji
+      %th
+  %tbody
+    - @submission.reviews.each do |review|
+      - unless review.new_record?
+        %tr
+          %td= review.reviewer
+          %td= review.email
+          %td= review.status

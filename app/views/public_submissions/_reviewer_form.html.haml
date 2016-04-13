@@ -1,0 +1,16 @@
+%h4 Dodaj recenzenta
+= simple_form_for @review, url: add_reviewer_public_submission_path(@submission) do |f|
+  = f.input :article_revision_id, as: :hidden
+  = f.input :status, collection: ["proponowany recenzent", "niechciany recenzent"], label: "Rodzaj propozycji",
+    hint: "Twoje propozycje zostaną wzięte pod uwagę, lecz nie gwarantujemy tego, że z nich skorzystamy. W przypadku propozycji negatywnej wymagamy jej uzasadnienia."
+  = f.input :remarks, label: "Uzasadnienie", as: :text
+  = f.fields_for :person do |af|
+    = af.input :name, label: "Imię"
+    = af.input :surname, label: "Nazwisko"
+    = af.input :email, label: "E-mail"
+    = af.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
+  = f.submit "Dodaj recenzenta", class: %w{btn btn-primary}
+  = link_to "Dalej", finish_public_submission_path(@submission), class: %w{btn btn-outline btn-default},
+    method: :post, data: {confirm: "Czy wszystkie propozycje zostały dodane?"}, title: "Zakończ proces zgłaszania artykułu"
+  = link_to "Rezygnuj", cancel_public_submission_path(@submission),  data: { confirm: "Czy chcesz wycofać zgłoszony artykuł?" },
+    class: %w{btn btn-danger pull-right}, method: :post

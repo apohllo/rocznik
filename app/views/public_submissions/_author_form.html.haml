@@ -10,3 +10,8 @@
     = af.input :email, label: "E-mail"
     = af.input :sex, collection: Person::SEX_MAPPING.keys, label: "Płeć"
   = f.submit "Dodaj autora", class: %w{btn btn-primary}
+  - if @submission.authorships.count > 0
+    = link_to "Dalej", add_reviewer_public_submission_path(@submission), class: %w{btn btn-outline btn-default},
+      method: :post, data: {confirm: "Czy wszyscy autorzy zostali dodani?"}, title: "Przejdź do przedstawienia propozycji recenzentów"
+  = link_to "Rezygnuj", cancel_public_submission_path(@submission),  data: { confirm: "Czy chcesz wycofać zgłoszony artykuł?" },
+    class: %w{btn btn-danger pull-right}, method: :post

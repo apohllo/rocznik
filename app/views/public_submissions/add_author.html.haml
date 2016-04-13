@@ -1,24 +1,5 @@
-.scroll-panel-header
-  = button_to "Rezygnuj", cancel_public_submission_path(@submission),  data: { confirm: "Czy chcesz wycofać zgłoszony artykuł?" },
-    class: %w{btn btn-danger pull-right}
-  %h3.scroll-panel-title Autorzy
+= render partial: "timeline"
 .scroll-panel-body
   - if @submission.authorships.count > 0 # empty? doesn't worke since we have a fresh authorship
-    %table.table.table-hover.table-admin
-      %thead
-        %tr
-          %th Imię i Nazwisko
-          %th Email
-          %th Korespondujący?
-          %th Liczba porządkowa
-          %th
-      %tbody
-        - @submission.authorships.each do |authorship|
-          - unless authorship.new_record?
-            %tr
-              %td= authorship.person.full_name
-              %td= authorship.person.email
-              %td= authorship.corresponding? ? raw("&#10004;") : ""
-              %td= authorship.position
-    = button_to "Zakończ", finish_public_submission_path(@submission), class: %w{btn btn-outline btn-default}
+    = render partial: "authors"
   = render partial: "author_form"

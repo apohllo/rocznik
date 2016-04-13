@@ -1,0 +1,6 @@
+= render partial: "timeline"
+.scroll-panel-body
+  - if @submission.reviews.count > 0 # empty? doesn't worke since we have a fresh authorship
+    = render partial: "reviewers"
+  = render partial: "reviewer_form"
+
