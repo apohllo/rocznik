@@ -5,6 +5,8 @@
     = link_to "Redakcja", "/redakcja"
   %li{:class => active?("procedura-recenzyjna")}
     = link_to "Procedura recenzyjna", "/procedura-recenzyjna"
+  %li{:class => active?("wytyczne-dla-autorow")}
+    = link_to "Wytyczne dla autorów", "/wytyczne-dla-autorow"
   %li= link_to "Zgłoś artykuł", new_public_submission_path
   - if user?
     %li= link_to "Twój profil", profile_path

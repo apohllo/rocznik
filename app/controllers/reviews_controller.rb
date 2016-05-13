@@ -73,37 +73,37 @@ class ReviewsController < ApplicationController
 
   def send_reminder
     review = Review.find(params[:id])
-    ReviewerMailer.reminder(review).deliver_now
-    redirect_to review.submission, flash: {notice: "Przypomnienie zostało wysłane"}
+    #ReviewerMailer.reminder(review).deliver_now
+    redirect_to review.submission, flash: {error: "Przypomnienie NIE zostało wysłane"}
   end
- 
+
   def ask
     review = Review.find(params[:id])
-    ReviewMailer.ask(review).deliver_now
-    redirect_to review.submission, flash: {notice: "Zapytanie zostało wysłane"}
+    #ReviewMailer.ask(review).deliver_now
+    redirect_to review.submission, flash: {error: "Zapytanie NIE zostało wysłane"}
   end
 
   def accepted
     review = Review.find(params[:id])
     review.status = 'recenzja przyjęta'
     review.save
-    ReviewMailer.send_status(review).deliver_now
+    #ReviewMailer.send_status(review).deliver_now
     redirect_to review.submission, flash: {notice: "Dziękujemy"}
-   
+
   end
 
   def rejected
     review = Review.find(params[:id])
     review.status = 'recenzja odrzucona'
     review.save
-    ReviewMailer.send_status(review).deliver_now
-    redirect_to review.submission, flash: {notice: "Recenzja została odrzucona"} 
+    #ReviewMailer.send_status(review).deliver_now
+    redirect_to review.submission, flash: {notice: "Recenzja została odrzucona"}
   end
 
   def ask_for_review
     review = Review.find(params[:id])
-    ReviewMailer.ask_for_review(review).deliver_now
-    redirect_to review.submission, flash: {notice: "Zapytanie zostało wysłane"}
+    #ReviewMailer.ask_for_review(review).deliver_now
+    redirect_to review.submission, flash: {error: "Zapytanie NIE zostało wysłane"}
   end
 
   private

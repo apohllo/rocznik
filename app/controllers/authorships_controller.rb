@@ -23,12 +23,12 @@ class AuthorshipsController < ApplicationController
       email = @authorship.person.email
       if User.find_by_email(email).nil?
         User.create(email: email, password: password, password_confirmation: password)
-        UserMailer.add(email, password).deliver_now
-      end     
+        #UserMailer.add(email, password).deliver_now
+      end
       redirect_to submission
-	else
-	  render :new
-	end
+    else
+      render :new
+    end
   end
 
   def destroy
@@ -48,7 +48,7 @@ class AuthorshipsController < ApplicationController
     params.require(:authorship).permit(:person_id,:corresponding,:position)
   end
 
-  def create_password(len=8) 
+  def create_password(len=8)
     SecureRandom.hex(len)
   end
 end
