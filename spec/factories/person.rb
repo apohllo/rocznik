@@ -13,7 +13,7 @@ FactoryGirl.define do
   factory :reviewer, class: Person do
     name 'Anna'
     surname 'Genialna'
-    email 'reviewer@localhost.com'
+    sequence(:email) {|n| "reviewer_#{n}@localhost.com" }
     roles ['recenzent']
     sex 'kobieta'
     discipline ['filozofia']

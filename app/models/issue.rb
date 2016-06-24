@@ -45,130 +45,129 @@ class Issue < ActiveRecord::Base
       ""
     end
   end
-  
+
   def to_param
     [volume, year].join("-")
   end
 
-  def count_uj_submissions
-    count_uj = 0
-    self.submissions.each do |submission|
-      submission.reviews.each do |review|
-        review.person.affiliations.each do |affiliation|
-          if affiliation.institution == "Uniwersytet Jagielloński"
-            count_uj += 1
-          end
+  def authors_count(type)
+    self.author_division[type]
+  end
+
+  def total_authors_count
+    authors_count(:polish) + authors_count(:foreign)
+  end
+
+  def authors_percentage(type)
+    percentage(self.author_division[type],self.total_authors_count)
+  end
+
+  def submissions_count(type)
+    case type
+    when :english
+      self.submissions.english.count
+    when :polish
+      self.submissions.polish.count
+    else
+      raise "Invalid submission type '#{type}'"
+    end
+  end
+
+  def total_submissions_count
+    submissions_count(:polish) + submissions_count(:english)
+  end
+
+  def submissions_percentage(type)
+    percentage(submissions_count(type),total_submissions_count)
+  end
+
+  def reviewers_count(type)
+    case type
+    when :uj, :other
+      institution_division[type]
+    when :polish, :foreign
+      reviewers_division[type]
+    else
+      raise "Invalid reviewer type '#{type}'"
+    end
+  end
+
+  def reviewers_count_by_country
+    reviewers_count(:polish) + reviewers_count(:foreign)
+  end
+
+  def reviewers_count_by_institution
+    reviewers_count(:polish) + reviewers_count(:foreign)
+  end
+
+  def reviewers_percentage(type)
+    case type
+    when :polish, :foreign
+      percentage(reviewers_count(type),reviewers_count_by_country)
+    when :uj, :other
+      percentage(reviewers_count(type),reviewers_count_by_institution)
+    else
+      raise "Invalid reviewer type '#{type}'"
+    end
+  end
+
+  protected
+  def percentage(count,total)
+    if total > 0
+      (count  * 100 / total).round
+    else
+      0
+    end
+  end
+
+  def unique_reviewers
+    self.articles.flat_map{|a| a.reviews.select(&:done?).flat_map{|r| r.person } }.uniq
+  end
+
+  def institution_division
+    return @institution_division if @institution_division
+    @institution_division = Hash.new(0)
+    self.unique_reviewers.each do |reviewer|
+      reviewer.affiliations.each do |affiliation|
+        if affiliation.institution == "Uniwersytet Jagielloński"
+          @institution_division[:uj] += 1
+        else
+          @institution_division[:other] += 1
         end
       end
     end
-    return count_uj
+    @institution_division
   end
 
-  def count_other_submissions
-    count_other = 0
-    self.submissions.each do |submission|
-      submission.reviews.each do |review|
-        review.person.affiliations.each do |affiliation|
-          if affiliation.institution != "Uniwersytet Jagielloński"
-            count_other += 1
-          end
-        end
-      end
-    end
-    return count_other
-  end
-
-  def count_uj_percentage
-    if count_uj_submissions > 0 or count_other_submissions > 0
-      count_uj_submissions*100/(count_uj_submissions + count_other_submissions)
-    else
-      "0"
-    end
-  end
-
-  def count_other_percentage
-    if count_uj_submissions > 0 or count_other_submissions > 0
-      count_other_submissions*100/(count_uj_submissions + count_other_submissions)
-    else
-      "0"
-    end
-  end
-
-  def count_foreign_authors
-    count = 0
-    self.submissions.each do |submission|
-      submission.authors.each do |author|
+  def author_division
+    return @author_division if @author_division
+    @author_division = Hash.new(0)
+    self.articles.each do |article|
+      article.authors.each do |author|
         author.affiliations.each do |affiliation|
-          if affiliation.department.country != "Polska"
-            count += 1
-          end
-        end
-      end
-    end
-    return count
-  end
-
-  def count_polish
-    count_pl = 0
-    self.submissions.each do |submission|
-      submission.reviews.each do |review|
-        review.person.affiliations.each do |affiliation|
           if affiliation.country_name == "Polska"
-            count_pl += 1
+            @author_division[:polish] += 1
+          else
+            @author_division[:foreign] += 1
           end
         end
       end
     end
-    return count_pl
+    @author_division
   end
 
-  def count_authors
-    total = 0
-    self.submissions.each do |submission|
-      submission.authors.each do |author|
-        author.affiliations.each do |affiliation|
-          total += 1
+  def reviewers_division
+    return @reviewers_division if @reviewers_division
+    @reviewers_division = Hash.new(0)
+    self.unique_reviewers.each do |reviewer|
+      reviewer.affiliations.each do |affiliation|
+        if affiliation.country_name == "Polska"
+          @reviewers_division[:polish] += 1
+        else
+          @reviewers_division[:foreign] += 1
         end
       end
     end
-    return total
-  end
-
-  def count_percentage
-    if count_authors > 0
-      "%.1f" % ( count_foreign_authors / count_authors .to_f * 100 )
-    else
-      "0"
-    end
-  end
-
-  def count_foreign
-    count_other = 0
-    self.submissions.each do |submission|
-      submission.reviews.each do |review|
-        review.person.affiliations.each do |affiliation|
-          if affiliation.country_name != "Polska"
-            count_other += 1
-          end
-        end
-      end
-    end
-    return count_other
-  end
-
-  def count_pl_percentage
-    if count_polish > 0 or count_foreign > 0
-      count_polish*100/(count_polish + count_foreign)
-    else
-      "0"
-    end
-  end
-
-  def count_foreign_percentage
-    if count_polish > 0 or count_foreign > 0
-      count_foreign*100/(count_polish + count_foreign)
-    else
-      "0"
-    end
+    @reviewers_division
   end
 end
