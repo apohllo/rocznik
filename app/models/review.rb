@@ -6,6 +6,7 @@ class Review < ActiveRecord::Base
     "przedłużony termin" => :extension, "blacklista" => :blacklist, "proponowany recenzent" => :reviewer_proposal,
     "niechciany recenzent" => :reviewer_rejected
   }
+  FINAL_STATUS_LIST = ['recenzja pozytywna', 'recenzja negatywna', 'niewielkie poprawki', 'istotne poprawki']
   belongs_to :person
   belongs_to :article_revision
 
@@ -15,8 +16,11 @@ class Review < ActiveRecord::Base
   validates :remarks, presence: true, if: -> (r) { r.status == 'niechciany recenzent' }
   validate :authors_reviewer_shared_institutions
 
-  scope :in_progress, -> { where("status = 'wysłane zapytanie' or status = 'pozytywny' " +
-    "or status = 'negatywny' or status = 'do poprawy' or status = 'przedłużony termin'") }
+  scope :in_progress, -> { where("status = 'wysłane zapytanie' or status = 'recenzja pozytywna' " +
+    "or status = 'recenzja negatywna' or status = 'niewielkie poprawki' or status = 'istotne poprawki' " +
+    "or status = 'przedłużony termin'") }
+
+  scope :done, -> { where("status = ") }
 
   accepts_nested_attributes_for :person
 
@@ -30,6 +34,10 @@ class Review < ActiveRecord::Base
     else
       "[BRAK ADRESU RECENZENTA]"
     end
+  end
+
+  def done?
+    FINAL_STATUS_LIST.include?(self.status)
   end
 
   def abstract

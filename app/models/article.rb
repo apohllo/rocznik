@@ -19,6 +19,10 @@ class Article < ActiveRecord::Base
     self.submission.authorships.map(&:person).compact
   end
 
+  def reviews
+    self.submission.reviews
+  end
+
   def corresponding_author
     authorship = self.submission.authorships.find{|a| a.corresponding }
     if authorship.nil?

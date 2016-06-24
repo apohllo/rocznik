@@ -44,79 +44,72 @@ feature "Zarządzanie numerami" do
     end
 
     context "-> Liczba i udział procentowy recenzentów z uczelni" do
+      let(:author)                  { create(:author) }
+      let(:uj_reviewer_1)           { create(:reviewer)  }
+      let(:uj_reviewer_2)           { create(:reviewer)  }
+      let(:uj_reviewer_3)           { create(:reviewer)  }
+      let(:mit_reviewer_1)          { create(:reviewer)  }
+      let(:issue)                   { create(:issue, volume: 1, year: 2008) }
+      let(:empty_issue)             { create(:issue, volume: 2, year: 2009) }
+      let(:psychology_at_uj)        { create(:psychology_at_uj) }
+      let(:psychology_at_mit)       { create(:psychology_at_mit) }
+      let(:accepted_submission)     { create(:submission, status: "przyjęty", issue: issue) }
+      let(:article_revision)        { create(:article_revision, submission: accepted_submission) }
+      let(:uj_review_positive)      { create(:review, status: 'recenzja pozytywna', person: uj_reviewer_1,
+                                             article_revision: article_revision) }
+      let(:uj_review_negative)      { create(:review, status: 'recenzja negatywna', person: uj_reviewer_2,
+                                             article_revision: article_revision) }
+      let(:uj_review_rejected)      { create(:review, status: 'recenzja odrzucona', person: uj_reviewer_3,
+                                             article_revision: article_revision) }
+      let(:mit_review_positive)     { create(:review, status: 'recenzja pozytywna', person: mit_reviewer_1,
+                                             article_revision: article_revision) }
+
       before do
-        Country.create!(name: 'Polska')
-        Country.create!(name: 'USA')
-        Institution.create!(name: "Uniwersytet Jagielloński", country: Country.first)
-        Institution.create!(name: "MIT", country: Country.last)
-        Department.create!(name: "WZiKS", institution: Institution.first)
-        Department.create!(name: "Department of Psychology", institution: Institution.last)
-        Person.create!(name: 'Adam', surname: 'Kapusta', email: 'a@k.com',
-                       sex: 'mężczyzna', roles: ['autor'], discipline:['filozofia'])
-        person1 = Person.create!(name: 'Andrzej', surname: 'Nowak', email: 'as@n.com',
-                        sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
-        person2 = Person.create!(name: 'Adam', surname: 'Kowalski', email: 'a@nd.com',
-                        sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
-        person3 = Person.create!(name: 'Andrzej', surname: 'Wójcik', email: 'adf@n.com',
-                        sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
-        person4 = Person.create!(name: 'Andrzej', surname: 'Kiepski', email: 'aasd@n.com',
-                        sex: 'mężczyzna', roles: ['recenzent'], discipline:['filozofia'])
-        Affiliation.create!(person: person1, department: Department.first, year_from: '2000', year_to: '2015')
-        Affiliation.create!(person: person2, department: Department.first, year_from: '2000', year_to: '2015')
-        Affiliation.create!(person: person3, department: Department.first, year_from: '2000', year_to: '2015')
-        Affiliation.create!(person: person4, department: Department.last, year_from: '2000', year_to: '2015')
-        Issue.create!(volume: 69, year: 2070)
-        Issue.create!(volume: 70, year: 2071)
-        Submission.create!(language: "polski", received: "03-03-2016", status: "przyjęty", person: Person.first,
-                               polish_title: "Arystoteles.", english_title: "title2", english_abstract: "abstract2",
-                               english_keywords: "tag1, tag2", issue: Issue.first)
-        article_file = Rails.root.join("spec/features/files/plik.pdf").open
-        ArticleRevision.create!(version:"1.0", received:"03-03-2016", pages:"5", code: "tekst_",
-                                article: article_file, submission: Submission.first)
-        Review.create!(article_revision: ArticleRevision.last, deadline: '29/03/2016', person: person1,
-                        status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
-        Review.create!(article_revision: ArticleRevision.last, deadline: '30/03/2016', person: person2,
-                        status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
-        Review.create!(article_revision: ArticleRevision.last, deadline: '31/03/2016', person: person3,
-                        status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
-        Review.create!(article_revision: ArticleRevision.last, deadline: '01/04/2016', person: person4,
-                        status: "recenzja pozytywna", asked: '03/03/2016', content: "treść rezenzji")
+        create(:affiliation, person: uj_reviewer_1, department: psychology_at_uj)
+        create(:affiliation, person: uj_reviewer_2, department: psychology_at_uj)
+        create(:affiliation, person: uj_reviewer_3, department: psychology_at_uj)
+        create(:affiliation, person: mit_reviewer_1, department: psychology_at_mit)
+        [issue, empty_issue, uj_review_positive, uj_review_negative, uj_review_rejected, mit_review_positive]
+        issue.prepare_to_publish(issue.submissions.map(&:id))
+        issue.publish
+        empty_issue.prepare_to_publish(empty_issue.submissions.map(&:id))
+        empty_issue.publish
       end
 
-      scenario "-> 75% UJotu" do
+      scenario "-> 66% UJotu" do
         visit '/issues'
-        click_on('69')
-        click_on('Statystyki uczelni')
+        click_on(issue.volume.to_s)
+        click_on('Statystyki')
 
-        expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 3 (75%)")
-        expect(page).to have_content("Recenzenci z innych uczelni: 1 (25%)")
+        expect(page).to have_content("Liczba recenzentów z Uniwersytetu Jagiellońskiego 2 3 66")
+        expect(page).to have_content("Liczba recenzentów z innych uczelni 1 3 33")
       end
 
       scenario "-> Brak recenzentów" do
         visit '/issues'
-        click_on('70')
-        click_on('Statystyki uczelni')
+        click_on(empty_issue.volume.to_s)
+        click_on('Statystyki')
 
-        expect(page).to have_content("Recenzenci z Uniwersytetu Jagiellońskiego: 0 (0%)")
-        expect(page).to have_content("Recenzenci z innych uczelni: 0 (0%)")
+        expect(page).to have_content("Liczba recenzentów z Uniwersytetu Jagiellońskiego 0 0 0")
+        expect(page).to have_content("Liczba recenzentów z innych uczelni 0 0 0")
       end
 
       scenario "-> 75% Polaków" do
         visit '/issues'
-        click_on('69')
-        click_on('Statystyki państw')
+        click_on(issue.volume.to_s)
+        click_on('Statystyki')
 
-        expect(page).to have_content("Recenzenci z Polski: 3 (75%)")
-        expect(page).to have_content("Recenzenci z innych państw: 1 (25%)")
+        expect(page).to have_content("Liczba recenzentów z Polski 2 3 66")
+        expect(page).to have_content("Liczba recenzentów spoza Polski 1 3 33")
       end
 
       scenario "-> Brak afiliacji" do
         visit '/issues'
-        click_on('70')
-        click_on('Statystyki państw')
+        click_on(empty_issue.volume.to_s)
+        click_on('Statystyki')
 
-        expect(page).to have_content("Recenzenci z Polski: 0 (0%)")
-        expect(page).to have_content("Recenzenci z innych państw: 0 (0%)")
+        expect(page).to have_content("Liczba recenzentów z Polski 0 0 0")
+        expect(page).to have_content("Liczba recenzentów spoza Polski 0 0 0")
       end
     end
 
@@ -304,8 +297,8 @@ feature "Zarządzanie numerami" do
             click_link "Przygotuj do wydania"
             click_button "Przygotuj numer do wydania"
             click_link "Statystyki"
-            expect(page).to have_content("Liczba artykułów w j.ang.")
-            expect(page).to have_content("Liczba artykułów")
+            expect(page).to have_content("Liczba artykułów w j. angielskim")
+            expect(page).to have_content("Liczba artykułów w j. polskim")
             expect(page).to have_content("Udział procentowy %")
           end
 
@@ -315,7 +308,7 @@ feature "Zarządzanie numerami" do
             click_link "Przygotuj do wydania"
             click_button "Przygotuj numer do wydania"
             click_link "Statystyki"
-            expect(page).to have_content("50.0")
+            expect(page).to have_content("50")
           end
         end
 
@@ -372,7 +365,7 @@ feature "Zarządzanie numerami" do
 
             expect(page).to have_content("1")
             expect(page).to have_content("4")
-            expect(page).to have_content("25.0")
+            expect(page).to have_content("25")
           end
 
           scenario "Brak autorów" do

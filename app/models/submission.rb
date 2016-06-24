@@ -26,15 +26,14 @@ class Submission < ActiveRecord::Base
   accepts_nested_attributes_for :article_revisions
 
   scope :accepted, -> { where(status: "przyjęty") }
+  scope :english, -> { where(language: ENGLISH) }
+  scope :polish, -> { where(language: POLISH) }
 
   has_one :article
   belongs_to :follow_up, inverse_of: :follow_ups, class_name: "Article"
   belongs_to :person
   belongs_to :issue
 
-  scope :accepted, -> { where(status: "przyjęty") }
-
-  scope :english, -> { where(language: ENGLISH) }
 
   MAX_LENGTH = 80
 
