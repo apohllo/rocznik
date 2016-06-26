@@ -50,35 +50,49 @@ class Issue < ActiveRecord::Base
     [volume, year].join("-")
   end
 
-  def authors_count(type)
-    self.author_division[type]
+  def authors_count(type,scope)
+    self.author_division(scope)[type]
   end
 
-  def total_authors_count
-    authors_count(:polish) + authors_count(:foreign)
+  def total_authors_count(scope)
+    authors_count(:polish, scope) + authors_count(:foreign, scope)
   end
 
-  def authors_percentage(type)
-    percentage(self.author_division[type],self.total_authors_count)
+  def authors_percentage(type, scope)
+    percentage(self.author_division(scope)[type], self.total_authors_count(scope))
   end
 
-  def submissions_count(type)
-    case type
-    when :english
-      self.submissions.english.count
-    when :polish
-      self.submissions.polish.count
+  def submissions_count(type,scope)
+    case scope
+    when :all
+      case type
+      when :english
+        self.submissions.english.count
+      when :polish
+        self.submissions.polish.count
+      else
+        raise "Invalid submission type '#{type}'"
+      end
+    when :accepted
+      case type
+      when :english
+        self.articles.english.count
+      when :polish
+        self.articles.polish.count
+      else
+        raise "Invalid submission type '#{type}'"
+      end
     else
-      raise "Invalid submission type '#{type}'"
+      raise "Invalid submission scope '#{scope}'"
     end
   end
 
-  def total_submissions_count
-    submissions_count(:polish) + submissions_count(:english)
+  def total_submissions_count(scope)
+    submissions_count(:polish,scope) + submissions_count(:english,scope)
   end
 
-  def submissions_percentage(type)
-    percentage(submissions_count(type),total_submissions_count)
+  def submissions_percentage(type,scope)
+    percentage(submissions_count(type,scope),total_submissions_count(scope))
   end
 
   def reviewers_count(type)
@@ -139,21 +153,27 @@ class Issue < ActiveRecord::Base
     @institution_division
   end
 
-  def author_division
-    return @author_division if @author_division
-    @author_division = Hash.new(0)
-    self.articles.each do |article|
-      article.authors.each do |author|
+  def author_division(scope)
+    return @author_division[scope] if @author_division && @author_division[scope]
+    @author_division ||= {}
+    @author_division[scope] = Hash.new(0)
+    if scope == :all
+      collection = self.articles
+    else
+      collection = self.submissions
+    end
+    collection.each do |item|
+      item.authors.each do |author|
         author.affiliations.each do |affiliation|
           if affiliation.country_name == "Polska"
-            @author_division[:polish] += 1
+            @author_division[scope][:polish] += 1
           else
-            @author_division[:foreign] += 1
+            @author_division[scope][:foreign] += 1
           end
         end
       end
     end
-    @author_division
+    @author_division[scope]
   end
 
   def reviewers_division

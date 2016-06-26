@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Article < ActiveRecord::Base
   STATUS_MAPPING = {
     "po recenzji" => :after_review,
@@ -13,6 +14,9 @@ class Article < ActiveRecord::Base
   belongs_to :submission
   has_many :follow_ups, class_name: "Submission"
   is_impressionable
+
+  scope :english, -> { joins(:submission).includes(:submission).where("submissions.language = 'angielski'") }
+  scope :polish, -> { joins(:submission).includes(:submission).where("submissions.language = 'polski'") }
 
 
   def authors

@@ -1,10 +1,40 @@
 .scroll-panel-header
   = link_to "Wróć do numeru", issue_path, class: %w{btn btn-default btn-sm pull-right}
-  %h3.scroll-panel-title
+  %h2.scroll-panel-title
     Statystyki do numeru
     = @issue.title
 .scroll-panel-body
+  %h3 Statystki artykułów zgłoszonych
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Parametr
+        %th Liczba
+        %th W sumie
+        %th Udział procentowy %
+    %tbody
+      %tr
+        %td Liczba artykułów w j. polskim
+        %td= @issue.submissions_count(:polish,:all)
+        %td= @issue.total_submissions_count(:all)
+        %td= @issue.submissions_percentage(:polish,:all)
+      %tr
+        %td Liczba artykułów w j. angielskim
+        %td= @issue.submissions_count(:english,:all)
+        %td= @issue.total_submissions_count(:all)
+        %td= @issue.submissions_percentage(:english,:all)
+      %tr
+        %td Liczba autorów z afiliacją polską
+        %td= @issue.authors_count(:polish,:all)
+        %td= @issue.total_authors_count(:all)
+        %td= @issue.authors_percentage(:polish,:all)
+      %tr
+        %td Liczba autorów z afiliacją zagraniczną
+        %td= @issue.authors_count(:foreign,:all)
+        %td= @issue.total_authors_count(:all)
+        %td= @issue.authors_percentage(:foreign,:all)
   -if @issue.prepared?
+    %h3 Statystki artykułów przyjętych do druku
     %table.table.table-hover.table-admin
       %thead
         %tr
@@ -15,24 +45,24 @@
       %tbody
         %tr
           %td Liczba artykułów w j. polskim
-          %td= @issue.submissions_count(:polish)
-          %td= @issue.total_submissions_count
-          %td= @issue.submissions_percentage(:polish)
+          %td= @issue.submissions_count(:polish,:accepted)
+          %td= @issue.total_submissions_count(:accepted)
+          %td= @issue.submissions_percentage(:polish,:accepted)
         %tr
           %td Liczba artykułów w j. angielskim
-          %td= @issue.submissions_count(:english)
-          %td= @issue.total_submissions_count
-          %td= @issue.submissions_percentage(:english)
+          %td= @issue.submissions_count(:english,:accepted)
+          %td= @issue.total_submissions_count(:accepted)
+          %td= @issue.submissions_percentage(:english,:accepted)
         %tr
           %td Liczba autorów z afiliacją polską
-          %td= @issue.authors_count(:polish)
-          %td= @issue.total_authors_count
-          %td= @issue.authors_percentage(:polish)
+          %td= @issue.authors_count(:polish,:accepted)
+          %td= @issue.total_authors_count(:accepted)
+          %td= @issue.authors_percentage(:polish,:accepted)
         %tr
           %td Liczba autorów z afiliacją zagraniczną
-          %td= @issue.authors_count(:foreign)
-          %td= @issue.total_authors_count
-          %td= @issue.authors_percentage(:foreign)
+          %td= @issue.authors_count(:foreign,:accepted)
+          %td= @issue.total_authors_count(:accepted)
+          %td= @issue.authors_percentage(:foreign,:accepted)
         %tr
           %td Liczba recenzentów z Uniwersytetu Jagiellońskiego
           %td= @issue.reviewers_count(:uj)
