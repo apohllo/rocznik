@@ -209,7 +209,7 @@ feature "Publiczne dodawanie zgłoszenia" do
           click_on("Dalej")
           open_email(author.email)
           expect(current_email).to have_content(submission.title)
-          expect(current_email).to have_content 'zostało przyjęte do systemu'
+          expect(current_email).to have_content 'został przyjęty do systemu'
         end
       end
     end
