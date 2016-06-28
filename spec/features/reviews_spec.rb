@@ -218,7 +218,7 @@ feature "recenzowanie" do
         end
       end
 
-      xscenario "-> Na stronie wyświetlanych jest tylko 20 recenzji" do
+      scenario "-> Na stronie wyświetlanych jest tylko 20 recenzji" do
         visit "/reviews"
         expect(page).to have_content("1-02-2016")
         expect(page).not_to have_content("21-02-2016")
