@@ -10,6 +10,25 @@ feature 'Zarządzanie osobami' do
   context '-> Po zalogowaniu' do
     include_context 'admin login'
 
+    context "22 osoby" do
+      before do
+        22.times do |index|
+          create(:author, email: "person#{index+1}@localhost.com")
+        end
+      end
+
+      scenario "paginacja osob" do
+        visit "/people"
+        expect(page).to have_content("person1@localhost.com")
+        expect(page).not_to have_content("person22@localhost.com")
+
+        expect(page).to have_link('2')
+
+        click_on "2"
+        expect(page).to have_content("person22@localhost.com")
+      end
+    end
+
     scenario '-> Link do nowej osoby' do
       visit '/people'
       click_link 'Nowa osoba'

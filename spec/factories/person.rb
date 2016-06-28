@@ -3,7 +3,7 @@ FactoryGirl.define do
     name 'Joanna'
     surname 'Kognitywistka'
     # connection with :user factory
-    email 'user@localhost.com'
+    sequence(:email) {|n| "user_#{n}@localhost.com" }
     roles ['autor']
     sex 'kobieta'
     discipline ['kognitywistyka']
@@ -24,8 +24,14 @@ FactoryGirl.define do
   factory :editor, class: Person do
     name 'Andrzej'
     surname 'Zapracowany'
-    # connection with :user factory
-    email 'admin@localhost.com'
+    sequence(:email) do |index|
+      if index == 1
+        # connection with :user factory
+        'admin@localhost.com'
+      else
+        "editor_#{index}@localhost.com"
+      end
+    end
     roles ['redaktor']
     sex 'mężczyzna'
     discipline ['informatyka']
