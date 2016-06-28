@@ -85,7 +85,7 @@ class Person < ActiveRecord::Base
   end
 
   def current_institutions
-    self.affiliations.current.map{|e| e.institution}
+    self.affiliations.current.map{|e| e.institution_name }
   end
 
 
@@ -103,7 +103,7 @@ class Person < ActiveRecord::Base
 
   def from_uj?
     self.affiliations.any? do |affiliation|
-      affiliation.institution == UJ
+      affiliation.institution_name == UJ
     end
   end
 

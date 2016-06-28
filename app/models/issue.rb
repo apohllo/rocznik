@@ -150,12 +150,12 @@ class Issue < ActiveRecord::Base
     @institution_division[scope] = Hash.new(0)
     self.unique_reviewers(scope).each do |reviewer|
       if reviewer.from_uj?
-        @institution_division[:uj] += 1
+        @institution_division[scope][:uj] += 1
       else
-        @institution_division[:other] += 1
+        @institution_division[scope][:other] += 1
       end
     end
-    @institution_division
+    @institution_division[scope]
   end
 
   def author_division(scope)
@@ -184,9 +184,9 @@ class Issue < ActiveRecord::Base
     @reviewer_division[scope] = Hash.new(0)
     self.unique_reviewers(scope).each do |reviewer|
       if reviewer.polish?
-        @reviewer_division[:polish] += 1
+        @reviewer_division[scope][:polish] += 1
       else
-        @reviewer_division[:foreign] += 1
+        @reviewer_division[scope][:foreign] += 1
       end
     end
     @reviewer_division[scope]

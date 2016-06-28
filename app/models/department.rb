@@ -5,15 +5,19 @@ class Department < ActiveRecord::Base
   belongs_to :institution
   has_many :affiliations, dependent: :restrict_with_error
 
-  def institution_name
+  def institution_short_name
     self.institution.acronym || self.institution.name
+  end
+
+  def institution_name
+    self.institution.name
   end
 
   def full_name
     "#{self.name}, #{self.institution_name}"
   end
 
-  def country
+  def country_name
     self.institution.country_name
   end
 
