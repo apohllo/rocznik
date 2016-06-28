@@ -76,7 +76,7 @@ class ReviewsController < ApplicationController
     ReviewerMailer.reminder(review).deliver_now
     redirect_to review.submission, flash: {notice: "Przypomnienie zostało wysłane"}
   end
- 
+
   def ask
     review = Review.find(params[:id])
     ReviewMailer.ask(review).deliver_now
@@ -89,7 +89,7 @@ class ReviewsController < ApplicationController
     review.save
     ReviewMailer.send_status(review).deliver_now
     redirect_to review.submission, flash: {notice: "Dziękujemy"}
-   
+
   end
 
   def rejected
@@ -97,7 +97,7 @@ class ReviewsController < ApplicationController
     review.status = 'recenzja odrzucona'
     review.save
     ReviewMailer.send_status(review).deliver_now
-    redirect_to review.submission, flash: {notice: "Recenzja została odrzucona"} 
+    redirect_to review.submission, flash: {notice: "Recenzja została odrzucona"}
   end
 
   def ask_for_review

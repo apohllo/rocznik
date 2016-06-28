@@ -8,7 +8,7 @@ class PeopleController < ApplicationController
     @query_params = params[:q] || {}
     @query = Person.ransack(@query_params)
     @query.sorts = ['surname asc','name asc'] if @query.sorts.empty?
-    @people = @query.result(distinct: true)
+    @people = @query.result(distinct: true).page(params[:page]).per(20)
   end
 
   def new
