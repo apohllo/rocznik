@@ -268,6 +268,7 @@ feature "zgloszenia" do
           Submission.create!(status: "nadesłany", language: "polski", person: person, received: "20-01-2016",
                              polish_title: "Bukiet kotów", english_title: "cats", english_abstract: "Sth about cats",
                              english_keywords: "cats cat")
+          Authorship.create(submission: Submission.first, person: person)
         end
 
         scenario "dodanie autora do zgłoszenia bez autorów w bazie danych" do
@@ -288,7 +289,7 @@ feature "zgloszenia" do
           select('przyjęty', from: 'submission_status')
           click_on("Zapisz")
           open_email('a.ogorek@gmail.com')
-          expect(current_email).to have_content 'Z poważaniem,'
+          expect(current_email).to have_content 'Z poważaniem'
           expect(current_email).to have_content 'Ogórek'
           expect(current_email.attachments.first.filename).to eq 'Umowa-wydawnicza.pdf'
         end

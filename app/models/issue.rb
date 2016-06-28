@@ -50,62 +50,76 @@ class Issue < ActiveRecord::Base
     [volume, year].join("-")
   end
 
-  def authors_count(type)
-    self.author_division[type]
+  def authors_count(type,scope)
+    self.author_division(scope)[type]
   end
 
-  def total_authors_count
-    authors_count(:polish) + authors_count(:foreign)
+  def total_authors_count(scope)
+    authors_count(:polish, scope) + authors_count(:foreign, scope)
   end
 
-  def authors_percentage(type)
-    percentage(self.author_division[type],self.total_authors_count)
+  def authors_percentage(type, scope)
+    percentage(self.author_division(scope)[type], self.total_authors_count(scope))
   end
 
-  def submissions_count(type)
-    case type
-    when :english
-      self.submissions.english.count
-    when :polish
-      self.submissions.polish.count
+  def submissions_count(type,scope)
+    case scope
+    when :all
+      case type
+      when :english
+        self.submissions.english.count
+      when :polish
+        self.submissions.polish.count
+      else
+        raise "Invalid submission type '#{type}'"
+      end
+    when :accepted
+      case type
+      when :english
+        self.articles.english.count
+      when :polish
+        self.articles.polish.count
+      else
+        raise "Invalid submission type '#{type}'"
+      end
     else
-      raise "Invalid submission type '#{type}'"
+      raise "Invalid submission scope '#{scope}'"
     end
   end
 
-  def total_submissions_count
-    submissions_count(:polish) + submissions_count(:english)
+  def total_submissions_count(scope)
+    submissions_count(:polish,scope) + submissions_count(:english,scope)
   end
 
-  def submissions_percentage(type)
-    percentage(submissions_count(type),total_submissions_count)
+  def submissions_percentage(type,scope)
+    percentage(submissions_count(type,scope),total_submissions_count(scope))
   end
 
-  def reviewers_count(type)
+  def reviewers_count(type,scope)
     case type
     when :uj, :other
-      institution_division[type]
+      institution_division(scope)[type]
     when :polish, :foreign
-      reviewers_division[type]
+      reviewers_division(scope)[type]
     else
       raise "Invalid reviewer type '#{type}'"
     end
   end
 
-  def reviewers_count_by_country
-    reviewers_count(:polish) + reviewers_count(:foreign)
+  def reviewers_count_by_country(scope)
+    reviewers_count(:polish,scope) + reviewers_count(:foreign,scope)
   end
 
-  def reviewers_count_by_institution
-    reviewers_count(:polish) + reviewers_count(:foreign)
+  def reviewers_count_by_institution(scope)
+    reviewers_count(:polish,scope) + reviewers_count(:foreign,scope)
   end
 
-  def reviewers_percentage(type)
+  def reviewers_percentage(type,scope)
     case type
     when :polish, :foreign
-      percentage(reviewers_count(type),reviewers_count_by_country)
+      percentage(reviewers_count(type,scope),reviewers_count_by_country(scope))
     when :uj, :other
-      percentage(reviewers_count(type),reviewers_count_by_institution)
+      percentage(reviewers_count(type,scope),reviewers_count_by_institution(scope))
     else
       raise "Invalid reviewer type '#{type}'"
     end
@@ -120,54 +134,61 @@ class Issue < ActiveRecord::Base
     end
   end
 
-  def unique_reviewers
-    self.articles.flat_map{|a| a.reviews.select(&:done?).flat_map{|r| r.person } }.uniq
+  def unique_reviewers(scope)
+    collection =
+      if scope == :all
+        self.submissions
+      else
+        self.articles
+      end
+    collection.flat_map{|a| a.reviews.select(&:done?).flat_map{|r| r.person } }.uniq
   end
 
-  def institution_division
-    return @institution_division if @institution_division
-    @institution_division = Hash.new(0)
-    self.unique_reviewers.each do |reviewer|
-      reviewer.affiliations.each do |affiliation|
-        if affiliation.institution == "Uniwersytet Jagielloński"
-          @institution_division[:uj] += 1
-        else
-          @institution_division[:other] += 1
-        end
+  def institution_division(scope)
+    return @institution_division[scope] if @institution_division && @institution_division[scope]
+    @institution_division ||= {}
+    @institution_division[scope] = Hash.new(0)
+    self.unique_reviewers(scope).each do |reviewer|
+      if reviewer.from_uj?
+        @institution_division[scope][:uj] += 1
+      else
+        @institution_division[scope][:other] += 1
       end
     end
-    @institution_division
+    @institution_division[scope]
   end
 
-  def author_division
-    return @author_division if @author_division
-    @author_division = Hash.new(0)
-    self.articles.each do |article|
-      article.authors.each do |author|
-        author.affiliations.each do |affiliation|
-          if affiliation.country_name == "Polska"
-            @author_division[:polish] += 1
-          else
-            @author_division[:foreign] += 1
-          end
-        end
+  def author_division(scope)
+    return @author_division[scope] if @author_division && @author_division[scope]
+    @author_division ||= {}
+    @author_division[scope] = Hash.new(0)
+    if scope == :all
+      collection = self.submissions
+    else
+      collection = self.articles
+    end
+    authors = collection.flat_map{|i| i.authors }.uniq
+    authors.each do |author|
+      if author.polish?
+        @author_division[scope][:polish] += 1
+      else
+        @author_division[scope][:foreign] += 1
       end
     end
-    @author_division
+    @author_division[scope]
   end
 
-  def reviewers_division
-    return @reviewers_division if @reviewers_division
-    @reviewers_division = Hash.new(0)
-    self.unique_reviewers.each do |reviewer|
-      reviewer.affiliations.each do |affiliation|
-        if affiliation.country_name == "Polska"
-          @reviewers_division[:polish] += 1
-        else
-          @reviewers_division[:foreign] += 1
-        end
+  def reviewers_division(scope)
+    return @reviewer_division[scope] if @reviewer_division && @reviewer_division[scope]
+    @reviewer_division ||= {}
+    @reviewer_division[scope] = Hash.new(0)
+    self.unique_reviewers(scope).each do |reviewer|
+      if reviewer.polish?
+        @reviewer_division[scope][:polish] += 1
+      else
+        @reviewer_division[scope][:foreign] += 1
       end
     end
-    @reviewers_division
+    @reviewer_division[scope]
   end
 end

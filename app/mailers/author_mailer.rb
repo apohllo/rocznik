@@ -4,9 +4,9 @@ class AuthorMailer < ApplicationMailer
     mail(to: @submission.corresponding_author_email, subject: 'Przyjęcie zgłoszenia')
   end
 
-  def send_contract(submission)
+  def send_contract(submission,person)
     @submission = submission
-    @person = @submission.person
+    @person = person
     @params = {addresse: @person.email,
     		  subject: 'Umowa wydawnicza',
     		  submission: @submission}
