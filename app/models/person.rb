@@ -33,6 +33,8 @@ class Person < ActiveRecord::Base
     "psychiatria" => "Y"
    }
 
+  UJ = "Uniwersytet Jagielloński"
+
   mount_uploader :photo, PhotoUploader
 
   validates :name, presence: true
@@ -96,5 +98,14 @@ class Person < ActiveRecord::Base
 
   def reviewer?
     self.roles.include?("recenzent")
+  end
+
+  def from_uj?
+    self.affiliations.any? do |affiliation|
+      affiliation.institution == UJ
+    end
+  end
+
+  def polish?
   end
 end

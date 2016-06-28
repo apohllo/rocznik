@@ -142,12 +142,10 @@ class Issue < ActiveRecord::Base
     return @institution_division if @institution_division
     @institution_division = Hash.new(0)
     self.unique_reviewers.each do |reviewer|
-      reviewer.affiliations.each do |affiliation|
-        if affiliation.institution == "Uniwersytet Jagielloński"
-          @institution_division[:uj] += 1
-        else
-          @institution_division[:other] += 1
-        end
+      if reviewer.from_uj?
+        @institution_division[:uj] += 1
+      else
+        @institution_division[:uj] += 1
       end
     end
     @institution_division
