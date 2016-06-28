@@ -225,7 +225,7 @@ feature "recenzowanie" do
         expect(page).to have_link('2',:first)
 
         click_on "2"
-        expect(page).to have_link("21-02-2016")
+        expect(page).to have_content("21-02-2016")
       end
     end
   end

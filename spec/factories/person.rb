@@ -22,6 +22,7 @@ FactoryGirl.define do
   end
 
   factory :editor, class: Person do
+    id 3
     name 'Andrzej'
     surname 'Zapracowany'
     email 'admin@localhost.com'
@@ -29,5 +30,8 @@ FactoryGirl.define do
     sex 'mężczyzna'
     discipline ['informatyka']
     competence 'sztuczna inteligencja'
+    initialize_with do
+      Person.find_by_email(email) || new(attributes)
+    end
   end
 end
