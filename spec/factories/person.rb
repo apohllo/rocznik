@@ -24,14 +24,7 @@ FactoryGirl.define do
   factory :editor, class: Person do
     name 'Andrzej'
     surname 'Zapracowany'
-    sequence(:email) do |index|
-      if index == 1
-        # connection with :user factory
-        'admin@localhost.com'
-      else
-        "editor_#{index}@localhost.com"
-      end
-    end
+    email 'admin@localhost.com'
     roles ['redaktor']
     sex 'mężczyzna'
     discipline ['informatyka']
