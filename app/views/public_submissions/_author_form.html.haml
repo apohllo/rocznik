@@ -13,5 +13,7 @@
   - if @submission.authorships.count > 0
     = link_to "Dalej", add_reviewer_public_submission_path(@submission), class: %w{btn btn-outline btn-default},
       method: :post, data: {confirm: "Czy wszyscy autorzy zostali dodani?"}, title: "Przejdź do przedstawienia propozycji recenzentów"
+  - else
+    = link_to "Dalej", "#", class: %{btn disabled btn-default}, title: "Musisz dodać co najmniej jednego autora"
   = link_to "Rezygnuj", cancel_public_submission_path(@submission),  data: { confirm: "Czy chcesz wycofać zgłoszony artykuł?" },
     class: %w{btn btn-danger pull-right}, method: :post
