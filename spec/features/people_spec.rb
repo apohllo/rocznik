@@ -17,7 +17,7 @@ feature 'Zarządzanie osobami' do
         end
       end
 
-      scenario "paginacja osob" do
+      scenario "-> Na stronie wyświetlanych jest tylko 20 osób" do
         visit "/people"
         expect(page).to have_content("person1@localhost.com")
         expect(page).not_to have_content("person22@localhost.com")
