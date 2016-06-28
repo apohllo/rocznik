@@ -34,6 +34,7 @@ class Person < ActiveRecord::Base
    }
 
   UJ = "Uniwersytet Jagielloński"
+  POLAND = "Polska"
 
   mount_uploader :photo, PhotoUploader
 
@@ -107,5 +108,8 @@ class Person < ActiveRecord::Base
   end
 
   def polish?
+    self.affiliations.any? do |affiliation|
+      affiliation.country_name == POLAND
+    end
   end
 end

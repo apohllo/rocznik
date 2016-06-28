@@ -33,6 +33,26 @@
         %td= @issue.authors_count(:foreign,:all)
         %td= @issue.total_authors_count(:all)
         %td= @issue.authors_percentage(:foreign,:all)
+      %tr
+        %td Liczba recenzentów z Uniwersytetu Jagiellońskiego
+        %td= @issue.reviewers_count(:uj,:all)
+        %td= @issue.reviewers_count_by_institution(:all)
+        %td= @issue.reviewers_percentage(:uj,:all)
+      %tr
+        %td Liczba recenzentów z innych uczelni
+        %td= @issue.reviewers_count(:other,:all)
+        %td= @issue.reviewers_count_by_institution(:all)
+        %td= @issue.reviewers_percentage(:other,:all)
+      %tr
+        %td Liczba recenzentów z Polski
+        %td= @issue.reviewers_count(:polish,:all)
+        %td= @issue.reviewers_count_by_country(:all)
+        %td= @issue.reviewers_percentage(:polish,:all)
+      %tr
+        %td Liczba recenzentów spoza Polski
+        %td= @issue.reviewers_count(:foreign,:all)
+        %td= @issue.reviewers_count_by_country(:all)
+        %td= @issue.reviewers_percentage(:foreign,:all)
   -if @issue.prepared?
     %h3 Statystki artykułów przyjętych do druku
     %table.table.table-hover.table-admin
@@ -65,21 +85,21 @@
           %td= @issue.authors_percentage(:foreign,:accepted)
         %tr
           %td Liczba recenzentów z Uniwersytetu Jagiellońskiego
-          %td= @issue.reviewers_count(:uj)
-          %td= @issue.reviewers_count_by_institution
-          %td= @issue.reviewers_percentage(:uj)
+          %td= @issue.reviewers_count(:uj,:accepted)
+          %td= @issue.reviewers_count_by_institution(:accepted)
+          %td= @issue.reviewers_percentage(:uj,:accepted)
         %tr
           %td Liczba recenzentów z innych uczelni
-          %td= @issue.reviewers_count(:other)
-          %td= @issue.reviewers_count_by_institution
-          %td= @issue.reviewers_percentage(:other)
+          %td= @issue.reviewers_count(:other,:accepted)
+          %td= @issue.reviewers_count_by_institution(:accepted)
+          %td= @issue.reviewers_percentage(:other,:accepted)
         %tr
           %td Liczba recenzentów z Polski
-          %td= @issue.reviewers_count(:polish)
-          %td= @issue.reviewers_count_by_country
-          %td= @issue.reviewers_percentage(:polish)
+          %td= @issue.reviewers_count(:polish,:accepted)
+          %td= @issue.reviewers_count_by_country(:accepted)
+          %td= @issue.reviewers_percentage(:polish,:accepted)
         %tr
           %td Liczba recenzentów spoza Polski
-          %td= @issue.reviewers_count(:foreign)
-          %td= @issue.reviewers_count_by_country
-          %td= @issue.reviewers_percentage(:foreign)
+          %td= @issue.reviewers_count(:foreign,:accepted)
+          %td= @issue.reviewers_count_by_country(:accepted)
+          %td= @issue.reviewers_percentage(:foreign,:accepted)
