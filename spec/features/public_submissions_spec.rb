@@ -48,7 +48,7 @@ feature "Publiczne dodawanie zgłoszenia" do
     expect(find(:css,'.active-entry')).to have_content("Autorzy")
     expect(find(:css,'.active-entry')).not_to have_content("Recenzenci")
     expect(page).not_to have_css(".last-active-entry")
-    expect(page).not_to have_content("Dalej")
+    expect(find(:css,'.disabled')).to have_content("Dalej")
   end
 
   context "-> Po wypełnieniu podstawowych danych" do
