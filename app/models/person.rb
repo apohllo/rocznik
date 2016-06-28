@@ -33,6 +33,9 @@ class Person < ActiveRecord::Base
     "psychiatria" => "Y"
    }
 
+  UJ = "Uniwersytet Jagielloński"
+  POLAND = "Polska"
+
   mount_uploader :photo, PhotoUploader
 
   validates :name, presence: true
@@ -82,7 +85,7 @@ class Person < ActiveRecord::Base
   end
 
   def current_institutions
-    self.affiliations.current.map{|e| e.institution}
+    self.affiliations.current.map{|e| e.institution_name }
   end
 
 
@@ -96,5 +99,17 @@ class Person < ActiveRecord::Base
 
   def reviewer?
     self.roles.include?("recenzent")
+  end
+
+  def from_uj?
+    self.affiliations.any? do |affiliation|
+      affiliation.institution_name == UJ
+    end
+  end
+
+  def polish?
+    self.affiliations.any? do |affiliation|
+      affiliation.country_name == POLAND
+    end
   end
 end

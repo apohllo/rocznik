@@ -45,6 +45,7 @@ feature "Zarządzanie numerami" do
 
     context "-> Liczba i udział procentowy recenzentów z uczelni" do
       let(:author)                  { create(:author) }
+      let(:rejected_author)         { create(:author) }
       let(:uj_reviewer_1)           { create(:reviewer)  }
       let(:uj_reviewer_2)           { create(:reviewer)  }
       let(:uj_reviewer_3)           { create(:reviewer)  }
@@ -54,6 +55,7 @@ feature "Zarządzanie numerami" do
       let(:psychology_at_uj)        { create(:psychology_at_uj) }
       let(:psychology_at_mit)       { create(:psychology_at_mit) }
       let(:accepted_submission)     { create(:submission, status: "przyjęty", issue: issue) }
+      let(:rejected_submission)     { create(:submission, status: "odrzucny", issue: issue) }
       let(:article_revision)        { create(:article_revision, submission: accepted_submission) }
       let(:uj_review_positive)      { create(:review, status: 'recenzja pozytywna', person: uj_reviewer_1,
                                              article_revision: article_revision) }
@@ -70,9 +72,9 @@ feature "Zarządzanie numerami" do
         create(:affiliation, person: uj_reviewer_3, department: psychology_at_uj)
         create(:affiliation, person: mit_reviewer_1, department: psychology_at_mit)
         [issue, empty_issue, uj_review_positive, uj_review_negative, uj_review_rejected, mit_review_positive]
-        issue.prepare_to_publish(issue.submissions.map(&:id))
+        issue.prepare_to_publish(issue.submissions.accepted.map(&:id))
         issue.publish
-        empty_issue.prepare_to_publish(empty_issue.submissions.map(&:id))
+        empty_issue.prepare_to_publish(empty_issue.submissions.accepted.map(&:id))
         empty_issue.publish
       end
 

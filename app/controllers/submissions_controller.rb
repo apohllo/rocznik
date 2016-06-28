@@ -76,9 +76,8 @@ class SubmissionsController < ApplicationController
       if new_status == 'przyjęty'
         authors = Submission.find(params[:id]).authors
         authors.each do |author|
-          #AuthorMailer.send_contract(author).deliver_later
+          #AuthorMailer.send_contract(submission,author).deliver_later
         end
-        #AuthorMailer.send_contract(submission).deliver_later
       end
     end
   end

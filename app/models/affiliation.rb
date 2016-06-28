@@ -28,8 +28,11 @@ class Affiliation < ActiveRecord::Base
     self.department.institution.country_name
   end
 
-  def institution
+  def institution_name
     self.department.institution_name
   end
 
+  def institution_short_name
+    self.department.institution_short_name
+  end
 end

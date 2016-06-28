@@ -34,9 +34,9 @@
     - if @person.reviewer?  && !@person.reviewer_status.blank?
       %b Status recenzenta
       %p= @person.reviewer_status
-  
+
   = link_to "Edytuj", edit_person_path(@person), class: %w{btn btn-primary btn-sm}
-  = link_to "Napisz wiadomość", write_email_path(id: @person.id), class: %w{btn btn-primary btn-sm} 
+  = link_to "Napisz wiadomość", write_email_path(id: @person.id), class: %w{btn btn-primary btn-sm}
   %h3 Afiliacje
   %table.table.table-hover.table-admin
     %thead
@@ -50,8 +50,8 @@
     %tbody
       - @person.affiliations.each do |affiliation|
         %tr
-          %td= affiliation.country
-          %td= affiliation.institution
+          %td= affiliation.country_name
+          %td= affiliation.institution_name
           %td= affiliation.department_name
           %td= affiliation.year_from
           %td= affiliation.year_to
@@ -66,7 +66,7 @@
           %th Tytuł
           %th Data nadesłania
           %th Status
-          %th 
+          %th
       %tbody
         - @person.authorships.each do |authorship|
           %tr
@@ -76,11 +76,11 @@
             %td.text-right
               = destroy_button(authorship)
     = link_to "Dodaj zgłoszenie", new_submission_path(author_id: @person.id), class: %w{btn btn-default btn-sm}
-  - # wyswietlenie gratulacji w widoku  
+  - # wyswietlenie gratulacji w widoku
   - if (@person.congratulations==true) && (@person.roles.include?("recenzent"))
     <br> <br>
     %p.jumbotron <span class="glyphicon glyphicon-star"> </span> Gratulujemy i bardzo dziękujemy! <span class="glyphicon glyphicon-star"></span>
-  - if @person.roles.include?("recenzent") 
+  - if @person.roles.include?("recenzent")
     %h3 Przypisane recenzje
     %table.table.table-hover.table-admin
       %thead
@@ -88,9 +88,9 @@
           %th Tytuł
           %th Data pytania
           %th Status
-          %th 
+          %th
       %tbody
-        
+
         - @person.reviews.each do |review|
           %tr
             %td= link_to review.title, review
