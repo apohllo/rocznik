@@ -1,0 +1,28 @@
+%h3
+  = "#{@review.salutation},"
+
+%p
+  W imieniu redakcji Rocznika Kognitywistycznego
+  zwracam się z prośbą o sporządzenie recenzji
+  artykułu:
+  %br/
+  %strong= "#{@review.submission_title}."
+
+%p
+  Streszczenie:
+  %br/
+  %em= @review.abstract
+
+%p
+  Jeśli chcą Państwo zrecenzować ten artykuł proszę kliknąć odnośnik:
+  = link_to 'Akceptuję recenzję', accepted_review_url(@review)
+
+%p
+  Jeśli nie chcą Państwo zrecenzować tego artykułu proszę kliknąć odnośnik:
+  = link_to 'Nie akceptuję recenzji', rejected_review_url(@review)
+
+%p
+  Z wyrazami szacunku,
+  %br/
+  redaktor
+  = @review.editor

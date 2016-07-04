@@ -36,12 +36,15 @@ Rails.application.routes.draw do
     post :sign, on: :member
   end
   resources :reviews do
-    post :ask, on: :member
-    post :send_reminder, on: :member
-    post :send_status, on: :member
-    post :ask_for_review, on: :member
-    get :accepted, on: :member
-    get :rejected, on: :member
+    member do
+      post :ask
+      post :send_reminder
+      post :send_status
+      post :ask_for_review
+      post :ask_for_review_preview
+      get :accepted
+      get :rejected
+    end
   end
   resources :public_reviews do
     get :new_reviewer, on: :collection

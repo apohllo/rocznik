@@ -4,6 +4,7 @@ FactoryGirl.define do
     status 'nadesłany'
     received '18-01-2016'
     association :person, factory: :editor
+    association :issue
     polish_title 'Dlaczego solipsyzm?'
     english_title 'Why solipsism?'
     english_abstract 'In this groundbreaking research we prove, ' +

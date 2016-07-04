@@ -7,6 +7,22 @@ feature 'Zarządzanie osobami' do
     expect(page).to have_content 'Zaloguj się'
   end
 
+  context '-> Kobieta' do
+    let(:person)    { create(:author, sex: Person::FEMALE, surname: "Kowalska") }
+
+    it "-> Tworzy właściwe pozdrowienie" do
+      expect(person.salutation).to eq "Szanowna Pani Kowalska"
+    end
+  end
+
+  context '-> Mężczyzna' do
+    let(:person)    { create(:author, sex: Person::MALE, surname: "Kowalski") }
+
+    it "-> Tworzy właściwe pozdrowienie" do
+      expect(person.salutation).to eq "Szanowny Panie Kowalski"
+    end
+  end
+
   context '-> Po zalogowaniu' do
     include_context 'admin login'
 
