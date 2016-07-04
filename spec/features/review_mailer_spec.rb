@@ -47,6 +47,7 @@ feature "Komunikacja z recenzentem" do
         expect(current_email).to have_content reviewer.surname
         expect(current_email).to have_content review.submission_title
         expect(current_email).to have_content review.abstract
+        expect(current_email.header('From')).to eq editor.email
         expect(page).not_to have_link('Wyślij zapytanie o sporządzenie recenzji')
       end
 
@@ -60,29 +61,63 @@ feature "Komunikacja z recenzentem" do
           expect(page).to have_content(review.title)
         end
 
-        scenario "-> Recenzja posiada date wysłania zapytania" do
+        scenario "-> Recenzja posiada datę wysłania zapytania" do
           expect(page).to have_content(Time.now.strftime("%d-%m-%Y"))
         end
 
         scenario "-> Akceptacja recenzji" do
-          open_email(reviewer.email)
-          expect(current_email).to have_link 'Akceptuję recenzję'
-          current_email.click_on 'Akceptuję recenzję'
+          click_on 'Akceptacja recenzji'
           expect(page).to have_content 'recenzja przyjęta'
+          expect(page).not_to have_link 'Akceptacja recenzji'
         end
+
 
         scenario "-> Odrzucenie recenzji" do
-          open_email(reviewer.email)
-          expect(current_email).to have_link 'Nie akceptuję recenzji'
-          current_email.click_on 'Nie akceptuję recenzji'
+          click_on 'Odrzucenie recenzji'
           expect(page).to have_content 'recenzja odrzucona'
+          expect(page).not_to have_link 'Odrzucenie recenzji'
         end
 
-        scenario "-> Sprawdzenie wysłania mejla do redaktora po zmianie statusu recenzji" do
-          open_email(reviewer.email)
-          current_email.click_on 'Akceptuję recenzję'
-          open_email(editor.email)
-          expect(current_email).to have_content 'recenzja przyjęta'
+        context '-> Recenzent' do
+          before do
+            click_link 'Wyloguj'
+          end
+
+          scenario "-> Akceptacja recenzji" do
+            open_email(reviewer.email)
+            expect(current_email).to have_link 'Akceptuję recenzję'
+            current_email.click_on 'Akceptuję recenzję'
+            expect(page).to have_content 'W celu potwierdzenia decyzji o przyjęciu'
+            fill_in "Adres e-mail", with: reviewer.email
+            click_on 'Potwierdź'
+            expect(page).to have_content 'Niebawem'
+          end
+
+          scenario "-> Odrzucenie recenzji" do
+            open_email(reviewer.email)
+            expect(current_email).to have_link 'Nie akceptuję recenzji'
+            current_email.click_on 'Nie akceptuję recenzji'
+            expect(page).to have_content 'W celu potwierdzenia decyzji o odrzuceniu'
+            fill_in "Adres e-mail", with: reviewer.email
+            click_on 'Potwierdź'
+            expect(page).to have_content 'Szanujemy'
+          end
+
+          context "-> Po potwierdzeniu recenzji" do
+            before do
+              open_email(reviewer.email)
+              current_email.click_on 'Akceptuję recenzję'
+              fill_in "Adres e-mail", with: reviewer.email
+              click_on 'Potwierdź'
+            end
+
+            scenario "-> Sprawdzenie wysłania mejla do redaktora po zmianie statusu recenzji" do
+              open_email(reviewer.email)
+              current_email.click_on 'Akceptuję recenzję'
+              open_email(editor.email)
+              expect(current_email).to have_content 'recenzja przyjęta'
+            end
+          end
         end
       end
     end

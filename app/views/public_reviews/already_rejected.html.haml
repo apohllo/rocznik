@@ -1,0 +1,8 @@
+%h3
+  Niepoprawna operacja
+
+%p
+  Decyzja o odrzuceniu recenzji została już podjęta.
+  %br
+  W razie pytań prosimy o kontakt z redaktorem
+  = link_to @review.editor_email, "mailto:#{@review.editor_email}"

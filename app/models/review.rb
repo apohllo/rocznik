@@ -1,10 +1,13 @@
 class Review < ActiveRecord::Base
   STATUS_MAPPING = {
     "proponowany recenzent" => :reviewer_proposal,
-    "wysłane zapytanie" => :asked, "recenzja przyjęta" => :accepted, "recenzja odrzucona" => :rejected,
-    "recenzja pozytywna" => :positive, "recenzja negatywna" => :negative, "niewielkie poprawki" => :minor_review,
+    "wysłane zapytanie" => :asked, "recenzja przyjęta" => :accepted,
+    "recenzja odrzucona" => :rejected,
+    "recenzja pozytywna" => :positive, "recenzja negatywna" => :negative,
+    "niewielkie poprawki" => :minor_review,
     "istotne poprawki" => :major_review,
-    "przedłużony termin" => :extension, "blacklista" => :blacklist, "niechciany recenzent" => :reviewer_rejected
+    "przedłużony termin" => :extension, "blacklista" => :blacklist,
+    "niechciany recenzent" => :reviewer_rejected
   }
   FINAL_STATUS_LIST = ['recenzja pozytywna', 'recenzja negatywna', 'niewielkie poprawki', 'istotne poprawki']
   belongs_to :person
@@ -58,12 +61,36 @@ class Review < ActiveRecord::Base
     self.status == STATUS_MAPPING.key(:asked)
   end
 
+  def accept!
+    self.update_attributes(status: STATUS_MAPPING.key(:accepted))
+  end
+
+  def accepted?
+    self.status == STATUS_MAPPING.key(:accepted)
+  end
+
+  def reject!
+    self.update_attributes(status: STATUS_MAPPING.key(:rejected))
+  end
+
+  def rejected?
+    self.status == STATUS_MAPPING.key(:rejected)
+  end
+
   def abstract
     self.submission.abstract
   end
 
   def editor
     self.submission.editor
+  end
+
+  def editor_email
+    self.submission.editor_email
+  end
+
+  def reviewer_email
+    self.person.email
   end
 
   def text

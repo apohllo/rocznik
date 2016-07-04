@@ -1,0 +1,9 @@
+%h3
+  Potwierdzenie odrzucenia recenzji
+%p
+  W celu potwierdzenia decyzji o odrzuceniu recenzji prosimy o podanie
+  %strong adresu e-mail,
+  na który zostało wysłane zapytanie o recenzję:
+= simple_form_for @review, url: rejected_public_review_path(@review) do |f|
+  = f.input :email, input_html: {value: ""}, label: "Adres e-mail"
+  = f.submit "Potwierdź", class: %w{btn btn-primary}
