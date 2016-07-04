@@ -100,8 +100,13 @@ class ReviewsController < ApplicationController
     redirect_to review.submission, flash: {notice: "Recenzja została odrzucona"}
   end
 
+  def ask_for_review_preview
+    @review = Review.find(params[:id])
+  end
+
   def ask_for_review
     review = Review.find(params[:id])
+    review.asked!
     ReviewMailer.ask_for_review(review).deliver_now
     redirect_to review.submission, flash: {notice: "Zapytanie zostało wysłane"}
   end

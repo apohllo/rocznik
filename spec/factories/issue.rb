@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :issue do
-    volume 1
-    year 2008
+    sequence(:volume) {|n| n }
+    sequence(:year)   {|n| 2007 + n }
   end
 end

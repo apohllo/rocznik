@@ -1,0 +1,4 @@
+%h2 Podgląd wiadomości
+= render file: 'review_mailer/ask_for_review'
+%p
+  = link_to "Wyślij", ask_for_review_review_path(@review), method: :post, class: %w{btn btn-primary}

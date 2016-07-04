@@ -1,13 +1,19 @@
-Szanowna Pani/ Szanowny Panie <%= @review.person.surname %>
+<%= "#{@review.salutation}," %>
 ===============================================
 
 W imieniu redakcji Rocznika Kognitywistycznego
 zwracam się z prośbą o sporządzenie recenzji
-artykułu: "<%= @review.title %>"
-Streszczenie <%= @review.abstract %>
+artykułu: 
+**<%= @review.title %>**
 
-Aby zaakceptować recenzję proszę kliknąć link:<%= accepted_review_url(@review) %>
-Aby odrzucić recenzję proszę kliknąć link:<%= rejected_review_url(@review) %>
+Streszczenie:
+<%= @review.abstract %>
 
-Z wyrazami szacunku
+Jeśli chcą Państwo zrecenzować ten artykuł proszę kliknąć odnośnik:
+<%= link_to 'Akceptuję recenzję', accepted_review_url(@review) %>
+
+Jeśli nie chcą Państwo zrecenzować tego artykułu proszę kliknąć odnośnik:
+<%= link_to 'Nie akceptuję recenzji', rejected_review_url(@review) %>
+
+Z wyrazami szacunku,
 redaktor <%= @review.editor %>

@@ -5,10 +5,12 @@ class Person < ActiveRecord::Base
     "redaktor" => "E",
     "recenzent" => "R"
   }
+  MALE = 'mężczyzna'
+  FEMALE = 'kobieta'
 
   SEX_MAPPING = {
-    "kobieta" => "K",
-    "mężczyzna" => "M"
+    FEMALE => "K",
+    MALE => "M"
   }
 
   REVIEWER_MAP = {
@@ -110,6 +112,16 @@ class Person < ActiveRecord::Base
   def polish?
     self.affiliations.any? do |affiliation|
       affiliation.country_name == POLAND
+    end
+  end
+
+  def salutation
+    if self.sex == MALE
+      "Szanowny Panie #{self.surname}"
+    elsif self.sex == FEMALE
+      "Szanowna Pani #{self.surname}"
+    else
+      "Szanowna Pani/Szanowny Panie"
     end
   end
 end
