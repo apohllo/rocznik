@@ -1,9 +1,12 @@
 class Review < ActiveRecord::Base
   STATUS_MAPPING = {
-    "wysłane zapytanie" => :asked, "recenzja przyjęta" => :accepted, "recenzja odrzucona" => :rejected,
-    "recenzja pozytywna" => :positive, "recenzja negatywna" => :negative, "niewielkie poprawki" => :minor_review,
+    "proponowany recenzent" => :reviewer_proposal,
+    "wysłane zapytanie" => :asked, "recenzja przyjęta" => :accepted,
+    "recenzja odrzucona" => :rejected,
+    "recenzja pozytywna" => :positive, "recenzja negatywna" => :negative,
+    "niewielkie poprawki" => :minor_review,
     "istotne poprawki" => :major_review,
-    "przedłużony termin" => :extension, "blacklista" => :blacklist, "proponowany recenzent" => :reviewer_proposal,
+    "przedłużony termin" => :extension, "blacklista" => :blacklist,
     "niechciany recenzent" => :reviewer_rejected
   }
   FINAL_STATUS_LIST = ['recenzja pozytywna', 'recenzja negatywna', 'niewielkie poprawki', 'istotne poprawki']
@@ -24,8 +27,14 @@ class Review < ActiveRecord::Base
 
   accepts_nested_attributes_for :person
 
+  # The title includes revision id.
   def title
     "#{self.article_revision.title}"
+  end
+
+  # The title does not include revision id.
+  def submission_title
+    self.submission.title(false)
   end
 
   def email
@@ -40,12 +49,48 @@ class Review < ActiveRecord::Base
     FINAL_STATUS_LIST.include?(self.status)
   end
 
+  def proposal?
+    self.status == STATUS_MAPPING.key(:reviewer_proposal)
+  end
+
+  def asked!
+    self.update_attributes(status: STATUS_MAPPING.key(:asked), asked: Time.now)
+  end
+
+  def asked?
+    self.status == STATUS_MAPPING.key(:asked)
+  end
+
+  def accept!
+    self.update_attributes(status: STATUS_MAPPING.key(:accepted))
+  end
+
+  def accepted?
+    self.status == STATUS_MAPPING.key(:accepted)
+  end
+
+  def reject!
+    self.update_attributes(status: STATUS_MAPPING.key(:rejected))
+  end
+
+  def rejected?
+    self.status == STATUS_MAPPING.key(:rejected)
+  end
+
   def abstract
     self.submission.abstract
   end
 
   def editor
     self.submission.editor
+  end
+
+  def editor_email
+    self.submission.editor_email
+  end
+
+  def reviewer_email
+    self.person.email
   end
 
   def text
@@ -99,4 +144,7 @@ class Review < ActiveRecord::Base
     end
   end
 
+  def salutation
+    self.person.salutation
+  end
 end

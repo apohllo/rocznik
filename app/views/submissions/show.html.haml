@@ -121,12 +121,16 @@
           %td{class: ("exceeded-deadline" if review.deadline_missed?)}= review.deadline_date
           %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
           %td.text-right
-            = icon_to 'fa-hourglass-o', send_reminder_review_path(review), method: :post, title: "Wyślij przypomnienie o upływającym terminie recenzji"
-            = icon_to 'fa-check-circle', accepted_review_path(review), title: "Akceptacja recenzji"
-            = icon_to 'fa-times-circle', rejected_review_path(review), title: "Odrzucenie recenzji"
-            = icon_to 'fa-paper-plane', ask_for_review_review_path(review), method: :post, title: "Wyślij zapytanie o sporządzenie recenzji"
-            = icon_to 'fa-send-o', ask_review_path(review), method: :post, title: "Wyślij zapytanie o recenzję"
-            = icon_to 'fa-comment-o', review_path(review), title: "Wyświetl recenzję"
+            - if review.proposal?
+              = icon_to 'fa-paper-plane', ask_for_review_preview_review_path(review), method: :post, title: "Wyślij zapytanie o sporządzenie recenzji"
+            - if review.asked?
+              = icon_to 'fa-check-circle', accepted_review_path(review), method: :patch, title: "Akceptacja recenzji"
+              = icon_to 'fa-times-circle', rejected_review_path(review), method: :patch, title: "Odrzucenie recenzji"
+            - if review.accepted?
+              = icon_to 'fa-hourglass-o', send_reminder_review_path(review), method: :post, title: "Wyślij przypomnienie o upływającym terminie recenzji"
+              = icon_to 'fa-send-o', ask_review_path(review), method: :post, title: "Wyślij zapytanie o recenzję"
+            - if review.done?
+              = icon_to 'fa-comment-o', review_path(review), title: "Wyświetl recenzję"
             = icon_to 'fa-pencil-square-o', edit_review_path(review), title: "Edytuj recenzję"
             = destroy_button(review,"Czy na pewno chcesz usunąć tę recenzję?")
   = link_to "Dodaj recenzenta", new_review_path(submission_id: @submission.id), class: %w{btn btn-default btn-sm}

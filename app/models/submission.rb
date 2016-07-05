@@ -129,6 +129,14 @@ class Submission < ActiveRecord::Base
     end
   end
 
+  def editor_email
+    if self.person
+      self.person.email
+    else
+      "[BRAK ADRESU RECENZENTA]"
+    end
+  end
+
   def full_title
     "#{corresponding_author}, #{title}"
   end

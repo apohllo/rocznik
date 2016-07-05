@@ -85,25 +85,25 @@ class ReviewsController < ApplicationController
 
   def accepted
     review = Review.find(params[:id])
-    review.status = 'recenzja przyjęta'
-    review.save
-    #ReviewMailer.send_status(review).deliver_now
-    redirect_to review.submission, flash: {notice: "Dziękujemy"}
-
+    review.accept!
+    redirect_to review.submission, flash: {notice: "Recenzja oznaczona jako zaakceptowana"}
   end
 
   def rejected
     review = Review.find(params[:id])
-    review.status = 'recenzja odrzucona'
-    review.save
-    #ReviewMailer.send_status(review).deliver_now
-    redirect_to review.submission, flash: {notice: "Recenzja została odrzucona"}
+    review.reject!
+    redirect_to review.submission, flash: {notice: "Recenzja oznaczona jako odrzucona"}
+  end
+
+  def ask_for_review_preview
+    @review = Review.find(params[:id])
   end
 
   def ask_for_review
     review = Review.find(params[:id])
-    #ReviewMailer.ask_for_review(review).deliver_now
-    redirect_to review.submission, flash: {error: "Zapytanie NIE zostało wysłane"}
+    review.asked!
+    ReviewMailer.ask_for_review(review).deliver_later
+    redirect_to review.submission, flash: {notice: "Zapytanie zostało wysłane"}
   end
 
   private
