@@ -238,7 +238,7 @@ feature "zgloszenia" do
                                       pages: 1, pictures: 1, version: 1)
 
             Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
-                           status: "recenzja pozytywna", asked: '1/01/2016')
+                           status: "recenzja przyjęta", asked: '1/01/2016')
           end
 
           scenario "Wyświetlanie dealine'u" do

@@ -22,9 +22,11 @@ Rails.application.routes.draw do
   end
   resources :public_submissions, only: [:new, :create] do
     post :add_author, on: :collection
-    post :add_reviewer, on: :member
-    post :cancel, on: :member
-    post :finish, on: :member
+    member do
+      post :add_reviewer
+      post :cancel
+      post :finish
+    end
   end
   resources :user_submissions, only: [:index, :show]
   resources :affiliations, only: [:new, :create, :destroy] do
@@ -42,14 +44,17 @@ Rails.application.routes.draw do
       post :send_status
       post :ask_for_review
       post :ask_for_review_preview
-      get :accepted
-      get :rejected
+      patch :accepted
+      patch :rejected
     end
   end
   resources :public_reviews do
-    get :new_reviewer, on: :collection
-    post :create_reviewer, on: :collection
-    get :finish, on: :collection
+    member do
+      get :accepted_form
+      patch :accepted
+      get :rejected_form
+      patch :rejected
+    end
   end
   resources :article_revisions, only: [:new, :create, :destroy]
   resources :article_revisions

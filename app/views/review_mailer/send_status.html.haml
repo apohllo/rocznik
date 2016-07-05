@@ -1,6 +1,8 @@
-
 %p
-  Informacja o zmianie statusu recenzji: "#{@review.title}"
-  na "#{@review.status}"
-
-  
+  Informacja o zmianie statusu recenzji dla artykułu
+  %strong= @review.submission_title
+  przygotowywanej przez
+  = @review.reviewer
+  %br/
+  Aktualny status:
+  %strong= @review.status

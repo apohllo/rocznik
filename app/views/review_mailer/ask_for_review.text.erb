@@ -10,10 +10,10 @@ Streszczenie:
 <%= @review.abstract %>
 
 Jeśli chcą Państwo zrecenzować ten artykuł proszę kliknąć odnośnik:
-<%= link_to 'Akceptuję recenzję', accepted_review_url(@review) %>
+<%= link_to 'Akceptuję recenzję', accepted_form_public_review_url(@review) %>
 
 Jeśli nie chcą Państwo zrecenzować tego artykułu proszę kliknąć odnośnik:
-<%= link_to 'Nie akceptuję recenzji', rejected_review_url(@review) %>
+<%= link_to 'Nie akceptuję recenzji', rejected_form_public_review_url(@review) %>
 
 Z wyrazami szacunku,
 redaktor <%= @review.editor %>
