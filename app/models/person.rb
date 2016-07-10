@@ -1,9 +1,12 @@
 class Person < ActiveRecord::Base
+  AUTHOR = "autor"
+  EDITOR = "redaktor"
+  REVIEWER = "recenzent"
 
   ROLE_MAP = {
-    "autor" => "A",
-    "redaktor" => "E",
-    "recenzent" => "R"
+    AUTHOR => "A",
+    EDITOR => "E",
+    REVIEWER => "R"
   }
   MALE = 'mężczyzna'
   FEMALE = 'kobieta'
@@ -56,16 +59,15 @@ class Person < ActiveRecord::Base
   has_many :submissions, dependent: :restrict_with_error
 
   scope :all_roles, -> (*roles) { where('roles @> ARRAY[?]',roles) }
-  scope :authors, -> { where("roles && ARRAY['autor']") }
-  scope :reviewers, -> { where("roles && ARRAY['recenzent']") }
-  scope :editors, -> { where("roles && ARRAY['redaktor']") }
+  scope :authors, -> { where("roles && ARRAY['#{AUTHOR}']") }
+  scope :reviewers, -> { where("roles && ARRAY['#{REVIEWER}']") }
+  scope :editors, -> { where("roles && ARRAY['#{EDITOR}']") }
 
   before_validation -> (record) { record.roles.reject!(&:blank?) }
 
   def full_name
     "#{self.degree} #{self.name} #{self.surname}"
   end
-
 
   def full_name_without_degree
     "#{self.name} #{self.surname}"
@@ -82,14 +84,13 @@ class Person < ActiveRecord::Base
   def roles_inclusion
     invalid_role = self.roles.find{|r| !ROLE_MAP.keys.include?(r) }
     if invalid_role
-      errors.add(:roles,"'#{invalid_role}' is a invalid role.")
+      errors.add(:roles,"'#{invalid_role}' is an invalid role.")
     end
   end
 
   def current_institutions
     self.affiliations.current.map{|e| e.institution_name }
   end
-
 
   def reviews_count
     self.reviews.where.not("status ='recenzja odrzucona' or  status ='wysłano zapytanie'").count
@@ -99,8 +100,26 @@ class Person < ActiveRecord::Base
     self.reviews_count%5 == 0 && self.reviews_count >= 5
   end
 
+  def author!
+    self.roles << Person::AUTHOR
+    self.save
+  end
+
+  def reviewer!
+    self.roles << Person::REVIEWER
+    self.save
+  end
+
   def reviewer?
-    self.roles.include?("recenzent")
+    self.roles.include?(REVIEWER)
+  end
+
+  def author?
+    self.roles.include?(AUTHOR)
+  end
+
+  def editor?
+    self.roles.include?(EDITOR)
   end
 
   def from_uj?

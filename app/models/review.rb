@@ -27,6 +27,8 @@ class Review < ActiveRecord::Base
 
   accepts_nested_attributes_for :person
 
+  after_save :make_reviewer
+
   # The title includes revision id.
   def title
     "#{self.article_revision.title}"
@@ -146,5 +148,11 @@ class Review < ActiveRecord::Base
 
   def salutation
     self.person.salutation
+  end
+
+  def make_reviewer
+    if self.person
+      self.person.reviewer!
+    end
   end
 end
