@@ -63,35 +63,35 @@ feature "zgloszenia" do
       end
     end
 
-	   context "nawiązanie do innego arytułu" do
-         before do
-           Person.create!(name: "Maciej", surname: "Fasola", email: "olafasola@gmail.com", sex:
-                          "mężczyzna", roles: ['redaktor', 'recenzent'], discipline:["psychologia"])
-           Issue.create!(volume: 12, year: 2021)
-           Submission.create!(person: Person.last, status: "przyjęty", polish_title: "Alicja w krainie czarów",
-                              english_title: "Alice in Wonderland", english_abstract: "Little about that story",
-                              english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.last)
-           Article.create!(status: "po recenzji", DOI: "40000", issue: Issue.last, submission: Submission.last)
-         end
+    context "nawiązanie do innego arytułu" do
+      before do
+        Person.create!(name: "Maciej", surname: "Fasola", email: "olafasola@gmail.com", sex:
+                       "mężczyzna", roles: ['redaktor', 'recenzent'], discipline:["psychologia"])
+        Issue.create!(volume: 12, year: 2021)
+        Submission.create!(person: Person.last, status: "przyjęty", polish_title: "Alicja w krainie czarów",
+                           english_title: "Alice in Wonderland", english_abstract: "Little about that story",
+                           english_keywords: "alice", received: "19-01-2016", language: "polski", issue: Issue.last)
+        Article.create!(status: "po recenzji", DOI: "40000", issue: Issue.last, submission: Submission.last)
+      end
 
-         scenario "tworzenie nowego zgloszenia z nawiązaniem" do
-           visit '/submissions/new/'
-           within("#new_submission") do
-             fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
-             fill_in "Title", with: "English title"
-             fill_in "Abstract", with: "absbabsba"
-             fill_in "Key words", with: "englsh key words"
-             select "Maciej Fasola", from: "Redaktor"
-             select "nadesłany", from: "Status"
-             select "12/2021", from: "Numer"
-             select "Alicja w krainie czarów", from: "Nawiązanie do"
-           end
-           click_button("Utwórz")
+      scenario "tworzenie nowego zgloszenia z nawiązaniem" do
+        visit '/submissions/new/'
+        within("#new_submission") do
+          fill_in "Tytuł", with: "Testowy tytuł zgłoszenia"
+          fill_in "Title", with: "English title"
+          fill_in "Abstract", with: "absbabsba"
+          fill_in "Key words", with: "englsh key words"
+          select "Maciej Fasola", from: "Redaktor"
+          select "nadesłany", from: "Status"
+          select "12/2021", from: "Numer"
+          select "Alicja w krainie czarów", from: "Nawiązanie do"
+        end
+        click_button("Utwórz")
 
-           expect(page).not_to have_css(".has-error")
-           expect(page).to have_content("Alicja w krainie czarów")
-         end
-       end
+        expect(page).not_to have_css(".has-error")
+        expect(page).to have_content("Alicja w krainie czarów")
+      end
+    end
 
     context "redaktor w bazie danych" do
       before do
@@ -262,13 +262,12 @@ feature "zgloszenia" do
       end
 
       context "brak autora w bazie danych" do
+        let(:person)  { Person.create!(name: "Andrzej", surname: "Ogórek", email:
+                                  "a.ogorek@gmail.com", sex: "mężczyzna", roles: ['redaktor']) }
         before do
-          person = Person.create!(name: "Andrzej", surname: "Ogórek", email:
-                                  "a.ogorek@gmail.com", sex: "mężczyzna", roles: ['redaktor'])
           Submission.create!(status: "nadesłany", language: "polski", person: person, received: "20-01-2016",
                              polish_title: "Bukiet kotów", english_title: "cats", english_abstract: "Sth about cats",
                              english_keywords: "cats cat")
-          Authorship.create(submission: Submission.first, person: person)
         end
 
         scenario "dodanie autora do zgłoszenia bez autorów w bazie danych" do
@@ -282,6 +281,7 @@ feature "zgloszenia" do
         end
 
         scenario "wysłanie maila z umową" do
+          Authorship.create(submission: Submission.first, person: person)
           visit '/submissions'
           clear_emails
           click_on("Bukiet kotów")

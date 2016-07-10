@@ -80,7 +80,7 @@
   - if (@person.congratulations==true) && (@person.roles.include?("recenzent"))
     <br> <br>
     %p.jumbotron <span class="glyphicon glyphicon-star"> </span> Gratulujemy i bardzo dziękujemy! <span class="glyphicon glyphicon-star"></span>
-  - if @person.roles.include?("recenzent")
+  - if @person.reviewer?
     %h3 Przypisane recenzje
     %table.table.table-hover.table-admin
       %thead
@@ -90,11 +90,10 @@
           %th Status
           %th
       %tbody
-
         - @person.reviews.each do |review|
           %tr
             %td= link_to review.title, review
-            %td= review.asked.strftime("%d-%m-%Y")
+            %td= review.asked_date
             %td{class: "#{Review::STATUS_MAPPING[review.status]}"}= review.status
             %td.text-right
               = destroy_button(review, "Czy na pewno chcesz usunąć tę recenzję?")
