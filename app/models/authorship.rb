@@ -7,6 +7,8 @@ class Authorship < ActiveRecord::Base
 
   accepts_nested_attributes_for :person
 
+  after_save :make_author
+
   def author
     if self.person
       self.person.full_name
@@ -33,5 +35,11 @@ class Authorship < ActiveRecord::Base
 
   def status
     self.submission.status
+  end
+
+  def make_author
+    if self.person
+      self.person.author!
+    end
   end
 end

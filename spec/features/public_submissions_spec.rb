@@ -87,6 +87,7 @@ feature "Publiczne dodawanie zgłoszenia" do
       expect(find(:css,'.active-entry')).to have_content("Autorzy")
       expect(find(:css,'.active-entry')).not_to have_content("Recenzenci")
       expect(page).not_to have_css(".last-active-entry")
+      expect(Person.find_by_email(author.email).author?).to eq true
     end
 
     context "-> Po uzupełnieniu danych pierwszego autora" do
@@ -121,6 +122,7 @@ feature "Publiczne dodawanie zgłoszenia" do
         expect(find(:css,'.active-entry')).not_to have_content("Autorzy")
         expect(find(:css,'.active-entry')).to have_content("Recenzenci")
         expect(page).not_to have_css(".last-active-entry")
+        expect(Person.find_by_email(reviewer.email).reviewer?).to eq true
       end
 
       scenario "-> Dodanie niechcianego recenzenta" do
@@ -141,6 +143,7 @@ feature "Publiczne dodawanie zgłoszenia" do
         expect(find(:css,'.active-entry')).not_to have_content("Autorzy")
         expect(find(:css,'.active-entry')).to have_content("Recenzenci")
         expect(page).not_to have_css(".last-active-entry")
+        expect(Person.find_by_email(reviewer.email).reviewer?).to eq true
       end
 
       scenario "-> Dodanie niechcianego recenzenta bez uzasadnienia" do
@@ -210,6 +213,43 @@ feature "Publiczne dodawanie zgłoszenia" do
           open_email(author.email)
           expect(current_email).to have_content(submission.title)
           expect(current_email).to have_content 'został przyjęty do systemu'
+        end
+
+        context "-> Wysłaniu zgłoszenia" do
+          before do
+            click_on("Dalej")
+          end
+
+          context "-> Po zalogowaniu jako administrator" do
+            include_context "admin login"
+
+            scenario "-> Wyświetlenie zgłoszeń" do
+              visit "/submissions"
+              expect(page).to have_content(submission.title)
+            end
+
+            scenario "-> Wyświetlenie szczegółów zgłoszenia" do
+              visit "/submissions"
+              click_on submission.title
+              expect(page).to have_content(submission.title)
+              expect(page).to have_content(submission.abstract)
+              expect(page).to have_content(submission.keywords)
+            end
+
+            scenario "-> Wyświetlenie recenzenta" do
+              visit "/submissions"
+              click_on submission.title
+              click_on reviewer.surname
+              expect(page).to have_content(submission.title)
+            end
+
+            scenario "-> Wyświetlenie autora" do
+              visit "/submissions"
+              click_on submission.title
+              click_on author.surname
+              expect(page).to have_content(submission.title)
+            end
+          end
         end
       end
     end
