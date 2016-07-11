@@ -15,7 +15,7 @@ class PublicReviewsController < ApplicationController
     @review = Review.find(params[:id])
     if @review.email == params[:review][:email]
       @review.accept!
-      ReviewMailer.send_status(@review).deliver_now
+      ReviewMailer.send_status(@review).deliver_later
     else
       @review.errors.add(:email,"E-mail jest niepoprawny")
       flash[:error] = "Adres e-mail jest niepoprawny"
@@ -27,7 +27,7 @@ class PublicReviewsController < ApplicationController
     @review = Review.find(params[:id])
     if @review.email == params[:review][:email]
       @review.reject!
-      ReviewMailer.send_status(@review).deliver_now
+      ReviewMailer.send_status(@review).deliver_later
     else
       @review.errors.add(:email,"E-mail jest niepoprawny")
       flash[:error] = "Adres e-mail jest niepoprawny"

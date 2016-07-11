@@ -32,7 +32,7 @@ class ReviewsController < ApplicationController
       @review.person = person
       @from = person_path(person)
     end
-    @review.status = 'wysłane zapytanie'
+    @review.status = 'proponowany recenzent'
     @review.asked = Time.now
     @review.deadline = 45.days.from_now
   end
@@ -102,7 +102,7 @@ class ReviewsController < ApplicationController
   def ask_for_review
     review = Review.find(params[:id])
     review.asked!
-    ReviewMailer.ask_for_review(review).deliver_now
+    ReviewMailer.ask_for_review(review).deliver_later
     redirect_to review.submission, flash: {notice: "Zapytanie zostało wysłane"}
   end
 
