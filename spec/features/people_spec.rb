@@ -11,7 +11,23 @@ feature 'Zarządzanie osobami' do
     let(:person)    { create(:author, sex: Person::FEMALE, surname: "Kowalska") }
 
     it "-> Tworzy właściwe pozdrowienie" do
-      expect(person.salutation).to eq "Szanowna Pani Kowalska"
+      expect(person.salutation).to eq "Szanowna Pani"
+    end
+  end
+
+  context '-> Kobieta z dr' do
+    let(:person)    { create(:author, sex: Person::FEMALE, surname: "Kowalska", degree: "dr") }
+
+    it "-> Tworzy właściwe pozdrowienie" do
+      expect(person.salutation).to eq "Szanowna Pani Doktor"
+    end
+  end
+
+  context '-> Kobieta z dr hab.' do
+    let(:person)    { create(:author, sex: Person::FEMALE, surname: "Kowalska", degree: "dr hab.") }
+
+    it "-> Tworzy właściwe pozdrowienie" do
+      expect(person.salutation).to eq "Szanowna Pani Profesor"
     end
   end
 
@@ -19,7 +35,23 @@ feature 'Zarządzanie osobami' do
     let(:person)    { create(:author, sex: Person::MALE, surname: "Kowalski") }
 
     it "-> Tworzy właściwe pozdrowienie" do
-      expect(person.salutation).to eq "Szanowny Panie Kowalski"
+      expect(person.salutation).to eq "Szanowny Panie"
+    end
+  end
+
+  context '-> Mężczyzna z dr' do
+    let(:person)    { create(:author, sex: Person::MALE, surname: "Kowalski", degree: "dr") }
+
+    it "-> Tworzy właściwe pozdrowienie" do
+      expect(person.salutation).to eq "Szanowny Panie Doktorze"
+    end
+  end
+
+  context '-> Mężczyzna z prof.' do
+    let(:person)    { create(:author, sex: Person::MALE, surname: "Kowalski", degree: "prof. dr hab. inż") }
+
+    it "-> Tworzy właściwe pozdrowienie" do
+      expect(person.salutation).to eq "Szanowny Panie Profesorze"
     end
   end
 

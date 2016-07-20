@@ -6,8 +6,10 @@ zwracam się z prośbą o sporządzenie recenzji
 artykułu: 
 **<%= @review.title %>**
 
-Streszczenie:
+Streszczenie (<%= @review.language_message %>):
 <%= @review.abstract %>
+
+Sugerowany maksymalny czas na sporządzenie recenzji to 2 miesiące.
 
 Jeśli chcą Państwo zrecenzować ten artykuł proszę kliknąć odnośnik:
 <%= link_to 'Akceptuję recenzję', accepted_form_public_review_url(@review) %>
