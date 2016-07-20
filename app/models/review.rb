@@ -155,4 +155,26 @@ class Review < ActiveRecord::Base
       self.person.reviewer!
     end
   end
+
+  def language_message
+    if self.submission
+      message = "tekst jest w języku "
+      if self.submission.polish_language?
+        message << "polskim"
+      else
+        message << "angielskim"
+      end
+      message
+    else
+      "[BRAK INFORMACJI O JĘZYKU]"
+    end
+  end
+
+  def gender_name
+    if self.submission.person
+      self.submission.person.gender_name
+    else
+      "Pan/Pani"
+    end
+  end
 end

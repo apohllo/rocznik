@@ -17,9 +17,26 @@ feature "Komunikacja z recenzentem" do
       visit '/submissions'
       click_link review.submission_title
       click_link 'Wyślij zapytanie o sporządzenie recenzji'
-      expect(page).to have_content reviewer.surname
+      expect(page).to have_content 'Szanowna Pani Profesor,'
       expect(page).to have_content review.submission_title
       expect(page).to have_content review.abstract
+      expect(page).to have_content 'tekst jest w języku polskim'
+      expect(page).to have_content '2 miesiące'
+      expect(page).to have_content 'Pani'
+    end
+
+    context "-> Tekst w języku angielski" do
+      before do
+        review.submission.language = 'angielski'
+        review.submission.save!
+      end
+
+      scenario "->  Podgląd zapytania o recenzję" do
+        visit '/submissions'
+        click_link review.submission_title
+        click_link 'Wyślij zapytanie o sporządzenie recenzji'
+        expect(page).to have_content 'tekst jest w języku angielskim'
+      end
     end
 
 
@@ -41,14 +58,35 @@ feature "Komunikacja z recenzentem" do
         click_link 'Wyślij zapytanie o sporządzenie recenzji'
       end
 
+      scenario "-> Bez wysłania zapytania" do
+        click_link 'Akceptuję recenzję'
+        expect(page).to have_content 'W celu potwierdzenia decyzji o przyjęciu'
+      end
+
       scenario "-> Wysłanie zapytanie o sporządzenie recenzji" do
         click_link 'Wyślij'
         open_email(reviewer.email)
-        expect(current_email).to have_content reviewer.surname
+        expect(current_email).to have_content 'Szanowna Pani Profesor,'
         expect(current_email).to have_content review.submission_title
         expect(current_email).to have_content review.abstract
+        expect(current_email).to have_content 'tekst jest w języku polskim'
+        expect(current_email).to have_content '2 miesiące'
+        expect(current_email).to have_content 'Pani'
         expect(current_email.header('From')).to eq editor.email
         expect(page).not_to have_link('Wyślij zapytanie o sporządzenie recenzji')
+      end
+
+      context "-> Tekst w języku angielski" do
+        before do
+          review.submission.language = 'angielski'
+          review.submission.save!
+        end
+
+        scenario "-> Wysłanie zapytanie o sporządzenie recenzji" do
+          click_link 'Wyślij'
+          open_email(reviewer.email)
+          expect(current_email).to have_content 'tekst jest w języku angielskim'
+        end
       end
 
       context "-> Po wysłaniu recenzji" do
@@ -112,10 +150,14 @@ feature "Komunikacja z recenzentem" do
             end
 
             scenario "-> Sprawdzenie wysłania mejla do redaktora po zmianie statusu recenzji" do
-              open_email(reviewer.email)
-              current_email.click_on 'Akceptuję recenzję'
               open_email(editor.email)
               expect(current_email).to have_content 'recenzja przyjęta'
+            end
+
+            scenario "-> Ponowne potwierdzenie recenzji" do
+              open_email(reviewer.email)
+              current_email.click_on 'Akceptuję recenzję'
+              expect(page).to have_content 'Decyzja o akceptacji recenzji została już podjęta'
             end
           end
         end

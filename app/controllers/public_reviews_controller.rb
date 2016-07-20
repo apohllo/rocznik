@@ -37,7 +37,9 @@ class PublicReviewsController < ApplicationController
 
   private
   def check_if_decision_possible
-    unless @review.asked?
+    if @review.asked? || @review.proposal?
+      return
+    else
       if @review.accepted?
         render action: "already_accepted"
       elsif @review.rejected?

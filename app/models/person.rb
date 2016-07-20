@@ -134,13 +134,53 @@ class Person < ActiveRecord::Base
     end
   end
 
+  def male?
+    self.sex == MALE
+  end
+
+  def female?
+    self.sex == FEMALE
+  end
+
   def salutation
-    if self.sex == MALE
-      "Szanowny Panie #{self.surname}"
-    elsif self.sex == FEMALE
-      "Szanowna Pani #{self.surname}"
+    if self.male?
+      "Szanowny Panie #{self.academic_title}".strip
+    elsif self.female?
+      "Szanowna Pani #{self.academic_title}".strip
     else
       "Szanowna Pani/Szanowny Panie"
     end
+  end
+
+  def gender_name
+    if self.male?
+      "Pan"
+    elsif self.female?
+      "Pani"
+    else
+      "Pan/Pani"
+    end
+  end
+
+  def academic_title
+    result =
+      if self.degree
+        case self.degree
+        when /prof|hab/
+          if self.male?
+            "Profesorze"
+          elsif self.female?
+            "Profesor"
+          end
+        when /dr/
+          if self.male?
+            "Doktorze"
+          elsif self.female?
+            "Doktor"
+          end
+        end
+      end
+    result = "" if result.nil?
+    result
   end
 end

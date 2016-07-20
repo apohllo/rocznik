@@ -5,7 +5,7 @@ feature "Publiczne dodawanie zgłoszenia" do
   let(:revision)      { build(:article_revision, submission: Submission.first) }
   let(:author)        { build(:author) }
   let(:editor)        { build(:editor) }
-  let(:reviewer)      { build(:reviewer) }
+  let(:reviewer)      { build(:reviewer, degree: "") }
 
   before do
     submission
