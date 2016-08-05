@@ -71,7 +71,7 @@ feature "Komunikacja z recenzentem" do
         expect(current_email).to have_content review.abstract
         expect(current_email).to have_content 'tekst jest w języku polskim'
         expect(current_email).to have_content '2 miesiące'
-        expect(current_email).to have_content 'Pani'
+        expect(current_email).to have_content 'Jeśli chce Pani'
         expect(current_email.header('From')).to eq editor.email
         expect(page).not_to have_link('Wyślij zapytanie o sporządzenie recenzji')
       end

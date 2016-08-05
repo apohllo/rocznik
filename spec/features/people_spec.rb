@@ -13,6 +13,10 @@ feature 'Zarządzanie osobami' do
     it "-> Tworzy właściwe pozdrowienie" do
       expect(person.salutation).to eq "Szanowna Pani"
     end
+
+    it "-> Tworzy właściwą formę płci" do
+      expect(person.gender_name).to eq "Pani"
+    end
   end
 
   context '-> Kobieta z dr' do
@@ -36,6 +40,10 @@ feature 'Zarządzanie osobami' do
 
     it "-> Tworzy właściwe pozdrowienie" do
       expect(person.salutation).to eq "Szanowny Panie"
+    end
+
+    it "-> Tworzy właściwą formę płci" do
+      expect(person.gender_name).to eq "Pan"
     end
   end
 
