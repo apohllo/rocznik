@@ -171,8 +171,8 @@ class Review < ActiveRecord::Base
   end
 
   def gender_name
-    if self.submission.person
-      self.submission.person.gender_name
+    if self.person
+      self.person.gender_name
     else
       "Pan/Pani"
     end

@@ -11,10 +11,10 @@ Streszczenie (<%= @review.language_message %>):
 
 Sugerowany maksymalny czas na sporządzenie recenzji to 2 miesiące.
 
-Jeśli chcą Państwo zrecenzować ten artykuł proszę kliknąć odnośnik:
+Jeśli chce <%= @review.gender_name %> zrecenzować ten artykuł proszę kliknąć odnośnik:
 <%= link_to 'Akceptuję recenzję', accepted_form_public_review_url(@review) %>
 
-Jeśli nie chcą Państwo zrecenzować tego artykułu proszę kliknąć odnośnik:
+Jeśli nie chce <%= @review.gender_name %> zrecenzować tego artykułu proszę kliknąć odnośnik:
 <%= link_to 'Nie akceptuję recenzji', rejected_form_public_review_url(@review) %>
 
 Z wyrazami szacunku,

@@ -32,7 +32,7 @@ class ReviewsController < ApplicationController
       @review.person = person
       @from = person_path(person)
     end
-    @review.status = 'wysłane zapytanie'
+    @review.status = 'proponowany recenzent'
     @review.asked = Time.now
     @review.deadline = 45.days.from_now
   end
