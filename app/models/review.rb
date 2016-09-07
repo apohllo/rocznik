@@ -23,7 +23,8 @@ class Review < ActiveRecord::Base
     "or status = 'recenzja negatywna' or status = 'niewielkie poprawki' or status = 'istotne poprawki' " +
     "or status = 'przedłużony termin'") }
 
-  scope :done, -> { where("status = ") }
+  scope :done, -> { where("status = 'recenzja pozytywna' or status = 'recenzja negatywna' " +
+    "or status = 'niewielkie poprawki' or status = 'istotne poprawki'") }
 
   accepts_nested_attributes_for :person
 
@@ -32,6 +33,10 @@ class Review < ActiveRecord::Base
   # The title includes revision id.
   def title
     "#{self.article_revision.title}"
+  end
+
+  def done?
+    [:accepted, :rejected, :major_review, :minor_review].include?{|e| STATUS_MAPPING.key(self.status) }
   end
 
   # The title does not include revision id.

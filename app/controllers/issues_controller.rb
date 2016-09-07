@@ -60,6 +60,10 @@ class IssuesController < ApplicationController
     @issue = Issue.find_by_volume(params[:id])
   end
 
+  def summary
+    @issue = Issue.find_by_volume(params[:id])
+  end
+
 
   def show_reviews
     @issue = Issue.find_by_volume(params[:id])
