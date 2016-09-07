@@ -43,6 +43,33 @@ feature "Zarządzanie numerami" do
       expect(page).to have_content(2017)
     end
 
+    context "-> Podsumowanie numeru" do
+      let(:author)                  { create(:author) }
+      let(:issue)                   { create(:issue, volume: 1, year: 2008) }
+      let(:water_article)           { create(:submission, status: "przyjęty", issue: issue, polish_title: "Artykuł o wodzie",
+                                             english_keywords: "water", english_abstract: "Water is a fluid") }
+      let(:air_article)             { create(:submission, status: "przyjęty", issue: issue, polish_title: "Artykuł o powietrzu",
+                                             english_keywords: "air", english_abstract: "Air is a gas") }
+      before do
+        [water_article, air_article]
+        issue.prepare_to_publish(issue.submissions.accepted.map(&:id))
+      end
+
+      scenario "-> Podsumowanie" do
+        visit '/issues'
+        click_on(issue.volume.to_s)
+        click_on('Podsumowanie')
+
+        expect(page).to have_content("Podsumowanie numeru 1/2008")
+        expect(page).to have_content("Artykuł o wodzie")
+        expect(page).to have_content("water")
+        expect(page).to have_content("Water is a fluid")
+        expect(page).to have_content("Artykuł o powietrzu")
+        expect(page).to have_content("air")
+        expect(page).to have_content("Air is a gas")
+      end
+    end
+
     context "-> Liczba i udział procentowy recenzentów z uczelni" do
       let(:author)                  { create(:author) }
       let(:rejected_author)         { create(:author) }
@@ -253,6 +280,7 @@ feature "Zarządzanie numerami" do
             expect(page).to have_content("treść rezenzji")
           end
         end
+
         context "recenzenci" do
           before do
             Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
