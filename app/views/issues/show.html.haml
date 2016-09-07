@@ -26,12 +26,12 @@
           %th Autorzy
           %th Status
       %tbody
-        - @issue.articles.order(:issue_position).each do |article|
+        - @issue.articles.each do |article|
           %tr
             %td
               %i{class: "fa fa-chevron-up btn", id: "article-up"}
               %i{class: "fa fa-chevron-down btn", id: "article-down"}
-            %td= link_to article.submission.title, article.submission
+            %td= link_to article.title, article.submission
             %td= article.authors_inline
             %td= article.status
   %h3 Zgłoszone artykuły

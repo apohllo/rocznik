@@ -23,7 +23,8 @@ class Review < ActiveRecord::Base
     "or status = 'recenzja negatywna' or status = 'niewielkie poprawki' or status = 'istotne poprawki' " +
     "or status = 'przedłużony termin'") }
 
-  scope :done, -> { where("status = ") }
+  scope :done, -> { where("status = 'recenzja pozytywna' or status = 'recenzja negatywna' " +
+    "or status = 'niewielkie poprawki' or status = 'istotne poprawki'") }
 
   accepts_nested_attributes_for :person
 
