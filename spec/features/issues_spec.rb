@@ -246,6 +246,8 @@ feature "Zarządzanie numerami" do
             visit "/issues"
 
             click_link "3"
+            click_link "Przygotuj do wydania"
+            click_button "Przygotuj numer do wydania"
             click_link "Pokaż recenzje"
             expect(page).to have_content("Zaakceptowany tytuł")
             expect(page).to have_content("treść rezenzji")

@@ -3,7 +3,7 @@ class Issue < ActiveRecord::Base
   validates :volume, presence: true, numericality: {greater_than: 0}, uniqueness: true
 
   has_many :submissions
-  has_many :articles, order: :issue_position
+  has_many :articles
 
   scope :published, -> { where(published: true) }
   scope :latest, -> { order("volume desc") }

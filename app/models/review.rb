@@ -35,6 +35,10 @@ class Review < ActiveRecord::Base
     "#{self.article_revision.title}"
   end
 
+  def done?
+    [:accepted, :rejected, :major_review, :minor_review].include?{|e| STATUS_MAPPING.key(self.status) }
+  end
+
   # The title does not include revision id.
   def submission_title
     self.submission.title(false)
