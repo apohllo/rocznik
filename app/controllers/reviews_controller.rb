@@ -34,7 +34,7 @@ class ReviewsController < ApplicationController
     end
     @review.status = 'proponowany recenzent'
     @review.asked = Time.now
-    @review.deadline = 45.days.from_now
+    @review.deadline = 60.days.from_now
   end
 
   def create

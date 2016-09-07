@@ -16,22 +16,6 @@
   = link_to "Statystyki", show_statistics_issue_path(@issue), class: %w{btn btn-default btn-sm}
   = link_to "Pokaż recenzentów", show_reviewers_issue_path(@issue), class: %w{btn btn-default btn-sm}
 .scroll-panel-body
-
-  %h3 Zgłoszone artykuły
-  %table.table.table-hover.table-admin
-    %thead
-      %tr
-        %th Tytuł
-        %th Data nadesłania
-        %th Status
-    %tbody
-      - @issue.submissions.each do |submission|
-        %tr
-          %td= link_to submission.title, submission
-          %td= submission.received.strftime("%d-%m-%Y")
-          %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
-          %td.text-right
-            = destroy_button(submission, "Czy na pewno chcesz usunąć to zgłoszenie?")
   -if @issue.prepared?
     %h3 Publikowane artykuły
     %table.table.table-hover.table-admin
@@ -47,8 +31,21 @@
             %td
               %i{class: "fa fa-chevron-up btn", id: "article-up"}
               %i{class: "fa fa-chevron-down btn", id: "article-down"}
-              %i{class: "article-queue-id article-id"}= article.id
-              %i{class: "article-queue-id issue-position"}= article.issue_position
-            %td= article.submission.title
+            %td= link_to article.submission.title, article.submission
             %td= article.authors_inline
             %td= article.status
+  %h3 Zgłoszone artykuły
+  %table.table.table-hover.table-admin
+    %thead
+      %tr
+        %th Tytuł
+        %th Data nadesłania
+        %th Status
+    %tbody
+      - @issue.submissions.each do |submission|
+        %tr
+          %td= link_to submission.title, submission
+          %td= submission.received.strftime("%d-%m-%Y")
+          %td{class: "#{Submission::STATUS_MAPPING[submission.status]}"}= submission.status
+          %td.text-right
+            = destroy_button(submission, "Czy na pewno chcesz usunąć to zgłoszenie?")
