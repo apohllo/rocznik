@@ -47,9 +47,9 @@ feature "Zarządzanie numerami" do
       let(:author)                  { create(:author) }
       let(:issue)                   { create(:issue, volume: 1, year: 2008) }
       let(:water_article)           { create(:submission, status: "przyjęty", issue: issue, polish_title: "Artykuł o wodzie",
-                                             english_keywords: "water", english_abstract: "Water is a fluid") }
-      let(:air_article)             { create(:submission, status: "przyjęty", issue: issue, polish_title: "Artykuł o powietrzu",
-                                             english_keywords: "air", english_abstract: "Air is a gas") }
+                                             english_keywords: "water", english_abstract: "Water is a fluid", english_title: "Water article") }
+      let(:air_article)             { create(:submission, status: "przyjęty", issue: issue, english_title: "Air article",
+                                             english_keywords: "air", english_abstract: "Air is a gas", language: Submission::ENGLISH) }
       before do
         [water_article, air_article]
         issue.prepare_to_publish(issue.submissions.accepted.map(&:id))
@@ -62,9 +62,10 @@ feature "Zarządzanie numerami" do
 
         expect(page).to have_content("Podsumowanie numeru 1/2008")
         expect(page).to have_content("Artykuł o wodzie")
+        expect(page).to have_content("(ang.) Water article")
         expect(page).to have_content("water")
         expect(page).to have_content("Water is a fluid")
-        expect(page).to have_content("Artykuł o powietrzu")
+        expect(page).to have_content("Air article")
         expect(page).to have_content("air")
         expect(page).to have_content("Air is a gas")
       end

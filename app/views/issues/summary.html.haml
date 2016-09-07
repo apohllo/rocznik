@@ -6,7 +6,11 @@
 .scroll-panel-body
   - @issue.articles.order(:issue_position).each do |article|
     .scroll-panel_body
-      %h4= "#{article.issue_position}. #{article.title}"
+      %h4
+        = "#{article.issue_position}. #{article.title}"
+        - if article.polish_language?
+          %br
+          = "(ang.) #{article.english_title}"
       %p
         %strong Streszczenie
       %p= article.abstract

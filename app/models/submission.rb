@@ -48,12 +48,20 @@ class Submission < ActiveRecord::Base
   end
 
   def title(cut=true)
-    if !self.polish_title.blank?
-      cut_text(self.polish_title,cut)
-    elsif !self.english_title.blank?
-      cut_text(self.english_title,cut)
+    if polish_language?
+      if !self.polish_title.blank?
+        cut_text(self.polish_title,cut)
+      elsif !self.english_title.blank?
+        cut_text(self.english_title,cut)
+      else
+        "[BRAK TYTUŁU]"
+      end
     else
-      "[BRAK TYTUŁU]"
+      if !self.english_title.blank?
+        cut_text(self.english_title,cut)
+      else
+        "[BRAK TYTUŁU]"
+      end
     end
   end
 
