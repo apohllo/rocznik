@@ -4,11 +4,11 @@
     Recenzje zgłoszeń do numeru
     = @issue.title
 .scroll-panel-body
-  - @issue.submissions.each do |submission|
-    %h2= link_to submission.title(false), submission
-    %i= submission.authors_inline
+  - @issue.articles.order(:issue_position).each do |article|
+    %h2= link_to article.title, article.submission
+    %i= article.authors_inline
     .scroll-panel_body
-      - submission.reviews.group_by(&:person).each do |reviewer,reviews|
+      - article.reviews.select(&:done?).group_by(&:person).each do |reviewer,reviews|
         %h3
           Recenzent:
           = reviewer.full_name
