@@ -18,13 +18,11 @@ class Article < ActiveRecord::Base
   scope :english, -> { joins(:submission).includes(:submission).where("submissions.language = 'angielski'") }
   scope :polish, -> { joins(:submission).includes(:submission).where("submissions.language = 'polski'") }
 
+  delegate :polish_language?, :english_language?, :reviews, :english_title, to: :submission
+
 
   def authors
     self.submission.authorships.map(&:person).compact
-  end
-
-  def reviews
-    self.submission.reviews
   end
 
   def corresponding_author
