@@ -1,0 +1,27 @@
+.scroll-panel-header
+  = link_to "Wróć do numeru", issue_path, class: %w{btn btn-default btn-sm pull-right}
+.scroll-panel-body
+  %h3
+    Spis treści
+    = @issue.title
+  - @issue.articles.order(:issue_position).each do |article|
+    .scroll-panel_body
+      %h4
+        = "#{article.issue_position}. "
+        - if article.polish_title.blank?
+          [BRAK POLSKIEGO TYTUŁU]
+        - else
+          = article.polish_title
+      %p= article.authors_inline
+  %h3
+    Table of contents
+    = @issue.title
+  - @issue.articles.order(:issue_position).each do |article|
+    .scroll-panel_body
+      %h4
+        = "#{article.issue_position}. "
+        - if article.english_title.blank?
+          [BRAK ANGIELSKIEGO TYTUŁU]
+        - else
+          = article.english_title
+      %p= article.authors_inline
