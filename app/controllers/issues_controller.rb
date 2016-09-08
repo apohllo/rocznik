@@ -12,7 +12,7 @@ class IssuesController < ApplicationController
 
 
   def publish
-    @issue = Issue.find_by_volume(params[:id])
+    @issue = find_issue
     @issue.publish
     redirect_to @issue
   end
@@ -22,7 +22,7 @@ class IssuesController < ApplicationController
   end
 
   def prepare_form
-    @issue = Issue.find_by_volume(params[:id])
+    @issue = find_issue
   end
 
   def prepare
@@ -44,7 +44,7 @@ class IssuesController < ApplicationController
   end
 
   def edit
-    @issue = Issue.find_by_volume(params[:id])
+    @issue = find_issue
   end
 
   def update
@@ -57,30 +57,38 @@ class IssuesController < ApplicationController
   end
 
   def show
-    @issue = Issue.find_by_volume(params[:id])
+    @issue = find_issue
   end
 
   def summary
-    @issue = Issue.find_by_volume(params[:id])
+    @issue = find_issue
   end
 
 
   def show_reviews
-    @issue = Issue.find_by_volume(params[:id])
+    @issue = find_issue
   end
 
   def show_statistics
-    @issue = Issue.find_by_volume(params[:id])
+    @issue = find_issue
   end
 
   def show_reviewers
-    @issue = Issue.find_by_volume(params[:id])
+    @issue = find_issue
+  end
+
+  def table_of_contents
+    @issue = find_issue
   end
 
   private
 
   def issue_params
     params.require(:issue).permit(:year,:volume)
+  end
+
+  def find_issue
+    Issue.find_by_volume(params[:id])
   end
 
 end

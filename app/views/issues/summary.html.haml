@@ -12,6 +12,15 @@
           %br
           = "(ang.) #{article.english_title}"
       %p
+        %strong Autorzy
+        - article.authors.each.with_index do |author,index|
+          - if index > 0
+            ,
+          - if author == article.corresponding_author
+            = link_to author.full_name, "mailto:#{author.email}"
+          - else
+            = author.full_name
+      %p
         %strong Streszczenie
       %p= article.abstract
       %p
