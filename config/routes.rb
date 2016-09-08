@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get :show_statistics, on: :member
     get :show_reviewers, on: :member
     get :summary, on: :member
+    get :table_of_contents, on: :member
   end
   resources :public_issues, only: [:index,:show] do
     get :reviewers, on: :member

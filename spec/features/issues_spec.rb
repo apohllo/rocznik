@@ -55,7 +55,7 @@ feature "Zarządzanie numerami" do
         issue.prepare_to_publish(issue.submissions.accepted.map(&:id))
       end
 
-      scenario "-> Podsumowanie" do
+      scenario "-> Wyświetlenie podsumowania" do
         visit '/issues'
         click_on(issue.volume.to_s)
         click_on('Podsumowanie')
@@ -68,6 +68,33 @@ feature "Zarządzanie numerami" do
         expect(page).to have_content("Air article")
         expect(page).to have_content("air")
         expect(page).to have_content("Air is a gas")
+      end
+    end
+
+    context "-> Spis treści" do
+      let(:author)                  { create(:author) }
+      let(:issue)                   { create(:issue, volume: 1, year: 2008) }
+      let(:water_article)           { create(:submission, status: "przyjęty", issue: issue, polish_title: "Artykuł o wodzie",
+                                             english_keywords: "water", english_abstract: "Water is a fluid", english_title: "Water article") }
+      let(:air_article)             { create(:submission, status: "przyjęty", issue: issue, english_title: "Air article",
+                                             english_keywords: "air", english_abstract: "Air is a gas", language: Submission::ENGLISH,
+                                             polish_title: "") }
+      before do
+        [water_article, air_article]
+        issue.prepare_to_publish(issue.submissions.accepted.map(&:id))
+      end
+
+      scenario "-> Wyświetlenie spisu treści" do
+        visit '/issues'
+        click_on(issue.volume.to_s)
+        click_on('Spis treści')
+
+        expect(page).to have_content("Spis treści 1/2008")
+        expect(page).to have_content("1. [BRAK POLSKIEGO TYTUŁU]")
+        expect(page).to have_content("2. Artykuł o wodzie")
+        expect(page).to have_content("Table of contents 1/2008")
+        expect(page).to have_content("1. Air article")
+        expect(page).to have_content("2. Water article")
       end
     end
 
