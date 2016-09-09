@@ -65,15 +65,15 @@ class IssuesController < ApplicationController
   end
 
 
-  def show_reviews
+  def reviews
     @issue = find_issue
   end
 
-  def show_statistics
+  def statistics
     @issue = find_issue
   end
 
-  def show_reviewers
+  def reviewers
     @issue = find_issue
   end
 

@@ -125,15 +125,6 @@ class Issue < ActiveRecord::Base
     end
   end
 
-  protected
-  def percentage(count,total)
-    if total > 0
-      (count  * 100 / total).round
-    else
-      0
-    end
-  end
-
   def unique_reviewers(scope)
     collection =
       if scope == :all
@@ -142,6 +133,15 @@ class Issue < ActiveRecord::Base
         self.articles
       end
     collection.flat_map{|a| a.reviews.select(&:done?).flat_map{|r| r.person } }.uniq
+  end
+
+  protected
+  def percentage(count,total)
+    if total > 0
+      (count  * 100 / total).round
+    else
+      0
+    end
   end
 
   def institution_division(scope)

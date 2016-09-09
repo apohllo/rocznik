@@ -4,9 +4,8 @@
     Recenzenci numeru
     = @issue.title
 .scroll-panel-body
-  - @issue.submissions.each do |submission|
+  - @issue.unique_reviewers(:all).sort_by{|r| r.surname }.each do |reviewer|
     .scroll-panel_body
-      - submission.reviews.each do |review|
-        Recenzent: 
-        = link_to review.reviewer, review.person
-        %br
+      Recenzent:
+      = link_to reviewer.full_name, reviewer
+      %br
