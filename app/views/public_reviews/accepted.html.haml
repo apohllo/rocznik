@@ -1,3 +1,23 @@
 %h3 Dziękujemy!
 
-Niebawem prześlemy do Państwa treść artykułu.
+%p
+  Recenzja powinna składać się z decyzji:
+%ul
+  %li artykuł nadaje się do druku bez poprawek,
+  %li artykuł nadaje się do druku po drobnych poprawkach,
+  %li artykuł może być opublikowany, jeśli wprowadzone zostaną istotne zmiany, wymagające dodatkowej recenzji,
+  %li artykuł nie na daje się do druku
+%p
+  oraz jej pisemnego uzasadnienia. W szczególności jeśli artykuł wymaga zmian
+  to recenzja powinna dokładnie wskazywać co należy zmienić w artykule.
+
+%p
+  Drobne zmiany redakcyjne, czy błędy interpunkcyjne nie muszą być zgłaszane, gdyż artykuł
+  przed publikacją jest readagowany przez Wydawnictow Uniwersytetu Jagiellońskiego.
+
+- if @review.article_url.blank?
+  Prosimy skontaktować się z
+  = link_to "redakcją,", "mailto:rocznik@kognitywistyka.eu"
+  ponieważ nie udało się pobrać artykułu.
+- else
+  = link_to "Pobierz artykuł", @review.article_url, class: "btn btn-primary"
