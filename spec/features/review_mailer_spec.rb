@@ -25,7 +25,7 @@ feature "Komunikacja z recenzentem" do
       expect(page).to have_content 'Pani'
     end
 
-    context "-> Tekst w języku angielski" do
+    context "-> Tekst w języku angielskim" do
       before do
         review.submission.language = 'angielski'
         review.submission.save!
@@ -76,7 +76,7 @@ feature "Komunikacja z recenzentem" do
         expect(page).not_to have_link('Wyślij zapytanie o sporządzenie recenzji')
       end
 
-      context "-> Tekst w języku angielski" do
+      context "-> Tekst w języku angielskim" do
         before do
           review.submission.language = 'angielski'
           review.submission.save!
@@ -122,13 +122,58 @@ feature "Komunikacja z recenzentem" do
           end
 
           scenario "-> Akceptacja recenzji" do
+            Timecop.freeze(Time.parse("01-01-2016")) do
+              open_email(reviewer.email)
+              expect(current_email).to have_link 'Akceptuję recenzję'
+              current_email.click_on 'Akceptuję recenzję'
+              expect(page).to have_content 'W celu potwierdzenia decyzji o przyjęciu'
+              fill_in "Adres e-mail", with: reviewer.email
+              click_on 'Potwierdź'
+              expect(page).to have_link 'Pobierz artykuł'
+              review.reload
+              expect(review.deadline).to eq Date.parse("01-03-2016")
+            end
+          end
+
+          scenario "-> Pobieranie artykułu" do
             open_email(reviewer.email)
-            expect(current_email).to have_link 'Akceptuję recenzję'
             current_email.click_on 'Akceptuję recenzję'
-            expect(page).to have_content 'W celu potwierdzenia decyzji o przyjęciu'
             fill_in "Adres e-mail", with: reviewer.email
             click_on 'Potwierdź'
-            expect(page).to have_content 'Niebawem'
+            click_on 'Pobierz artykuł'
+            header = page.response_headers['Content-Type']
+            expect(header).to eq "application/pdf"
+          end
+
+          scenario "-> Niewłaściwy adres e-mail" do
+            open_email(reviewer.email)
+            current_email.click_on 'Akceptuję recenzję'
+            fill_in "Adres e-mail", with: "invalid@email.com"
+            click_on 'Potwierdź'
+            expect(page).to have_content 'E-mail jest niepoprawny'
+          end
+
+          scenario "-> Zmiana daty sporządzenia recenzji" do
+            Timecop.freeze(Time.parse("01-01-2016")) do
+              open_email(reviewer.email)
+              current_email.click_on 'Akceptuję recenzję'
+              fill_in "Adres e-mail", with: reviewer.email
+              fill_in "Data sporządzenia recenzji", with: "01-02-2016"
+              click_on 'Potwierdź'
+              review.reload
+              expect(review.deadline).to eq Date.parse("01-02-2016")
+            end
+          end
+
+          scenario "-> Niepoprawna data sporządzenia recenzji" do
+            Timecop.freeze(Time.parse("01-01-2016")) do
+              open_email(reviewer.email)
+              current_email.click_on 'Akceptuję recenzję'
+              fill_in "Adres e-mail", with: reviewer.email
+              fill_in "Data sporządzenia recenzji", with: "01-02-2015"
+              click_on 'Potwierdź'
+              expect(page).to have_content 'Data sporządzenia recenzji nie może być w przeszłości'
+            end
           end
 
           scenario "-> Odrzucenie recenzji" do

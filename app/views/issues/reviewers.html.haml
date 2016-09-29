@@ -1,0 +1,11 @@
+.scroll-panel-header
+  = link_to "Wróć do numeru", issue_path, class: %w{btn btn-default btn-sm pull-right}
+  %h3.scroll-panel-title
+    Recenzenci numeru
+    = @issue.title
+.scroll-panel-body
+  - @issue.unique_reviewers(:all).sort_by{|r| r.surname }.each do |reviewer|
+    .scroll-panel_body
+      Recenzent:
+      = link_to reviewer.full_name, reviewer
+      %br

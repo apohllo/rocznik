@@ -6,4 +6,5 @@
   na który zostało wysłane zapytanie o recenzję:
 = simple_form_for @review, url: accepted_public_review_path(@review) do |f|
   = f.input :email, input_html: {value: ""}, label: "Adres e-mail"
+  = f.input :deadline, label: "Data sporządzenia recenzji", as: :string, input_html: {value: localize(f.object.deadline)}
   = f.submit "Potwierdź", class: %w{btn btn-primary}
