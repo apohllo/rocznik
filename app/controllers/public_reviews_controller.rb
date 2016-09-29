@@ -3,6 +3,7 @@ class PublicReviewsController < ApplicationController
 
   def accepted_form
     @review = Review.find(params[:id])
+    @review.deadline = Time.now + 2.months
     check_if_decision_possible
   end
 
@@ -13,13 +14,17 @@ class PublicReviewsController < ApplicationController
 
   def accepted
     @review = Review.find(params[:id])
-    if @review.email == params[:review][:email]
-      @review.accept!
-      ReviewMailer.send_status(@review).deliver_now
-    else
+    if @review.email != params[:review][:email]
       @review.errors.add(:email,"E-mail jest niepoprawny")
       flash[:error] = "Adres e-mail jest niepoprawny"
       render :accepted_form
+    elsif Time.parse(params[:review][:deadline]) < Time.now
+      @review.errors.add(:deadline,"Data sporządzenia recenzji jest niepoprawna")
+      flash[:error] = "Data sporządzenia recenzji nie może być w przeszłości"
+      render :accepted_form
+    else
+      @review.accept!(params[:review][:deadline])
+      ReviewMailer.send_status(@review).deliver_now
     end
   end
 

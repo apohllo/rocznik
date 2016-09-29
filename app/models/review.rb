@@ -44,6 +44,12 @@ class Review < ActiveRecord::Base
     self.submission.title(false)
   end
 
+  def article_url
+    if self.article_revision && self.article_revision.article
+      self.article_revision.article.url
+    end
+  end
+
   def email
     if self.person
       self.person.email
@@ -68,8 +74,10 @@ class Review < ActiveRecord::Base
     self.status == STATUS_MAPPING.key(:asked)
   end
 
-  def accept!
-    self.update_attributes(status: STATUS_MAPPING.key(:accepted))
+  def accept!(deadline=nil)
+    params = { status: STATUS_MAPPING.key(:accepted) }
+    params[:deadline] = deadline unless deadline.nil?
+    self.update_attributes(params)
   end
 
   def accepted?
