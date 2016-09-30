@@ -42,22 +42,23 @@ class PublicReviewsController < ApplicationController
 
   def edit
     @review = Review.find(params[:id])
-    @allowedStatus = {
-      Review::STATUS_MAPPING.key(:positive) => :positive,
-      Review::STATUS_MAPPING.key(:negative) => :negative,
-      Review::STATUS_MAPPING.key(:minor_review) => :minor_review,
-      Review::STATUS_MAPPING.key(:major_review) => :major_review,
-    }
+    if @review.done?
+      render text: "Recenzja została już sporządzona", layout: true
+    end
   end
 
   def update
-    review = Review.find(params[:id])
-    if params[:email] == review.person.email
-      review.update!(review_params)
-      redirect_to '/'
+    @review = Review.find(params[:id])
+    if params[:review][:email] == @review.email
+      if @review.update(review_params)
+        @reviewer = @review.person
+      else
+        render :edit
+      end
     else
-      flash[:error] = 'Podaj prawidłowy adres e-mail związany z tą recenzją!'
-      redirect_to action: "edit", id: params[:id]
+      @review.errors.add(:email,"E-mail jest niepoprawny")
+      flash[:error] = "Adres e-mail jest niepoprawny"
+      render :edit
     end
   end
 
@@ -74,10 +75,6 @@ class PublicReviewsController < ApplicationController
         render text: "Niepoprawna operacja", layout: true
       end
     end
-  end
-
-  def person_params
-    params.require(:person).permit(:person_id, :name,:surname,:email,:sex,roles: [])
   end
 
   def review_params

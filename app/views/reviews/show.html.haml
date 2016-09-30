@@ -29,7 +29,7 @@
     %p= simple_format(@review.content)
   %dl
   .views_show
-    %b Uwagi
+    %b Uwagi dla redakcji
     %p= @review.remarks
   .views-button
   = link_to "Edytuj", edit_review_path(@review), class: %w{btn btn-primary btn-sm}

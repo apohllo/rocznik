@@ -13,5 +13,5 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile +=
   %w( phantom_js_bind_polyfill.js fallback/person.png pl.png gb.png remind_icon.png )
 Rails.application.config.assets.precompile +=
-  %w( disable-transitions-for-test-env.css storytime/storytime-logo-nav.png)
+  %w( disable-transitions-for-test-env.css storytime/storytime-logo-nav.png applause-woman.jpg applause-man.jpg)
 

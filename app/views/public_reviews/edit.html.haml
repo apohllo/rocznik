@@ -1,16 +1,14 @@
 .scroll-panel-header
-  - redirect_object = @review.article_revision ? @review.submission : @review.person
-  = link_to "Anuluj", redirect_object, class: %w{btn btn-default btn-sm pull-right}
   %h3.scroll-panel-title
-    Utwórz recenzję
+    Recenzja dla artykułu
+    %strong= @review.submission_title
 .scroll-panel-body
-  = simple_form_for @review, url: {:action => "update", :id => @review} do |f|
-    - if @review.article_revision
-      = hidden_field_tag :article_revision_id, @review.article_revision.id
-    - if @review.person
-      = hidden_field_tag :person_id, @review.person.id
-    = render partial: "new_fields", locals: {f: f}
-    %label
-      Email
-      %input{:type=>"text", :name => "email", :required => true}
-    = f.submit "Dodaj", class: %w{btn btn-primary btn-outline}
+  %p
+    W celu weryfikacji tożasamości prosimy o podanie Państwa
+    %strong adresu e-mail:
+  = simple_form_for @review, url: public_review_path(@review), method: :patch do |f|
+    = f.input :email, input_html: {value: ""}, label: "Adres e-mail"
+    = f.input :status, collection: Review::FINAL_STATUS_LIST, label: "Decyzja"#, hint: "Wybór decyzcji 'istotne poprawki' oznacz, że artykuł powinien być ponownie zrecenzowany po wprowadzeniu poprawek"
+    = f.input :content, label: "Uzasadnienie"
+    = f.input :remarks, label: "Uwagi dla redakcji (nie zostaną przekazane autorom)"
+    = f.submit "Wyślij", class: %w{btn btn-primary}
