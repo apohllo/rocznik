@@ -246,18 +246,6 @@ feature "zgloszenia" do
 
             expect(page).to have_content('28-01-2016')
           end
-
-          scenario "wysłanie przypomnienia o recenzji" do
-            visit '/submissions'
-            clear_emails
-            click_on("Alicja w krainie czarów")
-            click_on("Wyślij przypomnienie o upływającym terminie recenzji")
-            expect(page).to have_content("Przypomnienie zostało wysłane")
-            open_email('a.kapusa@gmail.com')
-            expect(current_email).to have_content 'Z poważaniem,'
-            expect(current_email).to have_content 'Kapusta'
-            expect(current_email).to have_content 'plik.pdf'
-          end
         end
       end
 

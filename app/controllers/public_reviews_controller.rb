@@ -40,6 +40,29 @@ class PublicReviewsController < ApplicationController
     end
   end
 
+  def edit
+    @review = Review.find(params[:id])
+    if @review.done?
+      render text: "Recenzja została już sporządzona", layout: true
+    end
+  end
+
+  def update
+    @review = Review.find(params[:id])
+    if params[:review][:email] == @review.email
+      if @review.update(review_params)
+        @reviewer = @review.person
+        ReviewMailer.send_status(@review).deliver_later
+      else
+        render :edit
+      end
+    else
+      @review.errors.add(:email,"E-mail jest niepoprawny")
+      flash[:error] = "Adres e-mail jest niepoprawny"
+      render :edit
+    end
+  end
+
   private
   def check_if_decision_possible
     if @review.asked? || @review.proposal?
@@ -53,6 +76,10 @@ class PublicReviewsController < ApplicationController
         render text: "Niepoprawna operacja", layout: true
       end
     end
+  end
+
+  def review_params
+    params.require(:review).permit(:person_id,:status,:asked,:deadline,:remarks,:content,:article_revision_id)
   end
 
 end

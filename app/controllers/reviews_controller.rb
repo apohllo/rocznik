@@ -71,12 +71,6 @@ class ReviewsController < ApplicationController
     redirect_to review.submission
   end
 
-  def send_reminder
-    review = Review.find(params[:id])
-    #ReviewerMailer.reminder(review).deliver_now
-    redirect_to review.submission, flash: {error: "Przypomnienie NIE zostało wysłane"}
-  end
-
   def ask
     review = Review.find(params[:id])
     #ReviewMailer.ask(review).deliver_now
@@ -97,6 +91,16 @@ class ReviewsController < ApplicationController
 
   def ask_for_review_preview
     @review = Review.find(params[:id])
+  end
+
+  def form_preview
+    @review = Review.find(params[:id])
+  end
+
+  def send_form
+    review = Review.find(params[:id])
+    ReviewMailer.review_form(review).deliver_later
+    redirect_to review.submission, flash: { notice: "Odnośnik do formularza został wysłany" }
   end
 
   def ask_for_review
