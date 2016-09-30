@@ -42,15 +42,16 @@ Rails.application.routes.draw do
   resources :reviews do
     member do
       post :ask
-      post :send_reminder
       post :send_status
-      post :ask_for_review
-      post :ask_for_review_preview
+      patch :ask_for_review
+      get :ask_for_review_preview
+      patch :send_form
+      get :form_preview
       patch :accepted
       patch :rejected
     end
   end
-  resources :public_reviews do
+  resources :public_reviews, only: [:edit, :update] do
     member do
       get :accepted_form
       patch :accepted

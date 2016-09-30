@@ -1,0 +1,14 @@
+.scroll-panel-header
+  %h3.scroll-panel-title
+    Recenzja dla artykułu
+    %strong= @review.submission_title
+.scroll-panel-body
+  %p
+    W celu weryfikacji tożasamości prosimy o podanie Państwa
+    %strong adresu e-mail:
+  = simple_form_for @review, url: public_review_path(@review), method: :patch do |f|
+    = f.input :email, input_html: {value: ""}, label: "Adres e-mail"
+    = f.input :status, collection: Review::FINAL_STATUS_LIST, label: "Decyzja"#, hint: "Wybór decyzcji 'istotne poprawki' oznacz, że artykuł powinien być ponownie zrecenzowany po wprowadzeniu poprawek"
+    = f.input :content, label: "Uzasadnienie"
+    = f.input :remarks, label: "Uwagi dla redakcji (nie zostaną przekazane autorom)"
+    = f.submit "Wyślij", class: %w{btn btn-primary}

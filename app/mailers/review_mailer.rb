@@ -14,4 +14,10 @@ class ReviewMailer < ApplicationMailer
     @review = review
     mail(to: @review.editor_email, subject: 'Zmiana statusu recenzji')
   end
+
+  def review_form(review)
+    @review = review
+    mail(to: @review.reviewer_email, from: @review.editor_email,
+         subject: 'Formularz recenzyjny')
+  end
 end

@@ -1,6 +1,6 @@
 %p
   Informacja o zmianie statusu recenzji dla artykułu
-  %strong= @review.submission_title
+  = link_to @review.submission_title, submission_url(@review.submission)
   przygotowywanej przez
   = @review.reviewer
   %br/

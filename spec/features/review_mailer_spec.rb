@@ -89,7 +89,7 @@ feature "Komunikacja z recenzentem" do
         end
       end
 
-      context "-> Po wysłaniu recenzji" do
+      context "-> Po wysłaniu zapytania" do
         before do
           click_on 'Wyślij'
         end
