@@ -52,6 +52,7 @@ class PublicReviewsController < ApplicationController
     if params[:review][:email] == @review.email
       if @review.update(review_params)
         @reviewer = @review.person
+        ReviewMailer.send_status(@review).deliver_later
       else
         render :edit
       end

@@ -1,0 +1,14 @@
+<%= "#{@review.salutation}," %>
+===============================================
+
+przypominamy, że upływa termin napisania recenzji dla artykułu:
+**<%= @review.title %>**,
+który można pobrać spod adresu: <%= @review.article_url %>.
+
+Recenzję prosimy wprowadzić za pomocą formularza recenzyjnego
+dostępnego pod adresem <%= edit_public_review_url(@review) %>.
+
+Z wyrazami szacunku,
+redaktor <%= @review.editor %>
+
+http://rocznik.kognitywistyka.eu

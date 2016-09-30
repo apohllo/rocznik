@@ -1,0 +1,17 @@
+%h3
+  = "#{@review.salutation},"
+
+%p
+  przypominamy, że upływa termin napisania recenzji dla artykułu:
+  = link_to @review.submission_title + '.', @review.article_url
+  %br
+  Recenzję prosimy wprowadzić do
+  = link_to 'formularza recenzyjnego' + '.', edit_public_review_url(@review)
+
+%p
+  Z wyrazami szacunku,
+  %br/
+  = @review.editor
+  %br
+  redaktor
+  = link_to "Rocznika Kognitywistycznego", "http://rocznik.kognitywistyka.eu"
