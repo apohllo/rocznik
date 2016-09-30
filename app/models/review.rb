@@ -46,7 +46,7 @@ class Review < ActiveRecord::Base
 
   def article_url
     if self.article_revision && self.article_revision.article
-      self.article_revision.article.url
+      Rails.application.routes.url_helpers.root_url + self.article_revision.article.url
     end
   end
 
