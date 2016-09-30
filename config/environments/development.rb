@@ -43,3 +43,5 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
 end
+
+Rails.application.routes.default_url_options[:host] = 'localhost'

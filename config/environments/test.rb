@@ -1,5 +1,5 @@
 Rails.application.configure do
-  
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # The test environment is used exclusively to run your application's
@@ -31,7 +31,7 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
-  
+
   config.action_mailer.default_url_options = { host: 'localhost', port: 3001 }
   config.asset_host = "http://localhost:3001"
 
@@ -44,3 +44,5 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
+
+Rails.application.routes.default_url_options[:host] = 'localhost'
