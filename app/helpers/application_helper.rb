@@ -16,7 +16,10 @@ module ApplicationHelper
   end
 
   def active?(url)
-    if URI.parse(request_uri).path == URI.parse(url).path
+    return "" if url.nil?
+    logger.info([url, request_uri])
+    logger.info([path_id(url), path_id(request_uri)])
+    if path_id(request_uri) == path_id(url)
       "active"
     else
       ""
@@ -34,5 +37,10 @@ module ApplicationHelper
 
   def set_title(title = "")
     @site_title = !title.empty? ? title + " - " + "Rocznik Kognitywistyczny" : "Rocznik Kognitywistyczny"
+  end
+
+  private
+  def path_id(url)
+    URI.parse(url).path.gsub(%r{^/+},"").gsub(%r{/+$},"")
   end
 end
