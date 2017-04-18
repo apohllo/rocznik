@@ -1,0 +1,585 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    %title Agency - Start Bootstrap Theme
+    / Bootstrap Core CSS
+    %link{:href => "css/bootstrap.min.css", :rel => "stylesheet"}/
+    / Custom CSS
+    %link{:href => "css/agency.css", :rel => "stylesheet"}/
+    / Custom Fonts
+    %link{:href => "font-awesome/css/font-awesome.min.css", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Montserrat:400,700", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Kaushan+Script", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700", :rel => "stylesheet", :type => "text/css"}/
+    / HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    / WARNING: Respond.js doesn't work if you view the page via file://
+    /[if lt IE 9]
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  %body#page-top.index
+    / Navigation
+    %nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        / Brand and toggle get grouped for better mobile display
+        .navbar-header.page-scroll
+          %button.navbar-toggle{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand.page-scroll{:href => "#page-top"} UJ
+        / Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          %ul.nav.navbar-nav.navbar-right
+            %li.hidden
+              %a{:href => "#page-top"}
+            %li
+              %a.page-scroll{:href => "#services"} Services
+            %li
+              %a.page-scroll{:href => "#portfolio"} Artykuły
+            %li
+              %a.page-scroll{:href => "#about"} Schemat działania
+            %li
+              %a.page-scroll{:href => "#team"} Redakcja
+            %li
+              %a.page-scroll{:href => "#contact"} Kontakt
+        / /.navbar-collapse
+      / /.container-fluid
+    / Header
+    %header
+      .container
+        .intro-text
+          .intro-lead-in Czasopismo naukowe
+          .intro-heading Rocznik Kognitywistyczny
+          %a.page-scroll.btn.btn-xl{:href => "#services"} Dowiedz się więcej
+    / Activity Section
+    %section#services
+      .container
+        .row
+          .col-lg-12.text-center
+            %h2.section-heading Czasopismo wielu możliwości
+            %h3.section-subheading.text-muted Rocznik Kognitywistyczny to recenzowane, punktowane czasopismo naukowe ukazujące się w wersji elektronicznej w trybie otwartego dostępu. Zachęcamy do składania artykułów dotyczących szeroko rozumianych nauk o poznaniu, zarówno przeglądowych jak i empirycznych, które nie są adresowane jedynie do wąskiego grona specjalistów.
+        .row.text-center
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-shopping-cart.fa-stack-1x.fa-inverse
+            %h4.service-heading Przeczytaj teksty
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-laptop.fa-stack-1x.fa-inverse
+            %h4.service-heading Dodaj artykuł
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-lock.fa-stack-1x.fa-inverse
+            %h4.service-heading Zostań recenzentem
+    / Theme Section
+    %section#rules
+      .container
+        .row
+          .col-lg-12.text-center
+            %h2.section-heading Zróżnicowana tematyka artykułów
+            %h3.section-subheading.text-muted Artykuły w "Roczniku kognitywistycznym" obejmują wiele obszarów nauki, dzięki którym można zdobyć szeroki i zróżnicowany zakres wiedzy.
+        .row.text-center
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-shopping-cart.fa-stack-1x.fa-inverse
+            %h4.service-heading językoznawstwo
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-laptop.fa-stack-1x.fa-inverse
+            %h4.service-heading filozofia umysłu
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-lock.fa-stack-1x.fa-inverse
+            %h4.service-heading filozofia języka
+        .row.text-center
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-shopping-cart.fa-stack-1x.fa-inverse
+            %h4.service-heading lingwistyka obliczeniowa
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-laptop.fa-stack-1x.fa-inverse
+            %h4.service-heading logika w ujęciu kognitywnym
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-lock.fa-stack-1x.fa-inverse
+            %h4.service-heading psychologia poznawcza
+        .row.text-center
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-shopping-cart.fa-stack-1x.fa-inverse
+            %h4.service-heading neuropsychologia
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-laptop.fa-stack-1x.fa-inverse
+            %h4.service-heading neuronauka poznawcza
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-lock.fa-stack-1x.fa-inverse
+            %h4.service-heading sztuczna inteligencja
+    / Join-to-us Section
+    %section#rules
+      .container
+        .row
+          .col-lg-12.text-center
+            %h2.section-heading Dołącz do grona autorów
+            %h3.section-subheading.text-muted Najbliższy nabór do najnowszego numeru kończy się 31 maja 2015. Artykuły prosimy wysłać pod adres: rocznik@kognitywistyka.eu. W wiadomości zgłoszeniowej prosimy o wskazanie co najmniej 2 recenzentów, którzy mogliby zrecenzować Państwa artykuł. Artykuły powinny być przesłane według szablonu, który można pobrać stąd.
+        .row.text-center
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-shopping-cart.fa-stack-1x.fa-inverse
+            %h4.service-heading 8-20 stron znormalizowanego tekstu (1800 znaków/strona)
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-laptop.fa-stack-1x.fa-inverse
+            %h4.service-heading 3 punkty MNiSW (2014)
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-lock.fa-stack-1x.fa-inverse
+            %h4.service-heading 2 recenzentów
+        .row.text-center
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-shopping-cart.fa-stack-1x.fa-inverse
+            %h4.service-heading Format publikacji: elektroniczny
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-laptop.fa-stack-1x.fa-inverse
+            %h4.service-heading Otwarty dostęp
+          .col-md-4
+            %span.fa-stack.fa-4x
+              %i.fa.fa-circle.fa-stack-2x.text-primary
+              %i.fa.fa-lock.fa-stack-1x.fa-inverse
+            %h4.service-heading Język publikacji: polski i angielski
+    / Portfolio Grid Section
+    %section#portfolio.bg-light-gray
+      .container
+        .row
+          .col-lg-12.text-center
+            %h2.section-heading Artykuły
+            %h3.section-subheading.text-muted Poniżej prezentujemy przykładowe artykuły z najnowszego "Rocznika...", które uważamy za godne polecenia.
+        .row
+          .col-md-4.col-sm-6.portfolio-item
+            %a.portfolio-link{"data-toggle" => "modal", :href => "http://kognitywistyka.eu/texts/show/1"}
+              .portfolio-hover
+                .portfolio-hover-content
+                  %i.fa.fa-plus.fa-3x
+              %img.img-responsive{:alt => "", :src => "img/portfolio/tekst1.png"}/
+            .portfolio-caption
+              %h4 Paradygmat soków z mózgu
+              %p.text-muted Jan Kowalski
+          .col-md-4.col-sm-6.portfolio-item
+            %a.portfolio-link{"data-toggle" => "modal", :href => "#portfolioModal2"}
+              .portfolio-hover
+                .portfolio-hover-content
+                  %i.fa.fa-plus.fa-3x
+              %img.img-responsive{:alt => "", :src => "img/portfolio/startup-framework.png"}/
+            .portfolio-caption
+              %h4 Startup Framework
+              %p.text-muted Website Design
+          .col-md-4.col-sm-6.portfolio-item
+            %a.portfolio-link{"data-toggle" => "modal", :href => "#portfolioModal3"}
+              .portfolio-hover
+                .portfolio-hover-content
+                  %i.fa.fa-plus.fa-3x
+              %img.img-responsive{:alt => "", :src => "img/portfolio/treehouse.png"}/
+            .portfolio-caption
+              %h4 Treehouse
+              %p.text-muted Website Design
+          .col-md-4.col-sm-6.portfolio-item
+            %a.portfolio-link{"data-toggle" => "modal", :href => "#portfolioModal4"}
+              .portfolio-hover
+                .portfolio-hover-content
+                  %i.fa.fa-plus.fa-3x
+              %img.img-responsive{:alt => "", :src => "img/portfolio/golden.png"}/
+            .portfolio-caption
+              %h4 Golden
+              %p.text-muted Website Design
+          .col-md-4.col-sm-6.portfolio-item
+            %a.portfolio-link{"data-toggle" => "modal", :href => "#portfolioModal5"}
+              .portfolio-hover
+                .portfolio-hover-content
+                  %i.fa.fa-plus.fa-3x
+              %img.img-responsive{:alt => "", :src => "img/portfolio/escape.png"}/
+            .portfolio-caption
+              %h4 Escape
+              %p.text-muted Website Design
+          .col-md-4.col-sm-6.portfolio-item
+            %a.portfolio-link{"data-toggle" => "modal", :href => "#portfolioModal6"}
+              .portfolio-hover
+                .portfolio-hover-content
+                  %i.fa.fa-plus.fa-3x
+              %img.img-responsive{:alt => "", :src => "img/portfolio/dreams.png"}/
+            .portfolio-caption
+              %h4 Dreams
+              %p.text-muted Website Design
+    / About Section
+    %section#about
+      .container
+        .row
+          .col-lg-12.text-center
+            %h2.section-heading Jak wygląda proces publikacji artykułu?
+            %h3.section-subheading.text-muted Średnio od wstępnego zgłoszenia do publikacji mija [xxx] miesięcy.
+        .row
+          .col-lg-12
+            %ul.timeline
+              %li
+                .timeline-image
+                  %img.img-circle.img-responsive{:alt => "", :src => "img/about/1.jpg"}/
+                .timeline-panel
+                  .timeline-heading
+                    %h4 10 minuut
+                    %h4.subheading Krok 1
+                  .timeline-body
+                    %p.text-muted Wypełnienie forumlarza zgłoszeniowego na stronie [xxx].
+              %li.timeline-inverted
+                .timeline-image
+                  %img.img-circle.img-responsive{:alt => "", :src => "img/about/2.jpg"}/
+                .timeline-panel
+                  .timeline-heading
+                    %h4 ok. XXX miesiąc
+                    %h4.subheading Krok 2
+                  .timeline-body
+                    %p.text-muted Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!
+              %li
+                .timeline-image
+                  %img.img-circle.img-responsive{:alt => "", :src => "img/about/3.jpg"}/
+                .timeline-panel
+                  .timeline-heading
+                    %h4 XXX
+                    %h4.subheading Krok 3
+                  .timeline-body
+                    %p.text-muted Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!
+              %li.timeline-inverted
+                .timeline-image
+                  %img.img-circle.img-responsive{:alt => "", :src => "img/about/4.jpg"}/
+                .timeline-panel
+                  .timeline-heading
+                    %h4 XXX
+                    %h4.subheading Krok 4
+                  .timeline-body
+                    %p.text-muted Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!
+              %li.timeline-inverted
+                .timeline-image
+                  %h4
+                    Publikacja
+                    = succeed "artyku\u{142}u" do
+                      %br/
+                    = succeed "w" do
+                      %br/
+    / About Section
+    %section#about
+      .container
+        .row
+          .col-lg-12.text-center
+            %h2.section-heading Jak wygląda proces publikacji artykułu?
+            %h3.section-subheading.text-muted Średnio od wstępnego zgłoszenia do publikacji mija [xxx] miesięcy.
+        .row
+          .col-lg-12
+            %center
+              %img{:src => "img/przebieg.jpg", :width => "80%"}/
+    / Team Section
+    %section#team.bg-light-gray
+      .container
+        .row
+          .col-lg-12.text-center
+            %h2.section-heading Redakcja
+            %h3.section-subheading.text-muted W skład redakcji czasopisma wchodzą pracownicy naukowi Uniwersytetu Jagiellońskiego.
+        .row
+          .col-sm-4
+            .team-member
+              %img.img-responsive.img-circle{:alt => "", :src => "img/team/1.jpg"}/
+              %h4 dr Janina Kowalska
+              %p.text-muted WZiKS
+              %ul.list-inline.social-buttons
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-twitter
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-facebook
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-linkedin
+          .col-sm-4
+            .team-member
+              %img.img-responsive.img-circle{:alt => "", :src => "img/team/2.jpg"}/
+              %h4 dr hab. Jan Kowalski
+              %p.text-muted WZiKS
+              %ul.list-inline.social-buttons
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-twitter
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-facebook
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-linkedin
+          .col-sm-4
+            .team-member
+              %img.img-responsive.img-circle{:alt => "", :src => "img/team/3.jpg"}/
+              %h4 prof. dr hab. Januszka Kowalska
+              %p.text-muted WZiKS
+              %ul.list-inline.social-buttons
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-twitter
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-facebook
+                %li
+                  %a{:href => "#"}
+                    %i.fa.fa-linkedin
+    / Clients Aside
+    %aside.clients
+      .container
+        .row
+          .col-md-3.col-sm-6
+            %a{:href => "#"}
+              %img.img-responsive.img-centered{:alt => "", :src => "img/logos/logobratniak.jpg", :width => "50%"}/
+          .col-md-3.col-sm-6
+            %a{:href => "#"}
+              %img.img-responsive.img-centered{:alt => "", :src => "img/logos/logotduj.jpg", :width => "50%"}/
+    / Contact Section
+    %section#contact
+      .container
+        .row
+          .col-lg-12.text-center
+            %h2.section-heading Kontakt z redakcją
+            %h3.section-subheading.text-muted Jesteśmy otwarci na wszystkie Państwa uwagi, komentarze i pytania.
+        .row
+          .col-lg-12
+            %form#contactForm{:name => "sentMessage", :novalidate => ""}
+              .row
+                .col-md-6
+                  .form-group
+                    %input#name.form-control{"data-validation-required-message" => "Wpisz swoje imię.", :placeholder => "Imię i nazwisko *", :required => "", :type => "text"}/
+                    %p.help-block.text-danger
+                  .form-group
+                    %input#email.form-control{"data-validation-required-message" => "Wpisz swój e-mail.", :placeholder => "E-mail *", :required => "", :type => "email"}/
+                    %p.help-block.text-danger
+                  .form-group
+                    %input#phone.form-control{"data-validation-required-message" => "Wpisz swój numer telefonu.", :placeholder => "Numer telefonu *", :required => "", :type => "tel"}/
+                    %p.help-block.text-danger
+                .col-md-6
+                  .form-group
+                    %textarea#message.form-control{"data-validation-required-message" => "Wpisz wiadomość.", :placeholder => "Twoja wiadomość *", :required => ""}
+                    %p.help-block.text-danger
+                .clearfix
+                .col-lg-12.text-center
+                  #success
+                  %button.btn.btn-xl{:type => "submit"} Wyślij
+    %footer
+      .container
+        .row
+          .col-md-4
+            %span.copyright Copyright © UJ
+          .col-md-4
+            %ul.list-inline.social-buttons
+              %li
+                %a{:href => "#"}
+                  %i.fa.fa-twitter
+              %li
+                %a{:href => "#"}
+                  %i.fa.fa-facebook
+              %li
+                %a{:href => "#"}
+                  %i.fa.fa-linkedin
+          .col-md-4
+            %ul.list-inline.quicklinks
+              %li
+                %a{:href => "#"} Privacy Policy
+              %li
+                %a{:href => "#"} Terms of Use
+    / Portfolio Modals
+    / Use the modals below to showcase details about your portfolio projects!
+    / Portfolio Modal 1
+    #portfolioModal1.portfolio-modal.modal.fade{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
+      .modal-content
+        .close-modal{"data-dismiss" => "modal"}
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.col-lg-offset-2
+              .modal-body
+                / Project Details Go Here
+                %h2 Artykuł 1
+                %p.item-intro.text-muted Lorem ipsum dolor sit amet consectetur.
+                %img.img-responsive.img-centered{:alt => "", :src => "img/portfolio/roundicons-free.png"}/
+                %p Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!
+                %p
+                  %strong> Want these icons in this portfolio item sample?
+                  You can download 60 of them for free, courtesy of
+                  = succeed "," do
+                    %a{:href => "https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc"} RoundIcons.com
+                  = succeed "." do
+                    %a{:href => "https://getdpd.com/cart/hoplink/18076?referrer=bvbo4kax5k8ogc"} here
+                %ul.list-inline
+                  %li Data: marzec 2016
+                  %li Autor: Jan Kowalski
+                  %li Kategoria: sztuczna inteligencja
+                %button.btn.btn-primary{"data-dismiss" => "modal", :type => "button"}
+                  %i.fa.fa-times
+                  Close Project
+    / Portfolio Modal 2
+    #portfolioModal2.portfolio-modal.modal.fade{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
+      .modal-content
+        .close-modal{"data-dismiss" => "modal"}
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.col-lg-offset-2
+              .modal-body
+                %h2 Project Heading
+                %p.item-intro.text-muted Lorem ipsum dolor sit amet consectetur.
+                %img.img-responsive.img-centered{:alt => "", :src => "img/portfolio/startup-framework-preview.png"}/
+                %p
+                  %a{:href => "http://designmodo.com/startup/?u=787"} Startup Framework
+                  is a website builder for professionals. Startup Framework contains components and complex blocks (PSD+HTML Bootstrap themes and templates) which can easily be integrated into almost any design. All of these components are made in the same style, and can easily be integrated into projects, allowing you to create hundreds of solutions for your future projects.
+                %p
+                  You can preview Startup Framework
+                  = succeed "." do
+                    %a{:href => "http://designmodo.com/startup/?u=787"} here
+                %button.btn.btn-primary{"data-dismiss" => "modal", :type => "button"}
+                  %i.fa.fa-times
+                  Close Project
+    / Portfolio Modal 3
+    #portfolioModal3.portfolio-modal.modal.fade{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
+      .modal-content
+        .close-modal{"data-dismiss" => "modal"}
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.col-lg-offset-2
+              .modal-body
+                / Project Details Go Here
+                %h2 Project Name
+                %p.item-intro.text-muted Lorem ipsum dolor sit amet consectetur.
+                %img.img-responsive.img-centered{:alt => "", :src => "img/portfolio/treehouse-preview.png"}/
+                %p
+                  Treehouse is a free PSD web template built by
+                  = succeed "." do
+                    %a{:href => "https://www.behance.net/MathavanJaya"} Mathavan Jaya
+                %p
+                  You can download the PSD template in this portfolio sample item at
+                  = succeed "." do
+                    %a{:href => "http://freebiesxpress.com/gallery/treehouse-free-psd-web-template/"} FreebiesXpress.com
+                %button.btn.btn-primary{"data-dismiss" => "modal", :type => "button"}
+                  %i.fa.fa-times
+                  Close Project
+    / Portfolio Modal 4
+    #portfolioModal4.portfolio-modal.modal.fade{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
+      .modal-content
+        .close-modal{"data-dismiss" => "modal"}
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.col-lg-offset-2
+              .modal-body
+                / Project Details Go Here
+                %h2 Project Name
+                %p.item-intro.text-muted Lorem ipsum dolor sit amet consectetur.
+                %img.img-responsive.img-centered{:alt => "", :src => "img/portfolio/golden-preview.png"}/
+                %p
+                  Start Bootstrap's Agency theme is based on Golden, a free PSD website template built by
+                  = succeed "." do
+                    %a{:href => "https://www.behance.net/MathavanJaya"} Mathavan Jaya
+                %p
+                  You can download the PSD template in this portfolio sample item at
+                  = succeed "." do
+                    %a{:href => "http://freebiesxpress.com/gallery/golden-free-one-page-web-template/"} FreebiesXpress.com
+                %button.btn.btn-primary{"data-dismiss" => "modal", :type => "button"}
+                  %i.fa.fa-times
+                  Close Project
+    / Portfolio Modal 5
+    #portfolioModal5.portfolio-modal.modal.fade{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
+      .modal-content
+        .close-modal{"data-dismiss" => "modal"}
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.col-lg-offset-2
+              .modal-body
+                / Project Details Go Here
+                %h2 Project Name
+                %p.item-intro.text-muted Lorem ipsum dolor sit amet consectetur.
+                %img.img-responsive.img-centered{:alt => "", :src => "img/portfolio/escape-preview.png"}/
+                %p
+                  Escape is a free PSD web template built by
+                  = succeed "." do
+                    %a{:href => "https://www.behance.net/MathavanJaya"} Mathavan Jaya
+                %p
+                  You can download the PSD template in this portfolio sample item at
+                  = succeed "." do
+                    %a{:href => "http://freebiesxpress.com/gallery/escape-one-page-psd-web-template/"} FreebiesXpress.com
+                %button.btn.btn-primary{"data-dismiss" => "modal", :type => "button"}
+                  %i.fa.fa-times
+                  Close Project
+    / Portfolio Modal 6
+    #portfolioModal6.portfolio-modal.modal.fade{"aria-hidden" => "true", :role => "dialog", :tabindex => "-1"}
+      .modal-content
+        .close-modal{"data-dismiss" => "modal"}
+          .lr
+            .rl
+        .container
+          .row
+            .col-lg-8.col-lg-offset-2
+              .modal-body
+                / Project Details Go Here
+                %h2 Project Name
+                %p.item-intro.text-muted Lorem ipsum dolor sit amet consectetur.
+                %img.img-responsive.img-centered{:alt => "", :src => "img/portfolio/dreams-preview.png"}/
+                %p
+                  Dreams is a free PSD web template built by
+                  = succeed "." do
+                    %a{:href => "https://www.behance.net/MathavanJaya"} Mathavan Jaya
+                %p
+                  You can download the PSD template in this portfolio sample item at
+                  = succeed "." do
+                    %a{:href => "http://freebiesxpress.com/gallery/dreams-free-one-page-web-template/"} FreebiesXpress.com
+                %button.btn.btn-primary{"data-dismiss" => "modal", :type => "button"}
+                  %i.fa.fa-times
+                  Close Project
+    / jQuery
+    %script{:src => "js/jquery.js"}
+    / Bootstrap Core JavaScript
+    %script{:src => "js/bootstrap.min.js"}
+    / Plugin JavaScript
+    %script{:src => "http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"}
+    %script{:src => "js/classie.js"}
+    %script{:src => "js/cbpAnimatedHeader.js"}
+    / Contact Form JavaScript
+    %script{:src => "js/jqBootstrapValidation.js"}
+    %script{:src => "js/contact_me.js"}
+    / Custom Theme JavaScript
+    %script{:src => "js/agency.js"}
