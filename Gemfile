@@ -25,6 +25,8 @@ gem 'prawn', '~> 2.0', '>= 2.0'
 gem 'paper_trail'
 gem 'twitter-bootstrap-rails'
 gem 'impressionist'
+gem 'fog', '~> 1.36.0', require: 'fog'
+gem 'fog-aws', '~> 1.4.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
