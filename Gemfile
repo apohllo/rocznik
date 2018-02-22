@@ -27,6 +27,7 @@ gem 'twitter-bootstrap-rails'
 gem 'impressionist'
 gem 'fog', '~> 1.36.0', require: 'fog'
 gem 'fog-aws', '~> 1.4.1'
+gem 'font-awesome-sass', '~> 4.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
