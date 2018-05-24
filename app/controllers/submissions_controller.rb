@@ -71,12 +71,12 @@ class SubmissionsController < ApplicationController
     if old_status != new_status
       if new_status == 'odrzucony' || new_status == 'do poprawy' || new_status == 'przyjęty'
         submission = Submission.find(params[:id])
-        AuthorMailer.send_decision(submission).deliver_later
+        #AuthorMailer.send_decision(submission).deliver_later
       end
       if new_status == 'przyjęty'
         authors = Submission.find(params[:id]).authors
         authors.each do |author|
-          AuthorMailer.send_contract(submission,author).deliver_later
+          #AuthorMailer.send_contract(submission,author).deliver_later
         end
       end
     end
