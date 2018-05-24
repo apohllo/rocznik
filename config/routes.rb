@@ -7,9 +7,9 @@ Rails.application.routes.draw do
     get :prepare_form, on: :member
     patch :prepare, on: :member
     patch :publish, on: :member
-    get :show_reviews, on: :member
-    get :show_statistics, on: :member
-    get :show_reviewers, on: :member
+    get :reviews, on: :member
+    get :statistics, on: :member
+    get :reviewers, on: :member
     get :summary, on: :member
     get :table_of_contents, on: :member
   end

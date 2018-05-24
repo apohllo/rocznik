@@ -279,7 +279,7 @@ feature "Zarządzanie numerami" do
           expect(page).not_to have_content("Wybierz artykuły do wydania")
         end
 
-        context "z jedną recenzją" do
+        context "-> Z jedną recenzją" do
           before do
             Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
                            "mężczyzna", roles: ['redaktor', 'recenzent'])
@@ -290,14 +290,14 @@ feature "Zarządzanie numerami" do
                            status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
           end
 
-          scenario "dostępność przeglądu recenzji" do
+          scenario "-> Dostępność przeglądu recenzji" do
             visit "/issues"
 
             click_link "3"
             expect(page).to have_link("Pokaż recenzje")
           end
 
-          scenario "wyświetlenie tytułów artykułów oraz treści rezenzji" do
+          scenario "-> Wyświetlenie tytułów artykułów oraz treści rezenzji" do
             visit "/issues"
 
             click_link "3"
@@ -309,31 +309,44 @@ feature "Zarządzanie numerami" do
           end
         end
 
-        context "recenzenci" do
+        context "Recenzenci" do
+          let(:author)                  { create(:author) }
+          let(:issue)                   { create(:issue, volume: 1, year: 2008) }
+          let(:reviewer_1)              { create(:reviewer, name: "Andrzej", roles: ['recenzent'])  }
+          let(:reviewer_2)              { create(:reviewer, name: "Błażej", roles: ['recenzent'])  }
+          let(:reviewer_3)              { create(:reviewer, name: "Celina", roles: ['recenzent'])  }
+          let(:reviewer_4)              { create(:reviewer, name: "Dominik", roles: ['recenzent'])  }
+          let(:submission)              { create(:submission, status: "przyjęty", issue: issue) }
+          let(:article_revision)        { create(:article_revision, submission: submission) }
+          let(:review_positive)         { create(:review, status: 'recenzja pozytywna', person: reviewer_1,
+                                                 article_revision: article_revision) }
+          let(:review_negative)         { create(:review, status: 'recenzja negatywna', person: reviewer_2,
+                                                 article_revision: article_revision) }
+          let(:review_rejected)         { create(:review, status: 'recenzja odrzucona', person: reviewer_3,
+                                                 article_revision: article_revision) }
+          let(:review_minor)            { create(:review, status: 'niewielkie poprawki', person: reviewer_4,
+                                                 article_revision: article_revision) }
           before do
-            Person.create!(name: "Andrzej", surname: "Kapusta", email: "a.kapusa@gmail.com", sex:
-                           "mężczyzna", roles: ['redaktor', 'recenzent'])
-            article_file = Rails.root.join("spec/features/files/plik.pdf").open
-            revision = ArticleRevision.create!(submission: Submission.first, pages: 1,
-                                               pictures: 1, version: 1, received: "18-01-2016",
-                                               article: article_file)
-            Review.create!(article_revision: revision, deadline: '28/01/2016', person: Person.first,
-                           status: "recenzja pozytywna", asked: '1/01/2016', content: "treść rezenzji")
+            [article_revision, review_positive, review_negative, review_rejected, review_minor]
+            issue.prepare_to_publish(issue.submissions.accepted.map(&:id))
           end
 
-          scenario "link do listy recenzentów" do
+          scenario "-> Link do listy recenzentów" do
             visit "/issues"
 
-            click_link "3"
+            click_link issue.volume
             expect(page).to have_link("Pokaż recenzentów")
           end
 
-          scenario "wyświetlenie linku listy recenzentów" do
+          scenario "-> Wyświetlenie listy recenzentów" do
             visit "/issues"
 
-            click_link "3"
+            click_link issue.volume
             click_link "Pokaż recenzentów"
-            expect(page).to have_content("Andrzej Kapusta")
+            expect(page).to have_content(reviewer_1.name)
+            expect(page).to have_content(reviewer_2.name)
+            expect(page).not_to have_content(reviewer_3.name)
+            expect(page).to have_content(reviewer_4.name)
           end
         end
 
